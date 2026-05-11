@@ -180,15 +180,19 @@
 @media (max-width: 880px) {
   .contactHero { padding: 48px 24px; }
   .contactHero h1 { font-size: 40px; }
+  /* Paw print decos at fixed corners overlap the centered text on tablet */
+  .decoL, .decoR { display: none; }
   .reachGrid,
   .formSection,
   .formRow { grid-template-columns: 1fr; }
+  .formSection { padding: 56px 0; }
   .petTypeGrid { grid-template-columns: repeat(2, 1fr); }
   .formCard { padding: 24px; }
 }
 @media (max-width: 480px) {
   .contactHero { padding: 32px 16px; }
   .contactHero h1 { font-size: 28px; }
+  .formSection { padding: 32px 0; }
   .petTypeGrid { grid-template-columns: repeat(2, 1fr); }
   .mapCard { height: 200px; }
   .formCard { padding: 18px; }

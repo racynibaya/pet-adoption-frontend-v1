@@ -137,6 +137,8 @@
 @media (max-width: 880px) {
   .aboutHero { padding: 48px 24px; }
   .aboutHero h1 { font-size: 44px; }
+  /* Paw print decos sit at fixed corners — hide before they crowd the text */
+  .decoL, .decoR { display: none; }
   .gallery,
   .story,
   .valuesGrid,
@@ -158,4 +160,14 @@
   .statsStrip { padding: 32px 20px; }
   .statsStrip .stat .num { font-size: 36px; }
   .story h2 { font-size: 32px; }
+  /* Drop cap causes awkward float wrapping on narrow columns — reset it */
+  .storyBody p::first-letter {
+    font-size: 1em;
+    float: none;
+    padding: 0;
+    line-height: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+  }
 }

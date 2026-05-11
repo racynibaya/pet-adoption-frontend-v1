@@ -351,9 +351,13 @@
   .homeHero {
     grid-template-columns: 1fr;
     padding: 32px 24px 0;
+    min-height: unset;
   }
   .homeHero h1 { font-size: 48px; }
-  .heroPet { height: 300px; }
+  /* Hide the illustration — too cramped at single-column */
+  .heroPet { display: none; }
+  /* Hide floating bubbles and pawprints — they overlap text at single-column */
+  .b1, .b2, .pawprintsDeco { display: none; }
   .stats { grid-template-columns: repeat(2, 1fr); gap: 16px 0; }
   .stat:nth-child(2) { border-right: 0; }
   .servicesGrid,
@@ -366,7 +370,6 @@
 }
 @media (max-width: 480px) {
   .homeHero h1 { font-size: 36px; }
-  .heroPet { height: 220px; }
   .heroActions { flex-direction: column; }
   .heroActions .btn { width: 100%; justify-content: center; }
   .foodGrid,
@@ -377,4 +380,7 @@
   .mediPhoto.b { width: 170px; height: 220px; right: 0; }
   .testimonialPhoto { height: 320px; }
   .blob { width: 260px; height: 260px; }
+  /* Reduce stat number size to prevent overflow */
+  .stat .num { font-size: 28px; }
+  .stats { padding: 20px 8px; margin-top: -18px; }
 }
