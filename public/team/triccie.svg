@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#cfe6f7"/>
+
+  <!-- Long flowing hair - side strands -->
+  <path d="M54 82 Q38 126 44 166 Q56 178 68 170 Q53 138 57 104 Z" fill="#5a3a22"/>
+  <path d="M146 82 Q162 126 156 166 Q144 178 132 170 Q147 138 143 104 Z" fill="#5a3a22"/>
+
+  <!-- Neck -->
+  <rect x="89" y="138" width="22" height="22" rx="4" fill="#f0b896"/>
+
+  <!-- Body - feminine pink top -->
+  <path d="M40 200 Q52 154 82 146 Q91 150 100 150 Q109 150 118 146 Q148 154 160 200 Z" fill="#ff7eb3"/>
+
+  <!-- V-neck collar -->
+  <path d="M82 146 Q91 162 100 162 Q109 162 118 146" fill="#ffbfda" stroke="#dd6699" stroke-width="1.5"/>
+
+  <!-- Hair mass top/back -->
+  <ellipse cx="100" cy="64" rx="54" ry="44" fill="#5a3a22"/>
+
+  <!-- Face -->
+  <ellipse cx="100" cy="96" rx="46" ry="52" fill="#f0b896"/>
+
+  <!-- Hair forehead layer -->
+  <path d="M54 82 Q60 40 100 36 Q140 40 146 82 Q138 70 130 68 Q120 44 100 42 Q80 44 70 68 Q62 70 54 82Z" fill="#5a3a22"/>
+
+  <!-- Pink bow hair accessory - right side -->
+  <path d="M122 50 Q132 40 140 50 Q132 58 122 50Z" fill="#ff4d88"/>
+  <path d="M140 50 Q148 40 158 50 Q148 58 140 50Z" fill="#ff4d88"/>
+  <circle cx="140" cy="50" r="5" fill="#cc2266"/>
+  <circle cx="140" cy="50" r="2.5" fill="#ff8ab4"/>
+
+  <!-- Arched eyebrows -->
+  <path d="M79 85 Q86 79 93 82" stroke="#5a3a22" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M107 82 Q114 79 121 85" stroke="#5a3a22" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+  <!-- Eyes -->
+  <ellipse cx="86" cy="96" rx="7" ry="7" fill="#1d2235"/>
+  <ellipse cx="114" cy="96" rx="7" ry="7" fill="#1d2235"/>
+
+  <!-- Eye shine -->
+  <circle cx="88.5" cy="93.5" r="2.2" fill="white"/>
+  <circle cx="116.5" cy="93.5" r="2.2" fill="white"/>
+
+  <!-- Eyelashes - left eye -->
+  <line x1="79" y1="91" x2="77" y2="87" stroke="#1d2235" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="83" y1="89" x2="81" y2="85" stroke="#1d2235" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="86" y1="89" x2="86" y2="85" stroke="#1d2235" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="89" y1="89" x2="90" y2="85" stroke="#1d2235" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="93" y1="91" x2="95" y2="87" stroke="#1d2235" stroke-width="1.4" stroke-linecap="round"/>
+
+  <!-- Eyelashes - right eye -->
+  <line x1="107" y1="91" x2="105" y2="87" stroke="#1d2235" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="111" y1="89" x2="110" y2="85" stroke="#1d2235" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="114" y1="89" x2="114" y2="85" stroke="#1d2235" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="117" y1="89" x2="118" y2="85" stroke="#1d2235" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="121" y1="91" x2="123" y2="87" stroke="#1d2235" stroke-width="1.4" stroke-linecap="round"/>
+
+  <!-- Nose -->
+  <path d="M97 110 Q100 115 103 110" stroke="#c98060" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Rosy cheeks -->
+  <ellipse cx="72" cy="112" rx="13" ry="7" fill="#ff9999" opacity="0.4"/>
+  <ellipse cx="128" cy="112" rx="13" ry="7" fill="#ff9999" opacity="0.4"/>
+
+  <!-- Lips - feminine pink -->
+  <path d="M88 122 Q94 118 100 120 Q106 118 112 122 Q106 130 100 131 Q94 130 88 122Z" fill="#e06070"/>
+  <path d="M88 122 Q100 126 112 122" stroke="#b03050" stroke-width="0.8" fill="none"/>
+  <path d="M88 122 Q94 119 100 120 Q106 119 112 122" stroke="#b03050" stroke-width="0.8" fill="none"/>
+</svg>
