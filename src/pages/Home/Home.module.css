@@ -367,6 +367,10 @@
   .foodGrid { grid-template-columns: repeat(2, 1fr); }
   .blogGrid { grid-template-columns: repeat(2, 1fr); }
   .processBand { padding: 56px 32px; }
+  /* Switch overlapping absolute photos to side-by-side flex cards */
+  .mediPhotos { height: auto; display: flex; gap: 14px; }
+  .mediPhoto { position: relative; flex: 1; aspect-ratio: 4/5; left: auto; right: auto; top: auto; bottom: auto; width: auto; height: auto; }
+  .testimonialPhoto { height: 360px; }
 }
 @media (max-width: 480px) {
   .homeHero h1 { font-size: 36px; }
@@ -375,12 +379,8 @@
   .foodGrid,
   .blogGrid { grid-template-columns: 1fr; }
   .processBand { padding: 40px 20px; }
-  .mediPhotos { height: 300px; }
-  .mediPhoto.a { width: 160px; height: 200px; }
-  .mediPhoto.b { width: 170px; height: 220px; right: 0; }
-  .testimonialPhoto { height: 320px; }
-  .blob { width: 260px; height: 260px; }
-  /* Reduce stat number size to prevent overflow */
+  .testimonialPhoto { height: 280px; }
+  .blob { width: 240px; height: 240px; }
   .stat .num { font-size: 28px; }
   .stats { padding: 20px 8px; margin-top: -18px; }
 }

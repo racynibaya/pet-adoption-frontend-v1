@@ -140,26 +140,34 @@
   /* Paw print decos sit at fixed corners — hide before they crowd the text */
   .decoL, .decoR { display: none; }
   .gallery,
-  .story,
-  .valuesGrid,
-  .teamGrid { grid-template-columns: 1fr 1fr; }
+  .valuesGrid { grid-template-columns: 1fr 1fr; }
+  .gallery .photo:first-child { grid-row: auto; aspect-ratio: 4/3; }
+  /* Story: tighten gap and shrink h2 for the narrower 2-col layout */
+  .story { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .story h2 { font-size: 36px; }
+  /* Team: keep 4 columns but smaller — avoids 348px portrait photos on tablet */
+  .teamGrid { grid-template-columns: repeat(4, 1fr); }
   .statsStrip { grid-template-columns: repeat(2, 1fr); padding: 40px 32px; }
   .timeline { grid-template-columns: 1fr 1fr; }
   .timeline::before { display: none; }
-  .gallery .photo:first-child { grid-row: auto; aspect-ratio: 4/3; }
 }
 @media (max-width: 480px) {
   .aboutHero { padding: 32px 16px; }
   .aboutHero h1 { font-size: 32px; }
-  .gallery,
+  .gallery { grid-template-columns: 1fr; margin-top: 0; }
+  .gallery .photo { aspect-ratio: 4/3; }
+  .gallery .photo:first-child { grid-row: auto; aspect-ratio: 16/9; }
   .story,
   .statsStrip,
   .valuesGrid,
   .timeline { grid-template-columns: 1fr; }
+  /* Team drops to 2 columns at mobile */
   .teamGrid { grid-template-columns: repeat(2, 1fr); }
+  .teamCard h4 { font-size: 14px; }
+  .teamCard .role { font-size: 11px; }
   .statsStrip { padding: 32px 20px; }
   .statsStrip .stat .num { font-size: 36px; }
-  .story h2 { font-size: 32px; }
+  .story h2 { font-size: 28px; }
   /* Drop cap causes awkward float wrapping on narrow columns — reset it */
   .storyBody p::first-letter {
     font-size: 1em;
