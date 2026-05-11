@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PawIcon from '@/icons/PawIcon';
-import CartIcon from '@/icons/CartIcon';
+import HeartIcon from '@/icons/HeartIcon';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -43,12 +43,12 @@ export default function Navbar() {
         <div className='nav-right'>
           <button
             className='nav-cart'
-            aria-label='Cart'
+            aria-label='Saved pets'
             onClick={() => {
-              console.log('Add to cart');
+              console.log('Saved pets');
             }}
           >
-            <CartIcon />
+            <HeartIcon />
             <span className='dot' />
           </button>
           <button className='btn btn-outline btn-sm nav-login'>
