@@ -354,21 +354,31 @@ export default function PetsPage() {
       </section>
 
       {/* Secondary filters */}
-      <section style={{ padding: '30px 8px' }}>
+      <section style={{ padding: '30px 0' }}>
         <div
           style={{
             maxWidth: 1180,
             margin: '0 auto',
-            padding: '0 24px',
             display: 'flex',
             gap: 16,
             flexWrap: 'wrap',
             alignItems: 'center',
           }}
         >
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              gap: 8,
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
             <span
-              style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink-2)' }}
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: 'var(--ink-2)',
+              }}
             >
               Gender:
             </span>
@@ -386,9 +396,20 @@ export default function PetsPage() {
               </span>
             ))}
           </div>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              gap: 8,
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
             <span
-              style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink-2)' }}
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: 'var(--ink-2)',
+              }}
             >
               Size:
             </span>

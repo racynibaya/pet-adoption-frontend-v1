@@ -46,6 +46,7 @@
   transition: box-shadow var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 .svcCard:hover { box-shadow: var(--shadow-lift); transform: translateY(-4px); }
 .svcThumb {
@@ -56,7 +57,7 @@
   justify-content: center;
   overflow: hidden;
 }
-.svcThumb svg { transition: transform var(--dur-slow) var(--ease-out); }
+.svcThumb svg { max-width: 100%; height: auto; transition: transform var(--dur-slow) var(--ease-out); }
 .svcCard:hover .svcThumb svg { transform: scale(1.06); }
 .svcThumb .tag {
   position: absolute;
@@ -165,6 +166,7 @@
 @media (max-width: 880px) {
   .pageHero { grid-template-columns: 1fr; padding: 32px 24px; }
   .pageHero h1 { font-size: 40px; }
+  .pageHero > div:last-child { display: none; }
   .svcGrid { grid-template-columns: repeat(2, 1fr); }
   .pricingGrid { grid-template-columns: 1fr; }
   .priceCard.featured { transform: none; }
