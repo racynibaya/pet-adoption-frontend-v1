@@ -1,16 +1,18 @@
 export default function HeartIcon({
   width = 18,
   height = 18,
+  filled = false,
 }: {
   width?: number;
   height?: number;
+  filled?: boolean;
 }) {
   return (
     <svg
       width={width}
       height={height}
       viewBox='0 0 24 24'
-      fill='none'
+      fill={filled ? 'currentColor' : 'none'}
       stroke='currentColor'
       strokeWidth='2'
       strokeLinecap='round'

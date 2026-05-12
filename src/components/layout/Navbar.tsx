@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PawIcon from '@/icons/PawIcon';
 import HeartIcon from '@/icons/HeartIcon';
+import AuthModal from '@/components/ui/AuthModal';
+import { useFavorites } from '@/context/FavoritesContext';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -15,6 +17,9 @@ export default function Navbar() {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
+  const { saved, openDrawer } = useFavorites();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 6);
@@ -43,15 +48,18 @@ export default function Navbar() {
         <div className='nav-right'>
           <button
             className='nav-cart'
-            aria-label='Saved pets'
-            onClick={() => {
-              console.log('Saved pets');
-            }}
+            aria-label={saved.length > 0 ? `Saved pets (${saved.length})` : 'Saved pets'}
+            onClick={openDrawer}
           >
-            <HeartIcon />
-            <span className='dot' />
+            <HeartIcon filled={saved.length > 0} />
+            {saved.length > 0 && (
+              <span className='nav-saved-count'>{saved.length}</span>
+            )}
           </button>
-          <button className='btn btn-outline btn-sm nav-login'>
+          <button
+            className='btn btn-outline btn-sm nav-login'
+            onClick={() => { setAuthMode('signin'); setAuthOpen(true); }}
+          >
             Login or Sign up
           </button>
           <button
@@ -94,11 +102,22 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
-          <button className='btn btn-primary' style={{ marginTop: 12 }}>
+          <button
+            className='btn btn-primary'
+            style={{ marginTop: 12 }}
+            onClick={() => { setAuthMode('signin'); setAuthOpen(true); setMenuOpen(false); }}
+          >
             Login or Sign up
           </button>
         </nav>
       )}
+
+      <AuthModal
+        isOpen={authOpen}
+        mode={authMode}
+        onClose={() => setAuthOpen(false)}
+        onModeChange={setAuthMode}
+      />
     </header>
   );
 }

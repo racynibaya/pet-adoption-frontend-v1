@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import Eyebrow from '@/components/ui/Eyebrow';
 import SectionHead from '@/components/ui/SectionHead';
-import styles from './UseCases.module.css';
 
 interface Shelter {
   id: number;
@@ -35,12 +34,7 @@ const SHELTERS: Shelter[] = [
         <circle cx='85' cy='76' r='3' fill='#1d2235' />
         <circle cx='115' cy='76' r='3' fill='#1d2235' />
         <ellipse cx='100' cy='90' rx='5' ry='3.4' fill='#1d2235' />
-        <path
-          d='M92 98 Q100 106 108 98'
-          stroke='#1d2235'
-          strokeWidth='1.6'
-          fill='none'
-        />
+        <path d='M92 98 Q100 106 108 98' stroke='#1d2235' strokeWidth='1.6' fill='none' />
       </svg>
     ),
   },
@@ -113,20 +107,8 @@ const SHELTERS: Shelter[] = [
         <circle cx='92' cy='62' r='3' fill='#1d2235' />
         <circle cx='108' cy='62' r='3' fill='#1d2235' />
         <polygon points='96,72 100,80 104,72' fill='#ffd166' />
-        <path
-          d='M60 100 Q50 110 58 120 Q70 128 80 118'
-          stroke='#5a8cb0'
-          strokeWidth='8'
-          strokeLinecap='round'
-          fill='none'
-        />
-        <path
-          d='M140 100 Q150 110 142 120 Q130 128 120 118'
-          stroke='#5a8cb0'
-          strokeWidth='8'
-          strokeLinecap='round'
-          fill='none'
-        />
+        <path d='M60 100 Q50 110 58 120 Q70 128 80 118' stroke='#5a8cb0' strokeWidth='8' strokeLinecap='round' fill='none' />
+        <path d='M140 100 Q150 110 142 120 Q130 128 120 118' stroke='#5a8cb0' strokeWidth='8' strokeLinecap='round' fill='none' />
       </svg>
     ),
   },
@@ -150,14 +132,7 @@ const SHELTERS: Shelter[] = [
         <circle cx='84' cy='84' r='3' fill='#fff' />
         <circle cx='116' cy='84' r='3' fill='#fff' />
         <ellipse cx='100' cy='98' rx='6' ry='4' fill='#1d1916' />
-        <path
-          d='M90 108 Q100 116 110 108'
-          stroke='#1d1916'
-          strokeWidth='1.4'
-          fill='none'
-          strokeLinecap='round'
-          opacity='0.6'
-        />
+        <path d='M90 108 Q100 116 110 108' stroke='#1d1916' strokeWidth='1.4' fill='none' strokeLinecap='round' opacity='0.6' />
       </svg>
     ),
   },
@@ -181,38 +156,10 @@ const SHELTERS: Shelter[] = [
         <circle cx='88' cy='84' r='2.8' fill='#1d2235' />
         <circle cx='112' cy='84' r='2.8' fill='#1d2235' />
         <ellipse cx='100' cy='94' rx='4' ry='2.6' fill='#ff7a8a' />
-        <line
-          x1='86'
-          y1='96'
-          x2='70'
-          y2='100'
-          stroke='#1d2235'
-          strokeWidth='1'
-        />
-        <line
-          x1='86'
-          y1='98'
-          x2='70'
-          y2='104'
-          stroke='#1d2235'
-          strokeWidth='1'
-        />
-        <line
-          x1='114'
-          y1='96'
-          x2='130'
-          y2='100'
-          stroke='#1d2235'
-          strokeWidth='1'
-        />
-        <line
-          x1='114'
-          y1='98'
-          x2='130'
-          y2='104'
-          stroke='#1d2235'
-          strokeWidth='1'
-        />
+        <line x1='86' y1='96' x2='70' y2='100' stroke='#1d2235' strokeWidth='1' />
+        <line x1='86' y1='98' x2='70' y2='104' stroke='#1d2235' strokeWidth='1' />
+        <line x1='114' y1='96' x2='130' y2='100' stroke='#1d2235' strokeWidth='1' />
+        <line x1='114' y1='98' x2='130' y2='104' stroke='#1d2235' strokeWidth='1' />
       </svg>
     ),
   },
@@ -240,27 +187,29 @@ export default function SheltersPage() {
   return (
     <>
       {/* Hero */}
-      <section className={styles.ucHero}>
+      <section
+        className='relative overflow-hidden rounded-[28px] mt-6 p-6 md:p-[72px_64px] grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 items-center'
+        style={{
+          background: `
+            radial-gradient(ellipse 58% 54% at 82% 14%, rgba(29,117,117,0.15) 0%, transparent 53%),
+            radial-gradient(ellipse 48% 52% at 18% 86%, rgba(232,146,60,0.18) 0%, transparent 54%),
+            linear-gradient(156deg, #FDFAF4 0%, #F0E8D0 100%)
+          `,
+        }}
+      >
         <div>
           <Eyebrow>Shelters</Eyebrow>
-          <h1 className='mt-16'>
+          <h1 className='mt-4 text-[30px] sm:text-[40px] md:text-[64px] leading-[1.04]'>
             Partner shelters
             <br />
             across the Philippines
           </h1>
-          <p>
+          <p className='text-[var(--ink-2)] mt-[18px] max-w-[480px] text-[17px]'>
             Every shelter on KodaNest is reviewed and approved before they can
             list pets. Browse our network of rescue organizations — from big
             multi-species centers to specialist sanctuaries.
           </p>
-          <div
-            style={{
-              display: 'flex',
-              gap: 12,
-              marginTop: 32,
-              flexWrap: 'wrap',
-            }}
-          >
+          <div className='flex gap-3 mt-8 flex-wrap'>
             <Link to='/pets' className='btn btn-primary btn-lg'>
               Browse available pets
             </Link>
@@ -269,24 +218,12 @@ export default function SheltersPage() {
             </Link>
           </div>
         </div>
-        <div style={{ position: 'relative', height: 360 }}>
+        <div className='relative h-[360px] hidden md:block'>
           <svg
             viewBox='0 0 460 360'
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-            }}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
           >
-            <path
-              d='M40 280 Q200 80 420 220'
-              stroke='#f5b894'
-              strokeWidth='50'
-              fill='none'
-              strokeLinecap='round'
-              opacity='0.55'
-            />
+            <path d='M40 280 Q200 80 420 220' stroke='#f5b894' strokeWidth='50' fill='none' strokeLinecap='round' opacity='0.55' />
             <circle cx='100' cy='120' r='44' fill='#cfe6f7' opacity='0.8' />
             <ellipse cx='100' cy='128' rx='22' ry='18' fill='#e8a878' />
             <polygon points='80,108 86,92 96,110' fill='#a87d62' />
@@ -306,21 +243,9 @@ export default function SheltersPage() {
             <circle cx='340' cy='144' r='2.4' fill='#fff' />
             <circle cx='360' cy='144' r='2.4' fill='#fff' />
             <g fill='#d97757' opacity='0.7' transform='translate(180 60)'>
-              <ellipse
-                cx='6'
-                cy='14'
-                rx='3'
-                ry='5'
-                transform='rotate(-15 6 14)'
-              />
+              <ellipse cx='6' cy='14' rx='3' ry='5' transform='rotate(-15 6 14)' />
               <ellipse cx='14' cy='8' rx='2.4' ry='4' />
-              <ellipse
-                cx='22'
-                cy='10'
-                rx='2.4'
-                ry='4'
-                transform='rotate(15 22 10)'
-              />
+              <ellipse cx='22' cy='10' rx='2.4' ry='4' transform='rotate(15 22 10)' />
               <ellipse cx='14' cy='20' rx='4.4' ry='6.4' />
             </g>
           </svg>
@@ -334,132 +259,67 @@ export default function SheltersPage() {
           subheading='Each organization listed here has been reviewed by the KodaNest team. Staff manage their own pet listings and applications.'
         />
         <div
-          className={styles.personaGrid}
-          style={{
-            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          }}
+          className='grid gap-5 mt-12'
+          style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}
         >
-          {SHELTERS.map(
-            ({
-              id,
-              name,
-              description,
-              address,
-              contactEmail,
-              phoneNumber,
-              petCount,
-              bg,
-              svg,
-            }) => (
+          {SHELTERS.map(({ id, name, description, address, contactEmail, phoneNumber, petCount, bg, svg }) => (
+            <div
+              key={id}
+              className='group bg-[var(--canvas)] border border-[var(--hairline-soft)] rounded-[20px] p-6 text-left cursor-default transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-[var(--ink)] hover:shadow-[var(--shadow-lift)] hover:-translate-y-1'
+            >
               <div
-                key={id}
-                className={styles.persona}
-                style={{ cursor: 'default', gap: 16 }}
+                className='mb-[14px] overflow-hidden rounded-[16px] transition-transform duration-200 ease-out group-hover:scale-[1.02]'
+                style={{ background: bg }}
               >
-                <div
-                  className={styles.personaEmoji}
-                  style={{ background: bg, borderRadius: 16 }}
-                >
-                  {svg}
+                {svg}
+              </div>
+              <div>
+                <h3 className='mb-1.5'>{name}</h3>
+                <p className='mb-3 text-[var(--muted)] text-[13px] leading-[1.5]'>{description}</p>
+                <div className='text-[13px] text-[var(--ink-2)] flex flex-col gap-1'>
+                  <span>📍 {address}</span>
+                  <span>✉️ {contactEmail}</span>
+                  <span>📞 {phoneNumber}</span>
                 </div>
-                <div>
-                  <h3 style={{ marginBottom: 6 }}>{name}</h3>
-                  <p style={{ marginBottom: 12 }}>{description}</p>
-                  <div
-                    style={{
-                      fontSize: 13,
-                      color: 'var(--ink-2)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 4,
-                    }}
+                <div className='flex gap-3 mt-4 items-center'>
+                  <span
+                    className='text-[12px] font-bold px-3 py-1 rounded-full'
+                    style={{ background: '#e6f4f0', color: '#1D7575' }}
                   >
-                    <span>📍 {address}</span>
-                    <span>✉️ {contactEmail}</span>
-                    <span>📞 {phoneNumber}</span>
-                  </div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      gap: 12,
-                      marginTop: 16,
-                      alignItems: 'center',
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 700,
-                        padding: '4px 12px',
-                        borderRadius: 20,
-                        background: '#e9f5ee',
-                        color: '#3a8c6a',
-                      }}
-                    >
-                      {petCount} pets available
-                    </span>
-                    <Link
-                      to='/pets'
-                      style={{
-                        fontSize: 13,
-                        color: 'var(--rausch)',
-                        fontWeight: 600,
-                      }}
-                    >
-                      Browse pets →
-                    </Link>
-                  </div>
+                    {petCount} pets available
+                  </span>
+                  <Link to='/pets' className='text-[13px] text-[var(--rausch)] font-semibold'>
+                    Browse pets →
+                  </Link>
                 </div>
               </div>
-            ),
-          )}
+            </div>
+          ))}
         </div>
       </section>
 
       {/* How it works */}
       <section
-        className='section'
-        style={{ background: 'var(--soft)', borderRadius: 28 }}
+        className='section rounded-[28px]'
+        style={{ background: 'var(--soft)' }}
       >
         <SectionHead
           eyebrow='How it works'
           heading='The adoption process, end to end'
           subheading='KodaNest handles the connection — shelters handle the decision.'
         />
-        <div
-          style={{
-            maxWidth: 860,
-            margin: '0 auto',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 32,
-          }}
-        >
+        <div className='max-w-[860px] mx-auto flex flex-col gap-8'>
           {HOW_IT_WORKS.map(({ step, title, desc }) => (
-            <div
-              key={step}
-              style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}
-            >
+            <div key={step} className='flex gap-6 items-start'>
               <span
-                style={{
-                  flexShrink: 0,
-                  width: 48,
-                  height: 48,
-                  borderRadius: '50%',
-                  background: 'var(--rausch)',
-                  color: '#fff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 800,
-                  fontSize: 15,
-                }}
+                className='shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-[15px] text-white'
+                style={{ background: 'var(--rausch)' }}
               >
                 {step}
               </span>
               <div>
-                <h4 style={{ marginBottom: 6 }}>{title}</h4>
-                <p style={{ color: 'var(--ink-2)' }}>{desc}</p>
+                <h4 className='mb-1.5'>{title}</h4>
+                <p className='text-[var(--ink-2)]'>{desc}</p>
               </div>
             </div>
           ))}

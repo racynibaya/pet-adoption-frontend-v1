@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import SavedDrawer from '@/components/ui/SavedDrawer'
 
 export default function Layout() {
   const location = useLocation()
@@ -47,6 +48,7 @@ export default function Layout() {
         </div>
       </main>
       <Footer />
+      <SavedDrawer />
     </>
   )
 }

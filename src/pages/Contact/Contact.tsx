@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Eyebrow from '@/components/ui/Eyebrow';
 import SectionHead from '@/components/ui/SectionHead';
-import styles from './Contact.module.css';
 
 type Topic = 'adopt' | 'shelter' | 'application' | 'other';
 
@@ -65,7 +64,7 @@ const TOPIC_BUTTONS: { key: Topic; label: string; icon: React.ReactNode }[] = [
       <svg width='28' height='28' viewBox='0 0 28 28'>
         <path
           d='M14 4 Q19 1 22 5 Q26 11 14 22 Q2 11 6 5 Q9 1 14 4Z'
-          fill='#ff385c'
+          fill='#D94F68'
         />
       </svg>
     ),
@@ -78,7 +77,7 @@ const TOPIC_BUTTONS: { key: Topic; label: string; icon: React.ReactNode }[] = [
         <path
           d='M14 4 L24 10 L24 22 L18 22 L18 16 L10 16 L10 22 L4 22 L4 10 Z'
           fill='none'
-          stroke='#3a8c6a'
+          stroke='#1D7575'
           strokeWidth='1.6'
           strokeLinejoin='round'
         />
@@ -97,7 +96,7 @@ const TOPIC_BUTTONS: { key: Topic; label: string; icon: React.ReactNode }[] = [
           height='20'
           rx='2'
           fill='none'
-          stroke='#5a8cb0'
+          stroke='#2F97AC'
           strokeWidth='1.6'
         />
         <line
@@ -105,7 +104,7 @@ const TOPIC_BUTTONS: { key: Topic; label: string; icon: React.ReactNode }[] = [
           y1='10'
           x2='18'
           y2='10'
-          stroke='#5a8cb0'
+          stroke='#2F97AC'
           strokeWidth='1.6'
           strokeLinecap='round'
         />
@@ -114,7 +113,7 @@ const TOPIC_BUTTONS: { key: Topic; label: string; icon: React.ReactNode }[] = [
           y1='14'
           x2='18'
           y2='14'
-          stroke='#5a8cb0'
+          stroke='#2F97AC'
           strokeWidth='1.6'
           strokeLinecap='round'
         />
@@ -123,7 +122,7 @@ const TOPIC_BUTTONS: { key: Topic; label: string; icon: React.ReactNode }[] = [
           y1='18'
           x2='14'
           y2='18'
-          stroke='#5a8cb0'
+          stroke='#2F97AC'
           strokeWidth='1.6'
           strokeLinecap='round'
         />
@@ -140,10 +139,10 @@ const TOPIC_BUTTONS: { key: Topic; label: string; icon: React.ReactNode }[] = [
           cy='14'
           r='9'
           fill='none'
-          stroke='#5a8cb0'
+          stroke='#2F97AC'
           strokeWidth='1.6'
         />
-        <circle cx='14' cy='14' r='2' fill='#5a8cb0' />
+        <circle cx='14' cy='14' r='2' fill='#2F97AC' />
       </svg>
     ),
   },
@@ -164,14 +163,14 @@ function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number>(0);
 
   return (
-    <div className={styles.faq}>
+    <div className='max-w-[880px] mx-auto'>
       {FAQ_ITEMS.map(({ question, answer }, i) => (
         <div
           key={question}
-          className={`${styles.faqItem}${openIndex === i ? ` ${styles.open}` : ''}`}
+          className={`faq-item${openIndex === i ? ' open' : ''}`}
         >
           <div
-            className={styles.faqQ}
+            className='faq-question'
             onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
             role='button'
             tabIndex={0}
@@ -180,7 +179,7 @@ function FaqAccordion() {
             }
           >
             <h4>{question}</h4>
-            <span className={styles.faqToggle}>
+            <span className='faq-toggle'>
               <svg width='14' height='14' viewBox='0 0 14 14'>
                 <path
                   d='M7 2 V12 M2 7 H12'
@@ -191,7 +190,7 @@ function FaqAccordion() {
               </svg>
             </span>
           </div>
-          <div className={styles.faqA}>{answer}</div>
+          <div className='faq-answer'>{answer}</div>
         </div>
       ))}
     </div>
@@ -220,30 +219,52 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className={styles.contactHero}>
-        <span className={styles.decoL}>
+      <section
+        className='mt-6 rounded-[28px] text-center relative overflow-hidden'
+        style={{
+          background:
+            'radial-gradient(ellipse 55% 60% at 78% 18%, rgba(93,181,196,0.45) 0%, transparent 50%),' +
+            'radial-gradient(ellipse 50% 55% at 22% 82%, rgba(253,224,178,0.58) 0%, transparent 52%),' +
+            'linear-gradient(155deg, #FDF5E2 0%, #F9E8CC 100%)',
+          padding: '72px 64px',
+        }}
+      >
+        <span className='absolute top-[60px] left-[60px]'>
           <PawprintDeco />
         </span>
-        <span className={styles.decoR}>
+        <span className='absolute bottom-[50px] right-[60px]'>
           <PawprintDeco />
         </span>
         <Eyebrow style={{ justifyContent: 'center' }}>Get in touch</Eyebrow>
-        <h1 className='mt-16'>
+        <h1
+          className='mt-16 max-w-[720px] mx-auto'
+          style={{ fontSize: 64, lineHeight: 1.04 }}
+        >
           Have a question?
           <br />
           We're here to help
         </h1>
-        <p>
+        <p
+          className='max-w-[560px] mx-auto text-[17px]'
+          style={{ marginTop: 20, color: 'var(--ink-2)' }}
+        >
           Reach out about adoption, your application status, registering a
           shelter, or anything else. A real person replies within 24 hours.
         </p>
       </section>
 
       {/* Reach cards */}
-      <section className={styles.reachGrid}>
-        <div className={styles.reach}>
+      <div
+        className='grid gap-6 relative z-[5]'
+        style={{ gridTemplateColumns: 'repeat(3,1fr)', marginTop: -56 }}
+      >
+        {/* Message */}
+        <div
+          className='bg-[var(--canvas)] rounded-[20px] text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
+          style={{ padding: '32px 28px' }}
+        >
           <div
-            className={styles.reachIcon}
+            className='w-12 h-12 rounded-[14px] flex items-center justify-center mb-4'
             style={{ background: 'var(--cream)' }}
           >
             <svg width='22' height='22' viewBox='0 0 22 22' fill='none'>
@@ -256,67 +277,121 @@ export default function ContactPage() {
               />
             </svg>
           </div>
-          <h3>Send us a message</h3>
-          <div className={styles.val}>hello@kodanest.co</div>
-          <div className={styles.sub}>
+          <h3 style={{ fontSize: 18 }}>Send us a message</h3>
+          <div
+            className='mt-2 text-[22px] font-semibold'
+            style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
+          >
+            hello@kodanest.co
+          </div>
+          <div
+            className='text-[13px] mt-[6px]'
+            style={{ color: 'var(--muted)' }}
+          >
             Reply within 24 hours, every day of the week.
           </div>
         </div>
-        <div className={styles.reach}>
+
+        {/* Phone */}
+        <div
+          className='bg-[var(--canvas)] rounded-[20px] text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
+          style={{ padding: '32px 28px' }}
+        >
           <div
-            className={styles.reachIcon}
+            className='w-12 h-12 rounded-[14px] flex items-center justify-center mb-4'
             style={{ background: 'var(--rose)' }}
           >
             <svg width='22' height='22' viewBox='0 0 22 22' fill='none'>
               <path
                 d='M4 4 Q4 2 6 2 H8 L10 7 L7 9 Q9 14 13 16 L15 13 L20 15 V18 Q20 20 18 20 A16 16 0 0 1 4 4Z'
-                stroke='#ff385c'
+                stroke='#D94F68'
                 strokeWidth='1.8'
                 fill='none'
                 strokeLinejoin='round'
               />
             </svg>
           </div>
-          <h3>24/7 emergency line</h3>
-          <div className={styles.val}>1-800-PAW-HAVN</div>
-          <div className={styles.sub}>
+          <h3 style={{ fontSize: 18 }}>24/7 emergency line</h3>
+          <div
+            className='mt-2 text-[22px] font-semibold'
+            style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
+          >
+            1-800-KODA-NEST
+          </div>
+          <div
+            className='text-[13px] mt-[6px]'
+            style={{ color: 'var(--muted)' }}
+          >
             For urgent pet medical concerns, day or night.
           </div>
         </div>
-        <div className={styles.reach}>
+
+        {/* Visit */}
+        <div
+          className='bg-[var(--canvas)] rounded-[20px] text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
+          style={{ padding: '32px 28px' }}
+        >
           <div
-            className={styles.reachIcon}
+            className='w-12 h-12 rounded-[14px] flex items-center justify-center mb-4'
             style={{ background: 'var(--mint)' }}
           >
             <svg width='22' height='22' viewBox='0 0 22 22' fill='none'>
               <path
                 d='M11 2 Q4 2 4 9 Q4 14 11 20 Q18 14 18 9 Q18 2 11 2Z'
-                stroke='#3a8c6a'
+                stroke='#1D7575'
                 strokeWidth='1.8'
                 fill='none'
               />
-              <circle cx='11' cy='9' r='2.4' fill='#3a8c6a' />
+              <circle cx='11' cy='9' r='2.4' fill='#1D7575' />
             </svg>
           </div>
-          <h3>Visit us in person</h3>
-          <div className={styles.val}>3 cities, no appt.</div>
-          <div className={styles.sub}>
-            Drop in for a counselor session in San Agustin, Port Bonifacio, MNL
-            , or Siargao.
+          <h3 style={{ fontSize: 18 }}>Visit us in person</h3>
+          <div
+            className='mt-2 text-[22px] font-semibold'
+            style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
+          >
+            3 cities, no appt.
+          </div>
+          <div
+            className='text-[13px] mt-[6px]'
+            style={{ color: 'var(--muted)' }}
+          >
+            Drop in for a counselor session in San Agustin, Port Bonifacio, MNL,
+            or Siargao.
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Form + info */}
-      <section className={styles.formSection}>
-        <form className={styles.formCard} onSubmit={handleSubmit}>
+      <div
+        className='grid gap-16 items-start'
+        style={{ gridTemplateColumns: '1.2fr 1fr', padding: '96px 0' }}
+      >
+        <form
+          className='bg-[var(--canvas)] border border-[var(--hairline-soft)] rounded-[24px]'
+          style={{ padding: 40 }}
+          onSubmit={handleSubmit}
+        >
           {submitted ? (
-            <div className={styles.submittedMsg}>
-              <div className={styles.checkCircle}>
+            <div
+              className='text-center'
+              style={{
+                padding: '20px 0',
+                animation: 'authScaleIn 0.36s cubic-bezier(0.2,0,0,1) both',
+              }}
+            >
+              <div
+                className='w-[72px] h-[72px] rounded-full flex items-center justify-center mx-auto mb-5'
+                style={{
+                  background: 'var(--mint)',
+                  animation:
+                    'authScaleIn 0.42s cubic-bezier(0.34,1.56,0.64,1) 0.1s both',
+                }}
+              >
                 <svg width='32' height='32' viewBox='0 0 32 32' fill='none'>
                   <polyline
                     points='8 16 14 22 24 10'
-                    stroke='#3a8c6a'
+                    stroke='#1D7575'
                     strokeWidth='3'
                     fill='none'
                     strokeLinecap='round'
@@ -339,7 +414,7 @@ export default function ContactPage() {
               </Link>
             </div>
           ) : (
-            <div className={styles.formStack}>
+            <div className='flex flex-col gap-[18px]'>
               <div>
                 <h2 style={{ fontSize: 32 }}>Tell us a bit about you</h2>
                 <p className='muted mt-8'>
@@ -359,22 +434,42 @@ export default function ContactPage() {
                 >
                   What's it about?
                 </label>
-                <div className={styles.petTypeGrid}>
+                <div
+                  className='grid gap-[10px]'
+                  style={{ gridTemplateColumns: 'repeat(4,1fr)' }}
+                >
                   {TOPIC_BUTTONS.map(({ key, label, icon }) => (
                     <button
                       key={key}
                       type='button'
-                      className={`${styles.petType}${activeTopic === key ? ` ${styles.active}` : ''}`}
                       onClick={() => setActiveTopic(key)}
+                      className='border-[1.5px] rounded-[14px] text-center cursor-pointer text-[13px] font-medium transition-[border-color,background,transform,box-shadow] duration-200 hover:border-[var(--ink)] hover:-translate-y-[2px] hover:[box-shadow:var(--shadow-soft)] active:scale-[0.96]'
+                      style={{
+                        padding: '14px 8px',
+                        fontFamily: 'inherit',
+                        background:
+                          activeTopic === key
+                            ? 'var(--cream)'
+                            : 'var(--canvas)',
+                        borderColor:
+                          activeTopic === key
+                            ? 'var(--ink)'
+                            : 'var(--hairline)',
+                      }}
                     >
-                      {icon}
+                      <span className='block mx-auto mb-[6px] transition-transform duration-200 hover:scale-[1.15]'>
+                        {icon}
+                      </span>
                       {label}
                     </button>
                   ))}
                 </div>
               </div>
 
-              <div className={styles.formRow}>
+              <div
+                className='grid gap-4'
+                style={{ gridTemplateColumns: '1fr 1fr' }}
+              >
                 <div className='field'>
                   <label htmlFor='firstName'>First name</label>
                   <input
@@ -403,7 +498,10 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className={styles.formRow}>
+              <div
+                className='grid gap-4'
+                style={{ gridTemplateColumns: '1fr 1fr' }}
+              >
                 <div className='field'>
                   <label htmlFor='email'>Email</label>
                   <input
@@ -431,7 +529,10 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className={styles.formRow}>
+              <div
+                className='grid gap-4'
+                style={{ gridTemplateColumns: '1fr 1fr' }}
+              >
                 <div className='field'>
                   <label htmlFor='city'>Where are you?</label>
                   <select
@@ -479,14 +580,8 @@ export default function ContactPage() {
               </div>
 
               <div
-                style={{
-                  display: 'flex',
-                  gap: 12,
-                  alignItems: 'center',
-                  padding: 14,
-                  background: 'var(--soft)',
-                  borderRadius: 12,
-                }}
+                className='flex gap-3 items-center rounded-[12px]'
+                style={{ padding: 14, background: 'var(--soft)' }}
               >
                 <input
                   type='checkbox'
@@ -525,14 +620,18 @@ export default function ContactPage() {
           )}
         </form>
 
-        <div className={styles.infoSide}>
+        {/* Info side */}
+        <div className='pt-2'>
           <h3 style={{ fontSize: 22, marginBottom: 18 }}>Or visit us</h3>
-          <div className={styles.mapCard}>
-            <span className={styles.mapPin}>
+          <div
+            className='rounded-[24px] relative overflow-hidden map-card-grid'
+            style={{ background: 'var(--cream)', padding: 28, height: 280 }}
+          >
+            <span className='absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-full w-9 h-12'>
               <svg width='36' height='48' viewBox='0 0 36 48' fill='none'>
                 <path
                   d='M18 2 Q4 2 4 16 Q4 28 18 46 Q32 28 32 16 Q32 2 18 2Z'
-                  fill='#ff385c'
+                  fill='#E8923C'
                 />
                 <circle cx='18' cy='16' r='6' fill='#fff' />
               </svg>
@@ -544,19 +643,40 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className={styles.officeList}>
+          <div className='flex flex-col gap-[14px] mt-6'>
             {OFFICES.map(({ code, name, addr }) => (
-              <div key={code} className={styles.office}>
-                <div className={styles.officeFlag}>{code}</div>
+              <div
+                key={code}
+                className='grid gap-3 items-center bg-[var(--canvas)] border border-[var(--hairline-soft)] rounded-[16px] transition-[transform,border-color,box-shadow] duration-200 hover:translate-x-[5px] hover:border-[var(--hairline)] hover:[box-shadow:var(--shadow-soft)]'
+                style={{ gridTemplateColumns: '60px 1fr', padding: 16 }}
+              >
+                <div
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontWeight: 700,
+                    fontSize: 22,
+                    color: 'var(--rausch)',
+                  }}
+                >
+                  {code}
+                </div>
                 <div>
-                  <h4>{name}</h4>
-                  <div className={styles.addr}>{addr}</div>
+                  <h4 style={{ fontSize: 15 }}>{name}</h4>
+                  <div
+                    style={{
+                      color: 'var(--muted)',
+                      fontSize: 13,
+                      marginTop: 2,
+                    }}
+                  >
+                    {addr}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* FAQ */}
       <section

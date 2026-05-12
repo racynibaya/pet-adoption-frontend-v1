@@ -10,10 +10,10 @@ const KODANEST_LINKS = [
 ];
 
 const SUPPORT_LINKS = [
-  { label: 'Help center', href: '#' },
-  { label: 'Pet emergency', href: '#' },
-  { label: 'Adoption guide', href: '#' },
-  { label: 'Anti-discrimination', href: '#' },
+  { label: 'Help center', to: '/contact' },
+  { label: 'Pet emergency', to: '/contact' },
+  { label: 'Adoption guide', to: '/about' },
+  { label: 'Anti-discrimination', to: '/about' },
 ];
 
 export default function Footer() {
@@ -74,9 +74,9 @@ export default function Footer() {
           <div>
             <h4>Support</h4>
             <ul>
-              {SUPPORT_LINKS.map(({ label, href }) => (
+              {SUPPORT_LINKS.map(({ label, to }) => (
                 <li key={label}>
-                  <a href={href}>{label}</a>
+                  <Link to={to}>{label}</Link>
                 </li>
               ))}
             </ul>

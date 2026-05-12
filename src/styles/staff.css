@@ -1,0 +1,260 @@
+/* Staff Portal Styles */
+
+.staff-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+  margin-bottom: 2px;
+  line-height: 1;
+}
+.staff-nav-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+}
+.staff-nav-item.active {
+  background: rgba(232, 146, 60, 0.14);
+  color: #e8923c;
+}
+
+/* ── Tables ── */
+.staff-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.staff-table th {
+  text-align: left;
+  padding: 10px 16px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--hairline);
+  white-space: nowrap;
+}
+.staff-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--hairline-soft);
+  color: var(--ink);
+  vertical-align: middle;
+}
+.staff-table tr:last-child td {
+  border-bottom: none;
+}
+.staff-table tbody tr:hover td {
+  background: var(--soft);
+}
+
+/* ── Status badges ── */
+.s-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.s-badge-available { background: #e2f2ee; color: #1D7575; }
+.s-badge-pending   { background: #fef1e1; color: #a05818; }
+.s-badge-approved  { background: #e2f2ee; color: #1D7575; }
+.s-badge-rejected  { background: #fde8ec; color: #c0304d; }
+
+/* ── Stat cards ── */
+.staff-stat {
+  background: white;
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 0 0 1px rgba(18, 52, 64, 0.04), 0 2px 8px rgba(18, 52, 64, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.staff-stat-num {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+.staff-stat-label {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ── Card shell ── */
+.staff-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(18, 52, 64, 0.04), 0 2px 8px rgba(18, 52, 64, 0.06);
+  overflow: hidden;
+}
+.staff-card-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--hairline-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.staff-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* ── Page header ── */
+.staff-page-header {
+  padding: 28px 32px 24px;
+  border-bottom: 1px solid var(--hairline-soft);
+  background: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.staff-page-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 2px;
+  line-height: 1.2;
+}
+.staff-page-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ── Form ── */
+.staff-form-section {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(18, 52, 64, 0.04), 0 2px 8px rgba(18, 52, 64, 0.06);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.staff-form-section-head {
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--hairline-soft);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.staff-form-section-body {
+  padding: 24px;
+}
+.staff-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .staff-form-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Action buttons ── */
+.staff-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.14s ease, opacity 0.14s ease;
+  text-decoration: none;
+}
+.staff-action-btn:hover { opacity: 0.85; }
+.staff-btn-edit { background: var(--soft); color: var(--ink-2); }
+.staff-btn-delete { background: #fde8ec; color: #c0304d; }
+.staff-btn-approve { background: #e2f2ee; color: #1D7575; }
+.staff-btn-reject { background: #fde8ec; color: #c0304d; }
+
+/* ── Search & filter bar ── */
+.staff-toolbar {
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--hairline-soft);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.staff-search {
+  flex: 1;
+  min-width: 180px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1.5px solid var(--hairline);
+  border-radius: 10px;
+  font-size: 13.5px;
+  background: var(--canvas);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.staff-search:focus { border-color: #E8923C; }
+.staff-filter-pill {
+  padding: 5px 14px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 500;
+  border: 1.5px solid var(--hairline);
+  background: white;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all 0.13s ease;
+}
+.staff-filter-pill:hover { border-color: #E8923C; color: #E8923C; }
+.staff-filter-pill.active { background: #E8923C; border-color: #E8923C; color: white; }
+
+/* ── Checkbox group ── */
+.staff-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.staff-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  color: var(--ink-2);
+  cursor: pointer;
+  user-select: none;
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--hairline);
+  transition: border-color 0.13s, background 0.13s;
+}
+.staff-checkbox-label:has(input:checked) {
+  border-color: #E8923C;
+  background: #fff8f0;
+  color: #a05818;
+}
+.staff-checkbox-label input {
+  display: none;
+}
+
+/* ── Scrollbar ── */
+.staff-sidebar::-webkit-scrollbar { width: 4px; }
+.staff-sidebar::-webkit-scrollbar-track { background: transparent; }
+.staff-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
