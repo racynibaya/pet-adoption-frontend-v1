@@ -794,3 +794,261 @@ p { margin: 0; color: var(--ink-2); }
   }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* =============================================================
+   Responsive utilities — used by pages to swap inline gridTemplateColumns
+   for class-driven grids that collapse cleanly at small viewports.
+   ============================================================= */
+.r-grid          { display: grid; }
+.r-grid-2        { display: grid; grid-template-columns: 1fr 1fr; }
+.r-grid-3        { display: grid; grid-template-columns: repeat(3, 1fr); }
+.r-grid-4        { display: grid; grid-template-columns: repeat(4, 1fr); }
+.r-grid-hero     { display: grid; grid-template-columns: 1.05fr 1fr; }
+.r-grid-side     { display: grid; grid-template-columns: 1.2fr 1fr; }
+.r-grid-side-rev { display: grid; grid-template-columns: 1fr 1.2fr; }
+.r-grid-gallery  { display: grid; grid-template-columns: 1.3fr 1fr 1fr; }
+.r-grid-form-2   { display: grid; grid-template-columns: 1fr 1fr; }
+
+/* Fluid hero/section typography — replaces fixed inline fontSize values */
+.hero-title    { font-size: clamp(34px, 5.4vw, 80px); line-height: 1.04; letter-spacing: -0.03em; }
+.hero-sub      { font-size: clamp(15px, 1.4vw, 18px); }
+.section-title { font-size: clamp(28px, 3.4vw, 44px); }
+
+/* Sticky helper that disables itself on small viewports */
+.r-sticky-md { position: sticky; top: 100px; }
+
+/* Page-specific responsive layout — defaults match the original desktop design */
+.home-hero { padding: 64px 64px 0; min-height: 600px; }
+.home-hero-text { padding-bottom: 56px; }
+.home-hero-illu { height: 540px; }
+
+/* Hero side illustrations (Services / Shelters) — hidden on small screens
+   so they don't stack awkwardly under the hero text. The Home hero
+   illustration has its own .home-hero-illu rule handled per-breakpoint. */
+.hero-side-illu { display: block; }
+
+/* Home stats card — 4 stats in a row at all sizes, scaled down on mobile
+   so they fit on one line. Negative top margin overlaps the hero on desktop;
+   on mobile it sits cleanly below the hero buttons. */
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: -28px;
+  padding: 28px 16px;
+}
+.home-stats > div { padding-left: 16px; padding-right: 16px; }
+.home-stats-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.home-stats-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.home-features-grid { gap: 56px 80px; }
+.home-trust-photos { height: 460px; }
+.home-testimonial-illu { height: 480px; }
+.home-process-card { padding: 88px 56px; }
+
+.about-hero { padding: 88px 64px 96px; }
+.about-paw-tl { position: absolute; top: 60px; left: 80px; }
+.about-paw-br { position: absolute; bottom: 60px; right: 80px; }
+.about-stats-section { padding: 32px 0 96px; }
+.about-stats-card { padding: 56px 64px; }
+.about-stats-num { font-size: 48px; line-height: 1.05; }
+
+.contact-hero { padding: 72px 64px; }
+.contact-paw-tl { position: absolute; top: 60px; left: 60px; }
+.contact-paw-br { position: absolute; bottom: 50px; right: 60px; }
+.contact-form-grid { padding: 96px 0; }
+.contact-map-card { padding: 28px; height: 280px; }
+.contact-reach-cards { margin-top: -56px; }
+
+/* Hero CTA row — wraps the two hero buttons. On desktop wraps as needed;
+   on mobile forced side-by-side with compact sizing. */
+.hero-cta-row { flex-wrap: wrap; }
+
+/* About: timeline 4-up on desktop, single vertical column on mobile.
+   The horizontal connector line (.timeline-line::before) is hidden on
+   mobile in the small-screen block below. */
+
+.pet-detail-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+/* ── Tablet / small laptop ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .r-grid-4       { grid-template-columns: repeat(2, 1fr); }
+  .r-grid-gallery { grid-template-columns: 1fr 1fr; }
+
+  .home-hero       { padding: 56px 48px 0; min-height: 540px; }
+  .home-hero-illu  { height: 480px; }
+  .home-features-grid { gap: 48px 56px; }
+
+  /* About gallery: at this breakpoint the grid collapses from 3 cols
+     (with a 1.3fr hero spanning 2 rows) to 2 cols. Drop the hero treatment
+     on the first photo so all five share the 4/3 aspect, and let the last
+     photo span both columns so the set fills without a row mismatch or an
+     orphan empty cell. */
+  .about-gallery > div:first-child {
+    aspect-ratio: 4 / 3 !important;
+    grid-row: auto !important;
+  }
+  .about-gallery > div:last-child {
+    grid-column: span 2;
+    aspect-ratio: 16 / 6 !important;
+  }
+}
+
+/* ── Tablet portrait / large phone ─────────────────────────────────── */
+@media (max-width: 880px) {
+  .home-hero       { padding: 48px 36px 0; min-height: auto; }
+  .home-hero-text  { padding-bottom: 36px; }
+  .home-hero-illu  { display: none; }
+  .hero-side-illu  { display: none; }
+  .pet-detail-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Phone landscape ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .r-grid-2,
+  .r-grid-3,
+  .r-grid-hero,
+  .r-grid-side,
+  .r-grid-side-rev,
+  .r-grid-form-2 { grid-template-columns: 1fr; }
+  .r-grid-4      { grid-template-columns: repeat(2, 1fr); }
+  .r-grid-gallery { grid-template-columns: 1fr 1fr; }
+
+  .r-sticky-md { position: static; top: auto; }
+
+  .home-hero       { padding: 40px 28px 0; }
+  .home-hero-text  { padding-bottom: 24px; }
+  .home-features-grid    { gap: 36px; }
+  .home-trust-grid       { gap: 40px; }
+  .home-trust-photos     { height: 380px; }
+  .home-testimonial-grid { gap: 40px; }
+  .home-testimonial-illu { height: 360px; }
+  .home-process-card     { padding: 56px 28px; border-radius: 24px; }
+
+  .about-hero        { padding: 64px 32px 72px; }
+  .about-paw-tl      { top: 32px; left: 32px; }
+  .about-paw-br      { bottom: 32px; right: 32px; }
+  .about-stats-section { padding: 24px 0 64px; }
+  .about-stats-card  { padding: 40px 28px; gap: 24px; }
+  .about-stats-num   { font-size: 40px; }
+  .about-story-grid  { gap: 40px; }
+
+  .contact-hero      { padding: 56px 32px; }
+  .contact-paw-tl    { top: 32px; left: 32px; }
+  .contact-paw-br    { bottom: 32px; right: 32px; }
+  .contact-form-grid { padding: 64px 0; gap: 40px; }
+  .contact-topic-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Phone ─────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .r-grid-3       { grid-template-columns: 1fr; }
+  .r-grid-gallery { grid-template-columns: 1fr; }
+
+  .footer-top     { grid-template-columns: 1fr; gap: 28px; padding: 56px 0 32px; }
+  .footer-bottom  { flex-direction: column; gap: 12px; text-align: center; }
+  .footer-newsletter { max-width: 100%; }
+
+  .home-hero        { padding: 32px 22px 0; border-radius: 22px; }
+  .home-hero-text   { padding-bottom: 16px; }
+
+  /* Trust section: the two image cards use fixed-px absolute positioning
+     (240px + 250px). Below ~540px they overlap each other. Switch to a
+     clean two-up grid with relative positioning and proportional widths. */
+  .home-trust-photos {
+    height: auto !important;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  .home-trust-card-l,
+  .home-trust-card-r {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5;
+  }
+  .home-trust-card-r { margin-top: 24px; }
+  .home-trust-paws   { display: none !important; }
+
+  .home-stats        { margin-top: 16px; padding: 18px 10px; }
+  .home-stats > div  { padding-left: 6px; padding-right: 6px; }
+  .home-stats-num    { font-size: 18px; }
+  .home-stats-label  { font-size: 10px; line-height: 1.25; margin-top: 2px; }
+
+  /* Hide the floating dog-bubble inside the home hero text column —
+     it overlaps the heading awkwardly on phones. */
+  .home-hero-bubble  { display: none; }
+
+  /* Force the two hero CTAs to stay side-by-side on mobile and
+     shrink them to comfortably fit a 375px column. */
+  .hero-cta-row      { flex-wrap: nowrap; gap: 10px; }
+  .hero-cta-row .btn { flex: 1 1 0; min-width: 0; padding: 12px 14px; font-size: 14px; white-space: nowrap; }
+
+  /* Contact reach cards: drop the desktop -56px overlap that hides the
+     hero text behind the first card. Sit them cleanly below. */
+  .contact-reach-cards { margin-top: 20px; }
+
+  /* About: hide the decorative gallery on phones — it dominates the page
+     as a stack of full-width images. */
+  .about-gallery { display: none; }
+
+  /* About: stack the timeline vertically and re-purpose the horizontal
+     connector as a vertical "path" running through each year's dot. */
+  .about-timeline                 { grid-template-columns: 1fr; gap: 32px; }
+  .about-timeline.timeline-line::before {
+    left: 8px;
+    right: auto;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    height: auto;
+  }
+  .about-timeline > div           { padding-left: 32px; padding-top: 0 !important; }
+  .about-timeline .tl-dot         { top: 0; }
+
+  /* About: keep all section headings the same size on mobile and
+     noticeably larger than body copy (16px). */
+  .section-head h2,
+  .cta-band h2,
+  .section-title                  { font-size: 30px; line-height: 1.2; }
+  .home-testimonial-illu { height: 300px; }
+  .home-process-card { padding: 44px 20px; border-radius: 20px; }
+
+  .about-hero       { padding: 48px 22px 56px; border-radius: 22px; }
+  .about-paw-tl,
+  .about-paw-br     { display: none; }
+  .about-stats-card { padding: 32px 22px; gap: 18px; }
+  .about-stats-num  { font-size: 32px; }
+
+  .contact-hero     { padding: 40px 22px; border-radius: 22px; }
+  .contact-paw-tl,
+  .contact-paw-br   { display: none; }
+  .contact-form-grid { padding: 48px 0; gap: 32px; }
+  .contact-map-card  { padding: 20px; height: 220px; }
+}
+
+/* ── Small phone ───────────────────────────────────────────────────── */
+@media (max-width: 380px) {
+  .home-hero        { padding: 28px 18px 0; }
+  .home-trust-photos { height: 260px; }
+
+  .home-stats        { padding: 14px 6px; }
+  .home-stats > div  { padding-left: 3px; padding-right: 3px; }
+  .home-stats-num    { font-size: 16px; }
+  .home-stats-label  { font-size: 9px; }
+}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useStaff, type AdoptionRequest } from '@/context/StaffContext'
+import { useStaff, type AdoptionRequest } from '@/context/useStaff'
 
 type StatusFilter = 'All' | AdoptionRequest['status']
 
@@ -60,9 +60,9 @@ export default function StaffAdoptions() {
         </div>
       </div>
 
-      <div style={{ padding: '24px 32px' }}>
+      <div className='staff-page-body' style={{ padding: '24px 32px' }}>
         {/* Stats row */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12, marginBottom: 24 }}>
+        <div className='staff-adoptions-stats' style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12, marginBottom: 24 }}>
           {(['PENDING', 'REVIEWING', 'APPROVED', 'REJECTED', 'CANCELLED'] as const).map(s => (
             <div key={s} className="staff-stat" style={{ padding: '14px 16px' }}>
               <div className="staff-stat-num" style={{

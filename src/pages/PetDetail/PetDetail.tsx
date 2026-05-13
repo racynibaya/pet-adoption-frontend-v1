@@ -1,6 +1,6 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { PET_LISTINGS, ageLabel, speciesLabel, genderLabel, sizeLabel } from '@/data/pets';
-import { useFavorites } from '@/context/FavoritesContext';
+import { useFavorites } from '@/context/useFavorites';
 import HeartIcon from '@/icons/HeartIcon';
 
 function CareChip({ label, active }: { label: string; active: boolean }) {
@@ -93,15 +93,15 @@ export default function PetDetail() {
 
       {/* Main layout */}
       <div
+        className='pet-detail-grid'
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
           gap: 40,
           alignItems: 'start',
         }}
       >
         {/* LEFT: Illustration card */}
-        <div style={{ position: 'sticky', top: 100 }}>
+        <div className='r-sticky-md'>
           <div
             style={{
               borderRadius: 28,
@@ -149,6 +149,7 @@ export default function PetDetail() {
                   position: 'absolute',
                   top: 16,
                   left: 16,
+                  zIndex: 2,
                   fontSize: 11,
                   fontWeight: 700,
                   letterSpacing: '0.04em',
@@ -170,6 +171,7 @@ export default function PetDetail() {
                   position: 'absolute',
                   top: 16,
                   right: 16,
+                  zIndex: 2,
                   width: 44,
                   height: 44,
                   borderRadius: '50%',
@@ -263,7 +265,7 @@ export default function PetDetail() {
           </div>
 
           {/* Stats grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: 10 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: 10 }}>
             <StatBox label='Age' value={ageLabel(pet.ageMonths)} />
             <StatBox label='Size' value={sizeLabel(pet.size)} />
             <StatBox label='Gender' value={genderLabel(pet.gender)} />

@@ -1,17 +1,20 @@
 import { useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
-import { useFavorites } from '@/context/FavoritesContext';
+import { useFavorites } from '@/context/useFavorites';
 import { PET_LISTINGS, ageLabel } from '@/data/pets';
 import HeartIcon from '@/icons/HeartIcon';
 
 export default function SavedDrawer() {
   const { saved, toggle, drawerOpen, closeDrawer } = useFavorites();
-  const savedPets = PET_LISTINGS.filter(p => saved.includes(String(p.id)));
+  const savedPets = PET_LISTINGS.filter((p) => saved.includes(String(p.id)));
 
-  const handleKey = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') closeDrawer();
-  }, [closeDrawer]);
+  const handleKey = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeDrawer();
+    },
+    [closeDrawer],
+  );
 
   useEffect(() => {
     if (!drawerOpen) return;
@@ -25,7 +28,7 @@ export default function SavedDrawer() {
     <>
       {/* Backdrop */}
       <div
-        className='fixed inset-0 z-[150]'
+        className='fixed inset-0 z-150'
         style={{
           background: 'rgba(20,36,22,0.46)',
           backdropFilter: 'blur(3px)',
@@ -38,7 +41,7 @@ export default function SavedDrawer() {
 
       {/* Panel */}
       <aside
-        className='fixed top-0 right-0 bottom-0 z-[151] w-[400px] max-w-[92vw] max-[480px]:w-full max-[480px]:max-w-full bg-(--canvas) flex flex-col'
+        className='fixed top-0 right-0 bottom-0 z-151 w-100 max-w-[92vw] max-[480px]:w-full max-[480px]:max-w-full bg-(--canvas) flex flex-col'
         style={{
           boxShadow: '-8px 0 48px rgba(18,52,64,0.16)',
           animation: 'slideIn 320ms cubic-bezier(0.16, 1, 0.3, 1) both',
@@ -49,7 +52,7 @@ export default function SavedDrawer() {
       >
         {/* Header */}
         <div className='flex items-center justify-between px-6 py-5 border-b border-(--hairline-soft) shrink-0'>
-          <div className='flex items-center gap-[10px]'>
+          <div className='flex items-center gap-2.5'>
             <HeartIcon width={18} height={18} filled={saved.length > 0} />
             <h2
               className='text-[20px] font-bold text-(--ink) tracking-[-0.012em] m-0'
@@ -58,7 +61,7 @@ export default function SavedDrawer() {
               Saved Pets
             </h2>
             {saved.length > 0 && (
-              <span className='inline-flex items-center justify-center min-w-[22px] h-[22px] rounded-full bg-[var(--rausch)] text-white text-[11px] font-bold px-[6px]'>
+              <span className='inline-flex items-center justify-center min-w-5.5 h-5.5 rounded-full bg-(--rausch) text-white text-[11px] font-bold px-1.5'>
                 {saved.length}
               </span>
             )}
@@ -69,18 +72,23 @@ export default function SavedDrawer() {
             aria-label='Close saved pets'
           >
             <svg width='12' height='12' viewBox='0 0 12 12' fill='none'>
-              <path d='M1 1L11 11M11 1L1 11' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' />
+              <path
+                d='M1 1L11 11M11 1L1 11'
+                stroke='currentColor'
+                strokeWidth='1.8'
+                strokeLinecap='round'
+              />
             </svg>
           </button>
         </div>
 
         {/* List or empty state */}
         {savedPets.length > 0 ? (
-          <div className='drawer-list flex-1 overflow-y-auto p-3 flex flex-col gap-[10px]'>
-            {savedPets.map(pet => (
+          <div className='drawer-list flex-1 overflow-y-auto p-3 flex flex-col gap-2.5'>
+            {savedPets.map((pet) => (
               <div
                 key={pet.id}
-                className='flex gap-[14px] items-center px-[14px] py-3 rounded-[14px] border border-(--hairline-soft) bg-(--canvas) transition-[box-shadow,transform] duration-200 ease-out hover:shadow-(--shadow-soft) hover:-translate-y-px'
+                className='flex gap-3.5 items-center px-3.5 py-3 rounded-[14px] border border-(--hairline-soft) bg-(--canvas) transition-[box-shadow,transform] duration-200 ease-out hover:shadow-(--shadow-soft) hover:-translate-y-px'
               >
                 <Link
                   to={`/pets/${pet.id}`}
@@ -107,7 +115,10 @@ export default function SavedDrawer() {
                   <p className='text-[11px] text-(--muted-soft) mt-0.5 whitespace-nowrap overflow-hidden text-ellipsis'>
                     <span
                       className='inline-block w-1.5 h-1.5 rounded-full mr-1.25 align-middle'
-                      style={{ background: pet.status === 'AVAILABLE' ? '#1D7575' : '#a87d12' }}
+                      style={{
+                        background:
+                          pet.status === 'AVAILABLE' ? '#1D7575' : '#a87d12',
+                      }}
                     />
                     {pet.shelterName}
                   </p>
@@ -148,6 +159,6 @@ export default function SavedDrawer() {
         </div>
       </aside>
     </>,
-    document.body
+    document.body,
   );
 }

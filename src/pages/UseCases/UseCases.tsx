@@ -34,7 +34,12 @@ const SHELTERS: Shelter[] = [
         <circle cx='85' cy='76' r='3' fill='#1d2235' />
         <circle cx='115' cy='76' r='3' fill='#1d2235' />
         <ellipse cx='100' cy='90' rx='5' ry='3.4' fill='#1d2235' />
-        <path d='M92 98 Q100 106 108 98' stroke='#1d2235' strokeWidth='1.6' fill='none' />
+        <path
+          d='M92 98 Q100 106 108 98'
+          stroke='#1d2235'
+          strokeWidth='1.6'
+          fill='none'
+        />
       </svg>
     ),
   },
@@ -107,8 +112,20 @@ const SHELTERS: Shelter[] = [
         <circle cx='92' cy='62' r='3' fill='#1d2235' />
         <circle cx='108' cy='62' r='3' fill='#1d2235' />
         <polygon points='96,72 100,80 104,72' fill='#ffd166' />
-        <path d='M60 100 Q50 110 58 120 Q70 128 80 118' stroke='#5a8cb0' strokeWidth='8' strokeLinecap='round' fill='none' />
-        <path d='M140 100 Q150 110 142 120 Q130 128 120 118' stroke='#5a8cb0' strokeWidth='8' strokeLinecap='round' fill='none' />
+        <path
+          d='M60 100 Q50 110 58 120 Q70 128 80 118'
+          stroke='#5a8cb0'
+          strokeWidth='8'
+          strokeLinecap='round'
+          fill='none'
+        />
+        <path
+          d='M140 100 Q150 110 142 120 Q130 128 120 118'
+          stroke='#5a8cb0'
+          strokeWidth='8'
+          strokeLinecap='round'
+          fill='none'
+        />
       </svg>
     ),
   },
@@ -132,7 +149,14 @@ const SHELTERS: Shelter[] = [
         <circle cx='84' cy='84' r='3' fill='#fff' />
         <circle cx='116' cy='84' r='3' fill='#fff' />
         <ellipse cx='100' cy='98' rx='6' ry='4' fill='#1d1916' />
-        <path d='M90 108 Q100 116 110 108' stroke='#1d1916' strokeWidth='1.4' fill='none' strokeLinecap='round' opacity='0.6' />
+        <path
+          d='M90 108 Q100 116 110 108'
+          stroke='#1d1916'
+          strokeWidth='1.4'
+          fill='none'
+          strokeLinecap='round'
+          opacity='0.6'
+        />
       </svg>
     ),
   },
@@ -156,10 +180,38 @@ const SHELTERS: Shelter[] = [
         <circle cx='88' cy='84' r='2.8' fill='#1d2235' />
         <circle cx='112' cy='84' r='2.8' fill='#1d2235' />
         <ellipse cx='100' cy='94' rx='4' ry='2.6' fill='#ff7a8a' />
-        <line x1='86' y1='96' x2='70' y2='100' stroke='#1d2235' strokeWidth='1' />
-        <line x1='86' y1='98' x2='70' y2='104' stroke='#1d2235' strokeWidth='1' />
-        <line x1='114' y1='96' x2='130' y2='100' stroke='#1d2235' strokeWidth='1' />
-        <line x1='114' y1='98' x2='130' y2='104' stroke='#1d2235' strokeWidth='1' />
+        <line
+          x1='86'
+          y1='96'
+          x2='70'
+          y2='100'
+          stroke='#1d2235'
+          strokeWidth='1'
+        />
+        <line
+          x1='86'
+          y1='98'
+          x2='70'
+          y2='104'
+          stroke='#1d2235'
+          strokeWidth='1'
+        />
+        <line
+          x1='114'
+          y1='96'
+          x2='130'
+          y2='100'
+          stroke='#1d2235'
+          strokeWidth='1'
+        />
+        <line
+          x1='114'
+          y1='98'
+          x2='130'
+          y2='104'
+          stroke='#1d2235'
+          strokeWidth='1'
+        />
       </svg>
     ),
   },
@@ -204,26 +256,38 @@ export default function SheltersPage() {
             <br />
             across the Philippines
           </h1>
-          <p className='text-[var(--ink-2)] mt-[18px] max-w-[480px] text-[17px]'>
+          <p className='text-(--ink-2) mt-4.5 max-w-120 text-[17px]'>
             Every shelter on KodaNest is reviewed and approved before they can
             list pets. Browse our network of rescue organizations — from big
             multi-species centers to specialist sanctuaries.
           </p>
-          <div className='flex gap-3 mt-8 flex-wrap'>
+          <div className='hero-cta-row flex gap-3 mt-8'>
             <Link to='/pets' className='btn btn-primary btn-lg'>
-              Browse available pets
+              Browse pets
             </Link>
             <Link to='/contact' className='btn btn-outline btn-lg'>
               Contact a shelter
             </Link>
           </div>
         </div>
-        <div className='relative h-[360px] hidden md:block'>
+        <div className='hero-side-illu relative h-90'>
           <svg
             viewBox='0 0 460 360'
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+            }}
           >
-            <path d='M40 280 Q200 80 420 220' stroke='#f5b894' strokeWidth='50' fill='none' strokeLinecap='round' opacity='0.55' />
+            <path
+              d='M40 280 Q200 80 420 220'
+              stroke='#f5b894'
+              strokeWidth='50'
+              fill='none'
+              strokeLinecap='round'
+              opacity='0.55'
+            />
             <circle cx='100' cy='120' r='44' fill='#cfe6f7' opacity='0.8' />
             <ellipse cx='100' cy='128' rx='22' ry='18' fill='#e8a878' />
             <polygon points='80,108 86,92 96,110' fill='#a87d62' />
@@ -243,9 +307,21 @@ export default function SheltersPage() {
             <circle cx='340' cy='144' r='2.4' fill='#fff' />
             <circle cx='360' cy='144' r='2.4' fill='#fff' />
             <g fill='#d97757' opacity='0.7' transform='translate(180 60)'>
-              <ellipse cx='6' cy='14' rx='3' ry='5' transform='rotate(-15 6 14)' />
+              <ellipse
+                cx='6'
+                cy='14'
+                rx='3'
+                ry='5'
+                transform='rotate(-15 6 14)'
+              />
               <ellipse cx='14' cy='8' rx='2.4' ry='4' />
-              <ellipse cx='22' cy='10' rx='2.4' ry='4' transform='rotate(15 22 10)' />
+              <ellipse
+                cx='22'
+                cy='10'
+                rx='2.4'
+                ry='4'
+                transform='rotate(15 22 10)'
+              />
               <ellipse cx='14' cy='20' rx='4.4' ry='6.4' />
             </g>
           </svg>
@@ -260,47 +336,66 @@ export default function SheltersPage() {
         />
         <div
           className='grid gap-5 mt-12'
-          style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}
+          style={{
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+          }}
         >
-          {SHELTERS.map(({ id, name, description, address, contactEmail, phoneNumber, petCount, bg, svg }) => (
-            <div
-              key={id}
-              className='group bg-[var(--canvas)] border border-[var(--hairline-soft)] rounded-[20px] p-6 text-left cursor-default transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-[var(--ink)] hover:shadow-[var(--shadow-lift)] hover:-translate-y-1'
-            >
+          {SHELTERS.map(
+            ({
+              id,
+              name,
+              description,
+              address,
+              contactEmail,
+              phoneNumber,
+              petCount,
+              bg,
+              svg,
+            }) => (
               <div
-                className='mb-[14px] overflow-hidden rounded-[16px] transition-transform duration-200 ease-out group-hover:scale-[1.02]'
-                style={{ background: bg }}
+                key={id}
+                className='group bg-(--canvas) border border-(--hairline-soft) rounded-[20px] p-6 text-left cursor-default transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-(--ink) hover:shadow-(--shadow-lift) hover:-translate-y-1'
               >
-                {svg}
-              </div>
-              <div>
-                <h3 className='mb-1.5'>{name}</h3>
-                <p className='mb-3 text-[var(--muted)] text-[13px] leading-[1.5]'>{description}</p>
-                <div className='text-[13px] text-[var(--ink-2)] flex flex-col gap-1'>
-                  <span>📍 {address}</span>
-                  <span>✉️ {contactEmail}</span>
-                  <span>📞 {phoneNumber}</span>
+                <div
+                  className='mb-3.5 overflow-hidden rounded-2xl transition-transform duration-200 ease-out group-hover:scale-[1.02]'
+                  style={{ background: bg }}
+                >
+                  {svg}
                 </div>
-                <div className='flex gap-3 mt-4 items-center'>
-                  <span
-                    className='text-[12px] font-bold px-3 py-1 rounded-full'
-                    style={{ background: '#e6f4f0', color: '#1D7575' }}
-                  >
-                    {petCount} pets available
-                  </span>
-                  <Link to='/pets' className='text-[13px] text-[var(--rausch)] font-semibold'>
-                    Browse pets →
-                  </Link>
+                <div>
+                  <h3 className='mb-1.5'>{name}</h3>
+                  <p className='mb-3 text-(--muted) text-[13px] leading-normal'>
+                    {description}
+                  </p>
+                  <div className='text-[13px] text-(--ink-2) flex flex-col gap-1'>
+                    <span>📍 {address}</span>
+                    <span>✉️ {contactEmail}</span>
+                    <span>📞 {phoneNumber}</span>
+                  </div>
+                  <div className='flex gap-3 mt-4 items-center'>
+                    <span
+                      className='text-[12px] font-bold px-3 py-1 rounded-full'
+                      style={{ background: '#e6f4f0', color: '#1D7575' }}
+                    >
+                      {petCount} pets available
+                    </span>
+                    <Link
+                      to='/pets'
+                      className='text-[13px] text-(--rausch) font-semibold'
+                    >
+                      Browse pets →
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       </section>
 
       {/* How it works */}
       <section
-        className='section rounded-[28px]'
+        className='section rounded-[28px] max-sm:px-5'
         style={{ background: 'var(--soft)' }}
       >
         <SectionHead
@@ -308,7 +403,7 @@ export default function SheltersPage() {
           heading='The adoption process, end to end'
           subheading='KodaNest handles the connection — shelters handle the decision.'
         />
-        <div className='max-w-[860px] mx-auto flex flex-col gap-8'>
+        <div className='max-w-215 mx-auto flex flex-col gap-8'>
           {HOW_IT_WORKS.map(({ step, title, desc }) => (
             <div key={step} className='flex gap-6 items-start'>
               <span
@@ -319,7 +414,7 @@ export default function SheltersPage() {
               </span>
               <div>
                 <h4 className='mb-1.5'>{title}</h4>
-                <p className='text-[var(--ink-2)]'>{desc}</p>
+                <p className='text-(--ink-2)'>{desc}</p>
               </div>
             </div>
           ))}

@@ -1,6 +1,6 @@
 import { useState, useRef, type FormEvent, type ChangeEvent } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import { useStaff } from '@/context/StaffContext'
+import { useStaff } from '@/context/useStaff'
 import { speciesLabel, genderLabel, sizeLabel, type Species, type Gender, type Size } from '@/data/pets'
 import { ApiError } from '@/services/api'
 
@@ -216,7 +216,7 @@ export default function StaffPetForm() {
         </div>
       </div>
 
-      <div style={{ padding: '24px 32px', maxWidth: 800 }}>
+      <div className='staff-page-body' style={{ padding: '24px 32px', maxWidth: 800 }}>
         <form onSubmit={handleSubmit}>
 
           {/* Basic info */}

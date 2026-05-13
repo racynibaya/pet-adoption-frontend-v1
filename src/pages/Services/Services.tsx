@@ -3,18 +3,42 @@ import { Link } from 'react-router-dom';
 import Eyebrow from '@/components/ui/Eyebrow';
 import SectionHead from '@/components/ui/SectionHead';
 import HeartIcon from '@/icons/HeartIcon';
-import { useFavorites } from '@/context/FavoritesContext';
+import { useFavorites } from '@/context/useFavorites';
 import {
-  PET_LISTINGS, ageLabel,
-  speciesFilterLabel, genderFilterLabel, sizeFilterLabel, speciesLabel, genderLabel,
-  type SpeciesFilter, type GenderFilter, type SizeFilter,
+  PET_LISTINGS,
+  ageLabel,
+  speciesFilterLabel,
+  genderFilterLabel,
+  sizeFilterLabel,
+  speciesLabel,
+  genderLabel,
+  type SpeciesFilter,
+  type GenderFilter,
+  type SizeFilter,
 } from '@/data/pets';
 
-const SPECIES_FILTERS: SpeciesFilter[] = ['ALL', 'DOG', 'CAT', 'RABBIT', 'BIRD', 'OTHER'];
-const GENDER_FILTERS: GenderFilter[]   = ['ANY', 'MALE', 'FEMALE'];
-const SIZE_FILTERS: SizeFilter[]       = ['ANY', 'SMALL', 'MEDIUM', 'LARGE', 'EXTRA_LARGE'];
+const SPECIES_FILTERS: SpeciesFilter[] = [
+  'ALL',
+  'DOG',
+  'CAT',
+  'RABBIT',
+  'BIRD',
+  'OTHER',
+];
+const GENDER_FILTERS: GenderFilter[] = ['ANY', 'MALE', 'FEMALE'];
+const SIZE_FILTERS: SizeFilter[] = [
+  'ANY',
+  'SMALL',
+  'MEDIUM',
+  'LARGE',
+  'EXTRA_LARGE',
+];
 
-function StatusBadge({ status }: { status: 'AVAILABLE' | 'PENDING' | 'ADOPTED' }) {
+function StatusBadge({
+  status,
+}: {
+  status: 'AVAILABLE' | 'PENDING' | 'ADOPTED';
+}) {
   return (
     <span
       style={{
@@ -23,11 +47,25 @@ function StatusBadge({ status }: { status: 'AVAILABLE' | 'PENDING' | 'ADOPTED' }
         letterSpacing: '0.04em',
         padding: '3px 10px',
         borderRadius: 20,
-        background: status === 'AVAILABLE' ? '#e6f4f0' : status === 'PENDING' ? '#fff3d9' : '#eeeef8',
-        color: status === 'AVAILABLE' ? '#1D7575' : status === 'PENDING' ? '#a87d12' : '#5a5a9e',
+        background:
+          status === 'AVAILABLE'
+            ? '#e6f4f0'
+            : status === 'PENDING'
+              ? '#fff3d9'
+              : '#eeeef8',
+        color:
+          status === 'AVAILABLE'
+            ? '#1D7575'
+            : status === 'PENDING'
+              ? '#a87d12'
+              : '#5a5a9e',
       }}
     >
-      {status === 'AVAILABLE' ? 'Available' : status === 'PENDING' ? 'Pending' : 'Adopted'}
+      {status === 'AVAILABLE'
+        ? 'Available'
+        : status === 'PENDING'
+          ? 'Pending'
+          : 'Adopted'}
     </span>
   );
 }
@@ -65,12 +103,12 @@ export default function PetsPage() {
             <br />
             companion
           </h1>
-          <p className='text-[var(--ink-2)] mt-[18px] max-w-[480px] text-[17px]'>
+          <p className='text-(--ink-2) mt-4.5 max-w-120 text-[17px]'>
             Every pet listed here is available for adoption from a verified
             shelter. Filter by species, size, and gender to find the match
             that's right for your home.
           </p>
-          <div className='flex flex-wrap gap-[10px] mt-8'>
+          <div className='flex flex-wrap gap-2.5 mt-8'>
             {SPECIES_FILTERS.map((s) => (
               <span
                 key={s}
@@ -86,10 +124,10 @@ export default function PetsPage() {
           </div>
         </div>
 
-        <div className='relative h-[360px] hidden md:block'>
+        <div className='hero-side-illu relative h-90'>
           {/* Cat bubble */}
           <span
-            className='absolute w-24 h-24 rounded-full overflow-hidden border-4 border-white top-[60px] right-[40%]'
+            className='absolute w-24 h-24 rounded-full overflow-hidden border-4 border-white top-15 right-[40%]'
             style={{ boxShadow: '0 12px 32px rgba(18,52,64,0.14)' }}
           >
             <svg viewBox='0 0 100 100' width='100%' height='100%'>
@@ -104,7 +142,7 @@ export default function PetsPage() {
           </span>
           {/* Dog bubble */}
           <span
-            className='absolute w-20 h-20 rounded-full overflow-hidden border-4 border-white bottom-[70px] right-[60px]'
+            className='absolute w-20 h-20 rounded-full overflow-hidden border-4 border-white bottom-17.5 right-15'
             style={{ boxShadow: '0 12px 32px rgba(18,52,64,0.14)' }}
           >
             <svg viewBox='0 0 100 100' width='100%' height='100%'>
@@ -125,10 +163,33 @@ export default function PetsPage() {
               height: '100%',
             }}
           >
-            <ellipse cx='200' cy='320' rx='160' ry='14' fill='#000' opacity='0.06' />
-            <rect x='60' y='180' width='280' height='140' rx='14' fill='#fff' stroke='#1d2235' strokeWidth='2' />
+            <ellipse
+              cx='200'
+              cy='320'
+              rx='160'
+              ry='14'
+              fill='#000'
+              opacity='0.06'
+            />
+            <rect
+              x='60'
+              y='180'
+              width='280'
+              height='140'
+              rx='14'
+              fill='#fff'
+              stroke='#1d2235'
+              strokeWidth='2'
+            />
             <rect x='60' y='180' width='280' height='20' fill='#E8923C' />
-            <rect x='170' y='170' width='60' height='14' rx='6' fill='#1d2235' />
+            <rect
+              x='170'
+              y='170'
+              width='60'
+              height='14'
+              rx='6'
+              fill='#1d2235'
+            />
             <circle cx='200' cy='250' r='36' fill='#ffe9b8' />
             <ellipse cx='200' cy='268' rx='26' ry='18' fill='#e8a878' />
             <polygon points='168,236 174,208 194,238' fill='#a87d62' />
@@ -136,9 +197,21 @@ export default function PetsPage() {
             <circle cx='186' cy='246' r='2.4' fill='#1d2235' />
             <circle cx='214' cy='246' r='2.4' fill='#1d2235' />
             <g fill='#d97757' opacity='0.7' transform='translate(280 60)'>
-              <ellipse cx='6' cy='14' rx='3' ry='5' transform='rotate(-15 6 14)' />
+              <ellipse
+                cx='6'
+                cy='14'
+                rx='3'
+                ry='5'
+                transform='rotate(-15 6 14)'
+              />
               <ellipse cx='14' cy='8' rx='2.4' ry='4' />
-              <ellipse cx='22' cy='10' rx='2.4' ry='4' transform='rotate(15 22 10)' />
+              <ellipse
+                cx='22'
+                cy='10'
+                rx='2.4'
+                ry='4'
+                transform='rotate(15 22 10)'
+              />
               <ellipse cx='14' cy='20' rx='4.4' ry='6.4' />
             </g>
           </svg>
@@ -147,9 +220,11 @@ export default function PetsPage() {
 
       {/* Secondary filters */}
       <section style={{ padding: '30px 0' }}>
-        <div className='max-w-[1180px] mx-auto flex flex-wrap gap-4 items-center'>
+        <div className='max-w-295 mx-auto flex flex-wrap gap-4 items-center'>
           <div className='flex gap-2 items-center flex-wrap'>
-            <span className='text-[13px] font-semibold text-[var(--ink-2)]'>Gender:</span>
+            <span className='text-[13px] font-semibold text-(--ink-2)'>
+              Gender:
+            </span>
             {GENDER_FILTERS.map((g) => (
               <span
                 key={g}
@@ -165,7 +240,9 @@ export default function PetsPage() {
             ))}
           </div>
           <div className='flex gap-2 items-center flex-wrap'>
-            <span className='text-[13px] font-semibold text-[var(--ink-2)]'>Size:</span>
+            <span className='text-[13px] font-semibold text-(--ink-2)'>
+              Size:
+            </span>
             {SIZE_FILTERS.map((s) => (
               <span
                 key={s}
@@ -195,63 +272,104 @@ export default function PetsPage() {
         />
         {filtered.length > 0 ? (
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7'>
-            {filtered.map(({ id, name, species, breed, ageMonths, gender, size, status, shelterName, bg, svg }) => (
-              <article
-                key={id}
-                className='group bg-[var(--canvas)] rounded-[20px] overflow-hidden border border-[var(--hairline-soft)] flex flex-col min-w-0 transition-[box-shadow,transform] duration-200 ease-out hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]'
-              >
-                <Link
-                  to={`/pets/${id}`}
-                  className='relative flex items-center justify-center overflow-hidden'
-                  style={{ aspectRatio: '4 / 3', background: bg, display: 'flex' }}
-                  tabIndex={-1}
-                  aria-label={`View details for ${name}`}
+            {filtered.map(
+              ({
+                id,
+                name,
+                species,
+                breed,
+                ageMonths,
+                gender,
+                size,
+                status,
+                shelterName,
+                bg,
+                svg,
+              }) => (
+                <article
+                  key={id}
+                  className='group bg-(--canvas) rounded-[20px] overflow-hidden border border-(--hairline-soft) flex flex-col min-w-0 transition-[box-shadow,transform] duration-200 ease-out hover:-translate-y-1 hover:shadow-(--shadow-lift)'
                 >
-                  <span className='absolute top-3 left-3 z-[2]'>
-                    <StatusBadge status={status} />
-                  </span>
-                  <button
-                    className={`absolute top-3 right-3 z-[3] w-9 h-9 rounded-full border-0 flex items-center justify-center cursor-pointer backdrop-blur-sm transition-[transform,color,background,box-shadow] duration-150 ease-out hover:scale-[1.14] active:scale-[0.88] ${
-                      isSaved(String(id))
-                        ? 'text-[#e0465a] bg-[#fff0f2]'
-                        : 'text-[var(--muted)] bg-white/90'
-                    }`}
-                    style={{ boxShadow: '0 2px 8px rgba(18,52,64,0.14)' }}
-                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(String(id)); }}
-                    aria-label={isSaved(String(id)) ? 'Remove from saved' : 'Save pet'}
+                  <Link
+                    to={`/pets/${id}`}
+                    className='relative flex items-center justify-center overflow-hidden'
+                    style={{
+                      aspectRatio: '4 / 3',
+                      background: bg,
+                      display: 'flex',
+                    }}
+                    tabIndex={-1}
+                    aria-label={`View details for ${name}`}
                   >
-                    <HeartIcon width={16} height={16} filled={isSaved(String(id))} />
-                  </button>
-                  <div className='transition-transform duration-300 ease-out group-hover:scale-[1.06] max-w-full h-auto'>
-                    {svg}
-                  </div>
-                </Link>
-                <div className='p-[22px] pb-6 flex-1 flex flex-col'>
-                  <Link to={`/pets/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <h3 className='text-[20px] hover:text-(--rausch) transition-colors duration-150'>{name}</h3>
+                    <span className='absolute top-3 left-3 z-2'>
+                      <StatusBadge status={status} />
+                    </span>
+                    <button
+                      className={`absolute top-3 right-3 z-3 w-9 h-9 rounded-full border-0 flex items-center justify-center cursor-pointer backdrop-blur-sm transition-[transform,color,background,box-shadow] duration-150 ease-out hover:scale-[1.14] active:scale-[0.88] ${
+                        isSaved(String(id))
+                          ? 'text-[#e0465a] bg-[#fff0f2]'
+                          : 'text-(--muted) bg-white/90'
+                      }`}
+                      style={{ boxShadow: '0 2px 8px rgba(18,52,64,0.14)' }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggle(String(id));
+                      }}
+                      aria-label={
+                        isSaved(String(id)) ? 'Remove from saved' : 'Save pet'
+                      }
+                    >
+                      <HeartIcon
+                        width={16}
+                        height={16}
+                        filled={isSaved(String(id))}
+                      />
+                    </button>
+                    <div className='transition-transform duration-300 ease-out group-hover:scale-[1.06] max-w-full h-auto'>
+                      {svg}
+                    </div>
                   </Link>
-                  <p className='text-[var(--muted)] text-[14px] mt-1.5 flex-1' style={{ marginBottom: 4 }}>
-                    {breed} · {speciesLabel(species)} · {genderLabel(gender)}
-                  </p>
-                  <p className='text-[13px] text-[var(--ink-2)]' style={{ marginBottom: 4 }}>
-                    Age: {ageLabel(ageMonths)} · Size: {size}
-                  </p>
-                  <p className='text-[13px] text-[var(--ink-2)]'>{shelterName}</p>
-                  <div className='mt-[18px] pt-4 border-t border-[var(--hairline-soft)] flex justify-between items-center'>
-                    <Link to={`/pets/${id}`} className='btn btn-soft btn-sm'>
-                      View details
+                  <div className='p-5.5 pb-6 flex-1 flex flex-col'>
+                    <Link
+                      to={`/pets/${id}`}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <h3 className='text-[20px] hover:text-(--rausch) transition-colors duration-150'>
+                        {name}
+                      </h3>
                     </Link>
-                    <Link to='/contact' className='btn btn-primary btn-sm'>
-                      Apply to adopt →
-                    </Link>
+                    <p
+                      className='text-(--muted) text-[14px] mt-1.5 flex-1'
+                      style={{ marginBottom: 4 }}
+                    >
+                      {breed} · {speciesLabel(species)} · {genderLabel(gender)}
+                    </p>
+                    <p
+                      className='text-[13px] text-(--ink-2)'
+                      style={{ marginBottom: 4 }}
+                    >
+                      Age: {ageLabel(ageMonths)} · Size: {size}
+                    </p>
+                    <p className='text-[13px] text-(--ink-2)'>{shelterName}</p>
+                    <div className='mt-4.5 pt-4 border-t border-(--hairline-soft) flex justify-between items-center'>
+                      <Link to={`/pets/${id}`} className='btn btn-soft btn-sm'>
+                        View details
+                      </Link>
+                      <Link to='/contact' className='btn btn-primary btn-sm'>
+                        Apply to adopt →
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              ),
+            )}
           </div>
         ) : (
-          <div className='text-center py-12 text-[var(--ink-2)]'>
-            <p>No pets match your current filters. Try adjusting your selection.</p>
+          <div className='text-center py-12 text-(--ink-2)'>
+            <p>
+              No pets match your current filters. Try adjusting your selection.
+            </p>
             <button
               className='btn btn-soft mt-16'
               onClick={() => {

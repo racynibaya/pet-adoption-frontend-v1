@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import PawIcon from '@/icons/PawIcon';
 import HeartIcon from '@/icons/HeartIcon';
 import AuthModal from '@/components/ui/AuthModal';
-import { useFavorites } from '@/context/FavoritesContext';
+import { useFavorites } from '@/context/useFavorites';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },

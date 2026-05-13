@@ -1,22 +1,5 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
-interface FavoritesContextType {
-  saved: string[];
-  toggle: (id: string) => void;
-  isSaved: (id: string) => boolean;
-  drawerOpen: boolean;
-  openDrawer: () => void;
-  closeDrawer: () => void;
-}
-
-const FavoritesContext = createContext<FavoritesContextType>({
-  saved: [],
-  toggle: () => {},
-  isSaved: () => false,
-  drawerOpen: false,
-  openDrawer: () => {},
-  closeDrawer: () => {},
-});
+import { useState, useEffect, type ReactNode } from 'react';
+import { FavoritesContext } from './useFavorites';
 
 export function FavoritesProvider({ children }: { children: ReactNode }) {
   const [saved, setSaved] = useState<string[]>(() => {
@@ -62,5 +45,3 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     </FavoritesContext.Provider>
   );
 }
-
-export const useFavorites = () => useContext(FavoritesContext);

@@ -163,14 +163,14 @@ function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number>(0);
 
   return (
-    <div className='max-w-[880px] mx-auto'>
+    <div className='max-w-220 mx-auto'>
       {FAQ_ITEMS.map(({ question, answer }, i) => (
         <div
           key={question}
           className={`faq-item${openIndex === i ? ' open' : ''}`}
         >
           <div
-            className='faq-question'
+            className='faq-question mx-auto'
             onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
             role='button'
             tabIndex={0}
@@ -220,32 +220,28 @@ export default function ContactPage() {
     <>
       {/* Hero */}
       <section
-        className='mt-6 rounded-[28px] text-center relative overflow-hidden'
+        className='contact-hero mt-6 rounded-[28px] text-center relative overflow-hidden'
         style={{
           background:
             'radial-gradient(ellipse 55% 60% at 78% 18%, rgba(93,181,196,0.45) 0%, transparent 50%),' +
             'radial-gradient(ellipse 50% 55% at 22% 82%, rgba(253,224,178,0.58) 0%, transparent 52%),' +
             'linear-gradient(155deg, #FDF5E2 0%, #F9E8CC 100%)',
-          padding: '72px 64px',
         }}
       >
-        <span className='absolute top-[60px] left-[60px]'>
+        <span className='contact-paw-tl'>
           <PawprintDeco />
         </span>
-        <span className='absolute bottom-[50px] right-[60px]'>
+        <span className='contact-paw-br'>
           <PawprintDeco />
         </span>
         <Eyebrow style={{ justifyContent: 'center' }}>Get in touch</Eyebrow>
-        <h1
-          className='mt-16 max-w-[720px] mx-auto'
-          style={{ fontSize: 64, lineHeight: 1.04 }}
-        >
+        <h1 className='hero-title mt-16 max-w-180 mx-auto'>
           Have a question?
           <br />
           We're here to help
         </h1>
         <p
-          className='max-w-[560px] mx-auto text-[17px]'
+          className='max-w-140 mx-auto text-[17px]'
           style={{ marginTop: 20, color: 'var(--ink-2)' }}
         >
           Reach out about adoption, your application status, registering a
@@ -254,13 +250,10 @@ export default function ContactPage() {
       </section>
 
       {/* Reach cards */}
-      <div
-        className='grid gap-6 relative z-[5]'
-        style={{ gridTemplateColumns: 'repeat(3,1fr)', marginTop: -56 }}
-      >
+      <div className='contact-reach-cards r-grid-3 gap-6 relative z-5'>
         {/* Message */}
         <div
-          className='bg-[var(--canvas)] rounded-[20px] text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
+          className='bg-(--canvas) rounded-[20px] text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
           style={{ padding: '32px 28px' }}
         >
           <div
@@ -284,17 +277,14 @@ export default function ContactPage() {
           >
             hello@kodanest.co
           </div>
-          <div
-            className='text-[13px] mt-[6px]'
-            style={{ color: 'var(--muted)' }}
-          >
+          <div className='text-[13px] mt-1.5' style={{ color: 'var(--muted)' }}>
             Reply within 24 hours, every day of the week.
           </div>
         </div>
 
         {/* Phone */}
         <div
-          className='bg-[var(--canvas)] rounded-[20px] text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
+          className='bg-(--canvas) rounded-[20px] text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
           style={{ padding: '32px 28px' }}
         >
           <div
@@ -318,17 +308,14 @@ export default function ContactPage() {
           >
             1-800-KODA-NEST
           </div>
-          <div
-            className='text-[13px] mt-[6px]'
-            style={{ color: 'var(--muted)' }}
-          >
+          <div className='text-[13px] mt-1.5' style={{ color: 'var(--muted)' }}>
             For urgent pet medical concerns, day or night.
           </div>
         </div>
 
         {/* Visit */}
         <div
-          className='bg-[var(--canvas)] rounded-[20px] text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
+          className='bg-(--canvas) rounded-[20px] text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
           style={{ padding: '32px 28px' }}
         >
           <div
@@ -352,10 +339,7 @@ export default function ContactPage() {
           >
             3 cities, no appt.
           </div>
-          <div
-            className='text-[13px] mt-[6px]'
-            style={{ color: 'var(--muted)' }}
-          >
+          <div className='text-[13px] mt-1.5' style={{ color: 'var(--muted)' }}>
             Drop in for a counselor session in San Agustin, Port Bonifacio, MNL,
             or Siargao.
           </div>
@@ -363,12 +347,9 @@ export default function ContactPage() {
       </div>
 
       {/* Form + info */}
-      <div
-        className='grid gap-16 items-start'
-        style={{ gridTemplateColumns: '1.2fr 1fr', padding: '96px 0' }}
-      >
+      <div className='r-grid-side gap-16 items-start contact-form-grid'>
         <form
-          className='bg-[var(--canvas)] border border-[var(--hairline-soft)] rounded-[24px]'
+          className='bg-(--canvas) border border-(--hairline-soft) rounded-3xl'
           style={{ padding: 40 }}
           onSubmit={handleSubmit}
         >
@@ -381,7 +362,7 @@ export default function ContactPage() {
               }}
             >
               <div
-                className='w-[72px] h-[72px] rounded-full flex items-center justify-center mx-auto mb-5'
+                className='w-18 h-18 rounded-full flex items-center justify-center mx-auto mb-5'
                 style={{
                   background: 'var(--mint)',
                   animation:
@@ -414,7 +395,7 @@ export default function ContactPage() {
               </Link>
             </div>
           ) : (
-            <div className='flex flex-col gap-[18px]'>
+            <div className='flex flex-col gap-4.5'>
               <div>
                 <h2 style={{ fontSize: 32 }}>Tell us a bit about you</h2>
                 <p className='muted mt-8'>
@@ -434,16 +415,13 @@ export default function ContactPage() {
                 >
                   What's it about?
                 </label>
-                <div
-                  className='grid gap-[10px]'
-                  style={{ gridTemplateColumns: 'repeat(4,1fr)' }}
-                >
+                <div className='r-grid-4 gap-2.5 contact-topic-grid'>
                   {TOPIC_BUTTONS.map(({ key, label, icon }) => (
                     <button
                       key={key}
                       type='button'
                       onClick={() => setActiveTopic(key)}
-                      className='border-[1.5px] rounded-[14px] text-center cursor-pointer text-[13px] font-medium transition-[border-color,background,transform,box-shadow] duration-200 hover:border-[var(--ink)] hover:-translate-y-[2px] hover:[box-shadow:var(--shadow-soft)] active:scale-[0.96]'
+                      className='border-[1.5px] rounded-[14px] text-center cursor-pointer text-[13px] font-medium transition-[border-color,background,transform,box-shadow] duration-200 hover:border-(--ink) hover:-translate-y-0.5 hover:[box-shadow:var(--shadow-soft)] active:scale-[0.96]'
                       style={{
                         padding: '14px 8px',
                         fontFamily: 'inherit',
@@ -457,7 +435,7 @@ export default function ContactPage() {
                             : 'var(--hairline)',
                       }}
                     >
-                      <span className='block mx-auto mb-[6px] transition-transform duration-200 hover:scale-[1.15]'>
+                      <span className='block mx-auto mb-1.5 transition-transform duration-200 hover:scale-[1.15]'>
                         {icon}
                       </span>
                       {label}
@@ -466,10 +444,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div
-                className='grid gap-4'
-                style={{ gridTemplateColumns: '1fr 1fr' }}
-              >
+              <div className='r-grid-form-2 gap-4'>
                 <div className='field'>
                   <label htmlFor='firstName'>First name</label>
                   <input
@@ -498,10 +473,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div
-                className='grid gap-4'
-                style={{ gridTemplateColumns: '1fr 1fr' }}
-              >
+              <div className='r-grid-form-2 gap-4'>
                 <div className='field'>
                   <label htmlFor='email'>Email</label>
                   <input
@@ -529,10 +501,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div
-                className='grid gap-4'
-                style={{ gridTemplateColumns: '1fr 1fr' }}
-              >
+              <div className='r-grid-form-2 gap-4'>
                 <div className='field'>
                   <label htmlFor='city'>Where are you?</label>
                   <select
@@ -580,7 +549,7 @@ export default function ContactPage() {
               </div>
 
               <div
-                className='flex gap-3 items-center rounded-[12px]'
+                className='flex gap-3 items-center rounded-xl'
                 style={{ padding: 14, background: 'var(--soft)' }}
               >
                 <input
@@ -624,8 +593,8 @@ export default function ContactPage() {
         <div className='pt-2'>
           <h3 style={{ fontSize: 22, marginBottom: 18 }}>Or visit us</h3>
           <div
-            className='rounded-[24px] relative overflow-hidden map-card-grid'
-            style={{ background: 'var(--cream)', padding: 28, height: 280 }}
+            className='contact-map-card rounded-3xl relative overflow-hidden map-card-grid'
+            style={{ background: 'var(--cream)' }}
           >
             <span className='absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-full w-9 h-12'>
               <svg width='36' height='48' viewBox='0 0 36 48' fill='none'>
@@ -643,11 +612,11 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className='flex flex-col gap-[14px] mt-6'>
+          <div className='flex flex-col gap-3.5 mt-6'>
             {OFFICES.map(({ code, name, addr }) => (
               <div
                 key={code}
-                className='grid gap-3 items-center bg-[var(--canvas)] border border-[var(--hairline-soft)] rounded-[16px] transition-[transform,border-color,box-shadow] duration-200 hover:translate-x-[5px] hover:border-[var(--hairline)] hover:[box-shadow:var(--shadow-soft)]'
+                className='grid gap-3 items-center bg-(--canvas) border border-(--hairline-soft) rounded-2xl transition-[transform,border-color,box-shadow] duration-200 hover:translate-x-1.25 hover:border-(--hairline) hover:[box-shadow:var(--shadow-soft)]'
                 style={{ gridTemplateColumns: '60px 1fr', padding: 16 }}
               >
                 <div

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useStaff } from '@/context/StaffContext'
+import { useStaff } from '@/context/useStaff'
 import { ageLabel, speciesLabel, genderLabel, sizeLabel, type SpeciesFilter } from '@/data/pets'
 
 const SPECIES_FILTERS: SpeciesFilter[] = ['ALL', 'DOG', 'CAT', 'RABBIT', 'BIRD', 'OTHER']
@@ -114,7 +114,7 @@ export default function StaffPets() {
       </div>
 
       {/* Main card */}
-      <div style={{ padding: '24px 32px' }}>
+      <div className='staff-page-body' style={{ padding: '24px 32px' }}>
         <div className="staff-card">
           {/* Toolbar */}
           <div className="staff-toolbar">

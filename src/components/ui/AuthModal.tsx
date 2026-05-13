@@ -14,28 +14,57 @@ interface AuthModalProps {
 function EyeIcon({ open }: { open: boolean }) {
   if (open) {
     return (
-      <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
+      <svg
+        width='16'
+        height='16'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      >
         <path d='M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24' />
         <line x1='1' y1='1' x2='23' y2='23' />
       </svg>
     );
   }
   return (
-    <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
+    <svg
+      width='16'
+      height='16'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
       <path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z' />
       <circle cx='12' cy='12' r='3' />
     </svg>
   );
 }
 
-export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthModalProps) {
+export default function AuthModal({
+  isOpen,
+  mode,
+  onClose,
+  onModeChange,
+}: AuthModalProps) {
   const [signIn, setSignIn] = useState({ email: '', password: '' });
-  const [signUp, setSignUp] = useState({ firstName: '', lastName: '', email: '', password: '' });
+  const [signUp, setSignUp] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
       document.body.style.paddingRight = `${scrollbarWidth}px`;
       document.body.style.overflow = 'hidden';
     }
@@ -45,9 +74,12 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
     };
   }, [isOpen]);
 
-  const handleKey = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') onClose();
-  }, [onClose]);
+  const handleKey = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    },
+    [onClose],
+  );
 
   useEffect(() => {
     if (!isOpen) return;
@@ -63,7 +95,7 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
 
   return ReactDOM.createPortal(
     <div
-      className='fixed inset-0 z-[200] flex items-center justify-center p-4'
+      className='fixed inset-0 z-200 flex items-center justify-center p-4'
       style={{
         background: 'rgba(26,42,30,0.55)',
         backdropFilter: 'blur(4px)',
@@ -76,7 +108,7 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
       aria-label='Authentication'
     >
       <div
-        className='auth-card-bg relative bg-[var(--canvas)] rounded-[24px] w-full max-w-[440px]'
+        className='auth-card-bg relative bg-(--canvas) rounded-3xl w-full max-w-110'
         style={{
           padding: '40px 40px 36px',
           boxShadow: 'var(--shadow-lift)',
@@ -86,18 +118,23 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
       >
         {/* Close button */}
         <button
-          className='absolute top-4 right-4 z-[2] w-8 h-8 rounded-full border-0 bg-[var(--soft)] text-[var(--muted)] text-[18px] flex items-center justify-center cursor-pointer transition-[background,color,transform] duration-[120ms] ease-out hover:bg-[var(--hairline)] hover:text-[var(--ink)] hover:scale-[1.1] hover:rotate-90 active:scale-[0.95]'
+          className='absolute top-4 right-4 z-2 w-8 h-8 rounded-full border-0 bg-(--soft) text-(--muted) text-[18px] flex items-center justify-center cursor-pointer transition-[background,color,transform] duration-120 ease-out hover:bg-(--hairline) hover:text-(--ink) hover:scale-[1.1] hover:rotate-90 active:scale-[0.95]'
           onClick={onClose}
           aria-label='Close'
         >
           <svg width='14' height='14' viewBox='0 0 14 14' fill='none'>
-            <path d='M1 1 L13 13 M13 1 L1 13' stroke='currentColor' strokeWidth='2' strokeLinecap='round' />
+            <path
+              d='M1 1 L13 13 M13 1 L1 13'
+              stroke='currentColor'
+              strokeWidth='2'
+              strokeLinecap='round'
+            />
           </svg>
         </button>
 
         {/* Decorative paw */}
         <div
-          className='flex justify-center mb-[14px] relative z-[1]'
+          className='flex justify-center mb-3.25 relative z-1'
           style={{ opacity: 0.22 }}
           aria-hidden='true'
         >
@@ -106,12 +143,12 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
 
         {/* Title */}
         <h2
-          className='text-[28px] font-bold text-[var(--ink)] text-center tracking-[-0.016em] leading-[1.2] relative z-[1] m-0'
+          className='text-[28px] font-bold text-(--ink) text-center tracking-[-0.016em] leading-[1.2] relative z-1 m-0'
           style={{ fontFamily: 'var(--font-display)' }}
         >
           {mode === 'signin' ? 'Welcome back' : 'Create account'}
         </h2>
-        <p className='text-center text-[var(--muted)] text-[14px] mt-2 leading-[1.55] relative z-[1]'>
+        <p className='text-center text-(--muted) text-[14px] mt-2 leading-[1.55] relative z-1'>
           {mode === 'signin'
             ? 'Sign in to continue your adoption journey'
             : 'Join KodaNest and find your perfect companion'}
@@ -119,14 +156,14 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
 
         {/* Tab switcher */}
         <div
-          className='relative grid grid-cols-2 bg-[var(--soft)] rounded-[12px] p-1 mt-[22px] mb-[20px] z-[1]'
+          className='relative grid grid-cols-2 bg-(--soft) rounded-xl p-1 mt-5.5 mb-5 z-1'
           role='tablist'
         >
           <button
             role='tab'
             aria-selected={mode === 'signin'}
-            className={`relative z-[2] border-0 bg-transparent rounded-[9px] h-[38px] text-[14px] font-semibold cursor-pointer transition-[color] duration-200 tracking-[0.01em] hover:text-[var(--ink-2)] ${
-              mode === 'signin' ? 'text-[var(--ink)]' : 'text-[var(--muted)]'
+            className={`relative z-2 border-0 bg-transparent rounded-[9px] h-9.5 text-[14px] font-semibold cursor-pointer transition-[color] duration-200 tracking-[0.01em] hover:text-(--ink-2) ${
+              mode === 'signin' ? 'text-(--ink)' : 'text-(--muted)'
             }`}
             onClick={() => onModeChange('signin')}
           >
@@ -135,20 +172,26 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
           <button
             role='tab'
             aria-selected={mode === 'signup'}
-            className={`relative z-[2] border-0 bg-transparent rounded-[9px] h-[38px] text-[14px] font-semibold cursor-pointer transition-[color] duration-200 tracking-[0.01em] hover:text-[var(--ink-2)] ${
-              mode === 'signup' ? 'text-[var(--ink)]' : 'text-[var(--muted)]'
+            className={`relative z-2 border-0 bg-transparent rounded-[9px] h-9.5 text-[14px] font-semibold cursor-pointer transition-[color] duration-200 tracking-[0.01em] hover:text-(--ink-2) ${
+              mode === 'signup' ? 'text-(--ink)' : 'text-(--muted)'
             }`}
             onClick={() => onModeChange('signup')}
           >
             Sign Up
           </button>
-          <div className={`auth-tab-indicator${mode === 'signup' ? ' auth-tab-indicator-right' : ''}`} />
+          <div
+            className={`auth-tab-indicator${mode === 'signup' ? ' auth-tab-indicator-right' : ''}`}
+          />
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className='flex flex-col gap-[14px] relative z-[1]' noValidate>
+        <form
+          onSubmit={handleSubmit}
+          className='flex flex-col gap-3.5 relative z-1'
+          noValidate
+        >
           {mode === 'signup' && (
-            <div className='grid grid-cols-2 gap-3 max-[480px]:grid-cols-1 max-[480px]:gap-[14px]'>
+            <div className='grid grid-cols-2 gap-3 max-[480px]:grid-cols-1 max-[480px]:gap-3.5'>
               <div className='field'>
                 <label htmlFor='auth-firstName'>First name</label>
                 <input
@@ -157,7 +200,9 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
                   autoComplete='given-name'
                   placeholder='Jane'
                   value={signUp.firstName}
-                  onChange={(e) => setSignUp({ ...signUp, firstName: e.target.value })}
+                  onChange={(e) =>
+                    setSignUp({ ...signUp, firstName: e.target.value })
+                  }
                   required
                   autoFocus
                 />
@@ -170,7 +215,9 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
                   autoComplete='family-name'
                   placeholder='Doe'
                   value={signUp.lastName}
-                  onChange={(e) => setSignUp({ ...signUp, lastName: e.target.value })}
+                  onChange={(e) =>
+                    setSignUp({ ...signUp, lastName: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -201,8 +248,12 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
               <input
                 id='auth-password'
                 type={showPassword ? 'text' : 'password'}
-                autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
-                placeholder={mode === 'signin' ? '••••••••' : 'Min. 8 characters'}
+                autoComplete={
+                  mode === 'signin' ? 'current-password' : 'new-password'
+                }
+                placeholder={
+                  mode === 'signin' ? '••••••••' : 'Min. 8 characters'
+                }
                 value={mode === 'signin' ? signIn.password : signUp.password}
                 onChange={(e) =>
                   mode === 'signin'
@@ -214,7 +265,7 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
               />
               <button
                 type='button'
-                className='absolute right-[14px] top-1/2 -translate-y-1/2 border-0 bg-transparent text-[var(--muted)] cursor-pointer p-0 flex items-center justify-center transition-[color] duration-[120ms] ease-out hover:text-[var(--ink)]'
+                className='absolute right-3.5 top-1/2 -translate-y-1/2 border-0 bg-transparent text-(--muted) cursor-pointer p-0 flex items-center justify-center transition-[color] duration-120 ease-out hover:text(--ink)'
                 onClick={() => setShowPassword((v) => !v)}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
@@ -226,7 +277,7 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
           {mode === 'signin' && (
             <button
               type='button'
-              className='self-end bg-transparent border-0 text-[13px] text-[var(--muted)] cursor-pointer p-0 -mt-1 transition-[color] duration-[120ms] ease-out hover:text-[var(--rausch)] hover:underline'
+              className='self-end bg-transparent border-0 text-[13px] text-(--muted) cursor-pointer p-0 -mt-1 transition-[color] duration-120 ease-out hover:text-(--rausch) hover:underline'
             >
               Forgot password?
             </button>
@@ -242,18 +293,22 @@ export default function AuthModal({ isOpen, mode, onClose, onModeChange }: AuthM
         </form>
 
         {/* Footer toggle */}
-        <p className='text-center text-[13.5px] text-[var(--muted)] mt-4 relative z-[1]'>
-          {mode === 'signin' ? "Don't have an account? " : 'Already have an account? '}
+        <p className='text-center text-[13.5px] text-(--muted) mt-4 relative z-1'>
+          {mode === 'signin'
+            ? "Don't have an account? "
+            : 'Already have an account? '}
           <button
             type='button'
-            className='bg-transparent border-0 text-[var(--rausch)] font-semibold text-[13.5px] cursor-pointer p-0 transition-[color] duration-[120ms] ease-out hover:text-[var(--rausch-active)] hover:underline'
-            onClick={() => onModeChange(mode === 'signin' ? 'signup' : 'signin')}
+            className='bg-transparent border-0 text-(--rausch) font-semibold text-[13.5px] cursor-pointer p-0 transition-[color] duration-120 ease-out hover:text-(--rausch-active) hover:underline'
+            onClick={() =>
+              onModeChange(mode === 'signin' ? 'signup' : 'signin')
+            }
           >
             {mode === 'signin' ? 'Sign up' : 'Sign in'}
           </button>
         </p>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

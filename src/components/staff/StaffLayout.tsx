@@ -1,5 +1,6 @@
-import { Navigate, NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { useStaff } from '@/context/StaffContext'
+import { useState } from 'react'
+import { Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { useStaff } from '@/context/useStaff'
 import '@/styles/staff.css'
 
 function IconGrid() {
@@ -52,6 +53,9 @@ const NAV = [
 export default function StaffLayout() {
   const { isAuthenticated, staffUser, logout } = useStaff()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const closeSidebar = () => setSidebarOpen(false)
 
   if (!isAuthenticated) return <Navigate to="/staff/login" replace />
 
@@ -60,11 +64,13 @@ export default function StaffLayout() {
     navigate('/staff/login', { replace: true })
   }
 
+  const currentLabel = NAV.find(n => n.end ? pathname === n.to : pathname.startsWith(n.to))?.label ?? 'Staff'
+
   return (
     <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       {/* ── Sidebar ── */}
       <nav
-        className="staff-sidebar"
+        className={`staff-sidebar${sidebarOpen ? ' open' : ''}`}
         style={{
           width: 232,
           flexShrink: 0,
@@ -112,6 +118,7 @@ export default function StaffLayout() {
               key={item.to}
               to={item.to}
               end={item.end}
+              onClick={closeSidebar}
               className={({ isActive }) => `staff-nav-item${isActive ? ' active' : ''}`}
             >
               <span style={{ flexShrink: 0, opacity: 0.8 }}>{item.icon}</span>
@@ -166,8 +173,28 @@ export default function StaffLayout() {
         </div>
       </nav>
 
+      {/* Mobile backdrop */}
+      <div
+        className={`staff-sidebar-backdrop${sidebarOpen ? ' open' : ''}`}
+        onClick={() => setSidebarOpen(false)}
+        aria-hidden='true'
+      />
+
       {/* ── Main area ── */}
-      <div style={{ marginLeft: 232, flex: 1, minWidth: 0, background: '#f5f2ec', minHeight: '100vh' }}>
+      <div className='staff-main' style={{ marginLeft: 232, flex: 1, minWidth: 0, background: '#f5f2ec', minHeight: '100vh' }}>
+        {/* Mobile topbar */}
+        <div className='staff-mobile-topbar'>
+          <button
+            className='staff-mobile-topbar-toggle'
+            onClick={() => setSidebarOpen(v => !v)}
+            aria-label={sidebarOpen ? 'Close menu' : 'Open menu'}
+          >
+            <svg width='18' height='18' viewBox='0 0 20 20' fill='none'>
+              <path d='M3 5 H17 M3 10 H17 M3 15 H17' stroke='currentColor' strokeWidth='2' strokeLinecap='round' />
+            </svg>
+          </button>
+          <span className='staff-mobile-topbar-brand'>{currentLabel}</span>
+        </div>
         <Outlet />
       </div>
     </div>

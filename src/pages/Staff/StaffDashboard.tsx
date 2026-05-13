@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useStaff } from '@/context/StaffContext'
+import { useStaff } from '@/context/useStaff'
 import { ageLabel } from '@/data/pets'
 
 function StatCard({ num, label, accent }: { num: number; label: string; accent: string }) {
@@ -67,11 +67,11 @@ export default function StaffDashboard() {
         </Link>
       </div>
 
-      <div style={{ padding: '28px 32px' }}>
+      <div className='staff-page-body' style={{ padding: '28px 32px' }}>
         {/* Stats row */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
           gap: 14,
           marginBottom: 28,
         }}>
@@ -82,7 +82,7 @@ export default function StaffDashboard() {
           <StatCard num={shelters} label="Shelters" accent="#3a73c2" />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 20, alignItems: 'start' }}>
+        <div className='staff-dashboard-grid' style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 20, alignItems: 'start' }}>
           {/* Recent adoption applications */}
           <div className="staff-card">
             <div className="staff-card-header">
@@ -94,6 +94,7 @@ export default function StaffDashboard() {
                 View all →
               </Link>
             </div>
+            <div className='staff-table-wrap'>
             <table className="staff-table">
               <thead>
                 <tr>
@@ -119,6 +120,7 @@ export default function StaffDashboard() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
 
           {/* Recently added pets */}

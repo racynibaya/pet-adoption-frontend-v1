@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
+import { useState, useEffect, type ReactNode } from 'react'
 import { PET_LISTINGS, type PetCard, type Species } from '@/data/pets'
 import {
   apiLogin, apiLogout, apiGetMe, apiGetPets, apiCreatePet,
@@ -6,52 +6,7 @@ import {
   ApiError,
   type ApiPet,
 } from '@/services/api'
-
-// ── Adoption request (mock until backend implements the endpoint) ─────────────
-
-export interface AdoptionRequest {
-  id: number
-  petId: number
-  petName: string
-  applicantName: string
-  email: string
-  phone: string
-  message?: string
-  rejectionReason?: string
-  submittedAt: string
-  status: 'PENDING' | 'REVIEWING' | 'APPROVED' | 'REJECTED' | 'CANCELLED'
-}
-
-// ── Staff user ────────────────────────────────────────────────────────────────
-
-export interface StaffUser {
-  id: number
-  name: string
-  email: string
-  role: 'STAFF' | 'ADMIN'
-  initials: string
-}
-
-// ── Context shape ─────────────────────────────────────────────────────────────
-
-interface StaffCtx {
-  isAuthenticated: boolean
-  staffUser: StaffUser | null
-  pets: PetCard[]
-  adoptions: AdoptionRequest[]
-  loginError: string
-  login: (email: string, password: string) => Promise<boolean>
-  logout: () => Promise<void>
-  addPet: (formData: FormData) => Promise<void>
-  // updatePet / deletePet operate on local state only until the backend
-  // implements PATCH /pets/:id and DELETE /pets/:id
-  updatePet: (id: number, updates: Partial<Omit<PetCard, 'id' | 'svg' | 'bg' | 'color'>>) => void
-  deletePet: (id: number) => void
-  // Adoption operations are local-only until the backend implements those routes
-  updateAdoption: (id: number, status: AdoptionRequest['status'], rejectionReason?: string) => void
-}
-
-const StaffContext = createContext<StaffCtx | null>(null)
+import { StaffContext, type AdoptionRequest, type StaffUser } from './useStaff'
 
 // ── Pet display defaults (not stored in backend) ──────────────────────────────
 
@@ -92,7 +47,6 @@ function apiPetToPetCard(p: ApiPet): PetCard {
     bg: SPECIES_BG[p.species],
     color: SPECIES_COLOR[p.species],
     svg: makeSvg(p.species),
-    // Extended fields not in backend — empty defaults
     traits: [],
     vaccinated: false,
     neutered: false,
@@ -115,7 +69,6 @@ const MOCK_ADOPTIONS: AdoptionRequest[] = [
 
 export function StaffProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    // Restore token to api module on page load
     const token = sessionStorage.getItem('staff-token')
     if (token) setToken(token)
     return sessionStorage.getItem('staff-auth') === '1'
@@ -128,7 +81,6 @@ export function StaffProvider({ children }: { children: ReactNode }) {
   const [adoptions, setAdoptions] = useState<AdoptionRequest[]>(MOCK_ADOPTIONS)
   const [loginError, setLoginError] = useState('')
 
-  // Load real pets from API on mount (GET /pets is public — no auth required)
   useEffect(() => {
     apiGetPets().then(res => {
       if (res.data.length > 0) setPets(res.data.map(apiPetToPetCard))
@@ -165,7 +117,6 @@ export function StaffProvider({ children }: { children: ReactNode }) {
       sessionStorage.setItem('staff-auth', '1')
       sessionStorage.setItem('staff-user', JSON.stringify(staffUserData))
 
-      // Reload pets with auth context (in case staff-only pets are returned later)
       apiGetPets().then(res => {
         if (res.data.length > 0) setPets(res.data.map(apiPetToPetCard))
       }).catch(() => {})
@@ -196,17 +147,14 @@ export function StaffProvider({ children }: { children: ReactNode }) {
     setPets(prev => [...prev, apiPetToPetCard(res.data)])
   }
 
-  // Local-only until backend implements PATCH /pets/:id
   function updatePet(id: number, updates: Partial<Omit<PetCard, 'id' | 'svg' | 'bg' | 'color'>>) {
     setPets(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p))
   }
 
-  // Local-only until backend implements DELETE /pets/:id
   function deletePet(id: number) {
     setPets(prev => prev.filter(p => p.id !== id))
   }
 
-  // Local-only until backend implements adoption request routes
   function updateAdoption(id: number, status: AdoptionRequest['status'], rejectionReason?: string) {
     setAdoptions(prev => prev.map(a =>
       a.id === id ? { ...a, status, ...(rejectionReason !== undefined && { rejectionReason }) } : a
@@ -218,10 +166,4 @@ export function StaffProvider({ children }: { children: ReactNode }) {
       {children}
     </StaffContext.Provider>
   )
-}
-
-export function useStaff(): StaffCtx {
-  const ctx = useContext(StaffContext)
-  if (!ctx) throw new Error('useStaff must be used within StaffProvider')
-  return ctx
 }

@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useStaff } from '@/context/StaffContext'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useStaff } from '@/context/useStaff'
 import '@/styles/staff.css'
 
 export default function StaffLogin() {
@@ -11,10 +11,7 @@ export default function StaffLogin() {
   const [showPass, setShowPass] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  if (isAuthenticated) {
-    navigate('/staff', { replace: true })
-    return null
-  }
+  if (isAuthenticated) return <Navigate to="/staff" replace />
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
