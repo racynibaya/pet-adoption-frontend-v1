@@ -1,4 +1,5 @@
-export const API_BASE = 'http://localhost:3000/api/v1';
+export const API_BASE =
+  import.meta.env.VITE_API_BASE ?? 'http://localhost:3000/api/v1';
 
 // ── Token management ────────────────────────────────────────────────────────
 
@@ -9,6 +10,56 @@ export function setToken(t: string | null) {
 }
 export function getToken() {
   return _token;
+}
+
+// Mirror a refreshed token into whichever sessionStorage key the active session uses.
+function persistAccessToken(token: string) {
+  setToken(token);
+  if (sessionStorage.getItem('staff-token') !== null) {
+    sessionStorage.setItem('staff-token', token);
+  }
+  if (sessionStorage.getItem('koda-user-token') !== null) {
+    sessionStorage.setItem('koda-user-token', token);
+  }
+}
+
+// Wipe every auth marker when refresh itself fails — next page load forces a fresh sign-in.
+function clearAuthStorage() {
+  setToken(null);
+  sessionStorage.removeItem('staff-token');
+  sessionStorage.removeItem('staff-auth');
+  sessionStorage.removeItem('staff-user');
+  sessionStorage.removeItem('koda-user-token');
+  sessionStorage.removeItem('koda-user');
+}
+
+// Single-flight: parallel 401s share one /auth/refresh call.
+let refreshInFlight: Promise<string | null> | null = null;
+
+function tryRefresh(): Promise<string | null> {
+  if (refreshInFlight) return refreshInFlight;
+  refreshInFlight = (async () => {
+    try {
+      const res = await fetch(`${API_BASE}/auth/refresh`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (!res.ok) return null;
+      const body = (await res.json()) as {
+        success: boolean;
+        accessToken?: string;
+      };
+      return body.accessToken ?? null;
+    } catch {
+      return null;
+    } finally {
+      queueMicrotask(() => {
+        refreshInFlight = null;
+      });
+    }
+  })();
+  return refreshInFlight;
 }
 
 // ── Error class ─────────────────────────────────────────────────────────────
@@ -25,7 +76,11 @@ export class ApiError extends Error {
 
 // ── Core fetch helper ────────────────────────────────────────────────────────
 
-async function apiFetch<T>(path: string, opts?: RequestInit): Promise<T> {
+async function apiFetch<T>(
+  path: string,
+  opts?: RequestInit,
+  _retried = false,
+): Promise<T> {
   const isFormData = opts?.body instanceof FormData;
   const headers: Record<string, string> = {
     ...(!isFormData && { 'Content-Type': 'application/json' }),
@@ -38,6 +93,22 @@ async function apiFetch<T>(path: string, opts?: RequestInit): Promise<T> {
     headers,
     credentials: 'include', // send refresh-token cookie
   });
+
+  // Self-healing: on 401, try /auth/refresh once and retry the original request.
+  if (
+    res.status === 401 &&
+    !_retried &&
+    _token &&
+    path !== '/auth/refresh' &&
+    path !== '/auth/login'
+  ) {
+    const fresh = await tryRefresh();
+    if (fresh) {
+      persistAccessToken(fresh);
+      return apiFetch<T>(path, opts, true);
+    }
+    clearAuthStorage();
+  }
 
   if (!res.ok) {
     let message = `Request failed (${res.status})`;

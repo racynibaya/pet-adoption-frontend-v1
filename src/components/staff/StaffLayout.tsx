@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useStaff } from '@/context/useStaff'
 import '@/styles/staff.css'
 
@@ -148,6 +148,34 @@ export default function StaffLayout() {
               </div>
             </div>
           </div>
+          {staffUser?.role === 'ADMIN' && (
+            <Link
+              to='/admin'
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 6,
+                padding: '8px 12px',
+                marginBottom: 8,
+                background: 'rgba(232,146,60,0.10)',
+                border: '1px solid rgba(232,146,60,0.22)',
+                borderRadius: 9,
+                color: 'rgba(255,221,170,0.92)',
+                fontSize: 12.5,
+                fontWeight: 600,
+                letterSpacing: '0.02em',
+                textDecoration: 'none',
+                fontFamily: 'var(--font-body)',
+                transition: 'background 0.14s, color 0.14s',
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(232,146,60,0.18)'; (e.currentTarget as HTMLAnchorElement).style.color = '#fff' }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(232,146,60,0.10)'; (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,221,170,0.92)' }}
+            >
+              Admin view
+              <span aria-hidden style={{ opacity: 0.7 }}>↗</span>
+            </Link>
+          )}
           <button
             onClick={handleLogout}
             style={{

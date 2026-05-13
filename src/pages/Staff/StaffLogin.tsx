@@ -1,27 +1,25 @@
 import { useState, type FormEvent } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useStaff } from '@/context/useStaff'
 import '@/styles/staff.css'
 
 export default function StaffLogin() {
-  const { login, loginError, isAuthenticated } = useStaff()
-  const navigate = useNavigate()
+  const { login, loginError, isAuthenticated, staffUser } = useStaff()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPass, setShowPass] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  if (isAuthenticated) return <Navigate to="/staff" replace />
+  if (isAuthenticated && staffUser) {
+    return <Navigate to={staffUser.role === 'ADMIN' ? '/admin' : '/staff'} replace />
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setLoading(true)
     const ok = await login(email, password)
-    if (ok) {
-      navigate('/staff', { replace: true })
-    } else {
-      setLoading(false)
-    }
+    // Role-aware redirect happens on next render via the Navigate above.
+    if (!ok) setLoading(false)
   }
 
   return (

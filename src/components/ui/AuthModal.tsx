@@ -1,6 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
+
+import { useNavigate } from 'react-router-dom';
+
 import PawIcon from '@/icons/PawIcon';
+import { apiLogin, ApiError } from '@/services/api';
+import { useAdopter } from '@/context/useUser';
 
 type AuthMode = 'signin' | 'signup';
 
@@ -60,6 +65,11 @@ export default function AuthModal({
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [authError, setAuthError] = useState('');
+
+  const navigate = useNavigate();
+  const { signIn: signInAdopter } = useAdopter();
 
   useEffect(() => {
     if (isOpen) {
@@ -87,8 +97,46 @@ export default function AuthModal({
     return () => document.removeEventListener('keydown', handleKey);
   }, [isOpen, handleKey]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting) return;
+
+    setAuthError('');
+
+    if (mode === 'signin') {
+      setSubmitting(true);
+      try {
+        const data = await apiLogin(signIn.email, signIn.password);
+        if (!data.success || !data.accessToken) {
+          setAuthError('Sign in failed. Please try again.');
+          return;
+        }
+
+        const ok = await signInAdopter(data.accessToken);
+        if (!ok) {
+          setAuthError('This account does not have adopter access.');
+          return;
+        }
+
+        onClose();
+        navigate('/users/me');
+      } catch (err) {
+        if (err instanceof ApiError) {
+          setAuthError(
+            err.status === 401 ? 'Invalid email or password.' : err.message,
+          );
+        } else {
+          setAuthError('Could not connect to the server.');
+        }
+      } finally {
+        setSubmitting(false);
+      }
+      return;
+    }
+
+    if (mode === 'signup') {
+      void signUp;
+    }
   };
 
   if (!isOpen) return null;
@@ -283,12 +331,28 @@ export default function AuthModal({
             </button>
           )}
 
+          {authError && (
+            <p
+              role='alert'
+              className='text-[13px] text-(--rausch) bg-(--rausch-soft) rounded-lg px-3 py-2 m-0'
+            >
+              {authError}
+            </p>
+          )}
+
           <button
             type='submit'
             className='btn btn-primary btn-lg'
             style={{ width: '100%', marginTop: 4 }}
+            disabled={submitting}
           >
-            {mode === 'signin' ? 'Sign in →' : 'Create account →'}
+            {submitting
+              ? mode === 'signin'
+                ? 'Signing in…'
+                : 'Creating…'
+              : mode === 'signin'
+                ? 'Sign in →'
+                : 'Create account →'}
           </button>
         </form>
 

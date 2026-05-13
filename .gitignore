@@ -58,4 +58,4 @@ coverage/
 *.local
 .vercel
 
-./temporary\ screenshot/
+temporary screenshots/

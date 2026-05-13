@@ -4,6 +4,7 @@ import PawIcon from '@/icons/PawIcon';
 import HeartIcon from '@/icons/HeartIcon';
 import AuthModal from '@/components/ui/AuthModal';
 import { useFavorites } from '@/context/useFavorites';
+import { useAdopter } from '@/context/useUser';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -20,6 +21,7 @@ export default function Navbar() {
   const [authOpen, setAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const { saved, openDrawer } = useFavorites();
+  const { isAuthenticated, adopter } = useAdopter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 6);
@@ -56,12 +58,23 @@ export default function Navbar() {
               <span className='nav-saved-count'>{saved.length}</span>
             )}
           </button>
-          <button
-            className='btn btn-outline btn-sm nav-login'
-            onClick={() => { setAuthMode('signin'); setAuthOpen(true); }}
-          >
-            Login or Sign up
-          </button>
+          {isAuthenticated && adopter ? (
+            <Link
+              to='/users/me'
+              className='nav-account'
+              aria-label={`Open ${adopter.firstName || 'your'} dashboard`}
+            >
+              <span className='nav-account-orb' aria-hidden>{adopter.initials || 'KN'}</span>
+              <span className='nav-account-name'>{adopter.firstName || 'Account'}</span>
+            </Link>
+          ) : (
+            <button
+              className='btn btn-outline btn-sm nav-login'
+              onClick={() => { setAuthMode('signin'); setAuthOpen(true); }}
+            >
+              Login or Sign up
+            </button>
+          )}
           <button
             className='nav-hamburger'
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -102,13 +115,24 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
-          <button
-            className='btn btn-primary'
-            style={{ marginTop: 12 }}
-            onClick={() => { setAuthMode('signin'); setAuthOpen(true); setMenuOpen(false); }}
-          >
-            Login or Sign up
-          </button>
+          {isAuthenticated && adopter ? (
+            <Link
+              to='/users/me'
+              className='btn btn-primary'
+              style={{ marginTop: 12 }}
+              onClick={() => setMenuOpen(false)}
+            >
+              Open my dashboard
+            </Link>
+          ) : (
+            <button
+              className='btn btn-primary'
+              style={{ marginTop: 12 }}
+              onClick={() => { setAuthMode('signin'); setAuthOpen(true); setMenuOpen(false); }}
+            >
+              Login or Sign up
+            </button>
+          )}
         </nav>
       )}
 
