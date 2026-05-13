@@ -532,23 +532,25 @@ export default function AboutPage() {
           <PawprintDeco flip />
         </span>
         <Eyebrow style={{ justifyContent: 'center' }}>About KodaNest</Eyebrow>
-        <h1 className='hero-title mt-16 max-w-220 mx-auto'>
-          Built by people
-          <br />
-          who can't stop
-          <br />
-          looking at dogs
-        </h1>
-        <p
-          className='max-w-155 mx-auto text-[18px]'
-          style={{ marginTop: 24, color: 'var(--ink-2)' }}
-        >
-          We started KodaNest in 2023 because finding the right home for a
-          rescue pet shouldn't feel like a search engine result — it should feel
-          like meeting a friend. Today we connect 12,000+ households with
-          adoptable pets from verified shelters across 40 cities in the
-          Philippines.
-        </p>
+        <div className='flex items-center flex-col'>
+          <h1 className='hero-title mt-16 max-w-220 mx-auto'>
+            Built by people
+            <br />
+            who can't stop
+            <br />
+            looking at dogs
+          </h1>
+          <p
+            className='max-w-155 mx-auto text-[18px]'
+            style={{ marginTop: 24, color: 'var(--ink-2)' }}
+          >
+            We started KodaNest in 2023 because finding the right home for a
+            rescue pet shouldn't feel like a search engine result — it should
+            feel like meeting a friend. Today we connect 12,000+ households with
+            adoptable pets from verified shelters across 40 cities in the
+            Philippines.
+          </p>
+        </div>
       </section>
 
       {/* Gallery */}

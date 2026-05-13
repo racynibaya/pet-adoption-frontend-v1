@@ -235,18 +235,20 @@ export default function ContactPage() {
           <PawprintDeco />
         </span>
         <Eyebrow style={{ justifyContent: 'center' }}>Get in touch</Eyebrow>
-        <h1 className='hero-title mt-16 max-w-180 mx-auto'>
-          Have a question?
-          <br />
-          We're here to help
-        </h1>
-        <p
-          className='max-w-140 mx-auto text-[17px]'
-          style={{ marginTop: 20, color: 'var(--ink-2)' }}
-        >
-          Reach out about adoption, your application status, registering a
-          shelter, or anything else. A real person replies within 24 hours.
-        </p>
+        <div className='flex items-center flex-col'>
+          <h1 className='hero-title mt-16 max-w-180 mx-auto'>
+            Have a question?
+            <br />
+            We're here to help
+          </h1>
+          <p
+            className='max-w-140 mx-auto text-[17px]'
+            style={{ marginTop: 20, color: 'var(--ink-2)' }}
+          >
+            Reach out about adoption, your application status, registering a
+            shelter, or anything else. A real person replies within 24 hours.
+          </p>
+        </div>
       </section>
 
       {/* Reach cards */}
