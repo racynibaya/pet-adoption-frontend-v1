@@ -1,33 +1,45 @@
-import { useState, useEffect, type ReactNode } from 'react'
-import { PET_LISTINGS, type PetCard, type Species } from '@/data/pets'
+import { useState, useEffect, type ReactNode } from 'react';
+import { PET_LISTINGS, type PetCard, type Species } from '@/data/pets';
 import {
-  apiLogin, apiLogout, apiGetMe, apiGetPets, apiCreatePet,
+  apiLogin,
+  apiLogout,
+  apiGetMe,
+  apiGetPets,
+  apiCreatePet,
   setToken,
   ApiError,
   type ApiPet,
-} from '@/services/api'
-import { StaffContext, type AdoptionRequest, type StaffUser } from './useStaff'
+} from '@/services/api';
+import { StaffContext, type AdoptionRequest, type StaffUser } from './useStaff';
 
 // ── Pet display defaults (not stored in backend) ──────────────────────────────
 
 const SPECIES_COLOR: Record<Species, string> = {
-  DOG: '#a87d62', CAT: '#827d76', RABBIT: '#a0c8b4', BIRD: '#3a73c2', OTHER: '#6c8080',
-}
+  DOG: '#a87d62',
+  CAT: '#827d76',
+  RABBIT: '#a0c8b4',
+  BIRD: '#3a73c2',
+  OTHER: '#6c8080',
+};
 const SPECIES_BG: Record<Species, string> = {
-  DOG: '#fef5e2', CAT: '#ffe9b8', RABBIT: '#e9f5ee', BIRD: '#e5edf6', OTHER: '#f3f0ea',
-}
+  DOG: '#fef5e2',
+  CAT: '#ffe9b8',
+  RABBIT: '#e9f5ee',
+  BIRD: '#e5edf6',
+  OTHER: '#f3f0ea',
+};
 
 function makeSvg(species: Species): ReactNode {
-  const c = SPECIES_COLOR[species]
+  const c = SPECIES_COLOR[species];
   return (
-    <svg viewBox="0 0 200 160" width="200" height="160">
-      <ellipse cx="100" cy="100" rx="58" ry="42" fill={c} />
-      <ellipse cx="100" cy="92" rx="42" ry="36" fill={c} opacity="0.45" />
-      <circle cx="87" cy="94" r="3.2" fill="#1d2235" />
-      <circle cx="113" cy="94" r="3.2" fill="#1d2235" />
-      <ellipse cx="100" cy="106" rx="5" ry="3.5" fill="#1d2235" />
+    <svg viewBox='0 0 200 160' width='200' height='160'>
+      <ellipse cx='100' cy='100' rx='58' ry='42' fill={c} />
+      <ellipse cx='100' cy='92' rx='42' ry='36' fill={c} opacity='0.45' />
+      <circle cx='87' cy='94' r='3.2' fill='#1d2235' />
+      <circle cx='113' cy='94' r='3.2' fill='#1d2235' />
+      <ellipse cx='100' cy='106' rx='5' ry='3.5' fill='#1d2235' />
     </svg>
-  )
+  );
 }
 
 function apiPetToPetCard(p: ApiPet): PetCard {
@@ -52,56 +64,109 @@ function apiPetToPetCard(p: ApiPet): PetCard {
     neutered: false,
     houseTrained: false,
     goodWith: [],
-  }
+  };
 }
 
 // ── Mock adoptions (no backend endpoint yet) ──────────────────────────────────
 
 const MOCK_ADOPTIONS: AdoptionRequest[] = [
-  { id: 1, petId: 1, petName: 'Biscuit', applicantName: 'Juan Dela Cruz', email: 'juan@email.com', phone: '09171234567', submittedAt: '2026-05-10', status: 'PENDING' },
-  { id: 2, petId: 2, petName: 'Luna', applicantName: 'Ana Reyes', email: 'ana@email.com', phone: '09281234567', submittedAt: '2026-05-11', status: 'REVIEWING' },
-  { id: 3, petId: 6, petName: 'Daisy', applicantName: 'Carlo Mendoza', email: 'carlo@email.com', phone: '09191234567', submittedAt: '2026-05-09', status: 'APPROVED' },
-  { id: 4, petId: 5, petName: 'Kiwi', applicantName: 'Sarah Kim', email: 'sarah@email.com', phone: '09361234567', submittedAt: '2026-05-08', status: 'PENDING' },
-  { id: 5, petId: 4, petName: 'Rex', applicantName: 'Paolo Reyes', email: 'paolo@email.com', phone: '09451234567', submittedAt: '2026-05-07', status: 'REJECTED', rejectionReason: 'Applicant does not meet experience requirements for large breeds.' },
-]
+  {
+    id: 1,
+    petId: 1,
+    petName: 'Biscuit',
+    applicantName: 'Juan Dela Cruz',
+    email: 'juan@email.com',
+    phone: '09171234567',
+    submittedAt: '2026-05-10',
+    status: 'PENDING',
+  },
+  {
+    id: 2,
+    petId: 2,
+    petName: 'Luna',
+    applicantName: 'Ana Reyes',
+    email: 'ana@email.com',
+    phone: '09281234567',
+    submittedAt: '2026-05-11',
+    status: 'REVIEWING',
+  },
+  {
+    id: 3,
+    petId: 6,
+    petName: 'Daisy',
+    applicantName: 'Carlo Mendoza',
+    email: 'carlo@email.com',
+    phone: '09191234567',
+    submittedAt: '2026-05-09',
+    status: 'APPROVED',
+  },
+  {
+    id: 4,
+    petId: 5,
+    petName: 'Kiwi',
+    applicantName: 'Sarah Kim',
+    email: 'sarah@email.com',
+    phone: '09361234567',
+    submittedAt: '2026-05-08',
+    status: 'PENDING',
+  },
+  {
+    id: 5,
+    petId: 4,
+    petName: 'Rex',
+    applicantName: 'Paolo Reyes',
+    email: 'paolo@email.com',
+    phone: '09451234567',
+    submittedAt: '2026-05-07',
+    status: 'REJECTED',
+    rejectionReason:
+      'Applicant does not meet experience requirements for large breeds.',
+  },
+];
 
 // ── Provider ──────────────────────────────────────────────────────────────────
 
 export function StaffProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const token = sessionStorage.getItem('staff-token')
-    if (token) setToken(token)
-    return sessionStorage.getItem('staff-auth') === '1'
-  })
+    const token = sessionStorage.getItem('staff-token');
+    if (token) setToken(token);
+    return sessionStorage.getItem('staff-auth') === '1';
+  });
   const [staffUser, setStaffUser] = useState<StaffUser | null>(() => {
-    const stored = sessionStorage.getItem('staff-user')
-    return stored ? (JSON.parse(stored) as StaffUser) : null
-  })
-  const [pets, setPets] = useState<PetCard[]>(PET_LISTINGS)
-  const [adoptions, setAdoptions] = useState<AdoptionRequest[]>(MOCK_ADOPTIONS)
-  const [loginError, setLoginError] = useState('')
+    const stored = sessionStorage.getItem('staff-user');
+    return stored ? (JSON.parse(stored) as StaffUser) : null;
+  });
+  const [pets, setPets] = useState<PetCard[]>(PET_LISTINGS);
+  const [adoptions, setAdoptions] = useState<AdoptionRequest[]>(MOCK_ADOPTIONS);
+  const [loginError, setLoginError] = useState('');
+
+  console.log(pets);
 
   useEffect(() => {
-    apiGetPets().then(res => {
-      if (res.data.length > 0) setPets(res.data.map(apiPetToPetCard))
-    }).catch(() => { /* backend unavailable — keep mock data */ })
-  }, [])
+    apiGetPets()
+      .then((res) => {
+        if (res.data.length > 0) setPets(res.data.map(apiPetToPetCard));
+      })
+      .catch(() => {
+        /* backend unavailable — keep mock data */
+      });
+  }, []);
 
   async function login(email: string, password: string): Promise<boolean> {
-    setLoginError('')
+    setLoginError('');
     try {
-      const authRes = await apiLogin(email, password)
-      setToken(authRes.accessToken)
-      sessionStorage.setItem('staff-token', authRes.accessToken)
+      const authRes = await apiLogin(email, password);
+      setToken(authRes.accessToken);
+      sessionStorage.setItem('staff-token', authRes.accessToken);
 
-      const meRes = await apiGetMe()
-      const u = meRes.data
+      const meRes = await apiGetMe();
+      const u = meRes.data;
 
       if (u.role !== 'STAFF' && u.role !== 'ADMIN') {
-        setLoginError('This account does not have staff access.')
-        setToken(null)
-        sessionStorage.removeItem('staff-token')
-        return false
+        setLoginError('This account does not have staff access.');
+        setToken(null);
+        sessionStorage.removeItem('staff-token');
+        return false;
       }
 
       const staffUserData: StaffUser = {
@@ -110,60 +175,101 @@ export function StaffProvider({ children }: { children: ReactNode }) {
         email: u.email,
         role: u.role,
         initials: `${u.firstName[0]}${u.lastName[0]}`.toUpperCase(),
-      }
+      };
 
-      setIsAuthenticated(true)
-      setStaffUser(staffUserData)
-      sessionStorage.setItem('staff-auth', '1')
-      sessionStorage.setItem('staff-user', JSON.stringify(staffUserData))
+      setIsAuthenticated(true);
+      setStaffUser(staffUserData);
+      sessionStorage.setItem('staff-auth', '1');
+      sessionStorage.setItem('staff-user', JSON.stringify(staffUserData));
 
-      apiGetPets().then(res => {
-        if (res.data.length > 0) setPets(res.data.map(apiPetToPetCard))
-      }).catch(() => {})
+      apiGetPets()
+        .then((res) => {
+          if (res.data.length > 0) setPets(res.data.map(apiPetToPetCard));
+        })
+        .catch(() => {});
 
-      return true
+      return true;
     } catch (err) {
       if (err instanceof ApiError) {
-        setLoginError(err.status === 401 ? 'Invalid email or password.' : err.message)
+        setLoginError(
+          err.status === 401 ? 'Invalid email or password.' : err.message,
+        );
       } else {
-        setLoginError('Could not connect to the server. Make sure the backend is running.')
+        setLoginError(
+          'Could not connect to the server. Make sure the backend is running.',
+        );
       }
-      return false
+      return false;
     }
   }
 
   async function logout(): Promise<void> {
-    try { await apiLogout() } catch { /* ignore */ }
-    setToken(null)
-    setIsAuthenticated(false)
-    setStaffUser(null)
-    sessionStorage.removeItem('staff-auth')
-    sessionStorage.removeItem('staff-token')
-    sessionStorage.removeItem('staff-user')
+    try {
+      await apiLogout();
+    } catch {
+      /* ignore */
+    }
+    setToken(null);
+    setIsAuthenticated(false);
+    setStaffUser(null);
+    sessionStorage.removeItem('staff-auth');
+    sessionStorage.removeItem('staff-token');
+    sessionStorage.removeItem('staff-user');
   }
 
   async function addPet(formData: FormData): Promise<void> {
-    const res = await apiCreatePet(formData)
-    setPets(prev => [...prev, apiPetToPetCard(res.data)])
+    const res = await apiCreatePet(formData);
+    setPets((prev) => [...prev, apiPetToPetCard(res.data)]);
   }
 
-  function updatePet(id: number, updates: Partial<Omit<PetCard, 'id' | 'svg' | 'bg' | 'color'>>) {
-    setPets(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p))
+  function updatePet(
+    id: number,
+    updates: Partial<Omit<PetCard, 'id' | 'svg' | 'bg' | 'color'>>,
+  ) {
+    setPets((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, ...updates } : p)),
+    );
   }
 
   function deletePet(id: number) {
-    setPets(prev => prev.filter(p => p.id !== id))
+    setPets((prev) => prev.filter((p) => p.id !== id));
   }
 
-  function updateAdoption(id: number, status: AdoptionRequest['status'], rejectionReason?: string) {
-    setAdoptions(prev => prev.map(a =>
-      a.id === id ? { ...a, status, ...(rejectionReason !== undefined && { rejectionReason }) } : a
-    ))
+  function updateAdoption(
+    id: number,
+    status: AdoptionRequest['status'],
+    rejectionReason?: string,
+  ) {
+    setAdoptions((prev) =>
+      prev.map((a) =>
+        a.id === id
+          ? {
+              ...a,
+              status,
+              ...(rejectionReason !== undefined && { rejectionReason }),
+            }
+          : a,
+      ),
+    );
   }
 
   return (
-    <StaffContext.Provider value={{ isAuthenticated, staffUser, pets, adoptions, loginError, login, logout, addPet, updatePet, deletePet, updateAdoption }}>
+    <StaffContext.Provider
+      value={{
+        isAuthenticated,
+        staffUser,
+        pets,
+        adoptions,
+        loginError,
+        login,
+        logout,
+        addPet,
+        updatePet,
+        deletePet,
+        updateAdoption,
+      }}
+    >
       {children}
     </StaffContext.Provider>
-  )
+  );
 }

@@ -604,6 +604,9 @@
 .user-topbar-actions { display: flex; gap: 10px; align-items: center; }
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
+
+/* Tablet — hero goes single-col, timeline & profile go single-col.
+   Stats keep 3 columns; they're compact enough to stay side-by-side. */
 @media (max-width: 920px) {
   .user-shell { padding: 64px 20px 80px; }
   .user-hero {
@@ -612,17 +615,84 @@
     gap: 28px;
   }
   .user-hero-side { max-width: 100%; justify-self: stretch; }
-  .user-stats { grid-template-columns: 1fr; }
   .user-timeline,
   .user-profile { grid-template-columns: 1fr; }
+  .user-profile-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .user-profile-cta .user-btn { align-self: flex-start; }
 }
 
+/* Large phone — stats collapse to single column, pet grid goes 2-up */
+@media (max-width: 640px) {
+  .user-stats { grid-template-columns: 1fr; }
+  .user-pet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+/* Phone — general tightening */
 @media (max-width: 560px) {
   .user-topbar { padding: 18px 18px 0; }
   .user-shell { padding: 48px 18px 64px; }
   .user-hero { padding: 28px 22px 32px; border-radius: 24px; }
   .user-hero-title { font-size: clamp(34px, 9vw, 44px); }
+  .user-hero-lede { font-size: 15px; }
+
+  /* Stack meta items vertically and hide the separator dots */
+  .user-hero-meta {
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+  }
+  .user-hero-meta .dot { display: none; }
+
   .u-section-head { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 18px; }
+
+  /* Compact pet card body */
+  .user-pet-body { padding: 10px 12px 12px; }
+  .user-pet-name { font-size: 15px; }
+
+  /* Tighter timeline & profile panels */
+  .user-timeline { padding: 22px 20px; gap: 20px; }
+  .user-timeline-head { font-size: 18px; }
+  .user-profile { padding: 22px 20px; }
+
+  /* Smaller avatar orb */
+  .user-avatar-tile { padding: 16px 18px; gap: 14px; }
+  .user-avatar-orb { width: 52px; height: 52px; font-size: 18px; }
+  .user-avatar-orb-inner { width: 46px; height: 46px; }
+}
+
+/* Small phone — hide brand label & Browse-pets link to save topbar width */
+@media (max-width: 420px) {
+  .user-topbar { padding: 14px 14px 0; }
+  .user-topbar-brand-text { display: none; }
+  .user-topbar-actions > a { display: none; } /* hides the Browse pets link */
+  .user-shell { padding: 44px 14px 56px; }
+  .user-hero { padding: 22px 16px 26px; border-radius: 20px; }
+  .user-stat { padding: 18px 20px; }
+  .user-stat-value { font-size: 32px; }
+  .user-journey { padding: 18px 18px 16px; }
+  .user-journey-step { font-size: 19px; }
+  .user-profile-cta .user-btn { width: 100%; justify-content: center; }
+}
+
+/* Very small phone — pet grid falls back to single column */
+@media (max-width: 340px) {
+  .user-pet-grid { grid-template-columns: 1fr; }
+}
+
+/* Touch devices — swap hover lift for an active-press scale */
+@media (hover: none) {
+  .user-pet-card:active {
+    transform: scale(0.97);
+    box-shadow: 0 6px 18px -14px rgba(17, 73, 74, 0.28);
+    border-color: var(--u-line-strong);
+  }
 }
 
 /* ── Respect reduced motion ──────────────────────────────────────────────── */

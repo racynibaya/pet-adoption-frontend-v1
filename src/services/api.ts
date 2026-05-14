@@ -203,6 +203,26 @@ export function apiRefresh() {
   return apiFetch<{ success: boolean; accessToken: string }>('/auth/refresh');
 }
 
+export function apiRegister(firstName: string, lastName: string, email: string, password: string) {
+  return apiFetch<{ success: boolean; message: string }>(
+    '/auth/register',
+    { method: 'POST', body: JSON.stringify({ firstName, lastName, email, password }) },
+  );
+}
+
+export function apiVerifyEmail(token: string) {
+  return apiFetch<{ success: boolean; message: string }>(
+    `/auth/verify-email?token=${encodeURIComponent(token)}`,
+  );
+}
+
+export function apiResendVerification(email: string) {
+  return apiFetch<{ success: boolean; message: string }>(
+    '/auth/resend-verification',
+    { method: 'POST', body: JSON.stringify({ email }) },
+  );
+}
+
 // ── User endpoints ───────────────────────────────────────────────────────────
 
 export function apiGetMe() {

@@ -20,6 +20,7 @@ import UserDashboard from '@/pages/User/UserDashboard';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminDashboard from '@/pages/Admin/AdminDashboard';
 import AdminShelters from '@/pages/Admin/AdminShelters';
+import VerifyEmailPage from '@/pages/Auth/VerifyEmail';
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
               <Route path='/shelters' element={<SheltersPage />} />
               <Route path='/about' element={<AboutPage />} />
               <Route path='/contact' element={<ContactPage />} />
+              <Route path='/verify-email' element={<VerifyEmailPage />} />
             </Route>
 
             {/* Adopter portal */}
