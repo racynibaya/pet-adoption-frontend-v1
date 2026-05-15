@@ -1221,7 +1221,7 @@ export default function HomePage() {
         </Link>
         <Link
           to='/contact'
-          className='btn'
+          className='btn btn-lg'
           style={{ background: '#fff', color: 'var(--ink)' }}
         >
           Talk to us
