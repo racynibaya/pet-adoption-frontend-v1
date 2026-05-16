@@ -58,6 +58,8 @@ export interface PetCard {
   bg: string
   svg: React.ReactNode
   color: string
+  imageUrl?: string
+  imageUrls?: string[]
   // Extended info (not in backend — shown in PetDetail from mock data):
   description: string
   traits: string[]

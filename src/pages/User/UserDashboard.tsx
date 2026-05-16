@@ -1,26 +1,27 @@
-import { Link } from 'react-router-dom'
-import { useAdopter } from '@/context/useUser'
-import { useFavorites } from '@/context/useFavorites'
-import { useStaff } from '@/context/useStaff'
-import { ageLabel, type PetCard } from '@/data/pets'
+import { Link } from 'react-router-dom';
+import { useAdopter } from '@/context/useUser';
+import { useFavorites } from '@/context/useFavorites';
+import { useStaff } from '@/context/useStaff';
+import { ageLabel, type PetCard } from '@/data/pets';
 
 export default function UserDashboard() {
-  const { adopter } = useAdopter()
-  const { saved } = useFavorites()
-  const { pets } = useStaff()
+  const { adopter } = useAdopter();
+  const { saved } = useFavorites();
+  const { pets } = useStaff();
 
-  if (!adopter) return null
+  if (!adopter) return null;
 
-  const savedIds = new Set(saved)
-  const savedPets = pets.filter((p) => savedIds.has(String(p.id)))
+  const savedIds = new Set(saved);
+  const savedPets = pets.filter((p) => savedIds.has(String(p.id)));
   const suggestions = pets
     .filter((p) => p.status === 'AVAILABLE' && !savedIds.has(String(p.id)))
-    .slice(0, 4)
+    .slice(0, 4);
 
-  const greeting = greetingFor(new Date().getHours())
-  const journeyStep = savedPets.length === 0 ? 'Discovering' : 'Shortlisting'
-  const journeyPct = savedPets.length === 0 ? 12 : Math.min(70, 25 + savedPets.length * 8)
-  const joinedLabel = formatJoined(adopter.joinedAt)
+  const greeting = greetingFor(new Date().getHours());
+  const journeyStep = savedPets.length === 0 ? 'Discovering' : 'Shortlisting';
+  const journeyPct =
+    savedPets.length === 0 ? 12 : Math.min(70, 25 + savedPets.length * 8);
+  const joinedLabel = formatJoined(adopter.joinedAt);
 
   return (
     <div className='user-shell'>
@@ -29,18 +30,19 @@ export default function UserDashboard() {
         <div>
           <div className='user-hero-eyebrow'>{greeting}, friend</div>
           <h1 className='user-hero-title'>
-            Welcome back,{' '}
-            <em>{adopter.firstName || 'there'}</em>.
+            Welcome back, <em>{adopter.firstName || 'there'}</em>.
           </h1>
           <p className='user-hero-lede'>
-            Your adoption journey is a story still being written. Below is
-            where you left off — the pets you’ve saved, the steps you’ve
-            taken, and a few new faces we think you should meet.
+            Your adoption journey is a story still being written. Below is where
+            you left off — the pets you’ve saved, the steps you’ve taken, and a
+            few new faces we think you should meet.
           </p>
           <div className='user-hero-meta'>
             <span>Member since {joinedLabel}</span>
             <span className='dot' aria-hidden />
-            <span>{savedPets.length} saved {savedPets.length === 1 ? 'pet' : 'pets'}</span>
+            <span>
+              {savedPets.length} saved {savedPets.length === 1 ? 'pet' : 'pets'}
+            </span>
             <span className='dot' aria-hidden />
             <span>{adopter.email}</span>
           </div>
@@ -49,13 +51,21 @@ export default function UserDashboard() {
         <div className='user-hero-side'>
           <div className='user-avatar-tile'>
             <div className='user-avatar-orb' aria-hidden>
-              <div className='user-avatar-orb-inner'>{adopter.initials || 'KN'}</div>
+              <div className='user-avatar-orb-inner'>
+                {adopter.initials || 'KN'}
+              </div>
             </div>
             <div className='user-avatar-meta'>
-              <div className='user-avatar-name'>{adopter.name || adopter.email}</div>
+              <div className='user-avatar-name'>
+                {adopter.name || adopter.email}
+              </div>
               <div className='user-avatar-email'>{adopter.email}</div>
             </div>
-            <span className={adopter.isVerified ? 'user-verified' : 'user-verified pending'}>
+            <span
+              className={
+                adopter.isVerified ? 'user-verified' : 'user-verified pending'
+              }
+            >
               {adopter.isVerified ? 'Verified' : 'Verify'}
             </span>
           </div>
@@ -74,18 +84,30 @@ export default function UserDashboard() {
       </section>
 
       {/* ── Stats strip ──────────────────────────────────────────────────── */}
-      <section className='u-section user-stats' style={{ ['--i' as string]: 1 }}>
-        <article className='user-stat' style={{ ['--accent' as string]: 'var(--u-amber)' }}>
+      <section
+        className='u-section user-stats'
+        style={{ ['--i' as string]: 1 }}
+      >
+        <article
+          className='user-stat'
+          style={{ ['--accent' as string]: 'var(--u-amber)' }}
+        >
           <div className='user-stat-label'>Saved</div>
           <div className='user-stat-value'>{savedPets.length}</div>
           <div className='user-stat-note'>Pets you’d love to meet</div>
         </article>
-        <article className='user-stat' style={{ ['--accent' as string]: 'var(--u-teal)' }}>
+        <article
+          className='user-stat'
+          style={{ ['--accent' as string]: 'var(--u-teal)' }}
+        >
           <div className='user-stat-label'>Applications</div>
           <div className='user-stat-value'>0</div>
           <div className='user-stat-note'>None submitted yet</div>
         </article>
-        <article className='user-stat' style={{ ['--accent' as string]: 'var(--u-rose)' }}>
+        <article
+          className='user-stat'
+          style={{ ['--accent' as string]: 'var(--u-rose)' }}
+        >
           <div className='user-stat-label'>Matches nearby</div>
           <div className='user-stat-value'>{suggestions.length}</div>
           <div className='user-stat-note'>Available in shelters near you</div>
@@ -93,7 +115,10 @@ export default function UserDashboard() {
       </section>
 
       {/* ── Saved pets ───────────────────────────────────────────────────── */}
-      <section className='u-section' style={{ ['--i' as string]: 2, marginTop: 48 }}>
+      <section
+        className='u-section'
+        style={{ ['--i' as string]: 2, marginTop: 48 }}
+      >
         <header className='u-section-head'>
           <div>
             <div className='u-section-num'>01 — Saved</div>
@@ -110,7 +135,9 @@ export default function UserDashboard() {
             <p style={{ margin: 0 }}>
               Tap the heart on any pet to keep them here for later.
             </p>
-            <Link to='/pets' className='user-empty-cta'>Start browsing</Link>
+            <Link to='/pets' className='user-empty-cta'>
+              Start browsing
+            </Link>
           </div>
         ) : (
           <div className='user-pet-grid'>
@@ -122,7 +149,10 @@ export default function UserDashboard() {
       </section>
 
       {/* ── Application timeline ─────────────────────────────────────────── */}
-      <section className='u-section' style={{ ['--i' as string]: 3, marginTop: 48 }}>
+      <section
+        className='u-section'
+        style={{ ['--i' as string]: 3, marginTop: 48 }}
+      >
         <header className='u-section-head'>
           <div>
             <div className='u-section-num'>02 — Journey</div>
@@ -148,14 +178,22 @@ export default function UserDashboard() {
           </div>
 
           <ol className='user-steps' aria-label='Adoption steps'>
-            <li className={`user-step ${savedPets.length > 0 ? 'is-done' : 'is-active'}`}>
-              <span className='user-step-dot'>{savedPets.length > 0 ? '✓' : '1'}</span>
+            <li
+              className={`user-step ${savedPets.length > 0 ? 'is-done' : 'is-active'}`}
+            >
+              <span className='user-step-dot'>
+                {savedPets.length > 0 ? '✓' : '1'}
+              </span>
               <div>
                 <div className='user-step-title'>Save pets you love</div>
-                <div className='user-step-meta'>{savedPets.length} saved so far</div>
+                <div className='user-step-meta'>
+                  {savedPets.length} saved so far
+                </div>
               </div>
             </li>
-            <li className={`user-step ${savedPets.length > 0 ? 'is-active' : ''}`}>
+            <li
+              className={`user-step ${savedPets.length > 0 ? 'is-active' : ''}`}
+            >
               <span className='user-step-dot'>2</span>
               <div>
                 <div className='user-step-title'>Submit an application</div>
@@ -166,7 +204,9 @@ export default function UserDashboard() {
               <span className='user-step-dot'>3</span>
               <div>
                 <div className='user-step-title'>Meet & welcome home</div>
-                <div className='user-step-meta'>Coordinated with the shelter</div>
+                <div className='user-step-meta'>
+                  Coordinated with the shelter
+                </div>
               </div>
             </li>
           </ol>
@@ -174,7 +214,10 @@ export default function UserDashboard() {
       </section>
 
       {/* ── Suggested matches ────────────────────────────────────────────── */}
-      <section className='u-section' style={{ ['--i' as string]: 4, marginTop: 48 }}>
+      <section
+        className='u-section'
+        style={{ ['--i' as string]: 4, marginTop: 48 }}
+      >
         <header className='u-section-head'>
           <div>
             <div className='u-section-num'>03 — For you</div>
@@ -202,7 +245,10 @@ export default function UserDashboard() {
       </section>
 
       {/* ── Profile snippet ──────────────────────────────────────────────── */}
-      <section className='u-section' style={{ ['--i' as string]: 5, marginTop: 48 }}>
+      <section
+        className='u-section'
+        style={{ ['--i' as string]: 5, marginTop: 48 }}
+      >
         <header className='u-section-head'>
           <div>
             <div className='u-section-num'>04 — Account</div>
@@ -221,13 +267,17 @@ export default function UserDashboard() {
           </div>
           <div className='user-profile-block'>
             <span className='user-profile-label'>Phone</span>
-            <span className={`user-profile-value ${adopter.phoneNumber ? '' : 'empty'}`}>
+            <span
+              className={`user-profile-value ${adopter.phoneNumber ? '' : 'empty'}`}
+            >
               {adopter.phoneNumber || 'Add a number so shelters can reach you'}
             </span>
           </div>
           <div className='user-profile-block'>
             <span className='user-profile-label'>Address</span>
-            <span className={`user-profile-value ${adopter.address ? '' : 'empty'}`}>
+            <span
+              className={`user-profile-value ${adopter.address ? '' : 'empty'}`}
+            >
               {adopter.address || 'Not set yet'}
             </span>
           </div>
@@ -244,7 +294,7 @@ export default function UserDashboard() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
 // ── Pet mini card ──────────────────────────────────────────────────────────
@@ -252,7 +302,7 @@ function PetMiniCard({ pet }: { pet: PetCard }) {
   return (
     <Link to={`/pets/${pet.id}`} className='user-pet-card'>
       <div className='user-pet-thumb' style={{ background: pet.bg }}>
-        {pet.svg}
+        <img src={pet.imageUrl} />
       </div>
       <div className='user-pet-body'>
         <h3 className='user-pet-name'>{pet.name}</h3>
@@ -266,23 +316,23 @@ function PetMiniCard({ pet }: { pet: PetCard }) {
         )}
       </div>
     </Link>
-  )
+  );
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function greetingFor(hour: number): string {
-  if (hour < 5) return 'Late evening'
-  if (hour < 12) return 'Good morning'
-  if (hour < 17) return 'Good afternoon'
-  if (hour < 21) return 'Good evening'
-  return 'Late evening'
+  if (hour < 5) return 'Late evening';
+  if (hour < 12) return 'Good morning';
+  if (hour < 17) return 'Good afternoon';
+  if (hour < 21) return 'Good evening';
+  return 'Late evening';
 }
 
 function formatJoined(iso: string): string {
   try {
-    const d = new Date(iso)
-    return d.toLocaleDateString(undefined, { month: 'long', year: 'numeric' })
+    const d = new Date(iso);
+    return d.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
   } catch {
-    return 'recently'
+    return 'recently';
   }
 }

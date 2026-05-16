@@ -2,12 +2,16 @@ import { useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { useFavorites } from '@/context/useFavorites';
-import { PET_LISTINGS, ageLabel } from '@/data/pets';
+
 import HeartIcon from '@/icons/HeartIcon';
+import { useStaff } from '@/context/useStaff';
+import { ageLabel } from '@/data/pets';
 
 export default function SavedDrawer() {
   const { saved, toggle, drawerOpen, closeDrawer } = useFavorites();
-  const savedPets = PET_LISTINGS.filter((p) => saved.includes(String(p.id)));
+  const { pets } = useStaff();
+
+  const savedPets = pets.filter((p) => saved.includes(String(p.id)));
 
   const handleKey = useCallback(
     (e: KeyboardEvent) => {
@@ -97,7 +101,7 @@ export default function SavedDrawer() {
                   style={{ background: pet.bg }}
                   aria-label={`View details for ${pet.name}`}
                 >
-                  {pet.svg}
+                  <img src={pet.imageUrl} />
                 </Link>
 
                 <Link

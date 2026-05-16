@@ -1,5 +1,10 @@
-export const API_BASE =
-  import.meta.env.VITE_API_BASE ?? 'http://localhost:3000/api/v1';
+export let API_BASE: string;
+
+if (import.meta.env.DEV) {
+  API_BASE = 'http://localhost:3000/api/v1';
+} else {
+  API_BASE = import.meta.env.VITE_API_BASE;
+}
 
 // ── Token management ────────────────────────────────────────────────────────
 
@@ -92,6 +97,7 @@ async function apiFetch<T>(
     ...opts,
     headers,
     credentials: 'include', // send refresh-token cookie
+    cache: 'no-store',
   });
 
   // Self-healing: on 401, try /auth/refresh once and retry the original request.
@@ -141,6 +147,7 @@ export interface ApiUser {
   isVerified: boolean;
   address?: string | null;
   phoneNumber?: string | null;
+  shelterStaffs?: { shelterId: number }[];
 }
 
 export interface ApiShelter {
@@ -203,11 +210,16 @@ export function apiRefresh() {
   return apiFetch<{ success: boolean; accessToken: string }>('/auth/refresh');
 }
 
-export function apiRegister(firstName: string, lastName: string, email: string, password: string) {
-  return apiFetch<{ success: boolean; message: string }>(
-    '/auth/register',
-    { method: 'POST', body: JSON.stringify({ firstName, lastName, email, password }) },
-  );
+export function apiRegister(
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+) {
+  return apiFetch<{ success: boolean; message: string }>('/auth/register', {
+    method: 'POST',
+    body: JSON.stringify({ firstName, lastName, email, password }),
+  });
 }
 
 export function apiVerifyEmail(token: string) {

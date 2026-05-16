@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import Eyebrow from '@/components/ui/Eyebrow';
 import SectionHead from '@/components/ui/SectionHead';
+import { useStaff } from '@/context/useStaff';
 
-interface Shelter {
+export interface Shelter {
   id: number;
   name: string;
   description: string;
@@ -14,7 +15,7 @@ interface Shelter {
   svg: React.ReactNode;
 }
 
-const SHELTERS: Shelter[] = [
+export const SHELTERS: Shelter[] = [
   {
     id: 1,
     name: 'San Agustin HQ Animal Rescue',
@@ -236,6 +237,10 @@ const HOW_IT_WORKS = [
 ];
 
 export default function SheltersPage() {
+  const { pets } = useStaff();
+  const countFor = (shelterId: number) =>
+    pets.filter(p => p.shelterId === shelterId && p.status === 'AVAILABLE')
+      .length;
   return (
     <>
       {/* Hero */}
@@ -340,56 +345,40 @@ export default function SheltersPage() {
             gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
           }}
         >
-          {SHELTERS.map(
-            ({
-              id,
-              name,
-              description,
-              address,
-              contactEmail,
-              phoneNumber,
-              petCount,
-              bg,
-              svg,
-            }) => (
-              <div
+          {SHELTERS.map(({ id, name, address, bg, svg }) => {
+            const city =
+              address.split(',').slice(-2, -1)[0]?.trim() ?? '';
+            return (
+              <Link
                 key={id}
-                className='group bg-(--canvas) border border-(--hairline-soft) rounded-[20px] p-6 text-left cursor-default transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-(--ink) hover:shadow-(--shadow-lift) hover:-translate-y-1'
+                to={`/shelters/${id}`}
+                className='group block bg-(--canvas) border border-(--hairline-soft) rounded-[20px] p-6 text-left no-underline text-inherit transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-(--ink) hover:shadow-(--shadow-lift) hover:-translate-y-1'
               >
                 <div
-                  className='mb-3.5 overflow-hidden rounded-2xl transition-transform duration-200 ease-out group-hover:scale-[1.02]'
+                  className='overflow-hidden rounded-2xl transition-transform duration-200 ease-out group-hover:scale-[1.02]'
                   style={{ background: bg }}
                 >
                   {svg}
                 </div>
-                <div>
-                  <h3 className='mb-1.5'>{name}</h3>
-                  <p className='mb-3 text-(--muted) text-[13px] leading-normal'>
-                    {description}
-                  </p>
-                  <div className='text-[13px] text-(--ink-2) flex flex-col gap-1'>
-                    <span>📍 {address}</span>
-                    <span>✉️ {contactEmail}</span>
-                    <span>📞 {phoneNumber}</span>
-                  </div>
-                  <div className='flex gap-3 mt-4 items-center'>
-                    <span
-                      className='text-[12px] font-bold px-3 py-1 rounded-full'
-                      style={{ background: '#e6f4f0', color: '#1D7575' }}
-                    >
-                      {petCount} pets available
-                    </span>
-                    <Link
-                      to='/pets'
-                      className='text-[13px] text-(--rausch) font-semibold'
-                    >
-                      Browse pets →
-                    </Link>
-                  </div>
+                <h3
+                  className='mt-5 text-[20px] sm:text-[22px] leading-tight'
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  {name}
+                </h3>
+                <p className='mt-1 text-[13px] text-(--muted)'>{city}</p>
+                <div className='mt-5 pt-4 border-t border-(--hairline-soft) flex items-center justify-between'>
+                  <span className='text-[13px] text-(--ink-2)'>
+                    {countFor(id)} pets
+                  </span>
+                  <span className='text-[12px] uppercase tracking-[0.14em] font-semibold text-(--ink-2) inline-flex items-center gap-1.5 transition-transform duration-200 ease-out group-hover:translate-x-1'>
+                    View shelter
+                    <span aria-hidden='true'>→</span>
+                  </span>
                 </div>
-              </div>
-            ),
-          )}
+              </Link>
+            );
+          })}
         </div>
       </section>
 

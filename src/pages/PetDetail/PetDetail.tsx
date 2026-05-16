@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { PET_LISTINGS, ageLabel, speciesLabel, genderLabel, sizeLabel } from '@/data/pets';
 import { useFavorites } from '@/context/useFavorites';
+import { useStaff } from '@/context/useStaff';
 import HeartIcon from '@/icons/HeartIcon';
 
 function CareChip({ label, active }: { label: string; active: boolean }) {
@@ -48,12 +50,24 @@ function StatBox({ label, value }: { label: string; value: string }) {
 
 export default function PetDetail() {
   const { id } = useParams<{ id: string }>();
-  const pet = PET_LISTINGS.find(p => String(p.id) === id);
+  const { pets } = useStaff();
+  const pet =
+    pets.find(p => String(p.id) === id) ??
+    PET_LISTINGS.find(p => String(p.id) === id);
   const { toggle, isSaved } = useFavorites();
+
+  const images = pet?.imageUrls ?? (pet?.imageUrl ? [pet.imageUrl] : []);
+  const [selectedImageIdx, setSelectedImageIdx] = useState(0);
+  const [prevId, setPrevId] = useState(id);
+  if (id !== prevId) {
+    setPrevId(id);
+    setSelectedImageIdx(0);
+  }
 
   if (!pet) return <Navigate to='/pets' replace />;
 
   const saved = isSaved(String(pet.id));
+  const activeImage = images[selectedImageIdx] ?? images[0];
 
   return (
     <div style={{ paddingBottom: 80 }}>
@@ -122,26 +136,43 @@ export default function PetDetail() {
                 overflow: 'hidden',
               }}
             >
-              {/* Decorative rings */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55) 0%, transparent 60%),
-                               radial-gradient(circle at 80% 80%, rgba(0,0,0,0.04) 0%, transparent 50%)`,
-                }}
-              />
-              <div
-                style={{
-                  transform: 'scale(2.2)',
-                  transition: 'transform 400ms cubic-bezier(0.34,1.56,0.64,1)',
-                  position: 'relative',
-                  zIndex: 1,
-                }}
-                className='pet-detail-svg'
-              >
-                {pet.svg}
-              </div>
+              {activeImage ? (
+                <img
+                  src={activeImage}
+                  alt={pet.name}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    zIndex: 1,
+                  }}
+                />
+              ) : (
+                <>
+                  {/* Decorative rings */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55) 0%, transparent 60%),
+                                   radial-gradient(circle at 80% 80%, rgba(0,0,0,0.04) 0%, transparent 50%)`,
+                    }}
+                  />
+                  <div
+                    style={{
+                      transform: 'scale(2.2)',
+                      transition: 'transform 400ms cubic-bezier(0.34,1.56,0.64,1)',
+                      position: 'relative',
+                      zIndex: 1,
+                    }}
+                    className='pet-detail-svg'
+                  >
+                    {pet.svg}
+                  </div>
+                </>
+              )}
 
               {/* Status badge */}
               <span
@@ -198,39 +229,107 @@ export default function PetDetail() {
             {/* Shelter info strip */}
             <div
               style={{
-                padding: '18px 22px',
+                padding: '16px 22px 18px',
                 background: 'var(--canvas)',
                 borderTop: '1.5px solid var(--hairline-soft)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
+                minWidth: 0,
               }}
             >
-              <div
+              <p
                 style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 10,
-                  background: 'var(--soft)',
-                  border: '1.5px solid var(--hairline-soft)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: '0.14em',
+                  color: 'var(--muted)',
+                  textTransform: 'uppercase',
+                  marginBottom: 6,
                 }}
               >
-                <svg width='18' height='18' viewBox='0 0 18 18' fill='none'>
-                  <path d='M9 1L1 7v10h5v-5h6v5h5V7L9 1z' stroke='#1D7575' strokeWidth='1.5' strokeLinejoin='round' fill='none' />
-                </svg>
-              </div>
-              <div style={{ minWidth: 0 }}>
-                <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {pet.shelterName}
-                </p>
-                <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>{pet.shelterCity}</p>
-              </div>
+                Shelter
+              </p>
+              <p
+                style={{
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: 'var(--ink)',
+                  fontFamily: 'var(--font-display)',
+                  letterSpacing: '-0.01em',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {pet.shelterName}
+              </p>
+              <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>
+                {pet.shelterCity}
+              </p>
             </div>
           </div>
+
+          {images.length > 1 && (
+            <div
+              role='tablist'
+              aria-label={`${pet.name} photos`}
+              style={{
+                display: 'flex',
+                gap: 10,
+                marginTop: 16,
+                overflowX: 'auto',
+                paddingBottom: 4,
+              }}
+            >
+              {images.map((url, idx) => {
+                const isActive = idx === selectedImageIdx;
+                return (
+                  <button
+                    key={url + idx}
+                    role='tab'
+                    aria-selected={isActive}
+                    aria-label={`View photo ${idx + 1}`}
+                    onClick={() => setSelectedImageIdx(idx)}
+                    style={{
+                      flexShrink: 0,
+                      width: 68,
+                      height: 68,
+                      borderRadius: 12,
+                      overflow: 'hidden',
+                      padding: 0,
+                      cursor: 'pointer',
+                      background: pet.bg,
+                      border: `2px solid ${isActive ? 'var(--rausch)' : 'transparent'}`,
+                      outline: isActive ? 'none' : '1px solid var(--hairline-soft)',
+                      outlineOffset: '-1px',
+                      boxShadow: isActive
+                        ? '0 6px 18px rgba(232,146,60,0.22)'
+                        : 'none',
+                      opacity: isActive ? 1 : 0.62,
+                      transition: 'opacity 180ms ease, transform 180ms cubic-bezier(0.34,1.56,0.64,1), border-color 180ms ease, box-shadow 180ms ease',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.opacity = '1';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.opacity = isActive ? '1' : '0.62';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                  >
+                    <img
+                      src={url}
+                      alt=''
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
+                      }}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* RIGHT: Details */}

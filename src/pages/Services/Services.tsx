@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Eyebrow from '@/components/ui/Eyebrow';
 import SectionHead from '@/components/ui/SectionHead';
 import HeartIcon from '@/icons/HeartIcon';
 import { useFavorites } from '@/context/useFavorites';
+import { apiGetPets } from '@/services/api';
+import { apiPetToPetCard } from '@/context/StaffContext';
 import {
-  PET_LISTINGS,
   ageLabel,
   speciesFilterLabel,
   genderFilterLabel,
   sizeFilterLabel,
   speciesLabel,
   genderLabel,
+  type PetCard,
   type SpeciesFilter,
   type GenderFilter,
   type SizeFilter,
@@ -33,6 +35,8 @@ const SIZE_FILTERS: SizeFilter[] = [
   'LARGE',
   'EXTRA_LARGE',
 ];
+
+const PAGE_SIZE = 9;
 
 function StatusBadge({
   status,
@@ -74,9 +78,37 @@ export default function PetsPage() {
   const [activeSpecies, setActiveSpecies] = useState<SpeciesFilter>('ALL');
   const [activeGender, setActiveGender] = useState<GenderFilter>('ANY');
   const [activeSize, setActiveSize] = useState<SizeFilter>('ANY');
+  const [pets, setPets] = useState<PetCard[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalPets, setTotalPets] = useState(0);
+  const [loading, setLoading] = useState(true);
   const { toggle, isSaved } = useFavorites();
 
-  const filtered = PET_LISTINGS.filter((p) => {
+  useEffect(() => {
+    let cancelled = false;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- standard fetch-in-effect pattern; matches React docs example
+    setLoading(true);
+    apiGetPets(currentPage, PAGE_SIZE)
+      .then((res) => {
+        if (cancelled) return;
+        setPets(res.data.map(apiPetToPetCard));
+        setTotalPages(res.pagination.totalPages);
+        setTotalPets(res.pagination.total);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        console.error('Failed to load pets', err);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [currentPage]);
+
+  const filtered = pets.filter((p) => {
     if (activeSpecies !== 'ALL' && p.species !== activeSpecies) return false;
     if (activeGender !== 'ANY' && p.gender !== activeGender) return false;
     if (activeSize !== 'ANY' && p.size !== activeSize) return false;
@@ -264,9 +296,11 @@ export default function PetsPage() {
       <section className='section'>
         <SectionHead
           heading={
-            filtered.length > 0
-              ? `${filtered.length} pets available`
-              : 'No pets match your filters'
+            loading && pets.length === 0
+              ? 'Finding pets…'
+              : totalPets > 0
+                ? `${totalPets} pets available`
+                : 'No pets match your filters'
           }
           subheading='Each pet is listed by a verified shelter. Click a listing to view full details and start your adoption application.'
         />
@@ -285,6 +319,7 @@ export default function PetsPage() {
                 shelterName,
                 bg,
                 svg,
+                imageUrl,
               }) => (
                 <article
                   key={id}
@@ -326,9 +361,18 @@ export default function PetsPage() {
                         filled={isSaved(String(id))}
                       />
                     </button>
-                    <div className='transition-transform duration-300 ease-out group-hover:scale-[1.06] max-w-full h-auto'>
-                      {svg}
-                    </div>
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt={name}
+                        loading='lazy'
+                        className='absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.06]'
+                      />
+                    ) : (
+                      <div className='transition-transform duration-300 ease-out group-hover:scale-[1.06] max-w-full h-auto'>
+                        {svg}
+                      </div>
+                    )}
                   </Link>
                   <div className='p-5.5 pb-6 flex-1 flex flex-col'>
                     <Link
@@ -380,6 +424,60 @@ export default function PetsPage() {
             >
               Clear filters
             </button>
+          </div>
+        )}
+
+        {totalPages > 1 && (
+          <div className='mt-14 flex justify-center'>
+            <nav
+              aria-label='Pets pagination'
+              className='inline-flex items-center gap-3 sm:gap-4 rounded-full border border-(--hairline-soft) bg-(--canvas) pl-2 pr-2 py-2 sm:pl-3 sm:pr-3'
+              style={{
+                boxShadow:
+                  '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 26px rgba(18,52,64,0.08)',
+              }}
+            >
+              <button
+                className='btn btn-soft btn-sm'
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1 || loading}
+                aria-label='Previous page'
+              >
+                <span aria-hidden='true' className='mr-1'>
+                  ←
+                </span>
+                Prev
+              </button>
+
+              <div className='flex items-baseline gap-1.5 px-3 sm:px-4 min-w-25 justify-center'>
+                <span
+                  className='text-[26px] sm:text-[30px] leading-none text-(--ink)'
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  {currentPage}
+                </span>
+                <span
+                  className='text-[11px] tracking-[0.18em] uppercase text-(--muted)'
+                  style={{ fontWeight: 600 }}
+                >
+                  of {totalPages}
+                </span>
+              </div>
+
+              <button
+                className='btn btn-primary btn-sm'
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
+                disabled={currentPage === totalPages || loading}
+                aria-label='Next page'
+              >
+                Next
+                <span aria-hidden='true' className='ml-1'>
+                  →
+                </span>
+              </button>
+            </nav>
           </div>
         )}
       </section>

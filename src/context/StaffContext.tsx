@@ -1,5 +1,5 @@
 import { useState, useEffect, type ReactNode } from 'react';
-import { PET_LISTINGS, type PetCard, type Species } from '@/data/pets';
+import { type PetCard, type Species } from '@/data/pets';
 import {
   apiLogin,
   apiLogout,
@@ -42,7 +42,11 @@ function makeSvg(species: Species): ReactNode {
   );
 }
 
-function apiPetToPetCard(p: ApiPet): PetCard {
+export function apiPetToPetCard(p: ApiPet): PetCard {
+  const sortedImages = p.images
+    ? [...p.images].sort((a, b) => Number(b.isPrimary) - Number(a.isPrimary))
+    : [];
+  const imageUrls = sortedImages.map((img) => img.imageUrl);
   return {
     id: p.id,
     name: p.name,
@@ -59,6 +63,8 @@ function apiPetToPetCard(p: ApiPet): PetCard {
     bg: SPECIES_BG[p.species],
     color: SPECIES_COLOR[p.species],
     svg: makeSvg(p.species),
+    imageUrl: imageUrls[0],
+    imageUrls: imageUrls.length > 0 ? imageUrls : undefined,
     traits: [],
     vaccinated: false,
     neutered: false,
@@ -134,9 +140,23 @@ export function StaffProvider({ children }: { children: ReactNode }) {
   });
   const [staffUser, setStaffUser] = useState<StaffUser | null>(() => {
     const stored = sessionStorage.getItem('staff-user');
-    return stored ? (JSON.parse(stored) as StaffUser) : null;
+    if (!stored) return null;
+    const parsed = JSON.parse(stored) as Partial<StaffUser> & {
+      shelterId?: number | null;
+    };
+    return {
+      id: parsed.id!,
+      name: parsed.name!,
+      email: parsed.email!,
+      role: parsed.role!,
+      initials: parsed.initials!,
+      shelterIds:
+        parsed.shelterIds ??
+        (parsed.shelterId != null ? [parsed.shelterId] : []),
+    };
   });
-  const [pets, setPets] = useState<PetCard[]>(PET_LISTINGS);
+  const [pets, setPets] = useState<PetCard[]>([]);
+  const [petsLoaded, setPetsLoaded] = useState(false);
   const [adoptions, setAdoptions] = useState<AdoptionRequest[]>(MOCK_ADOPTIONS);
   const [loginError, setLoginError] = useState('');
 
@@ -145,10 +165,13 @@ export function StaffProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     apiGetPets()
       .then((res) => {
-        if (res.data.length > 0) setPets(res.data.map(apiPetToPetCard));
+        setPets(res.data.map(apiPetToPetCard));
       })
-      .catch(() => {
-        /* backend unavailable — keep mock data */
+      .catch((err) => {
+        console.error('Failed to load pets', err);
+      })
+      .finally(() => {
+        setPetsLoaded(true);
       });
   }, []);
 
@@ -175,6 +198,7 @@ export function StaffProvider({ children }: { children: ReactNode }) {
         email: u.email,
         role: u.role,
         initials: `${u.firstName[0]}${u.lastName[0]}`.toUpperCase(),
+        shelterIds: u.shelterStaffs?.map((s) => s.shelterId) ?? [],
       };
 
       setIsAuthenticated(true);
@@ -253,12 +277,21 @@ export function StaffProvider({ children }: { children: ReactNode }) {
     );
   }
 
+  const visiblePets = (() => {
+    if (!staffUser) return pets;
+    if (staffUser.role === 'ADMIN') return pets;
+    if (staffUser.shelterIds.length === 0) return [];
+    return pets.filter((p) => staffUser.shelterIds.includes(p.shelterId));
+  })();
+
   return (
     <StaffContext.Provider
       value={{
         isAuthenticated,
         staffUser,
         pets,
+        visiblePets,
+        petsLoaded,
         adoptions,
         loginError,
         login,

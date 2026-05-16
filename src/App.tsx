@@ -5,6 +5,7 @@ import AboutPage from '@/pages/About/About';
 import PetsPage from '@/pages/Services/Services';
 import PetDetailPage from '@/pages/PetDetail/PetDetail';
 import SheltersPage from '@/pages/UseCases/UseCases';
+import ShelterDetailPage from '@/pages/ShelterDetail/ShelterDetail';
 import ContactPage from '@/pages/Contact/Contact';
 import { FavoritesProvider } from '@/context/FavoritesContext';
 import { StaffProvider } from '@/context/StaffContext';
@@ -34,6 +35,7 @@ export default function App() {
               <Route path='/pets' element={<PetsPage />} />
               <Route path='/pets/:id' element={<PetDetailPage />} />
               <Route path='/shelters' element={<SheltersPage />} />
+              <Route path='/shelters/:id' element={<ShelterDetailPage />} />
               <Route path='/about' element={<AboutPage />} />
               <Route path='/contact' element={<ContactPage />} />
               <Route path='/verify-email' element={<VerifyEmailPage />} />

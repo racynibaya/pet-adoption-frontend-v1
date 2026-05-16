@@ -1,7 +1,9 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { FavoritesContext } from './useFavorites';
+import { useStaff } from './useStaff';
 
 export function FavoritesProvider({ children }: { children: ReactNode }) {
+  const { pets, petsLoaded } = useStaff();
   const [saved, setSaved] = useState<string[]>(() => {
     try {
       return JSON.parse(localStorage.getItem('koda-saved') ?? '[]');
@@ -14,6 +16,15 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem('koda-saved', JSON.stringify(saved));
   }, [saved]);
+
+  useEffect(() => {
+    if (!petsLoaded) return;
+    setSaved(prev => {
+      const validIds = new Set(pets.map(p => String(p.id)));
+      const next = prev.filter(id => validIds.has(id));
+      return next.length === prev.length ? prev : next;
+    });
+  }, [pets, petsLoaded]);
 
   useEffect(() => {
     if (drawerOpen) {
