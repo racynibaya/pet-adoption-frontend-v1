@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { to: '/shelters', label: 'Shelters' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
+  { to: '/donate', label: 'Donate' },
 ];
 
 export default function Navbar() {
@@ -58,6 +59,9 @@ export default function Navbar() {
               <span className='nav-saved-count'>{saved.length}</span>
             )}
           </button>
+          <Link to='/donate' className='btn btn-primary btn-sm nav-donate'>
+            Donate
+          </Link>
           {isAuthenticated && adopter ? (
             <Link
               to='/users/me'

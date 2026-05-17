@@ -7,6 +7,7 @@ const KODANEST_LINKS = [
   { label: 'Browse Pets', to: '/pets' },
   { label: 'Shelters', to: '/shelters' },
   { label: 'Contact', to: '/contact' },
+  { label: 'Donate', to: '/donate' },
 ];
 
 const SUPPORT_LINKS = [

@@ -235,6 +235,38 @@ export function apiResendVerification(email: string) {
   );
 }
 
+// ── Donation endpoints ───────────────────────────────────────────────────────
+
+export type CreateDonationInput = {
+  amount: number; // in dollars; backend converts to cents for Stripe
+  name: string;
+  email: string;
+  message?: string;
+};
+
+export type CreateDonationResult = {
+  id: string;
+  checkoutUrl: string; // will be a real Stripe Checkout URL once backend ships
+};
+
+export function apiCreateDonation(
+  input: CreateDonationInput,
+): Promise<CreateDonationResult> {
+  // STUB — backend /donations endpoint does not exist yet.
+  // When it does, replace this body with:
+  //   return apiFetch<{ success: boolean; message: string; data: CreateDonationResult }>(
+  //     '/donations',
+  //     { method: 'POST', body: JSON.stringify(input) },
+  //   ).then((r) => r.data);
+  void input;
+  return new Promise((resolve) => {
+    setTimeout(
+      () => resolve({ id: `mock_${Date.now()}`, checkoutUrl: '#' }),
+      800,
+    );
+  });
+}
+
 // ── User endpoints ───────────────────────────────────────────────────────────
 
 export function apiGetMe() {

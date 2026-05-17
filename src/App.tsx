@@ -7,6 +7,7 @@ import PetDetailPage from '@/pages/PetDetail/PetDetail';
 import SheltersPage from '@/pages/UseCases/UseCases';
 import ShelterDetailPage from '@/pages/ShelterDetail/ShelterDetail';
 import ContactPage from '@/pages/Contact/Contact';
+import DonatePage from '@/pages/Donate/Donate';
 import { FavoritesProvider } from '@/context/FavoritesContext';
 import { StaffProvider } from '@/context/StaffContext';
 import { UserProvider } from '@/context/UserContext';
@@ -38,6 +39,7 @@ export default function App() {
               <Route path='/shelters/:id' element={<ShelterDetailPage />} />
               <Route path='/about' element={<AboutPage />} />
               <Route path='/contact' element={<ContactPage />} />
+              <Route path='/donate' element={<DonatePage />} />
               <Route path='/verify-email' element={<VerifyEmailPage />} />
             </Route>
 
