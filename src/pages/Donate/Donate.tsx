@@ -194,10 +194,7 @@ const SyringeIcon = () => (
     />
     <line x1='12' y1='10' x2='18' y2='10' stroke='#1D7575' strokeWidth='1.2' />
     <line x1='12' y1='13' x2='18' y2='13' stroke='#1D7575' strokeWidth='1.2' />
-    <path
-      d='M13 20 H17 V25 H13 Z'
-      fill='#1D7575'
-    />
+    <path d='M13 20 H17 V25 H13 Z' fill='#1D7575' />
     <line
       x1='15'
       y1='25'
@@ -265,7 +262,12 @@ const KeyIcon = () => (
 
 const FoundVignette = () => (
   <svg viewBox='0 0 120 80' width='100%' height='100%' fill='none'>
-    <path d='M6 70 H114' stroke='#E8C28A' strokeWidth='1' strokeDasharray='2 3' />
+    <path
+      d='M6 70 H114'
+      stroke='#E8C28A'
+      strokeWidth='1'
+      strokeDasharray='2 3'
+    />
     {/* lone small pup silhouette */}
     <ellipse cx='60' cy='62' rx='12' ry='6' fill='#3C4E4E' opacity='0.18' />
     <path
@@ -274,32 +276,71 @@ const FoundVignette = () => (
     />
     <circle cx='72' cy='52' r='4' fill='#3C4E4E' />
     {/* stars above */}
-    <path d='M30 18 L31.5 22 L35.5 22 L32 24.5 L33 28.5 L30 26 L27 28.5 L28 24.5 L24.5 22 L28.5 22 Z' fill='#E8923C' opacity='0.65' />
-    <path d='M90 28 L91 31 L94 31 L91.6 32.8 L92.4 36 L90 34 L87.6 36 L88.4 32.8 L86 31 L89 31 Z' fill='#5DB5C4' opacity='0.65' />
+    <path
+      d='M30 18 L31.5 22 L35.5 22 L32 24.5 L33 28.5 L30 26 L27 28.5 L28 24.5 L24.5 22 L28.5 22 Z'
+      fill='#E8923C'
+      opacity='0.65'
+    />
+    <path
+      d='M90 28 L91 31 L94 31 L91.6 32.8 L92.4 36 L90 34 L87.6 36 L88.4 32.8 L86 31 L89 31 Z'
+      fill='#5DB5C4'
+      opacity='0.65'
+    />
     <circle cx='102' cy='14' r='1.4' fill='#D94F68' opacity='0.7' />
   </svg>
 );
 
 const SafeVignette = () => (
   <svg viewBox='0 0 120 80' width='100%' height='100%' fill='none'>
-    <path d='M6 70 H114' stroke='#E8C28A' strokeWidth='1' strokeDasharray='2 3' />
+    <path
+      d='M6 70 H114'
+      stroke='#E8C28A'
+      strokeWidth='1'
+      strokeDasharray='2 3'
+    />
     {/* carrier crate */}
-    <rect x='34' y='38' width='52' height='30' rx='6' fill='#FDDDB0' stroke='#A55E24' strokeWidth='1.6' />
-    <path d='M38 46 H82 M38 52 H82 M38 58 H82' stroke='#A55E24' strokeWidth='1' />
+    <rect
+      x='34'
+      y='38'
+      width='52'
+      height='30'
+      rx='6'
+      fill='#FDDDB0'
+      stroke='#A55E24'
+      strokeWidth='1.6'
+    />
+    <path
+      d='M38 46 H82 M38 52 H82 M38 58 H82'
+      stroke='#A55E24'
+      strokeWidth='1'
+    />
     {/* handle */}
-    <path d='M50 38 Q60 30 70 38' stroke='#A55E24' strokeWidth='1.6' fill='none' />
+    <path
+      d='M50 38 Q60 30 70 38'
+      stroke='#A55E24'
+      strokeWidth='1.6'
+      fill='none'
+    />
     {/* peeking face */}
     <circle cx='60' cy='52' r='5' fill='#FEF5E2' />
     <circle cx='58' cy='52' r='0.8' fill='#1C2C2C' />
     <circle cx='62' cy='52' r='0.8' fill='#1C2C2C' />
     {/* tiny heart */}
-    <path d='M82 30 Q84 27 87 28 Q90 27 92 30 Q92 33 87 38 Q82 33 82 30 Z' fill='#D94F68' />
+    <path
+      d='M82 30 Q84 27 87 28 Q90 27 92 30 Q92 33 87 38 Q82 33 82 30 Z'
+      fill='#D94F68'
+    />
   </svg>
 );
 
 const HealthyVignette = () => (
   <svg viewBox='0 0 120 80' width='100%' height='100%' fill='none'>
-    <path d='M6 70 H114' stroke='#E8C28A' strokeWidth='1' strokeDasharray='2 3' />
+    <path
+      d='M6 70 H114'
+      stroke='#E8C28A'
+      strokeWidth='1'
+      strokeDasharray='2 3'
+    />
     {/* stethoscope curl */}
     <path
       d='M28 22 Q22 30 28 38 Q34 44 44 42'
@@ -309,7 +350,14 @@ const HealthyVignette = () => (
       strokeLinecap='round'
     />
     <circle cx='28' cy='22' r='3' fill='#1D7575' />
-    <circle cx='46' cy='44' r='4.5' fill='#5DB5C4' stroke='#1D7575' strokeWidth='1.4' />
+    <circle
+      cx='46'
+      cy='44'
+      r='4.5'
+      fill='#5DB5C4'
+      stroke='#1D7575'
+      strokeWidth='1.4'
+    />
     {/* pet standing, perky */}
     <path
       d='M60 64 Q60 50 72 50 Q86 48 92 56 L94 64 Z'
@@ -317,18 +365,35 @@ const HealthyVignette = () => (
       stroke='#CB7730'
       strokeWidth='1.4'
     />
-    <circle cx='90' cy='50' r='6' fill='#FAC878' stroke='#CB7730' strokeWidth='1.4' />
+    <circle
+      cx='90'
+      cy='50'
+      r='6'
+      fill='#FAC878'
+      stroke='#CB7730'
+      strokeWidth='1.4'
+    />
     <path d='M86 44 Q84 40 88 42' fill='#CB7730' />
     <path d='M94 44 Q96 40 92 42' fill='#CB7730' />
     <circle cx='91' cy='50' r='0.8' fill='#1C2C2C' />
     {/* plus marks (vaccine) */}
-    <path d='M16 50 V58 M12 54 H20' stroke='#D94F68' strokeWidth='1.6' strokeLinecap='round' />
+    <path
+      d='M16 50 V58 M12 54 H20'
+      stroke='#D94F68'
+      strokeWidth='1.6'
+      strokeLinecap='round'
+    />
   </svg>
 );
 
 const HomeVignette = () => (
   <svg viewBox='0 0 120 80' width='100%' height='100%' fill='none'>
-    <path d='M6 70 H114' stroke='#E8C28A' strokeWidth='1' strokeDasharray='2 3' />
+    <path
+      d='M6 70 H114'
+      stroke='#E8C28A'
+      strokeWidth='1'
+      strokeDasharray='2 3'
+    />
     {/* couch */}
     <path
       d='M20 60 Q20 50 30 50 H90 Q100 50 100 60 V68 H20 Z'
@@ -349,9 +414,18 @@ const HomeVignette = () => (
       stroke='#A55E24'
       strokeWidth='1.4'
     />
-    <path d='M82 54 Q86 52 84 50 M80 52 Q80 50 82 50' stroke='#A55E24' strokeWidth='1.2' fill='none' />
+    <path
+      d='M82 54 Q86 52 84 50 M80 52 Q80 50 82 50'
+      stroke='#A55E24'
+      strokeWidth='1.2'
+      fill='none'
+    />
     {/* heart over family */}
-    <path d='M44 20 Q46 16 50 18 Q54 16 56 20 Q56 24 50 30 Q44 24 44 20 Z' fill='#D94F68' opacity='0.85' />
+    <path
+      d='M44 20 Q46 16 50 18 Q54 16 56 20 Q56 24 50 30 Q44 24 44 20 Z'
+      fill='#D94F68'
+      opacity='0.85'
+    />
   </svg>
 );
 
@@ -365,7 +439,13 @@ const QuoteMark = ({ tone }: { tone: Tone }) => (
   </svg>
 );
 
-const PawDeco = ({ size = 24, opacity = 0.55 }: { size?: number; opacity?: number }) => (
+const PawDeco = ({
+  size = 24,
+  opacity = 0.55,
+}: {
+  size?: number;
+  opacity?: number;
+}) => (
   <svg width={size} height={size} viewBox='0 0 30 30' fill='none' aria-hidden>
     <g fill='#D97757' opacity={opacity}>
       <ellipse cx='8' cy='10' rx='2' ry='3' />
@@ -382,7 +462,7 @@ const IMPACT_TIERS: ImpactTier[] = [
   {
     amount: 500,
     label: 'A week of meals',
-    detail: 'Kibble, fresh water, and treats for one rescued pet.',
+    detail: 'A warm bowl of kibble and clean water for one hungry pup.',
     tone: 'amber',
     Icon: BowlIcon,
   },
@@ -477,6 +557,7 @@ export default function DonatePage() {
   const [submittedAmount, setSubmittedAmount] = useState<number | null>(null);
 
   const formRef = useRef<HTMLDivElement>(null);
+  const tiersRef = useRef<HTMLElement>(null);
 
   const effectiveAmount = customAmount
     ? Number(customAmount)
@@ -525,7 +606,10 @@ export default function DonatePage() {
         message: message.trim() || undefined,
       });
       setSubmittedAmount(effectiveAmount);
-      window.scrollTo({ top: (formRef.current?.offsetTop ?? 0) - 80, behavior: 'smooth' });
+      window.scrollTo({
+        top: (formRef.current?.offsetTop ?? 0) - 80,
+        behavior: 'smooth',
+      });
     } catch (err) {
       const msg =
         err instanceof ApiError
@@ -553,7 +637,11 @@ export default function DonatePage() {
         {/* Floating paw decorations */}
         <span
           className='absolute'
-          style={{ top: 56, left: 56, animation: 'floatY 5s ease-in-out infinite' }}
+          style={{
+            top: 56,
+            left: 56,
+            animation: 'floatY 5s ease-in-out infinite',
+          }}
         >
           <PawDeco size={36} opacity={0.5} />
         </span>
@@ -617,8 +705,8 @@ export default function DonatePage() {
               }}
             >
               Every gift becomes something a pet can feel — warmth on the
-              tongue, a needle that stops the shivering, a couch they’re
-              finally allowed on.
+              tongue, a needle that stops the shivering, a couch they’re finally
+              allowed on.
             </p>
 
             {/* Live impact pill */}
@@ -645,14 +733,14 @@ export default function DonatePage() {
                 />
               </span>
               <span style={{ fontSize: 13.5, color: 'var(--ink-2)' }}>
-                <strong style={{ color: 'var(--ink)' }}>₱147,250</strong>{' '}
-                raised this week ·{' '}
+                <strong style={{ color: 'var(--ink)' }}>₱147,250</strong> raised
+                this week ·{' '}
                 <strong style={{ color: 'var(--ink)' }}>23 pets</strong> fed
                 today
               </span>
             </div>
 
-            <div className='flex flex-wrap gap-4 mt-10'>
+            <div className='flex flex-wrap gap-4 mt-10 donate-hero-cta-row'>
               <button
                 type='button'
                 className='btn btn-primary btn-lg'
@@ -680,13 +768,12 @@ export default function DonatePage() {
       </section>
 
       {/* ═══════════════════ STATS STRIP ═══════════════════ */}
-      <section
-        className='section-tight'
-        aria-label='Impact this year'
-      >
+      <section className='section-tight' aria-label='Impact this year'>
         <div
           className='grid gap-4'
-          style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))' }}
+          style={{
+            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          }}
         >
           {[
             { num: '1,247', label: 'meals served this month' },
@@ -699,8 +786,7 @@ export default function DonatePage() {
               className='text-center rounded-2xl'
               style={{
                 padding: 'clamp(28px, 3vw, 40px) clamp(18px, 2vw, 28px)',
-                background:
-                  i % 2 === 0 ? 'var(--cream)' : 'var(--mint)',
+                background: i % 2 === 0 ? 'var(--cream)' : 'var(--mint)',
                 border: '1px solid var(--hairline-soft)',
               }}
             >
@@ -731,18 +817,117 @@ export default function DonatePage() {
         </div>
       </section>
 
-      {/* ═══════════════════ IMPACT TILES (the amount picker) ═══════════════════ */}
-      <section className='section'>
+      {/* ═══════════════════ AMOUNT PICKER (any amount + impact tiles) ═══════════════════ */}
+      <section ref={tiersRef} className='section'>
         <SectionHead
-          eyebrow='Your gift becomes…'
+          eyebrow='Your gift, your call'
           heading={
             <>
-              Choose <em style={{ fontStyle: 'italic', color: 'var(--rausch)' }}>what</em>{' '}
-              your gift does
+              Give{' '}
+              <em style={{ fontStyle: 'italic', color: 'var(--rausch)' }}>
+                whatever feels right
+              </em>
             </>
           }
-          subheading='Skip the numbers. Pick the thing you want to send.'
+          subheading='Type any amount — or pick a meaningful preset below.'
         />
+
+        {/* Hero-style any-amount input */}
+        <div
+          className='rounded-3xl relative overflow-hidden mx-auto'
+          style={{
+            maxWidth: 640,
+            marginBottom: 'clamp(32px, 4vw, 56px)',
+            padding: 'clamp(32px, 4vw, 48px)',
+            background:
+              'radial-gradient(ellipse 80% 90% at 50% 0%, rgba(253,221,176,0.7) 0%, transparent 70%),' +
+              'linear-gradient(160deg, var(--cream) 0%, var(--canvas) 100%)',
+            border: '1.5px solid var(--peach-stroke)',
+            boxShadow: 'var(--shadow-card)',
+          }}
+        >
+          <label
+            htmlFor='hero-amount'
+            style={{
+              display: 'block',
+              fontSize: 12,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: 'var(--muted)',
+              marginBottom: 14,
+              textAlign: 'center',
+            }}
+          >
+            Any amount
+          </label>
+          <div className='flex items-center justify-center gap-2'>
+            <span
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(40px, 5vw, 56px)',
+                fontWeight: 600,
+                color: 'var(--rausch)',
+                lineHeight: 1,
+              }}
+            >
+              ₱
+            </span>
+            <input
+              id='hero-amount'
+              type='number'
+              min='1'
+              step='1'
+              inputMode='decimal'
+              placeholder='300'
+              value={customAmount}
+              onChange={(e) => onCustomChange(e.target.value)}
+              className='donate-hero-amount-input'
+            />
+          </div>
+          <p
+            style={{
+              marginTop: 18,
+              textAlign: 'center',
+              fontSize: 14,
+              color: 'var(--ink-2)',
+              lineHeight: 1.5,
+            }}
+          >
+            Even <strong style={{ color: 'var(--ink)' }}>₱100</strong> buys
+            lunch for a rescue pup. Give what feels right.
+          </p>
+          {errors.amount && (
+            <p
+              role='alert'
+              style={{
+                fontSize: 13,
+                color: '#c0304d',
+                marginTop: 10,
+                textAlign: 'center',
+              }}
+            >
+              {errors.amount}
+            </p>
+          )}
+        </div>
+
+        {/* Divider */}
+        <div
+          className='flex items-center gap-4 mx-auto'
+          style={{
+            maxWidth: 480,
+            marginBottom: 'clamp(28px, 3vw, 44px)',
+            color: 'var(--muted)',
+            fontSize: 12,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+          }}
+        >
+          <span style={{ flex: 1, height: 1, background: 'var(--hairline)' }} />
+          <span>or pick a meaningful preset</span>
+          <span style={{ flex: 1, height: 1, background: 'var(--hairline)' }} />
+        </div>
+
         <div
           className='grid gap-6 donate-tier-grid'
           style={{
@@ -761,7 +946,9 @@ export default function DonatePage() {
                   padding: 'clamp(28px, 3vw, 40px) clamp(24px, 3vw, 32px)',
                   background: 'var(--canvas)',
                   border: `2px solid ${active ? TONE_INK[tier.tone] : 'var(--hairline-soft)'}`,
-                  boxShadow: active ? 'var(--shadow-lift)' : 'var(--shadow-card)',
+                  boxShadow: active
+                    ? 'var(--shadow-lift)'
+                    : 'var(--shadow-card)',
                   transform: active ? 'translateY(-4px)' : 'translateY(0)',
                   fontFamily: 'inherit',
                 }}
@@ -859,7 +1046,9 @@ export default function DonatePage() {
           heading={
             <>
               From a corner of the street, to{' '}
-              <span style={{ color: 'var(--rausch)' }}>a corner of your couch</span>
+              <span style={{ color: 'var(--rausch)' }}>
+                a corner of your couch
+              </span>
             </>
           }
           subheading='Four small acts, one whole life.'
@@ -1037,16 +1226,55 @@ export default function DonatePage() {
               </>
             )}
 
+            <button
+              type='button'
+              onClick={() =>
+                tiersRef.current?.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                })
+              }
+              className='mt-5'
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                fontSize: 13,
+                color: 'var(--rausch)',
+                fontWeight: 600,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                textDecoration: 'underline',
+                textUnderlineOffset: 3,
+              }}
+            >
+              Change amount ↑
+            </button>
+
             <div
               className='mt-8'
-              style={{ borderTop: '1px dashed rgba(28,44,44,0.15)', paddingTop: 24 }}
+              style={{
+                borderTop: '1px dashed rgba(28,44,44,0.15)',
+                paddingTop: 24,
+              }}
             >
-              <div style={{ fontSize: 12, color: 'var(--muted)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              <div
+                style={{
+                  fontSize: 12,
+                  color: 'var(--muted)',
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                }}
+              >
                 What happens next
               </div>
               <ul
                 className='mt-4 flex flex-col gap-3'
-                style={{ fontSize: 13.5, color: 'var(--ink-2)', lineHeight: 1.5 }}
+                style={{
+                  fontSize: 13.5,
+                  color: 'var(--ink-2)',
+                  lineHeight: 1.5,
+                }}
               >
                 <li className='flex gap-2'>
                   <span style={{ color: 'var(--rausch)' }}>✓</span> A receipt in
@@ -1158,10 +1386,15 @@ export default function DonatePage() {
                 </h2>
                 <p
                   className='muted'
-                  style={{ maxWidth: 380, margin: '20px auto 0', lineHeight: 1.6 }}
+                  style={{
+                    maxWidth: 380,
+                    margin: '20px auto 0',
+                    lineHeight: 1.6,
+                  }}
                 >
                   A receipt is heading to your inbox — and somewhere, a small
-                  belly is about to be full because of you. Thank you, {name.split(' ')[0] || 'friend'}.
+                  belly is about to be full because of you. Thank you,{' '}
+                  {name.split(' ')[0] || 'friend'}.
                 </p>
                 <div className='flex gap-3 justify-center mt-12 flex-wrap'>
                   <Link to='/' className='btn btn-soft'>
@@ -1199,48 +1432,6 @@ export default function DonatePage() {
                   </h2>
                 </div>
 
-                {/* Custom amount inline */}
-                <div className='field'>
-                  <label htmlFor='custom-amount'>
-                    Or enter a different amount{' '}
-                    <span style={{ color: 'var(--muted)' }}>(optional)</span>
-                  </label>
-                  <div className='relative'>
-                    <span
-                      className='absolute'
-                      style={{
-                        left: 16,
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        color: 'var(--muted)',
-                        fontWeight: 600,
-                        pointerEvents: 'none',
-                      }}
-                    >
-                      ₱
-                    </span>
-                    <input
-                      id='custom-amount'
-                      type='number'
-                      min='1'
-                      step='1'
-                      inputMode='decimal'
-                      placeholder='1500'
-                      value={customAmount}
-                      onChange={(e) => onCustomChange(e.target.value)}
-                      style={{ paddingLeft: 28 }}
-                    />
-                  </div>
-                  {errors.amount && (
-                    <p
-                      role='alert'
-                      style={{ fontSize: 13, color: '#c0304d', marginTop: 6 }}
-                    >
-                      {errors.amount}
-                    </p>
-                  )}
-                </div>
-
                 <div className='r-grid-form-2 gap-4'>
                   <div className='field'>
                     <label htmlFor='donor-name'>Your name</label>
@@ -1255,7 +1446,10 @@ export default function DonatePage() {
                       }}
                     />
                     {errors.name && (
-                      <p role='alert' style={{ fontSize: 13, color: '#c0304d', marginTop: 6 }}>
+                      <p
+                        role='alert'
+                        style={{ fontSize: 13, color: '#c0304d', marginTop: 6 }}
+                      >
                         {errors.name}
                       </p>
                     )}
@@ -1273,7 +1467,10 @@ export default function DonatePage() {
                       }}
                     />
                     {errors.email && (
-                      <p role='alert' style={{ fontSize: 13, color: '#c0304d', marginTop: 6 }}>
+                      <p
+                        role='alert'
+                        style={{ fontSize: 13, color: '#c0304d', marginTop: 6 }}
+                      >
                         {errors.email}
                       </p>
                     )}
@@ -1329,7 +1526,8 @@ export default function DonatePage() {
                     <>Sending your gift…</>
                   ) : (
                     <>
-                      Send{amountValid ? ` ${peso(effectiveAmount)}` : ''} with love
+                      Send{amountValid ? ` ${peso(effectiveAmount)}` : ''} with
+                      love
                       <svg
                         width='20'
                         height='20'
@@ -1383,7 +1581,8 @@ export default function DonatePage() {
               key={v.name}
               className='rounded-3xl relative'
               style={{
-                padding: 'clamp(32px, 3vw, 44px) clamp(28px, 3vw, 36px) clamp(28px, 3vw, 36px)',
+                padding:
+                  'clamp(32px, 3vw, 44px) clamp(28px, 3vw, 36px) clamp(28px, 3vw, 36px)',
                 background: TONE_BG[v.tone],
                 border: `1px solid ${TONE_INK[v.tone]}22`,
                 margin: 0,
@@ -1465,8 +1664,8 @@ export default function DonatePage() {
             lineHeight: 1.65,
           }}
         >
-          Foster a pet between homes, volunteer at a shelter, or just share
-          one of these faces with someone who might be ready.
+          Foster a pet between homes, volunteer at a shelter, or just share one
+          of these faces with someone who might be ready.
         </p>
         <div className='flex gap-4 justify-center mt-10 flex-wrap'>
           <Link
@@ -1492,10 +1691,36 @@ export default function DonatePage() {
 
       {/* ───────── Page-local responsive tweaks ───────── */}
       <style>{`
+        .donate-hero-grid { position: relative; }
         .donate-hero-art { min-height: 280px; }
         .donate-heart:hover,
         button:hover .donate-heart {
           transform: scale(1.2) rotate(-4deg);
+        }
+
+        /* Big "any amount" input — borderless, centered, display-font */
+        .donate-hero-amount-input {
+          font-family: var(--font-display);
+          font-size: clamp(40px, 5vw, 56px);
+          font-weight: 600;
+          color: var(--ink);
+          background: transparent;
+          border: none;
+          outline: none;
+          width: clamp(120px, 30vw, 220px);
+          text-align: left;
+          padding: 0;
+          line-height: 1;
+          appearance: textfield;
+          -moz-appearance: textfield;
+        }
+        .donate-hero-amount-input::-webkit-outer-spin-button,
+        .donate-hero-amount-input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        .donate-hero-amount-input::placeholder {
+          color: var(--muted-soft);
         }
         .donate-journey-grid {
           display: grid;
@@ -1520,10 +1745,47 @@ export default function DonatePage() {
           .donate-journey-arrow { display: none; }
         }
 
-        /* Mobile: looser internal padding inside the wrap, stack journey */
+        /* Mobile: looser internal padding inside the wrap, stack journey,
+           side-by-side hero CTAs, illustration becomes atmospheric backdrop */
         @media (max-width: 640px) {
           .donate-hero-text > h1 { line-height: 1.05; }
           .donate-journey-grid { grid-template-columns: 1fr; gap: 28px; }
+
+          /* Side-by-side CTAs, smaller */
+          .donate-hero-cta-row {
+            flex-wrap: nowrap;
+            gap: 10px;
+          }
+          .donate-hero-cta-row > * {
+            flex: 1 1 0;
+            min-width: 0;
+            height: 46px;
+            padding: 0 14px;
+            font-size: 14px;
+            white-space: nowrap;
+          }
+
+          /* Illustration → atmospheric background */
+          .donate-hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 0 !important;
+          }
+          .donate-hero-art {
+            position: absolute;
+            top: -6%;
+            right: -14%;
+            width: 78%;
+            max-width: 360px;
+            min-height: 0;
+            opacity: 0.32;
+            margin: 0 !important;
+            pointer-events: none;
+            z-index: 0;
+          }
+          .donate-hero-text {
+            position: relative;
+            z-index: 1;
+          }
         }
       `}</style>
     </>
