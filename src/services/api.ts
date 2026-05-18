@@ -295,6 +295,36 @@ export function apiCreatePet(formData: FormData) {
   }>('/pets', { method: 'POST', body: formData });
 }
 
+// ── Adoption endpoints ───────────────────────────────────────────────────────
+
+export type HomeType = 'HOUSE' | 'APARTMENT' | 'CONDO';
+
+export interface CreateAdoptionInput {
+  petId: number;
+  message?: string;
+  homeType: HomeType;
+  hasYard: boolean;
+  yardFenced?: boolean;
+  ownsHome: boolean;
+  landlordAllowsPets?: boolean;
+  householdSize: number;
+  hasChildren: boolean;
+  hasPreviousPetExperience: boolean;
+  yearsOfPetExperience?: number;
+  hoursAwayPerDay: number;
+  hasOtherPetsNow: boolean;
+  reasonForAdopting: string;
+  hasBackupCarePlan: boolean;
+  awareOfMonthlyCosts: boolean;
+}
+
+export function apiCreateAdoption(input: CreateAdoptionInput) {
+  return apiFetch<{ success: boolean; message: string; data: { id: number } }>(
+    '/adoptions',
+    { method: 'POST', body: JSON.stringify(input) },
+  );
+}
+
 // ── Shelter endpoints ─────────────────────────────────────────────────────────
 
 export function apiGetShelters(page = 1, limit = 50) {

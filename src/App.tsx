@@ -23,6 +23,7 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import AdminDashboard from '@/pages/Admin/AdminDashboard';
 import AdminShelters from '@/pages/Admin/AdminShelters';
 import VerifyEmailPage from '@/pages/Auth/VerifyEmail';
+import PetApplyPage from '@/pages/Apply/PetApply';
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
               <Route path='/' element={<HomePage />} />
               <Route path='/pets' element={<PetsPage />} />
               <Route path='/pets/:id' element={<PetDetailPage />} />
+              <Route path='/pets/:id/apply' element={<PetApplyPage />} />
               <Route path='/shelters' element={<SheltersPage />} />
               <Route path='/shelters/:id' element={<ShelterDetailPage />} />
               <Route path='/about' element={<AboutPage />} />

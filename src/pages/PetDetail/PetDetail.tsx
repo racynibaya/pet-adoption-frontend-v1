@@ -533,7 +533,7 @@ export default function PetDetail() {
               </p>
             </div>
             <Link
-              to='/contact'
+              to={`/pets/${pet.id}/apply`}
               style={{
                 display: 'inline-block',
                 padding: '13px 28px',

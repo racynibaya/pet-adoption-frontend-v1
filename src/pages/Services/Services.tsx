@@ -400,7 +400,10 @@ export default function PetsPage() {
                       <Link to={`/pets/${id}`} className='btn btn-soft btn-sm'>
                         View details
                       </Link>
-                      <Link to='/contact' className='btn btn-primary btn-sm'>
+                      <Link
+                        to={`/pets/${id}/apply`}
+                        className='btn btn-primary btn-sm'
+                      >
                         Apply to adopt →
                       </Link>
                     </div>

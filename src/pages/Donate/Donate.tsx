@@ -1648,7 +1648,9 @@ export default function DonatePage() {
                       ref={shelterTriggerRef}
                       type='button'
                       className={`shelter-combo-trigger${comboOpen ? ' is-open' : ''}${errors.shelter ? ' has-error' : ''}`}
-                      onClick={() => (comboOpen ? setComboOpen(false) : openCombo())}
+                      onClick={() =>
+                        comboOpen ? setComboOpen(false) : openCombo()
+                      }
                       aria-haspopup='listbox'
                       aria-expanded={comboOpen}
                       aria-controls='shelter-listbox'
@@ -2189,7 +2191,6 @@ export default function DonatePage() {
           padding: 12px 16px;
           background:
             linear-gradient(180deg, var(--cream) 0%, rgba(255, 248, 240, 0) 100%);
-          border-bottom: 1px solid var(--hairline-soft);
         }
         .shelter-combo-panel-head > svg {
           color: var(--peach-stroke);
