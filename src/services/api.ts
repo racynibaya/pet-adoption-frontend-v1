@@ -241,6 +241,7 @@ export type CreateDonationInput = {
   amount: number; // in dollars; backend converts to cents for Stripe
   name: string;
   email: string;
+  shelterId: number;
   message?: string;
 };
 

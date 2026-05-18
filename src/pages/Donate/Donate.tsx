@@ -1,8 +1,14 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Eyebrow from '@/components/ui/Eyebrow';
 import SectionHead from '@/components/ui/SectionHead';
-import { apiCreateDonation, ApiError } from '@/services/api';
+import {
+  apiCreateDonation,
+  apiGetShelters,
+  ApiError,
+  type ApiShelter,
+} from '@/services/api';
+import { SHELTERS } from '@/pages/UseCases/UseCases';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -542,7 +548,21 @@ const VOICES: Voice[] = [
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-type FieldErrors = { amount?: string; name?: string; email?: string };
+type FieldErrors = {
+  amount?: string;
+  name?: string;
+  email?: string;
+  shelter?: string;
+};
+
+// Picker uses just the minimum fields shared by ApiShelter and mock SHELTERS.
+type ShelterChoice = { id: number; name: string; address: string };
+
+const MOCK_SHELTER_CHOICES: ShelterChoice[] = SHELTERS.map((s) => ({
+  id: s.id,
+  name: s.name,
+  address: s.address,
+}));
 
 export default function DonatePage() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(1500);
@@ -550,6 +570,11 @@ export default function DonatePage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [selectedShelterId, setSelectedShelterId] = useState<number | null>(
+    null,
+  );
+  const [shelters, setShelters] =
+    useState<ShelterChoice[]>(MOCK_SHELTER_CHOICES);
 
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitting, setSubmitting] = useState(false);
@@ -558,6 +583,106 @@ export default function DonatePage() {
 
   const formRef = useRef<HTMLDivElement>(null);
   const tiersRef = useRef<HTMLElement>(null);
+  const shelterTriggerRef = useRef<HTMLButtonElement>(null);
+  const shelterSearchRef = useRef<HTMLInputElement>(null);
+  const comboRef = useRef<HTMLDivElement>(null);
+  const comboListRef = useRef<HTMLUListElement>(null);
+  const [shelterQuery, setShelterQuery] = useState('');
+  const [comboOpen, setComboOpen] = useState(false);
+  const [comboHighlight, setComboHighlight] = useState(0);
+
+  // Close on outside-click and Escape; refocus trigger on Escape.
+  useEffect(() => {
+    if (!comboOpen) return;
+    function onMouseDown(ev: MouseEvent) {
+      if (!comboRef.current?.contains(ev.target as Node)) {
+        setComboOpen(false);
+      }
+    }
+    function onKey(ev: KeyboardEvent) {
+      if (ev.key === 'Escape') {
+        setComboOpen(false);
+        shelterTriggerRef.current?.focus();
+      }
+    }
+    document.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onMouseDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [comboOpen]);
+
+  // When the panel opens, focus the search input.
+  useEffect(() => {
+    if (comboOpen) {
+      requestAnimationFrame(() => shelterSearchRef.current?.focus());
+    }
+  }, [comboOpen]);
+
+  // Keep the highlighted row in view as the user arrows through results.
+  useEffect(() => {
+    if (!comboOpen) return;
+    const el = comboListRef.current?.querySelector<HTMLElement>(
+      `[data-idx="${comboHighlight}"]`,
+    );
+    el?.scrollIntoView({ block: 'nearest' });
+  }, [comboHighlight, comboOpen]);
+
+  function openCombo() {
+    setShelterQuery('');
+    setComboHighlight(0);
+    setComboOpen(true);
+  }
+
+  useEffect(() => {
+    let cancelled = false;
+    apiGetShelters(1, 100)
+      .then((res) => {
+        if (cancelled || !res.data?.length) return;
+        setShelters(
+          res.data.map((s: ApiShelter) => ({
+            id: s.id,
+            name: s.name,
+            address: s.address,
+          })),
+        );
+      })
+      .catch(() => {
+        // backend down — mock fallback already in state
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const selectedShelter =
+    shelters.find((s) => s.id === selectedShelterId) ?? null;
+
+  // City = the leading segment of the address before the first comma.
+  function shortCity(address: string) {
+    const i = address.indexOf(',');
+    return i > 0 ? address.slice(0, i).trim() : address;
+  }
+
+  const filteredShelters = shelterQuery.trim()
+    ? shelters.filter((s) => {
+        const q = shelterQuery.trim().toLowerCase();
+        return (
+          s.name.toLowerCase().includes(q) ||
+          s.address.toLowerCase().includes(q)
+        );
+      })
+    : shelters;
+
+  function pickShelter(id: number) {
+    setSelectedShelterId(id);
+    setErrors((e) => ({ ...e, shelter: undefined }));
+    setComboOpen(false);
+    setShelterQuery('');
+    setComboHighlight(0);
+    shelterTriggerRef.current?.focus();
+  }
 
   const effectiveAmount = customAmount
     ? Number(customAmount)
@@ -583,6 +708,8 @@ export default function DonatePage() {
   function validate(): FieldErrors {
     const next: FieldErrors = {};
     if (!amountValid) next.amount = 'Please choose an amount of ₱1 or more.';
+    if (selectedShelterId === null)
+      next.shelter = 'Please choose a shelter to support.';
     if (!name.trim()) next.name = 'Please tell us your name.';
     if (!email.trim()) next.email = 'Please enter your email.';
     else if (!EMAIL_RE.test(email.trim()))
@@ -595,7 +722,13 @@ export default function DonatePage() {
     setApiError(null);
     const v = validate();
     setErrors(v);
-    if (Object.keys(v).length > 0) return;
+    if (Object.keys(v).length > 0) {
+      if (v.shelter) {
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        openCombo();
+      }
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -603,6 +736,7 @@ export default function DonatePage() {
         amount: effectiveAmount,
         name: name.trim(),
         email: email.trim(),
+        shelterId: selectedShelterId!,
         message: message.trim() || undefined,
       });
       setSubmittedAmount(effectiveAmount);
@@ -746,7 +880,7 @@ export default function DonatePage() {
                 className='btn btn-primary btn-lg'
                 onClick={() => pickTier(1500)}
               >
-                Give now <span style={{ marginLeft: 6 }}>→</span>
+                Send Love <span style={{ marginLeft: 6 }}>→</span>
               </button>
               <a href='#journey' className='btn btn-soft btn-lg'>
                 See the journey
@@ -872,13 +1006,14 @@ export default function DonatePage() {
             >
               ₱
             </span>
+
             <input
               id='hero-amount'
               type='number'
               min='1'
               step='1'
               inputMode='decimal'
-              placeholder='300'
+              placeholder='0,000'
               value={customAmount}
               onChange={(e) => onCustomChange(e.target.value)}
               className='donate-hero-amount-input'
@@ -1226,6 +1361,65 @@ export default function DonatePage() {
               </>
             )}
 
+            {selectedShelter && (
+              <div
+                className='mt-6 rounded-2xl'
+                style={{
+                  padding: '14px 16px',
+                  background: 'rgba(255,255,255,0.55)',
+                  border: '1px solid rgba(28,44,44,0.08)',
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: 'var(--muted)',
+                    marginBottom: 4,
+                  }}
+                >
+                  Going to
+                </div>
+                <div
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: 'var(--ink)',
+                    lineHeight: 1.35,
+                  }}
+                >
+                  {selectedShelter.name}
+                </div>
+                <button
+                  type='button'
+                  onClick={() => {
+                    formRef.current?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    });
+                    setSelectedShelterId(null);
+                    openCombo();
+                  }}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    marginTop: 6,
+                    fontSize: 12,
+                    color: 'var(--rausch)',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    fontFamily: 'inherit',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: 3,
+                  }}
+                >
+                  Change shelter ↑
+                </button>
+              </div>
+            )}
+
             <button
               type='button'
               onClick={() =>
@@ -1392,9 +1586,20 @@ export default function DonatePage() {
                     lineHeight: 1.6,
                   }}
                 >
-                  A receipt is heading to your inbox — and somewhere, a small
-                  belly is about to be full because of you. Thank you,{' '}
-                  {name.split(' ')[0] || 'friend'}.
+                  A receipt is heading to your inbox
+                  {selectedShelter ? (
+                    <>
+                      {' '}
+                      — and{' '}
+                      <strong style={{ color: 'var(--ink)' }}>
+                        {selectedShelter.name}
+                      </strong>{' '}
+                      will put it straight to work
+                    </>
+                  ) : (
+                    <> — and somewhere, a small belly is about to be full</>
+                  )}{' '}
+                  because of you. Thank you, {name.split(' ')[0] || 'friend'}.
                 </p>
                 <div className='flex gap-3 justify-center mt-12 flex-wrap'>
                   <Link to='/' className='btn btn-soft'>
@@ -1410,6 +1615,7 @@ export default function DonatePage() {
                       setMessage('');
                       setCustomAmount('');
                       setSelectedAmount(1500);
+                      setSelectedShelterId(null);
                     }}
                   >
                     Give again
@@ -1430,6 +1636,179 @@ export default function DonatePage() {
                   >
                     Where should we send the thank-you?
                   </h2>
+                </div>
+
+                <div className='field'>
+                  <label htmlFor='shelter-trigger'>
+                    Which shelter receives your gift?
+                  </label>
+                  <div className='shelter-combo' ref={comboRef}>
+                    <button
+                      id='shelter-trigger'
+                      ref={shelterTriggerRef}
+                      type='button'
+                      className={`shelter-combo-trigger${comboOpen ? ' is-open' : ''}${errors.shelter ? ' has-error' : ''}`}
+                      onClick={() => (comboOpen ? setComboOpen(false) : openCombo())}
+                      aria-haspopup='listbox'
+                      aria-expanded={comboOpen}
+                      aria-controls='shelter-listbox'
+                    >
+                      {selectedShelter && (
+                        <svg
+                          className='shelter-combo-trigger-pin'
+                          width='12'
+                          height='12'
+                          viewBox='0 0 16 16'
+                          fill='none'
+                          aria-hidden
+                        >
+                          <path
+                            d='M8 1.6 C5.2 1.6 3 3.8 3 6.6 C3 9.4 6 13.4 7.3 14.2 C7.7 14.5 8.3 14.5 8.7 14.2 C10 13.4 13 9.4 13 6.6 C13 3.8 10.8 1.6 8 1.6 Z'
+                            fill='#FDDDB0'
+                            stroke='#A55E24'
+                            strokeWidth='1.2'
+                            strokeLinejoin='round'
+                          />
+                          <circle cx='8' cy='6.6' r='1.8' fill='#A55E24' />
+                        </svg>
+                      )}
+                      <span
+                        className={`shelter-combo-trigger-text${selectedShelter ? '' : ' is-placeholder'}`}
+                      >
+                        {selectedShelter
+                          ? selectedShelter.name
+                          : 'Choose a shelter…'}
+                      </span>
+                      <svg
+                        className='shelter-combo-trigger-chev'
+                        width='14'
+                        height='14'
+                        viewBox='0 0 14 14'
+                        fill='none'
+                        aria-hidden
+                      >
+                        <path
+                          d='M3 5 L7 9 L11 5'
+                          stroke='currentColor'
+                          strokeWidth='1.8'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          fill='none'
+                        />
+                      </svg>
+                    </button>
+
+                    {comboOpen && (
+                      <div className='shelter-combo-panel'>
+                        <div className='shelter-combo-panel-head'>
+                          <svg
+                            width='16'
+                            height='16'
+                            viewBox='0 0 16 16'
+                            fill='none'
+                            aria-hidden
+                          >
+                            <ellipse
+                              cx='7'
+                              cy='7'
+                              rx='4.6'
+                              ry='4.3'
+                              stroke='currentColor'
+                              strokeWidth='1.6'
+                            />
+                            <path
+                              d='M10.4 10.6 Q12.2 12.4 14 14.2'
+                              stroke='currentColor'
+                              strokeWidth='1.8'
+                              strokeLinecap='round'
+                              fill='none'
+                            />
+                          </svg>
+                          <input
+                            ref={shelterSearchRef}
+                            type='search'
+                            autoComplete='off'
+                            placeholder='Search…'
+                            value={shelterQuery}
+                            onChange={(e) => {
+                              setShelterQuery(e.target.value);
+                              setComboHighlight(0);
+                            }}
+                            onKeyDown={(ev) => {
+                              if (ev.key === 'ArrowDown') {
+                                ev.preventDefault();
+                                setComboHighlight((h) =>
+                                  Math.min(
+                                    h + 1,
+                                    Math.max(0, filteredShelters.length - 1),
+                                  ),
+                                );
+                              } else if (ev.key === 'ArrowUp') {
+                                ev.preventDefault();
+                                setComboHighlight((h) => Math.max(h - 1, 0));
+                              } else if (ev.key === 'Enter') {
+                                ev.preventDefault();
+                                const pick = filteredShelters[comboHighlight];
+                                if (pick) pickShelter(pick.id);
+                              }
+                            }}
+                          />
+                        </div>
+
+                        {filteredShelters.length === 0 ? (
+                          <div className='shelter-combo-panel-empty'>
+                            <PawDeco size={32} opacity={0.55} />
+                            <span>
+                              No shelters answer to “
+                              <em>{shelterQuery.trim()}</em>”.
+                            </span>
+                          </div>
+                        ) : (
+                          <ul
+                            id='shelter-listbox'
+                            ref={comboListRef}
+                            className='shelter-combo-panel-list'
+                            role='listbox'
+                            aria-label='Shelters'
+                          >
+                            {filteredShelters.map((s, i) => {
+                              const isSelected = s.id === selectedShelterId;
+                              const isActive = i === comboHighlight;
+                              return (
+                                <li
+                                  key={s.id}
+                                  data-idx={i}
+                                  role='option'
+                                  aria-selected={isSelected}
+                                  className={`shelter-combo-panel-row${isActive ? ' is-active' : ''}${isSelected ? ' is-selected' : ''}`}
+                                  onMouseEnter={() => setComboHighlight(i)}
+                                  onMouseDown={(ev) => {
+                                    ev.preventDefault(); // keep focus on search
+                                    pickShelter(s.id);
+                                  }}
+                                >
+                                  <span className='shelter-combo-panel-name'>
+                                    {s.name}
+                                  </span>
+                                  <span className='shelter-combo-panel-city'>
+                                    {shortCity(s.address)}
+                                  </span>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  {errors.shelter && (
+                    <p
+                      role='alert'
+                      style={{ fontSize: 13, color: '#c0304d', marginTop: 6 }}
+                    >
+                      {errors.shelter}
+                    </p>
+                  )}
                 </div>
 
                 <div className='r-grid-form-2 gap-4'>
@@ -1634,7 +2013,7 @@ export default function DonatePage() {
 
       {/* ═══════════════════ OTHER WAYS ═══════════════════ */}
       <section
-        className='section-tight rounded-3xl text-center'
+        className='section-tight rounded-3xl text-center mb-5'
         style={{
           padding: 'clamp(56px, 7vw, 96px) clamp(28px, 5vw, 72px)',
           background: 'var(--ink)',
@@ -1728,6 +2107,237 @@ export default function DonatePage() {
           gap: 40px;
         }
         .donate-journey-step { position: relative; }
+
+        /* ───── Shelter combo (select-style trigger + searchable panel) ───── */
+        .shelter-combo { position: relative; }
+
+        .shelter-combo-trigger {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+          height: 52px;
+          padding: 0 14px 0 16px;
+          background: var(--canvas);
+          border: 1.5px solid var(--hairline);
+          border-radius: 12px;
+          font-family: inherit;
+          color: var(--ink);
+          text-align: left;
+          cursor: pointer;
+          transition:
+            border-color var(--dur-base) var(--ease-out),
+            box-shadow var(--dur-base) var(--ease-out);
+        }
+        .shelter-combo-trigger:focus-visible,
+        .shelter-combo-trigger.is-open {
+          outline: none;
+          border-color: var(--rausch);
+          border-width: 2px;
+          padding: 0 13px 0 15px;
+          box-shadow: 0 0 0 3px rgba(232, 146, 60, 0.15);
+        }
+        .shelter-combo-trigger.has-error { border-color: #c0304d; }
+
+        .shelter-combo-trigger-pin { flex-shrink: 0; }
+
+        .shelter-combo-trigger-text {
+          flex: 1;
+          min-width: 0;
+          font-family: var(--font-display);
+          font-size: 15.5px;
+          color: var(--ink);
+          line-height: 1.3;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .shelter-combo-trigger-text.is-placeholder {
+          font-style: italic;
+          color: var(--muted);
+        }
+
+        .shelter-combo-trigger-chev {
+          flex-shrink: 0;
+          color: var(--peach-stroke);
+          transition: transform 200ms var(--ease-out);
+        }
+        .shelter-combo-trigger.is-open .shelter-combo-trigger-chev {
+          transform: rotate(180deg);
+        }
+
+        /* Panel */
+        .shelter-combo-panel {
+          position: absolute;
+          top: calc(100% + 8px);
+          left: 0;
+          right: 0;
+          z-index: 20;
+          background: var(--canvas);
+          border: 1px solid var(--hairline-soft);
+          border-radius: 14px;
+          box-shadow: var(--shadow-card);
+          overflow: hidden;
+          transform-origin: top center;
+          animation: authScaleIn 180ms cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .shelter-combo-panel-head {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 16px;
+          background:
+            linear-gradient(180deg, var(--cream) 0%, rgba(255, 248, 240, 0) 100%);
+          border-bottom: 1px solid var(--hairline-soft);
+        }
+        .shelter-combo-panel-head > svg {
+          color: var(--peach-stroke);
+          flex-shrink: 0;
+        }
+        .shelter-combo-panel-head input[type='search'] {
+          flex: 1;
+          min-width: 0;
+          height: 28px;
+          background: transparent;
+          border: none;
+          outline: none;
+          padding: 0;
+          font-family: var(--font-display);
+          font-style: italic;
+          font-size: 14.5px;
+          color: var(--ink);
+          caret-color: var(--rausch);
+          -webkit-appearance: none;
+          appearance: none;
+        }
+        .shelter-combo-panel-head input[type='search']::placeholder {
+          color: var(--muted);
+          font-style: italic;
+          font-family: var(--font-display);
+        }
+        .shelter-combo-panel-head input[type='search']::-webkit-search-cancel-button {
+          -webkit-appearance: none;
+          appearance: none;
+        }
+
+        .shelter-combo-panel-list {
+          list-style: none;
+          margin: 0;
+          padding: 4px 0;
+          max-height: clamp(220px, 36vh, 304px);
+          overflow-y: auto;
+          -webkit-mask-image: linear-gradient(
+            180deg,
+            #000 0%,
+            #000 90%,
+            transparent 100%
+          );
+                  mask-image: linear-gradient(
+            180deg,
+            #000 0%,
+            #000 90%,
+            transparent 100%
+          );
+        }
+        .shelter-combo-panel-list::-webkit-scrollbar { width: 6px; }
+        .shelter-combo-panel-list::-webkit-scrollbar-thumb {
+          background: var(--peach-stroke);
+          border-radius: 3px;
+          opacity: 0.5;
+        }
+        .shelter-combo-panel-list::-webkit-scrollbar-track { background: transparent; }
+
+        .shelter-combo-panel-row {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 14px;
+          padding: 12px 18px;
+          cursor: pointer;
+          transition: background 160ms var(--ease-out);
+        }
+        .shelter-combo-panel-row.is-active {
+          background: rgba(253, 221, 176, 0.3);
+        }
+        .shelter-combo-panel-row.is-selected {
+          background: linear-gradient(
+            90deg,
+            rgba(253, 221, 176, 0.55) 0%,
+            rgba(253, 221, 176, 0) 100%
+          );
+        }
+        .shelter-combo-panel-row.is-active.is-selected {
+          background: linear-gradient(
+            90deg,
+            rgba(253, 221, 176, 0.7) 0%,
+            rgba(253, 221, 176, 0.05) 100%
+          );
+        }
+
+        .shelter-combo-panel-name {
+          font-family: var(--font-display);
+          font-size: 15px;
+          color: var(--ink);
+          line-height: 1.3;
+          flex: 1 1 auto;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          min-width: 0;
+          text-decoration-thickness: 1.5px;
+          text-underline-offset: 5px;
+        }
+        .shelter-combo-panel-row.is-selected .shelter-combo-panel-name {
+          text-decoration: underline wavy var(--rausch);
+        }
+
+        .shelter-combo-panel-city {
+          font-family: var(--font-body);
+          font-size: 10.5px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--muted);
+          flex: 0 0 auto;
+          line-height: 1.4;
+          transition: color 180ms var(--ease-out);
+        }
+        .shelter-combo-panel-row.is-selected .shelter-combo-panel-city {
+          color: var(--ink-2);
+        }
+
+        .shelter-combo-panel-empty {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          padding: 28px 16px 32px;
+          text-align: center;
+          font-style: italic;
+          font-family: var(--font-display);
+          font-size: 13.5px;
+          color: var(--muted);
+          line-height: 1.5;
+        }
+        .shelter-combo-panel-empty em {
+          color: var(--ink-2);
+          font-style: normal;
+          font-weight: 600;
+        }
+
+        @media (max-width: 640px) {
+          .shelter-combo-panel-head { padding: 12px 14px; }
+          .shelter-combo-panel-row {
+            padding: 12px 14px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 3px;
+          }
+          .shelter-combo-panel-name {
+            white-space: normal;
+            line-height: 1.35;
+          }
+        }
 
         /* Tablet: stack hero, 2-col journey */
         @media (max-width: 960px) {

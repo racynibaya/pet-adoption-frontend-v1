@@ -651,7 +651,7 @@ export default function ContactPage() {
 
       {/* FAQ */}
       <section
-        className='section'
+        className='section mb-7'
         style={{ background: 'var(--soft)', borderRadius: 28 }}
       >
         <SectionHead eyebrow='FAQ' heading='Quick answers, before you write' />

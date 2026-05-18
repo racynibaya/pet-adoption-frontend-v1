@@ -2,197 +2,6 @@ import { Link } from 'react-router-dom';
 import Eyebrow from '@/components/ui/Eyebrow';
 import SectionHead from '@/components/ui/SectionHead';
 
-const GALLERY_PHOTOS = [
-  {
-    bg: '#f3d2b3',
-    svg: (
-      <svg
-        viewBox='0 0 400 400'
-        width='100%'
-        height='100%'
-        preserveAspectRatio='xMidYMid slice'
-      >
-        <rect width='400' height='400' fill='#f3d2b3' />
-        <ellipse cx='200' cy='285' rx='128' ry='72' fill='#a87d62' />
-        <ellipse cx='200' cy='200' rx='102' ry='92' fill='#e8a878' />
-        <polygon points='112,150 138,72 180,158' fill='#a87d62' />
-        <polygon points='220,158 262,72 288,150' fill='#a87d62' />
-        <polygon points='128,140 142,98 162,140' fill='#f3d2b3' />
-        <polygon points='238,140 258,98 272,140' fill='#f3d2b3' />
-        <circle cx='170' cy='205' r='9' fill='#1d2235' />
-        <circle cx='230' cy='205' r='9' fill='#1d2235' />
-        <ellipse cx='200' cy='240' rx='11' ry='7' fill='#1d2235' />
-        <path
-          d='M188 254 Q200 268 212 254'
-          stroke='#1d2235'
-          strokeWidth='2.4'
-          fill='none'
-          strokeLinecap='round'
-        />
-      </svg>
-    ),
-  },
-  {
-    bg: '#cdc6bd',
-    svg: (
-      <svg viewBox='0 0 300 220' width='100%' height='100%'>
-        <rect width='300' height='220' fill='#cdc6bd' />
-        <polygon points='100,80 110,40 132,80' fill='#5a5853' />
-        <polygon points='168,80 190,40 200,80' fill='#5a5853' />
-        <ellipse cx='150' cy='130' rx='64' ry='52' fill='#827d76' />
-        <ellipse cx='150' cy='138' rx='42' ry='32' fill='#cdc6bd' />
-        <ellipse cx='130' cy='120' rx='5' ry='6' fill='#1d2235' />
-        <ellipse cx='170' cy='120' rx='5' ry='6' fill='#1d2235' />
-      </svg>
-    ),
-  },
-  {
-    bg: '#5fb4d8',
-    svg: (
-      <svg viewBox='0 0 300 220' width='100%' height='100%'>
-        <rect width='300' height='220' fill='#5fb4d8' />
-        <ellipse cx='150' cy='140' rx='80' ry='60' fill='#fff' />
-        <ellipse cx='150' cy='130' rx='50' ry='44' fill='#cdcdcd' />
-        <ellipse cx='150' cy='138' rx='36' ry='26' fill='#fff' />
-        <polygon points='118,98 124,68 146,100' fill='#cdcdcd' />
-        <polygon points='154,100 176,68 182,98' fill='#cdcdcd' />
-        <circle cx='138' cy='128' r='4' fill='#1d2235' />
-        <circle cx='162' cy='128' r='4' fill='#1d2235' />
-      </svg>
-    ),
-  },
-  {
-    bg: '#E8923C',
-    svg: (
-      <svg viewBox='0 0 300 220' width='100%' height='100%'>
-        <rect width='300' height='220' fill='#E8923C' />
-        <text
-          x='150'
-          y='120'
-          textAnchor='middle'
-          fontFamily='Fraunces, serif'
-          fontWeight='700'
-          fontSize='42'
-          fill='#fff'
-        >
-          12k+
-        </text>
-        <text
-          x='150'
-          y='150'
-          textAnchor='middle'
-          fontFamily='Inter, sans-serif'
-          fontWeight='500'
-          fontSize='14'
-          fill='#fff'
-          opacity='0.9'
-        >
-          adoptions matched
-        </text>
-      </svg>
-    ),
-  },
-  {
-    bg: '#ffe9b8',
-    svg: (
-      <svg
-        viewBox='0 0 400 150'
-        width='100%'
-        height='100%'
-        preserveAspectRatio='xMidYMid slice'
-      >
-        <rect width='400' height='150' fill='#ffe9b8' />
-        <line
-          x1='30'
-          y1='133'
-          x2='370'
-          y2='133'
-          stroke='#d4a838'
-          strokeWidth='1.4'
-          strokeDasharray='3 6'
-          strokeLinecap='round'
-          opacity='0.35'
-        />
-        <g fill='#3a3530' opacity='0.42'>
-          <ellipse
-            cx='62'
-            cy='92'
-            rx='4'
-            ry='5.6'
-            transform='rotate(-15 62 92)'
-          />
-          <ellipse cx='56' cy='82' rx='2.2' ry='3.4' />
-          <ellipse cx='70' cy='84' rx='2.2' ry='3.4' />
-        </g>
-        <g fill='#3a3530' opacity='0.3'>
-          <ellipse
-            cx='108'
-            cy='115'
-            rx='3.4'
-            ry='4.8'
-            transform='rotate(8 108 115)'
-          />
-          <ellipse cx='102' cy='107' rx='1.8' ry='2.8' />
-          <ellipse cx='114' cy='107' rx='1.8' ry='2.8' />
-        </g>
-        <ellipse cx='200' cy='128' rx='62' ry='20' fill='#3a3530' />
-        <ellipse
-          cx='162'
-          cy='48'
-          rx='12'
-          ry='20'
-          fill='#3a3530'
-          transform='rotate(-25 162 48)'
-        />
-        <ellipse
-          cx='238'
-          cy='48'
-          rx='12'
-          ry='20'
-          fill='#3a3530'
-          transform='rotate(25 238 48)'
-        />
-        <ellipse cx='200' cy='78' rx='54' ry='52' fill='#3a3530' />
-        <ellipse cx='200' cy='86' rx='38' ry='30' fill='#5a4a3e' />
-        <circle cx='184' cy='74' r='4.4' fill='#fff' />
-        <circle cx='216' cy='74' r='4.4' fill='#fff' />
-        <circle cx='184' cy='75' r='2.2' fill='#1d1916' />
-        <circle cx='216' cy='75' r='2.2' fill='#1d1916' />
-        <ellipse cx='200' cy='100' rx='12' ry='8' fill='#1d1916' />
-        <path
-          d='M188 107 Q200 115 212 107'
-          stroke='#1d1916'
-          strokeWidth='2'
-          fill='none'
-          strokeLinecap='round'
-        />
-        <g fill='#3a3530' opacity='0.42'>
-          <ellipse
-            cx='338'
-            cy='92'
-            rx='4'
-            ry='5.6'
-            transform='rotate(15 338 92)'
-          />
-          <ellipse cx='330' cy='82' rx='2.2' ry='3.4' />
-          <ellipse cx='344' cy='84' rx='2.2' ry='3.4' />
-        </g>
-        <g fill='#3a3530' opacity='0.3'>
-          <ellipse
-            cx='292'
-            cy='115'
-            rx='3.4'
-            ry='4.8'
-            transform='rotate(-8 292 115)'
-          />
-          <ellipse cx='286' cy='107' rx='1.8' ry='2.8' />
-          <ellipse cx='298' cy='107' rx='1.8' ry='2.8' />
-        </g>
-      </svg>
-    ),
-  },
-];
-
 const ABOUT_STATS = [
   { num: '12,400', lab: 'Adoptions completed since 2023' },
   { num: '50+', lab: 'Verified partner shelters' },
@@ -327,7 +136,7 @@ const TIMELINE = [
   {
     yr: '2023',
     title: 'Founded in Philippines',
-    desc: 'Racyn adopts Eli. KodaNest launches as a sitter directory in 4 zip codes.',
+    desc: 'Cris adopts Eli. KodaNest launches as a sitter directory in 4 zip codes.',
   },
   {
     yr: '2024',
@@ -348,7 +157,7 @@ const TIMELINE = [
 
 const TEAM = [
   {
-    name: 'Racyn Ibaya',
+    name: 'Cris Reyes',
     role: 'Founder & CEO',
     bg: '#f3d2b3',
     svg: (
@@ -371,7 +180,7 @@ const TEAM = [
     ),
   },
   {
-    name: 'Triccie Ann Rafin',
+    name: 'Contessa Circe',
     role: 'Head of Adoption',
     bg: '#cfe6f7',
     svg: (
@@ -447,7 +256,7 @@ const TEAM = [
     ),
   },
   {
-    name: 'Dr. Rowel Nepomuceno',
+    name: 'Dr. Romell Nepo',
     role: 'Chief Veterinarian',
     bg: '#ffe9b8',
     svg: (
@@ -470,7 +279,7 @@ const TEAM = [
     ),
   },
   {
-    name: 'Archie Alviar',
+    name: 'RR Calviar',
     role: 'Head of Training',
     bg: 'var(--mint)',
     svg: (
@@ -553,28 +362,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Gallery */}
-      <section style={{ padding: '0 0 64px' }}>
-        <div
-          className='r-grid-gallery gap-4 relative z-5 about-gallery'
-          style={{ marginTop: -38 }}
-        >
-          {GALLERY_PHOTOS.map(({ bg, svg }, i) => (
-            <div
-              key={i}
-              className='photo transition-[transform,box-shadow] duration-340 hover:-translate-y-1.25 hover:[box-shadow:0_14px_36px_rgba(18,52,64,0.14)] w-full h-full'
-              style={{
-                aspectRatio: i === 0 ? '1/1.4' : '4/3',
-                gridRow: i === 0 ? 'span 2' : undefined,
-                background: bg,
-              }}
-            >
-              {svg}
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Story */}
       <section className='section'>
         <div className='r-grid-side-rev gap-20 items-start about-story-grid'>
@@ -587,7 +374,7 @@ export default function AboutPage() {
           <div className='story-drop-cap'>
             <p style={{ color: 'var(--ink-2)', fontSize: 16, lineHeight: 1.7 }}>
               KodaNest began in 2023, in a small barangay in La Union, after our
-              founder Racyn adopted a one-eyed terrier named Eli and discovered
+              founder Cris adopted a one-eyed terrier named Eli and discovered
               that finding a sitter for him while traveling was nearly
               impossible. The shelter that had matched her with Eli ran on
               spreadsheets. The sitter she eventually found ran on Venmo and
