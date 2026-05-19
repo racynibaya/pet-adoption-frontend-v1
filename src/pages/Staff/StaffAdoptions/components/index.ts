@@ -1,0 +1,6 @@
+export { default as StaffAdoptionsHeader } from './StaffAdoptionsHeader'
+export { default as StaffAdoptionsStats } from './StaffAdoptionsStats'
+export { default as StaffAdoptionsToolbar } from './StaffAdoptionsToolbar'
+export { default as StaffAdoptionsTable } from './StaffAdoptionsTable'
+export { default as StaffAdoptionsRow } from './StaffAdoptionsRow'
+export { default as StaffAdoptionsBadge } from './StaffAdoptionsBadge'
