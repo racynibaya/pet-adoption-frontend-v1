@@ -375,6 +375,8 @@ p { margin: 0; color: var(--ink-2); }
   letter-spacing: 0;
 }
 .nav-account-name { padding-right: 4px; }
+.nav-login-long { display: inline; }
+.nav-login-short { display: none; }
 @media (max-width: 720px) {
   .nav-account-name { display: none; }
   .nav-account { padding: 0 4px; }
@@ -651,11 +653,20 @@ p { margin: 0; color: var(--ink-2); }
 .mb-24 { margin-bottom: 24px; }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 880px) {
+@media (max-width: 1199px) {
+  .nav-donate { display: none; }
+  .nav-login-long { display: none; }
+  .nav-login-short { display: inline; }
+  .nav-links { gap: 28px; }
+  .nav-inner { gap: 28px; }
+}
+@media (max-width: 1024px) {
   .nav-links { display: none; }
   .nav-login { display: none; }
   .nav-right { margin-left: auto; }
   .nav-hamburger { display: inline-flex; align-items: center; justify-content: center; }
+}
+@media (max-width: 880px) {
   .footer-top { grid-template-columns: 1fr 1fr; }
   .section { padding: 64px 0; }
   .section-head h2 { font-size: 32px; }

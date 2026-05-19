@@ -12,18 +12,18 @@ import { FavoritesProvider } from '@/context/FavoritesContext';
 import { StaffProvider } from '@/context/StaffContext';
 import { UserProvider } from '@/context/UserContext';
 import StaffLayout from '@/components/staff/StaffLayout';
-import StaffLogin from '@/pages/Staff/StaffLogin';
-import StaffDashboard from '@/pages/Staff/StaffDashboard';
-import StaffPets from '@/pages/Staff/StaffPets';
-import StaffPetForm from '@/pages/Staff/StaffPetForm';
-import StaffAdoptions from '@/pages/Staff/StaffAdoptions';
+import StaffLogin from '@/pages/Staff/StaffLogin/StaffLogin';
+import StaffDashboard from '@/pages/Staff/StaffDashboard/StaffDashboard';
+import StaffPets from '@/pages/Staff/StaffPets/StaffPets';
+import StaffPetForm from '@/pages/Staff/StaffPetForm/StaffPetForm';
+import StaffAdoptions from '@/pages/Staff/StaffAdoptions/StaffAdoptions';
 import UserLayout from '@/components/user/UserLayout';
-import UserDashboard from '@/pages/User/UserDashboard';
+import UserDashboard from '@/pages/User/UserDashboard/UserDashboard';
 import AdminLayout from '@/components/admin/AdminLayout';
-import AdminDashboard from '@/pages/Admin/AdminDashboard';
-import AdminShelters from '@/pages/Admin/AdminShelters';
-import VerifyEmailPage from '@/pages/Auth/VerifyEmail';
-import PetApplyPage from '@/pages/Apply/PetApply';
+import AdminDashboard from '@/pages/Admin/AdminDashboard/AdminDashboard';
+import AdminShelters from '@/pages/Admin/AdminShelters/AdminShelters';
+import VerifyEmailPage from '@/pages/Auth/VerifyEmail/VerifyEmail';
+import PetApplyPage from '@/pages/Apply/PetApply/PetApply';
 
 export default function App() {
   return (

@@ -76,7 +76,8 @@ export default function Navbar() {
               className='btn btn-outline btn-sm nav-login'
               onClick={() => { setAuthMode('signin'); setAuthOpen(true); }}
             >
-              Login or Sign up
+              <span className='nav-login-long'>Login or Sign up</span>
+              <span className='nav-login-short'>Sign in</span>
             </button>
           )}
           <button

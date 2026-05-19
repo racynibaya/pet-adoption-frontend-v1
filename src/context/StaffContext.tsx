@@ -160,8 +160,6 @@ export function StaffProvider({ children }: { children: ReactNode }) {
   const [adoptions, setAdoptions] = useState<AdoptionRequest[]>(MOCK_ADOPTIONS);
   const [loginError, setLoginError] = useState('');
 
-  console.log(pets);
-
   useEffect(() => {
     apiGetPets()
       .then((res) => {
