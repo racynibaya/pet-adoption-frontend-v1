@@ -9,7 +9,7 @@ import {
   SyringeIcon,
 } from '../assets';
 
-import { ImpactTier, JourneyStep, Voice, ShelterChoice } from '../types';
+import { ImpactTier, JourneyStep, DonorVoice, ShelterChoice } from '../types/donate.types';
 import { SHELTERS } from '@/pages/UseCases/UseCases';
 
 export const IMPACT_TIERS: ImpactTier[] = [
@@ -70,7 +70,7 @@ export const JOURNEY: JourneyStep[] = [
   },
 ];
 
-export const VOICES: Voice[] = [
+export const VOICES: DonorVoice[] = [
   {
     name: 'Maria L.',
     city: 'Manila',
