@@ -1,0 +1,41 @@
+export const FormIcon = () => (
+  <svg width='28' height='28' viewBox='0 0 28 28' fill='none'>
+    <rect
+      x='4'
+      y='4'
+      width='20'
+      height='20'
+      rx='2'
+      stroke='#D94F68'
+      strokeWidth='1.8'
+      fill='none'
+    />
+    <line
+      x1='9'
+      y1='10'
+      x2='19'
+      y2='10'
+      stroke='#D94F68'
+      strokeWidth='1.8'
+      strokeLinecap='round'
+    />
+    <line
+      x1='9'
+      y1='14'
+      x2='19'
+      y2='14'
+      stroke='#D94F68'
+      strokeWidth='1.8'
+      strokeLinecap='round'
+    />
+    <line
+      x1='9'
+      y1='18'
+      x2='15'
+      y2='18'
+      stroke='#D94F68'
+      strokeWidth='1.8'
+      strokeLinecap='round'
+    />
+  </svg>
+);

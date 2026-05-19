@@ -1,0 +1,41 @@
+export const DocumentIcon = () => (
+  <svg width='32' height='32' viewBox='0 0 32 32' fill='none'>
+    <rect
+      x='5'
+      y='9'
+      width='22'
+      height='16'
+      rx='2'
+      fill='#e0b73a'
+      opacity='0.22'
+    />
+    <rect
+      x='5'
+      y='9'
+      width='22'
+      height='16'
+      rx='2'
+      stroke='#a87d12'
+      strokeWidth='1.6'
+      fill='none'
+    />
+    <line
+      x1='9'
+      y1='15'
+      x2='23'
+      y2='15'
+      stroke='#a87d12'
+      strokeWidth='1.6'
+      strokeLinecap='round'
+    />
+    <line
+      x1='9'
+      y1='19'
+      x2='17'
+      y2='19'
+      stroke='#a87d12'
+      strokeWidth='1.6'
+      strokeLinecap='round'
+    />
+  </svg>
+);
