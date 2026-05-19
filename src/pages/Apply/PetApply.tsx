@@ -403,6 +403,7 @@ function HomeTypeChoice({
 
   return (
     <div
+      className='petapply-hometype-grid'
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
@@ -416,6 +417,7 @@ function HomeTypeChoice({
           <button
             key={opt.v}
             type='button'
+            className='petapply-hometype-btn'
             onClick={() => onChange(opt.v)}
             style={{
               minHeight: 110,
@@ -575,6 +577,7 @@ function ChapterHead({
 }) {
   return (
     <div
+      className='petapply-chapter-head'
       style={{
         display: 'flex',
         alignItems: 'baseline',
@@ -586,6 +589,7 @@ function ChapterHead({
     >
       <span
         aria-hidden
+        className='petapply-chapter-num'
         style={{
           fontFamily: 'var(--font-display)',
           fontSize: 44,
@@ -600,6 +604,7 @@ function ChapterHead({
       </span>
       <div style={{ flex: 1, minWidth: 0 }}>
         <h2
+          className='petapply-chapter-title'
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: 26,
@@ -666,6 +671,7 @@ function PetSidebar({
         }}
       >
         <div
+          className='petapply-sidebar-image'
           style={{
             aspectRatio: '1 / 1',
             background: pet.bg,
@@ -1315,6 +1321,34 @@ const PAGE_CSS = `
   }
   .petapply-sticky-footer {
     display: none;
+  }
+  .petapply-sidebar-image {
+    aspect-ratio: 16 / 10 !important;
+  }
+}
+@media (max-width: 480px) {
+  .petapply-chapter-head {
+    gap: 12px !important;
+    margin-bottom: 22px !important;
+    padding-bottom: 14px !important;
+  }
+  .petapply-chapter-num {
+    font-size: 32px !important;
+  }
+  .petapply-chapter-title {
+    font-size: 22px !important;
+  }
+  .petapply-hometype-grid {
+    gap: 8px !important;
+  }
+  .petapply-hometype-btn {
+    min-height: 92px !important;
+    padding: 14px 6px !important;
+    font-size: 12.5px !important;
+  }
+  .petapply-hometype-btn svg {
+    width: 22px;
+    height: 22px;
   }
 }
 `;
