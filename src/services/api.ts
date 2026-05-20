@@ -320,7 +320,7 @@ export interface CreateAdoptionInput {
 
 export function apiCreateAdoption(input: CreateAdoptionInput) {
   return apiFetch<{ success: boolean; message: string; data: { id: number } }>(
-    '/adoptions',
+    '/adoption-requests',
     { method: 'POST', body: JSON.stringify(input) },
   );
 }

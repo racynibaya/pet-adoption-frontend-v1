@@ -927,6 +927,64 @@ p { margin: 0; color: var(--ink-2); }
 .contact-map-card { padding: 28px; height: 280px; }
 .contact-reach-cards { margin-top: -56px; }
 
+/* Donate: hero "any amount" input. The surrounding cream-gradient card
+   provides the visual frame, so the input itself is borderless and uses
+   the display font to feel like a quiet, confident currency display. */
+.donate-hero-amount-input {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  width: clamp(180px, 26vw, 280px);
+  caret-color: var(--rausch);
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.donate-hero-amount-input::placeholder {
+  color: var(--muted-soft);
+  opacity: 0.65;
+  font-weight: 500;
+}
+.donate-hero-amount-input:focus { color: var(--rausch); }
+.donate-hero-amount-input::-webkit-outer-spin-button,
+.donate-hero-amount-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Donate: impact tier grid wrapper. The inline gridTemplateColumns
+   handles the auto-fit minmax(240px, 1fr); this caps total width so
+   tiles don't stretch absurdly wide on large displays. */
+.donate-tier-grid {
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Donate: four-step journey grid. Chevrons sit between steps on
+   desktop; collapse to 2-up at tablet (chevrons hidden — they would
+   point at nothing across a row break) and 1-up on phones. */
+.donate-journey-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(28px, 3vw, 44px);
+}
+.donate-journey-step { position: relative; }
+.donate-journey-arrow { display: inline-flex; }
+@media (max-width: 1024px) {
+  .donate-journey-grid { grid-template-columns: repeat(2, 1fr); }
+  .donate-journey-arrow { display: none; }
+}
+@media (max-width: 540px) {
+  .donate-journey-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+
 /* Hero CTA row — wraps the two hero buttons. On desktop wraps as needed;
    on mobile forced side-by-side with compact sizing. */
 .hero-cta-row { flex-wrap: wrap; }

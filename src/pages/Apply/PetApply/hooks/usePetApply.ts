@@ -1,72 +1,72 @@
-import { useEffect, useMemo, useState, type FormEvent } from 'react'
-import { useParams } from 'react-router-dom'
-import { useStaff } from '@/context/useStaff'
-import { useAdopter } from '@/context/useUser'
-import { PET_LISTINGS } from '@/data/pets'
-import { apiCreateAdoption, ApiError, type HomeType } from '@/services/api'
-import type { FormState, FormFieldErrors } from '../types'
-import { EMPTY_FORM } from '../constants/petApply.constants'
-import { validateForm } from '../utils/validateForm'
-import { countProgress } from '../utils/countProgress'
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useParams } from 'react-router-dom';
+import { useStaff } from '@/context/useStaff';
+import { useAdopter } from '@/context/useUser';
+import { PET_LISTINGS } from '@/data/pets';
+import { apiCreateAdoption, ApiError, type HomeType } from '@/services/api';
+import type { FormState, FormFieldErrors } from '../types';
+import { EMPTY_FORM } from '../constants/petApply.constants';
+import { validateForm } from '../utils/validateForm';
+import { countProgress } from '../utils/countProgress';
 
 export function usePetApply() {
-  const { id } = useParams<{ id: string }>()
-  const { pets } = useStaff()
-  const { adopter, isAuthenticated } = useAdopter()
+  const { id } = useParams<{ id: string }>();
+  const { pets } = useStaff();
+  const { adopter, isAuthenticated } = useAdopter();
 
   const pet =
     pets.find((p) => String(p.id) === id) ??
-    PET_LISTINGS.find((p) => String(p.id) === id)
+    PET_LISTINGS.find((p) => String(p.id) === id);
 
-  const [form, setForm] = useState<FormState>(EMPTY_FORM)
-  const [errors, setErrors] = useState<FormFieldErrors>({})
-  const [apiError, setApiError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [authOpen, setAuthOpen] = useState(false)
-  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signup')
-  const [showStickyFooter, setShowStickyFooter] = useState(false)
+  const [form, setForm] = useState<FormState>(EMPTY_FORM);
+  const [errors, setErrors] = useState<FormFieldErrors>({});
+  const [apiError, setApiError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signup');
+  const [showStickyFooter, setShowStickyFooter] = useState(false);
 
-  const progress = useMemo(() => countProgress(form), [form])
+  const progress = useMemo(() => countProgress(form), [form]);
 
   useEffect(() => {
     const onScroll = () => {
-      setShowStickyFooter(window.scrollY > 400)
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+      setShowStickyFooter(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
-    setForm((f) => ({ ...f, [key]: value }))
-    setErrors((e) => ({ ...e, [key]: undefined }))
+    setForm((f) => ({ ...f, [key]: value }));
+    setErrors((e) => ({ ...e, [key]: undefined }));
   }
 
   function openSignup() {
-    setAuthMode('signup')
-    setAuthOpen(true)
+    setAuthMode('signup');
+    setAuthOpen(true);
   }
 
   function openSignin() {
-    setAuthMode('signin')
-    setAuthOpen(true)
+    setAuthMode('signin');
+    setAuthOpen(true);
   }
 
   async function handleSubmit(e: FormEvent) {
-    e.preventDefault()
-    if (!pet) return
+    e.preventDefault();
+    if (!pet) return;
 
-    const errs = validateForm(form)
-    setErrors(errs)
+    const errs = validateForm(form);
+    setErrors(errs);
     if (Object.keys(errs).length > 0) {
-      const firstErrKey = Object.keys(errs)[0]
-      const el = document.querySelector(`[data-field="${firstErrKey}"]`)
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      return
+      const firstErrKey = Object.keys(errs)[0];
+      const el = document.querySelector(`[data-field="${firstErrKey}"]`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
     }
 
-    setApiError('')
-    setLoading(true)
+    setApiError('');
+    setLoading(true);
 
     try {
       await apiCreateAdoption({
@@ -74,7 +74,9 @@ export function usePetApply() {
         ...(form.message.trim() ? { message: form.message.trim() } : {}),
         homeType: form.homeType as HomeType,
         hasYard: form.hasYard as boolean,
-        ...(form.hasYard === true ? { yardFenced: form.yardFenced as boolean } : {}),
+        ...(form.hasYard === true
+          ? { yardFenced: form.yardFenced as boolean }
+          : {}),
         ownsHome: form.ownsHome as boolean,
         ...(form.ownsHome === false
           ? { landlordAllowsPets: form.landlordAllowsPets as boolean }
@@ -90,13 +92,15 @@ export function usePetApply() {
         reasonForAdopting: form.reasonForAdopting.trim(),
         hasBackupCarePlan: form.hasBackupCarePlan as boolean,
         awareOfMonthlyCosts: form.awareOfMonthlyCosts as boolean,
-      })
+      });
 
-      setSubmitted(true)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
-      setApiError(err instanceof ApiError ? err.message : 'An unexpected error occurred.')
-      setLoading(false)
+      setApiError(
+        err instanceof ApiError ? err.message : 'An unexpected error occurred.',
+      );
+      setLoading(false);
     }
   }
 
@@ -119,5 +123,5 @@ export function usePetApply() {
     openSignup,
     openSignin,
     handleSubmit,
-  }
+  };
 }
