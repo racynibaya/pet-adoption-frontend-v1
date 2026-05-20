@@ -6,7 +6,9 @@ type DonationHeroProps = {
   onSelectImpactTier: (amount: number) => void;
 };
 
-export default function DonationHero({ onSelectImpactTier }: DonationHeroProps) {
+export default function DonationHero({
+  onSelectImpactTier,
+}: DonationHeroProps) {
   return (
     <section
       className='section text-left rounded-3xl relative overflow-hidden'
@@ -120,12 +122,15 @@ export default function DonationHero({ onSelectImpactTier }: DonationHeroProps) 
           <div className='flex flex-wrap gap-4 mt-10 donate-hero-cta-row'>
             <button
               type='button'
-              className='btn btn-primary btn-lg'
+              className='btn btn-primary btn-lg max-sm:w-full'
               onClick={() => onSelectImpactTier(DEFAULT_SELECTED_AMOUNT)}
             >
               Send Love <span style={{ marginLeft: 6 }}>→</span>
             </button>
-            <a href='#journey' className='btn btn-soft btn-lg'>
+            <a
+              href='#journey'
+              className='btn btn-soft btn-lg max-sm:block max-sm:w-full'
+            >
               See the journey
             </a>
           </div>

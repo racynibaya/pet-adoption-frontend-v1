@@ -132,7 +132,7 @@ export default function DonationAmount({
         <span style={{ flex: 1, height: 1, background: 'var(--hairline)' }} />
       </div>
 
-      <div className='grid gap-6 donate-tier-grid'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-6 donate-tier-grid'>
         {IMPACT_TIERS.map((tier) => {
           const isActive = selectedAmount === tier.amount && !customAmount;
           return (

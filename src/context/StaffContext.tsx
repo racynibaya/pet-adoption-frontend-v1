@@ -138,6 +138,7 @@ export function StaffProvider({ children }: { children: ReactNode }) {
     if (token) setToken(token);
     return sessionStorage.getItem('staff-auth') === '1';
   });
+
   const [staffUser, setStaffUser] = useState<StaffUser | null>(() => {
     const stored = sessionStorage.getItem('staff-user');
     if (!stored) return null;
@@ -155,6 +156,7 @@ export function StaffProvider({ children }: { children: ReactNode }) {
         (parsed.shelterId != null ? [parsed.shelterId] : []),
     };
   });
+
   const [pets, setPets] = useState<PetCard[]>([]);
   const [petsLoaded, setPetsLoaded] = useState(false);
   const [adoptions, setAdoptions] = useState<AdoptionRequest[]>(MOCK_ADOPTIONS);

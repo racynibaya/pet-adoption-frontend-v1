@@ -96,11 +96,11 @@ export default function DonationForm({
   return (
     <section ref={formContainerRef} className='section-tight'>
       <div
-        className='grid items-start donate-form-grid'
+        className='grid md:grid-cols-2 items-start donate-form-grid'
         style={{ gap: 'clamp(32px, 4vw, 56px)' }}
       >
         <aside
-          className='rounded-3xl relative overflow-hidden'
+          className='rounded-3xl relative overflow-hidden h-full flex flex-col justify-around'
           style={{
             padding: 'clamp(32px, 4vw, 48px)',
             background:
@@ -249,19 +249,7 @@ export default function DonationForm({
           <button
             type='button'
             onClick={onScrollToTiers}
-            className='mt-5'
-            style={{
-              background: 'none',
-              border: 'none',
-              padding: 0,
-              fontSize: 13,
-              color: 'var(--rausch)',
-              fontWeight: 600,
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-              textDecoration: 'underline',
-              textUnderlineOffset: 3,
-            }}
+            className='mt-5 bg-none border-0 p-0  text-(--rausch) font-semibold cursor-pointer font-[inherit] underline underline-offset-[3] text-[13px]'
           >
             Change amount ↑
           </button>
