@@ -97,10 +97,7 @@ export default function DonationForm({
     <section ref={formContainerRef} className='section-tight'>
       <div
         className='grid items-start donate-form-grid'
-        style={{
-          gridTemplateColumns: 'minmax(0, 0.85fr) minmax(0, 1.15fr)',
-          gap: 'clamp(32px, 4vw, 56px)',
-        }}
+        style={{ gap: 'clamp(32px, 4vw, 56px)' }}
       >
         <aside
           className='rounded-3xl relative overflow-hidden'

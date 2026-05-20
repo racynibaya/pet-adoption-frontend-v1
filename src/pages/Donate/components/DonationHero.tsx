@@ -53,10 +53,7 @@ export default function DonationHero({ onSelectImpactTier }: DonationHeroProps) 
 
       <div
         className='grid items-center donate-hero-grid'
-        style={{
-          gridTemplateColumns: 'minmax(0, 1.15fr) minmax(0, 1fr)',
-          gap: 'clamp(40px, 6vw, 88px)',
-        }}
+        style={{ gap: 'clamp(40px, 6vw, 88px)' }}
       >
         <div className='donate-hero-text'>
           <Eyebrow>Give · So they can stay</Eyebrow>
@@ -135,7 +132,7 @@ export default function DonationHero({ onSelectImpactTier }: DonationHeroProps) 
         </div>
 
         <div
-          className='donate-hero-art relative'
+          className='donate-hero-art'
           style={{
             animation: 'authScaleIn 0.6s var(--ease-spring) both',
             animationDelay: '0.15s',
