@@ -1,8 +1,14 @@
-import { useState } from 'react'
-import { useParams, Navigate } from 'react-router-dom'
-import { PET_LISTINGS, ageLabel, speciesLabel, genderLabel, sizeLabel } from '@/data/pets'
-import { useFavorites } from '@/context/useFavorites'
-import { useStaff } from '@/context/useStaff'
+import { useState } from 'react';
+import { useParams, Navigate } from 'react-router-dom';
+import {
+  PET_LISTINGS,
+  ageLabel,
+  speciesLabel,
+  genderLabel,
+  sizeLabel,
+} from '@/data/pets';
+import { useFavorites } from '@/context/useFavorites';
+import { useStaff } from '@/context/useStaff';
 import {
   PetDetailBreadcrumb,
   PetDetailGallery,
@@ -13,28 +19,28 @@ import {
   PetDetailCare,
   PetDetailGoodWith,
   PetDetailCta,
-} from './components'
+} from './components';
 
 export default function PetDetail() {
-  const { id } = useParams<{ id: string }>()
-  const { pets } = useStaff()
+  const { id } = useParams<{ id: string }>();
+  const { pets } = useStaff();
   const pet =
     pets.find((p) => String(p.id) === id) ??
-    PET_LISTINGS.find((p) => String(p.id) === id)
-  const { toggle, isSaved } = useFavorites()
+    PET_LISTINGS.find((p) => String(p.id) === id);
+  const { toggle, isSaved } = useFavorites();
 
-  const images = pet?.imageUrls ?? (pet?.imageUrl ? [pet.imageUrl] : [])
-  const [selectedImageIdx, setSelectedImageIdx] = useState(0)
-  const [prevId, setPrevId] = useState(id)
+  const images = pet?.imageUrls ?? (pet?.imageUrl ? [pet.imageUrl] : []);
+  const [selectedImageIdx, setSelectedImageIdx] = useState(0);
+  const [prevId, setPrevId] = useState(id);
   if (id !== prevId) {
-    setPrevId(id)
-    setSelectedImageIdx(0)
+    setPrevId(id);
+    setSelectedImageIdx(0);
   }
 
-  if (!pet) return <Navigate to='/pets' replace />
+  if (!pet) return <Navigate to='/pets' replace />;
 
-  const saved = isSaved(String(pet.id))
-  const activeImage = images[selectedImageIdx] ?? images[0]
+  const saved = isSaved(String(pet.id));
+  const activeImage = images[selectedImageIdx] ?? images[0];
 
   return (
     <div style={{ paddingBottom: 80 }}>
@@ -79,5 +85,5 @@ export default function PetDetail() {
         </div>
       </div>
     </div>
-  )
+  );
 }

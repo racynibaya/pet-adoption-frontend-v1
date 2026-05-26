@@ -1,15 +1,15 @@
-import { useFavorites } from '@/context/useFavorites'
+import { useFavorites } from '@/context/useFavorites';
 import {
   ServicesHero,
   ServicesSecondaryFilters,
   ServicesListings,
   ServicesCta,
-} from './components'
-import { useServicesPets } from './hooks/useServicesPets'
+} from './components';
+import { useServicesPets } from './hooks/useServicesPets';
 
 export default function PetsPage() {
-  const services = useServicesPets()
-  const { toggle, isSaved } = useFavorites()
+  const services = useServicesPets();
+  const { toggle, isSaved } = useFavorites();
 
   return (
     <>
@@ -37,5 +37,5 @@ export default function PetsPage() {
       />
       <ServicesCta />
     </>
-  )
+  );
 }

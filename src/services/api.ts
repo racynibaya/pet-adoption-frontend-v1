@@ -278,13 +278,33 @@ export function apiGetMe() {
 
 // ── Pet endpoints ────────────────────────────────────────────────────────────
 
-export function apiGetPets(page = 1, limit = 100) {
+export interface PetFilterParams {
+  species?: BackendSpecies;
+  gender?: BackendGender;
+  size?: BackendSize;
+}
+
+export function apiGetPets(
+  page = 1,
+  limit = 100,
+  filters: PetFilterParams = {},
+) {
+  const params = new URLSearchParams({
+    page: String(page),
+    limit: String(limit),
+  });
+  if (filters.species) params.set('species', filters.species);
+  if (filters.gender) params.set('gender', filters.gender);
+  if (filters.size) params.set('size', filters.size);
+
+  console.log(params.toString());
+
   return apiFetch<{
     success: boolean;
     message: string;
     data: ApiPet[];
     pagination: Pagination;
-  }>(`/pets?page=${page}&limit=${limit}`);
+  }>(`/pets?${params.toString()}`);
 }
 
 export function apiCreatePet(formData: FormData) {
