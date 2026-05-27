@@ -5,24 +5,23 @@ interface StaffAdoptionsHeaderProps {
 
 export default function StaffAdoptionsHeader({ totalCount, pendingCount }: StaffAdoptionsHeaderProps) {
   return (
-    <div className="staff-page-header">
-      <div>
-        <h1 className="staff-page-title">
-          Adoptions
-          {pendingCount > 0 && (
-            <span style={{
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              width: 22, height: 22, borderRadius: '50%',
-              background: '#D94F68', color: 'white',
-              fontSize: 11, fontWeight: 700, marginLeft: 10,
-              verticalAlign: 'middle',
-            }}>
-              {pendingCount}
-            </span>
-          )}
+    <header className='staff-subtopbar'>
+      <div className='staff-subtopbar-title'>
+        <h1 className='staff-subtopbar-name'>
+          Open <em>queue</em>
         </h1>
-        <p className="staff-page-sub">{totalCount} total applications · {pendingCount} awaiting review</p>
+        <p className='staff-subtopbar-sub'>
+          {totalCount} total applications · {pendingCount} awaiting review
+        </p>
       </div>
-    </div>
+      {pendingCount > 0 && (
+        <div className='staff-subtopbar-actions'>
+          <span className='staff-subtopbar-pendpill'>
+            <span className='num'>{pendingCount}</span>
+            need attention
+          </span>
+        </div>
+      )}
+    </header>
   )
 }

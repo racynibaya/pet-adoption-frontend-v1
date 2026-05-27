@@ -7,33 +7,25 @@ interface StaffPetFormActionsProps {
 }
 
 export default function StaffPetFormActions({ isEdit, loading, saved }: StaffPetFormActionsProps) {
+  const submitLabel = saved
+    ? '✓ Saved!'
+    : loading
+      ? 'Saving…'
+      : isEdit
+        ? 'Save changes →'
+        : 'Add pet →'
+
   return (
-    <div style={{ display: 'flex', gap: 12, alignItems: 'center', paddingBottom: 40 }}>
+    <div style={{ display: 'flex', gap: 10, alignItems: 'center', paddingBottom: 40, marginTop: 8 }}>
       <button
-        type="submit"
+        type='submit'
         disabled={loading || saved}
-        style={{
-          padding: '12px 28px',
-          background: saved ? '#1D7575' : loading ? '#f5ae50' : '#E8923C',
-          color: 'white', border: 'none', borderRadius: 11,
-          fontSize: 14, fontWeight: 600,
-          cursor: loading || saved ? 'not-allowed' : 'pointer',
-          fontFamily: 'var(--font-body)', transition: 'background 0.15s',
-          display: 'flex', alignItems: 'center', gap: 7,
-        }}
-        onMouseEnter={(e) => { if (!loading && !saved) (e.currentTarget as HTMLButtonElement).style.background = '#CB7730' }}
-        onMouseLeave={(e) => { if (!loading && !saved) (e.currentTarget as HTMLButtonElement).style.background = '#E8923C' }}
+        className='staff-detail-btn primary'
+        style={{ minWidth: 160 }}
       >
-        {saved ? '✓ Saved!' : loading ? 'Saving…' : isEdit ? 'Save Changes' : 'Add Pet'}
+        {submitLabel}
       </button>
-      <Link
-        to="/staff/pets"
-        style={{
-          padding: '12px 24px', borderRadius: 11, border: '1.5px solid var(--hairline)',
-          background: 'white', color: 'var(--ink-2)', fontSize: 14, fontWeight: 500,
-          textDecoration: 'none',
-        }}
-      >
+      <Link to='/staff/pets' className='staff-detail-btn ghost'>
         Cancel
       </Link>
     </div>

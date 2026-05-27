@@ -10,9 +10,9 @@ interface StaffPetFormDescriptionProps {
 
 export default function StaffPetFormDescription({ form, errors, set }: StaffPetFormDescriptionProps) {
   return (
-    <div className="staff-form-section">
-      <div className="staff-form-section-head">Description</div>
-      <div className="staff-form-section-body">
+    <div className='staff-form-card'>
+      <div className='staff-form-card-head'>Description</div>
+      <div className='staff-form-card-body'>
         <StaffPetFormLabel>About this pet *</StaffPetFormLabel>
         <textarea
           value={form.description}

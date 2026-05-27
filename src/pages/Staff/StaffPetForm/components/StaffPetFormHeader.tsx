@@ -6,24 +6,27 @@ interface StaffPetFormHeaderProps {
 }
 
 export default function StaffPetFormHeader({ isEdit, existingName }: StaffPetFormHeaderProps) {
-  const title = isEdit ? `Edit ${existingName ?? 'Pet'}` : 'Add New Pet'
-  const crumb = isEdit ? `Edit ${existingName ?? ''}` : 'Add New Pet'
+  const titleAccent = isEdit ? (existingName ?? 'pet') : 'pet'
+  const titlePrefix = isEdit ? 'Editing' : 'Listing a new'
+  const crumb = isEdit ? `Edit ${existingName ?? ''}` : 'Add new pet'
 
   return (
-    <div className="staff-page-header">
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-          <Link to="/staff/pets" style={{ fontSize: 12.5, color: 'var(--muted)', textDecoration: 'none' }}>Pets</Link>
-          <span style={{ color: 'var(--muted)', fontSize: 12 }}>›</span>
-          <span style={{ fontSize: 12.5, color: 'var(--ink-2)' }}>{crumb}</span>
-        </div>
-        <h1 className="staff-page-title">{title}</h1>
-        <p className="staff-page-sub">
+    <header className='staff-subtopbar'>
+      <div className='staff-subtopbar-title'>
+        <span className='staff-subtopbar-crumb'>
+          <Link to='/staff/pets'>Pets</Link>
+          <span className='staff-subtopbar-crumb-sep'>›</span>
+          <span>{crumb}</span>
+        </span>
+        <h1 className='staff-subtopbar-name'>
+          {titlePrefix} <em>{titleAccent}</em>
+        </h1>
+        <p className='staff-subtopbar-sub'>
           {isEdit
             ? "Update this pet's details below. Changes are saved immediately."
             : 'Fill in the details below to list a new pet for adoption.'}
         </p>
       </div>
-    </div>
+    </header>
   )
 }

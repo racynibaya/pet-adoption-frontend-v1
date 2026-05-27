@@ -147,9 +147,9 @@ export default function StaffPetFormShelter({ form, errors, set }: StaffPetFormS
 
   // ADMIN: editable input
   return (
-    <div className="staff-form-section">
-      <div className="staff-form-section-head">Shelter</div>
-      <div className="staff-form-section-body">
+    <div className='staff-form-card'>
+      <div className='staff-form-card-head'>Shelter</div>
+      <div className='staff-form-card-body'>
         <div style={{ maxWidth: 200 }}>
           <StaffPetFormLabel>Shelter ID *</StaffPetFormLabel>
           <StaffPetFormTextInput

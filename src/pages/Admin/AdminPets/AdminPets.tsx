@@ -77,7 +77,7 @@ export default function AdminPets() {
       />
 
       <section className='a-section' style={{ ['--i' as string]: 1 }}>
-        <div className='staff-card'>
+        <div className='admin-table-card'>
           <StaffPetsTable
             pets={filteredPets}
             onToggleStatus={toggleStatus}

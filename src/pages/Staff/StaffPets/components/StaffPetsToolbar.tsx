@@ -15,22 +15,36 @@ export default function StaffPetsToolbar({
   onSpeciesChange,
 }: StaffPetsToolbarProps) {
   return (
-    <div className='staff-toolbar'>
-      <input
-        className='staff-search'
-        placeholder='Search by name, breed, or shelter…'
-        value={search}
-        onChange={(e) => onSearchChange(e.target.value)}
-      />
-      {SPECIES_FILTERS.map((s) => (
-        <button
-          key={s}
-          className={`staff-filter-pill${speciesFilter === s ? ' active' : ''}`}
-          onClick={() => onSpeciesChange(s)}
-        >
-          {SPECIES_FILTER_LABELS[s]}
-        </button>
-      ))}
-    </div>
+    <section className='staff-chips' aria-label='Filter pets'>
+      <label className='staff-topbar-search' style={{ width: 260 }}>
+        <svg width='15' height='15' viewBox='0 0 24 24' fill='none' aria-hidden>
+          <circle cx='11' cy='11' r='7' stroke='currentColor' strokeWidth='1.7' />
+          <path d='m20 20-3.5-3.5' stroke='currentColor' strokeWidth='1.7' strokeLinecap='round' />
+        </svg>
+        <input
+          type='search'
+          value={search}
+          onChange={(e) => onSearchChange(e.target.value)}
+          placeholder='Search by name, breed, or shelter…'
+          aria-label='Search pets'
+        />
+      </label>
+
+      <span className='staff-chips-divider' aria-hidden />
+
+      <div className='staff-chips-group' role='group' aria-label='Species'>
+        <span className='staff-chips-label'>Species</span>
+        {SPECIES_FILTERS.map((s) => (
+          <button
+            key={s}
+            type='button'
+            className={`staff-chip${speciesFilter === s ? ' is-active' : ''}`}
+            onClick={() => onSpeciesChange(s)}
+          >
+            {SPECIES_FILTER_LABELS[s]}
+          </button>
+        ))}
+      </div>
+    </section>
   )
 }

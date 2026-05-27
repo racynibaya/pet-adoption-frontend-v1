@@ -10,7 +10,7 @@ export default function StaffPets() {
   const pets = useStaffPets()
 
   return (
-    <div style={{ fontFamily: 'var(--font-body)' }}>
+    <div className='staff-page-shell'>
       {pets.confirmPet && (
         <StaffPetsConfirmDialog
           petName={pets.confirmPet.name}
@@ -24,20 +24,19 @@ export default function StaffPets() {
         availableCount={pets.visiblePets.filter((p) => p.status === 'AVAILABLE').length}
       />
 
-      <div className='staff-page-body' style={{ padding: '24px 32px' }}>
-        <div className='staff-card'>
-          <StaffPetsToolbar
-            search={pets.search}
-            speciesFilter={pets.speciesFilter}
-            onSearchChange={pets.setSearch}
-            onSpeciesChange={pets.setSpeciesFilter}
-          />
-          <StaffPetsTable
-            pets={pets.filtered}
-            onToggleStatus={pets.toggleStatus}
-            onRequestDelete={pets.openConfirm}
-          />
-        </div>
+      <StaffPetsToolbar
+        search={pets.search}
+        speciesFilter={pets.speciesFilter}
+        onSearchChange={pets.setSearch}
+        onSpeciesChange={pets.setSpeciesFilter}
+      />
+
+      <div className='staff-table-card'>
+        <StaffPetsTable
+          pets={pets.filtered}
+          onToggleStatus={pets.toggleStatus}
+          onRequestDelete={pets.openConfirm}
+        />
       </div>
     </div>
   )

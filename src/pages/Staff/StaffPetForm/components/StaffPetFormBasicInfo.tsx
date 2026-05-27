@@ -19,13 +19,13 @@ interface StaffPetFormBasicInfoProps {
 
 export default function StaffPetFormBasicInfo({ form, errors, set }: StaffPetFormBasicInfoProps) {
   return (
-    <div className="staff-form-section">
-      <div className="staff-form-section-head">Basic Information</div>
-      <div className="staff-form-section-body">
-        <div className="staff-form-grid">
+    <div className='staff-form-card'>
+      <div className='staff-form-card-head'>Basic information</div>
+      <div className='staff-form-card-body'>
+        <div className='staff-form-grid'>
           <div>
             <StaffPetFormLabel>Pet name *</StaffPetFormLabel>
-            <StaffPetFormTextInput value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="e.g. Biscuit" required />
+            <StaffPetFormTextInput value={form.name} onChange={(e) => set('name', e.target.value)} placeholder='e.g. Biscuit' required />
             <StaffPetFormFieldErr msg={errors.name} />
           </div>
           <div>
@@ -36,12 +36,12 @@ export default function StaffPetFormBasicInfo({ form, errors, set }: StaffPetFor
           </div>
           <div>
             <StaffPetFormLabel>Breed *</StaffPetFormLabel>
-            <StaffPetFormTextInput value={form.breed} onChange={(e) => set('breed', e.target.value)} placeholder="e.g. Jack Russell Terrier" required />
+            <StaffPetFormTextInput value={form.breed} onChange={(e) => set('breed', e.target.value)} placeholder='e.g. Jack Russell Terrier' required />
             <StaffPetFormFieldErr msg={errors.breed} />
           </div>
           <div>
             <StaffPetFormLabel>Age (months) *</StaffPetFormLabel>
-            <StaffPetFormTextInput type="number" value={form.ageMonths} onChange={(e) => set('ageMonths', e.target.value)} placeholder="e.g. 18" required />
+            <StaffPetFormTextInput type='number' value={form.ageMonths} onChange={(e) => set('ageMonths', e.target.value)} placeholder='e.g. 18' required />
             <StaffPetFormFieldErr msg={errors.ageMonths} />
           </div>
           <div>
@@ -60,22 +60,15 @@ export default function StaffPetFormBasicInfo({ form, errors, set }: StaffPetFor
 
         <div style={{ marginTop: 16 }}>
           <StaffPetFormLabel>Listing status</StaffPetFormLabel>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {STATUS_OPTIONS.map((opt) => (
               <button
                 key={opt.value}
-                type="button"
+                type='button'
                 onClick={() => set('status', opt.value)}
-                style={{
-                  padding: '8px 18px', borderRadius: 9, cursor: 'pointer',
-                  fontSize: 13, fontWeight: 600, border: '2px solid',
-                  borderColor: form.status === opt.value ? opt.color : 'var(--hairline)',
-                  background: form.status === opt.value ? opt.bg : 'white',
-                  color: form.status === opt.value ? opt.color : 'var(--muted)',
-                  transition: 'all 0.13s', fontFamily: 'var(--font-body)',
-                }}
+                className={`staff-form-status-pill${form.status === opt.value ? ' is-active' : ''}`}
               >
-                {opt.label}
+                {opt.label.replace(/^[●◌✓]\s*/, '')}
               </button>
             ))}
           </div>

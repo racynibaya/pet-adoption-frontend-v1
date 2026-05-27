@@ -6,6 +6,6 @@ interface StaffAdoptionsBadgeProps {
 }
 
 export default function StaffAdoptionsBadge({ status }: StaffAdoptionsBadgeProps) {
-  const { cls, label } = STATUS_META[status]
-  return <span className={`s-badge ${cls}`}>{label}</span>
+  const meta = STATUS_META[status]
+  return <span className={`staff-pill ${meta.pillVariant}`}>{meta.plain}</span>
 }

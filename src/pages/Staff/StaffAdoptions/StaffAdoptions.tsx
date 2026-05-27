@@ -28,28 +28,27 @@ export default function StaffAdoptions() {
   ).length;
 
   return (
-    <div style={{ fontFamily: 'var(--font-body)' }}>
+    <div className='staff-page-shell'>
       <StaffAdoptionsHeader
         totalCount={adoptions.length}
         pendingCount={pendingCount}
       />
 
-      <div className='staff-page-body' style={{ padding: '24px 32px' }}>
-        <StaffAdoptionsStats adoptions={adoptions} />
+      <StaffAdoptionsStats adoptions={adoptions} />
 
-        <div className='staff-card'>
-          <StaffAdoptionsToolbar
-            search={search}
-            filter={filter}
-            onSearchChange={setSearch}
-            onFilterChange={setFilter}
-          />
-          <StaffAdoptionsTable
-            adoptions={filtered}
-            pets={pets}
-            onUpdate={updateAdoption}
-          />
-        </div>
+      <StaffAdoptionsToolbar
+        search={search}
+        filter={filter}
+        onSearchChange={setSearch}
+        onFilterChange={setFilter}
+      />
+
+      <div className='staff-table-card'>
+        <StaffAdoptionsTable
+          adoptions={filtered}
+          pets={pets}
+          onUpdate={updateAdoption}
+        />
       </div>
     </div>
   );

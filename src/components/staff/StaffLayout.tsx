@@ -445,7 +445,7 @@ export default function StaffLayout() {
           marginLeft: 232,
           flex: 1,
           minWidth: 0,
-          background: '#f5f2ec',
+          background: '#f5efde',
           minHeight: '100vh',
         }}
       >

@@ -1,50 +1,138 @@
+import { useMemo, useState } from 'react'
 import { useStaff } from '@/context/useStaff'
+import { shelterCityFromAddress } from '@/context/StaffContext'
+import type { PetCard } from '@/data/pets'
 import {
-  StaffDashboardHeader,
-  StaffDashboardStats,
-  StaffDashboardRecent,
-  StaffDashboardPets,
+  StaffDashboardTopbar,
+  StaffDashboardChipStrip,
+  StaffDashboardStatTiles,
+  StaffDashboardRoster,
+  StaffDashboardDetail,
 } from './components'
+import { useStaffFilters } from './hooks/useStaffFilters'
+import type { SortKey } from './components/StaffDashboardChipStrip'
 
 export default function StaffDashboard() {
   const { staffUser, visiblePets, visibleShelters, adoptions } = useStaff()
 
-  const available = visiblePets.filter((p) => p.status === 'AVAILABLE').length
-  const pending = visiblePets.filter((p) => p.status === 'PENDING').length
-  const pendingAdoptions = adoptions.filter((a) => a.status === 'PENDING').length
-  const shelters = visibleShelters.length
+  const {
+    filters,
+    setSearch,
+    setStatus,
+    setSpecies,
+    clearAll,
+    activeCount,
+    filteredPets,
+    filteredAdoptions,
+  } = useStaffFilters(visiblePets, adoptions)
 
-  const recentAdoptions = [...adoptions]
-    .sort((a, b) => b.submittedAt.localeCompare(a.submittedAt))
-    .slice(0, 5)
+  const [sort, setSort] = useState<SortKey>('RECENT')
+  const [selectedId, setSelectedId] = useState<number | null>(null)
 
-  const recentPets = [...visiblePets].slice(-4).reverse()
+  const sortedPets = useMemo(() => {
+    const arr = [...filteredPets]
+    if (sort === 'NAME') {
+      arr.sort((a, b) => a.name.localeCompare(b.name))
+    } else if (sort === 'PRESSURE') {
+      const pressure = (p: PetCard) =>
+        adoptions.filter(
+          (a) => a.petId === p.id && (a.status === 'PENDING' || a.status === 'REVIEWING'),
+        ).length
+      arr.sort((a, b) => pressure(b) - pressure(a))
+    } else {
+      arr.sort((a, b) => b.id - a.id)
+    }
+    return arr
+  }, [filteredPets, sort, adoptions])
+
+  const selectedPet = useMemo(() => {
+    if (selectedId !== null) {
+      const found = sortedPets.find((p) => p.id === selectedId)
+      if (found) return found
+    }
+    return sortedPets[0] ?? null
+  }, [sortedPets, selectedId])
+
+  const selectedShelter = useMemo(() => {
+    if (!selectedPet) return null
+    return visibleShelters.find((s) => s.id === selectedPet.shelterId) ?? null
+  }, [visibleShelters, selectedPet])
+
+  const selectedApps = useMemo(() => {
+    if (!selectedPet) return []
+    return adoptions
+      .filter((a) => a.petId === selectedPet.id)
+      .sort(
+        (a, b) =>
+          new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
+      )
+  }, [adoptions, selectedPet])
+
+  const stats = useMemo(() => {
+    const total = filteredPets.length
+    const available = filteredPets.filter((p) => p.status === 'AVAILABLE').length
+    const pending = filteredPets.filter((p) => p.status === 'PENDING').length
+    const adopted = filteredPets.filter((p) => p.status === 'ADOPTED').length
+    const rate = total > 0 ? Math.round((adopted / total) * 100) : 0
+    const pendingApps = filteredAdoptions.filter(
+      (a) => a.status === 'PENDING' || a.status === 'REVIEWING',
+    ).length
+    return { total, available, pending, adopted, rate, pendingApps }
+  }, [filteredPets, filteredAdoptions])
+
+  const shelterName = visibleShelters[0]?.name ?? ''
+
+  const clock = useMemo(() => {
+    const now = new Date()
+    return {
+      date: now.toLocaleDateString(undefined, {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+      }),
+      time: now.toLocaleTimeString(undefined, {
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+    }
+  }, [])
 
   return (
-    <div style={{ fontFamily: 'var(--font-body)' }}>
-      <StaffDashboardHeader firstName={staffUser?.name?.split(' ')[0]} />
+    <div className='staff-desk'>
+      <StaffDashboardTopbar
+        firstName={staffUser?.name?.split(' ')[0] ?? 'Friend'}
+        initials={staffUser?.initials}
+        date={clock.date}
+        time={clock.time}
+        search={filters.search}
+        onSearch={setSearch}
+      />
 
-      <div className='staff-page-body' style={{ padding: '28px 32px' }}>
-        <StaffDashboardStats
-          totalPets={visiblePets.length}
-          available={available}
-          pending={pending}
-          pendingAdoptions={pendingAdoptions}
-          shelters={shelters}
+      <StaffDashboardChipStrip
+        filters={filters}
+        sort={sort}
+        activeCount={activeCount}
+        resultCount={sortedPets.length}
+        totalCount={visiblePets.length}
+        onStatus={setStatus}
+        onSpecies={setSpecies}
+        onSort={setSort}
+        onClear={clearAll}
+      />
+
+      <StaffDashboardStatTiles stats={stats} shelterName={shelterName} />
+
+      <div className='staff-board'>
+        <StaffDashboardRoster
+          pets={sortedPets}
+          selectedId={selectedPet?.id ?? null}
+          onSelect={setSelectedId}
         />
-
-        <div
-          className='staff-dashboard-grid'
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 360px',
-            gap: 20,
-            alignItems: 'start',
-          }}
-        >
-          <StaffDashboardRecent adoptions={recentAdoptions} />
-          <StaffDashboardPets pets={recentPets} />
-        </div>
+        <StaffDashboardDetail
+          pet={selectedPet}
+          shelterCity={selectedShelter ? shelterCityFromAddress(selectedShelter.address) : ''}
+          applications={selectedApps}
+        />
       </div>
     </div>
   )

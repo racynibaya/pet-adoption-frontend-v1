@@ -83,7 +83,7 @@ export default function AdminAdoptions() {
       />
 
       <section className='a-section' style={{ ['--i' as string]: 1 }}>
-        <div className='staff-card'>
+        <div className='admin-table-card'>
           <StaffAdoptionsTable
             adoptions={filtered}
             pets={pets}

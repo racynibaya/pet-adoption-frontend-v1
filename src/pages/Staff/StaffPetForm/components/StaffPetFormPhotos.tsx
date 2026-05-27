@@ -11,9 +11,9 @@ interface StaffPetFormPhotosProps {
 
 export default function StaffPetFormPhotos({ fileRef, images, onFileChange, onRemove }: StaffPetFormPhotosProps) {
   return (
-    <div className="staff-form-section">
-      <div className="staff-form-section-head">Photos</div>
-      <div className="staff-form-section-body">
+    <div className='staff-form-card'>
+      <div className='staff-form-card-head'>Photos</div>
+      <div className='staff-form-card-body'>
         <p style={{ fontSize: 12.5, color: 'var(--muted)', marginBottom: 12 }}>
           Up to {MAX_IMAGES} images · max 5 MB each · JPEG, PNG, or WebP
         </p>

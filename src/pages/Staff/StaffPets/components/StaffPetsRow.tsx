@@ -25,6 +25,7 @@ export default function StaffPetsRow({ pet, onToggleStatus, onRequestDelete }: S
               alignItems: 'center',
               justifyContent: 'center',
               overflow: 'hidden',
+              border: '1px solid rgba(28, 44, 44, 0.08)',
             }}
           >
             {pet.imageUrl ? (
@@ -69,12 +70,16 @@ export default function StaffPetsRow({ pet, onToggleStatus, onRequestDelete }: S
         />
       </td>
       <td>
-        <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
-          <Link to={`/staff/pets/${pet.id}/edit`} className='staff-action-btn staff-btn-edit'>
+        <div className='staff-row-actions'>
+          <Link to={`/staff/pets/${pet.id}/edit`} className='staff-row-btn ghost'>
             <EditIcon />
             Edit
           </Link>
-          <button onClick={() => onRequestDelete(pet.id)} className='staff-action-btn staff-btn-delete'>
+          <button
+            type='button'
+            onClick={() => onRequestDelete(pet.id)}
+            className='staff-row-btn reject'
+          >
             <TrashIcon />
             Remove
           </button>

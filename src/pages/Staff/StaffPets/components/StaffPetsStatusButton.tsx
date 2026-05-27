@@ -7,19 +7,26 @@ interface StaffPetsStatusButtonProps {
 
 export default function StaffPetsStatusButton({ status, onToggle }: StaffPetsStatusButtonProps) {
   const cls =
-    status === 'AVAILABLE' ? 's-badge-available' : status === 'PENDING' ? 's-badge-pending' : 's-badge-rejected'
+    status === 'AVAILABLE'
+      ? 'is-available'
+      : status === 'PENDING'
+        ? 'is-pending'
+        : 'is-adopted'
   const label =
-    status === 'AVAILABLE' ? '● Available' : status === 'PENDING' ? '◌ Pending' : '✓ Adopted'
+    status === 'AVAILABLE' ? 'Available' : status === 'PENDING' ? 'In review' : 'Placed'
+  const locked = status === 'ADOPTED'
   return (
     <button
-      onClick={() => { if (status !== 'ADOPTED') onToggle() }}
-      className={`s-badge ${cls}`}
+      type='button'
+      onClick={() => { if (!locked) onToggle() }}
+      className={`staff-pill ${cls}`}
       style={{
-        cursor: status === 'ADOPTED' ? 'default' : 'pointer',
         border: 'none',
-        background: undefined,
+        cursor: locked ? 'default' : 'pointer',
+        appearance: 'none',
+        fontFamily: 'inherit',
       }}
-      title={status === 'ADOPTED' ? 'Adopted — cannot toggle' : 'Click to toggle status'}
+      title={locked ? 'Adopted — cannot toggle' : 'Click to toggle status'}
     >
       {label}
     </button>

@@ -22,10 +22,10 @@ export default function StaffPetForm() {
   }
 
   return (
-    <div style={{ fontFamily: 'var(--font-body)' }}>
+    <div className='staff-page-shell'>
       <StaffPetFormHeader isEdit={f.isEdit} existingName={f.existing?.name} />
 
-      <div className='staff-page-body' style={{ padding: '24px 32px', maxWidth: 800 }}>
+      <div style={{ maxWidth: 880 }}>
         <form onSubmit={f.handleSubmit}>
           <StaffPetFormBasicInfo form={f.form} errors={f.errors} set={f.set} />
           <StaffPetFormShelter form={f.form} errors={f.errors} set={f.set} />
@@ -41,7 +41,19 @@ export default function StaffPetForm() {
           )}
 
           {f.apiError && (
-            <div style={{ padding: '12px 16px', background: '#fde8ec', borderRadius: 10, color: '#c0304d', fontSize: 13, marginBottom: 16, lineHeight: 1.5 }}>
+            <div
+              role='alert'
+              style={{
+                padding: '12px 16px',
+                background: 'rgba(217, 79, 104, 0.12)',
+                color: '#9e2a4a',
+                border: '1px solid rgba(217, 79, 104, 0.2)',
+                borderRadius: 12,
+                fontSize: 13,
+                marginBottom: 16,
+                lineHeight: 1.5,
+              }}
+            >
               {f.apiError}
             </div>
           )}

@@ -16,10 +16,10 @@ export default function StaffAdoptionsRow({ adoption: a, pet, onUpdate }: StaffA
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
             width: 34, height: 34, borderRadius: '50%',
-            background: 'linear-gradient(135deg, #E8923C44, #E8923C22)',
-            border: '1.5px solid #E8923C44',
+            background: 'conic-gradient(from 200deg at 50% 50%, #e8923c, #d94f68, #1d7575, #e8923c)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#a05818', fontWeight: 700, fontSize: 12.5, flexShrink: 0,
+            color: '#fff', fontWeight: 700, fontSize: 12.5, flexShrink: 0,
+            fontFamily: 'var(--font-display)',
           }}>
             {a.applicantName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
           </div>
@@ -37,6 +37,7 @@ export default function StaffAdoptionsRow({ adoption: a, pet, onUpdate }: StaffA
               background: pet.bg, flexShrink: 0,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               overflow: 'hidden',
+              border: '1px solid rgba(28, 44, 44, 0.08)',
             }}>
               {pet.imageUrl ? (
                 <img
@@ -71,19 +72,31 @@ export default function StaffAdoptionsRow({ adoption: a, pet, onUpdate }: StaffA
       <td><StaffAdoptionsBadge status={a.status} /></td>
 
       <td>
-        <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+        <div className='staff-row-actions'>
           {(a.status === 'PENDING' || a.status === 'REVIEWING') && (
             <>
               {a.status === 'PENDING' && (
-                <button onClick={() => onUpdate(a.id, 'REVIEWING')} className="staff-action-btn staff-btn-edit">
-                  ⏳ Review
+                <button
+                  type='button'
+                  onClick={() => onUpdate(a.id, 'REVIEWING')}
+                  className='staff-row-btn ghost'
+                >
+                  Review
                 </button>
               )}
-              <button onClick={() => onUpdate(a.id, 'APPROVED')} className="staff-action-btn staff-btn-approve">
+              <button
+                type='button'
+                onClick={() => onUpdate(a.id, 'APPROVED')}
+                className='staff-row-btn approve'
+              >
                 <CheckIcon />
                 Approve
               </button>
-              <button onClick={() => onUpdate(a.id, 'REJECTED')} className="staff-action-btn staff-btn-reject">
+              <button
+                type='button'
+                onClick={() => onUpdate(a.id, 'REJECTED')}
+                className='staff-row-btn reject'
+              >
                 <XIcon />
                 Reject
               </button>
@@ -91,17 +104,9 @@ export default function StaffAdoptionsRow({ adoption: a, pet, onUpdate }: StaffA
           )}
           {(a.status === 'APPROVED' || a.status === 'REJECTED' || a.status === 'CANCELLED') && (
             <button
+              type='button'
               onClick={() => onUpdate(a.id, 'PENDING')}
-              style={{
-                padding: '6px 12px', borderRadius: 8,
-                border: '1.5px solid var(--hairline)',
-                background: 'white', color: 'var(--muted)',
-                cursor: 'pointer', fontSize: 12,
-                fontFamily: 'var(--font-body)',
-                transition: 'border-color 0.13s',
-              }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--ink)' }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--hairline)' }}
+              className='staff-row-btn ghost'
             >
               Reopen
             </button>
