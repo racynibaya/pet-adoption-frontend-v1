@@ -7,10 +7,10 @@ export default function AdminDashboardActions() {
         <span className='dot' /> Shortcuts
       </div>
       <h3 className='bento-h'>Jump to</h3>
-      <Link to='/staff/pets/add' className='bento-action-btn primary'>
-        Add a pet →
+      <Link to='/admin/pets' className='bento-action-btn primary'>
+        Manage pets →
       </Link>
-      <Link to='/staff/adoptions' className='bento-action-btn ghost'>
+      <Link to='/admin/adoptions' className='bento-action-btn ghost'>
         Open adoptions
       </Link>
     </article>

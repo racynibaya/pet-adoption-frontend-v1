@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useStaff } from '@/context/useStaff'
+import '@/styles/staff.css'
 import '@/styles/admin.css'
 
 function IconCompass() {
@@ -50,12 +51,9 @@ function IconSignOut() {
 
 const ADMIN_NAV = [
   { to: '/admin', end: true, icon: <IconCompass />, label: 'Command Center' },
+  { to: '/admin/pets', end: false, icon: <IconPaw />, label: 'Pets' },
+  { to: '/admin/adoptions', end: false, icon: <IconHeart />, label: 'Adoptions' },
   { to: '/admin/shelters', end: false, icon: <IconBuildings />, label: 'Shelters' },
-]
-
-const STAFF_BRIDGE = [
-  { to: '/staff/pets', icon: <IconPaw />, label: 'Pets' },
-  { to: '/staff/adoptions', icon: <IconHeart />, label: 'Adoptions' },
 ]
 
 export default function AdminLayout() {
@@ -104,18 +102,6 @@ export default function AdminLayout() {
               to={item.to}
               end={item.end}
               className={({ isActive }) => `admin-nav-item${isActive ? ' active' : ''}`}
-            >
-              <span className='a-nav-icon'>{item.icon}</span>
-              <span>{item.label}</span>
-            </NavLink>
-          ))}
-
-          <div className='admin-nav-section'>Staff tools</div>
-          {STAFF_BRIDGE.map(item => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className='admin-nav-item admin-nav-external'
             >
               <span className='a-nav-icon'>{item.icon}</span>
               <span>{item.label}</span>

@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import type { PetCard } from '@/data/pets';
+import type { ApiShelter } from '@/services/api';
 
 // ── Adoption request (mock until backend implements the endpoint) ─────────────
 
@@ -44,6 +45,9 @@ export interface StaffCtx {
   pets: PetCard[];
   visiblePets: PetCard[];
   petsLoaded: boolean;
+  shelters: ApiShelter[];
+  visibleShelters: ApiShelter[];
+  sheltersLoaded: boolean;
   adoptions: AdoptionRequest[];
   loginError: string;
   login: (email: string, password: string) => Promise<boolean>;

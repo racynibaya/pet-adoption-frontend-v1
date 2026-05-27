@@ -4,11 +4,13 @@ import {
   apiLogin,
   apiLogout,
   apiGetMe,
-  apiGetPets,
+  apiGetAllPets,
+  apiGetShelters,
   apiCreatePet,
   setToken,
   ApiError,
   type ApiPet,
+  type ApiShelter,
 } from '@/services/api';
 import { StaffContext, type AdoptionRequest, type StaffUser } from './useStaff';
 
@@ -42,6 +44,10 @@ function makeSvg(species: Species): ReactNode {
   );
 }
 
+export function shelterCityFromAddress(address: string | undefined): string {
+  return address?.split(',')[0]?.trim() ?? '';
+}
+
 export function apiPetToPetCard(p: ApiPet): PetCard {
   const sortedImages = p.images
     ? [...p.images].sort((a, b) => Number(b.isPrimary) - Number(a.isPrimary))
@@ -58,7 +64,7 @@ export function apiPetToPetCard(p: ApiPet): PetCard {
     status: p.status,
     shelterId: p.shelterId,
     shelterName: p.shelter?.name ?? '',
-    shelterCity: p.shelter?.address?.split(',')[0]?.trim() ?? '',
+    shelterCity: shelterCityFromAddress(p.shelter?.address),
     description: p.description,
     bg: SPECIES_BG[p.species],
     color: SPECIES_COLOR[p.species],
@@ -159,19 +165,34 @@ export function StaffProvider({ children }: { children: ReactNode }) {
 
   const [pets, setPets] = useState<PetCard[]>([]);
   const [petsLoaded, setPetsLoaded] = useState(false);
+  const [shelters, setShelters] = useState<ApiShelter[]>([]);
+  const [sheltersLoaded, setSheltersLoaded] = useState(false);
   const [adoptions, setAdoptions] = useState<AdoptionRequest[]>(MOCK_ADOPTIONS);
   const [loginError, setLoginError] = useState('');
 
   useEffect(() => {
-    apiGetPets()
-      .then((res) => {
-        setPets(res.data.map(apiPetToPetCard));
+    apiGetAllPets()
+      .then((all) => {
+        setPets(all.map(apiPetToPetCard));
       })
       .catch((err) => {
         console.error('Failed to load pets', err);
       })
       .finally(() => {
         setPetsLoaded(true);
+      });
+  }, []);
+
+  useEffect(() => {
+    apiGetShelters()
+      .then((res) => {
+        setShelters(res.data);
+      })
+      .catch((err) => {
+        console.error('Failed to load shelters', err);
+      })
+      .finally(() => {
+        setSheltersLoaded(true);
       });
   }, []);
 
@@ -206,9 +227,9 @@ export function StaffProvider({ children }: { children: ReactNode }) {
       sessionStorage.setItem('staff-auth', '1');
       sessionStorage.setItem('staff-user', JSON.stringify(staffUserData));
 
-      apiGetPets()
-        .then((res) => {
-          if (res.data.length > 0) setPets(res.data.map(apiPetToPetCard));
+      apiGetAllPets()
+        .then((all) => {
+          if (all.length > 0) setPets(all.map(apiPetToPetCard));
         })
         .catch(() => {});
 
@@ -284,6 +305,13 @@ export function StaffProvider({ children }: { children: ReactNode }) {
     return pets.filter((p) => staffUser.shelterIds.includes(p.shelterId));
   })();
 
+  const visibleShelters = (() => {
+    if (!staffUser) return shelters;
+    if (staffUser.role === 'ADMIN') return shelters;
+    if (staffUser.shelterIds.length === 0) return [];
+    return shelters.filter((s) => staffUser.shelterIds.includes(s.id));
+  })();
+
   return (
     <StaffContext.Provider
       value={{
@@ -292,6 +320,9 @@ export function StaffProvider({ children }: { children: ReactNode }) {
         pets,
         visiblePets,
         petsLoaded,
+        shelters,
+        visibleShelters,
+        sheltersLoaded,
         adoptions,
         loginError,
         login,

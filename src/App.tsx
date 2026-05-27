@@ -21,6 +21,8 @@ import UserLayout from '@/components/user/UserLayout';
 import UserDashboard from '@/pages/User/UserDashboard/UserDashboard';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminDashboard from '@/pages/Admin/AdminDashboard/AdminDashboard';
+import AdminPets from '@/pages/Admin/AdminPets/AdminPets';
+import AdminAdoptions from '@/pages/Admin/AdminAdoptions/AdminAdoptions';
 import AdminShelters from '@/pages/Admin/AdminShelters/AdminShelters';
 import VerifyEmailPage from '@/pages/Auth/VerifyEmail/VerifyEmail';
 import PetApplyPage from '@/pages/Apply/PetApply/PetApply';
@@ -55,6 +57,8 @@ export default function App() {
             {/* Admin command center */}
             <Route element={<AdminLayout />}>
               <Route path='/admin' element={<AdminDashboard />} />
+              <Route path='/admin/pets' element={<AdminPets />} />
+              <Route path='/admin/adoptions' element={<AdminAdoptions />} />
               <Route path='/admin/shelters' element={<AdminShelters />} />
             </Route>
 

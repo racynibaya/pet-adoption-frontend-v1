@@ -7,12 +7,12 @@ import {
 } from './components'
 
 export default function StaffDashboard() {
-  const { staffUser, visiblePets, adoptions } = useStaff()
+  const { staffUser, visiblePets, visibleShelters, adoptions } = useStaff()
 
   const available = visiblePets.filter((p) => p.status === 'AVAILABLE').length
   const pending = visiblePets.filter((p) => p.status === 'PENDING').length
   const pendingAdoptions = adoptions.filter((a) => a.status === 'PENDING').length
-  const shelters = [...new Set(visiblePets.map((p) => p.shelterId))].length
+  const shelters = visibleShelters.length
 
   const recentAdoptions = [...adoptions]
     .sort((a, b) => b.submittedAt.localeCompare(a.submittedAt))

@@ -32,16 +32,14 @@ export default function PetDetail() {
     PET_LISTINGS.find((p) => String(p.id) === id);
   const { toggle, isSaved } = useFavorites();
 
+  const numericId = id ? Number(id) : NaN;
+  const isInvalidId = !id || !Number.isInteger(numericId) || numericId <= 0;
+
   const [fetchedPet, setFetchedPet] = useState<PetCard | null>(null);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    if (localPet || !id) return;
-    const numericId = Number(id);
-    if (!Number.isInteger(numericId) || numericId <= 0) {
-      setNotFound(true);
-      return;
-    }
+    if (localPet || isInvalidId) return;
     let cancelled = false;
     apiGetPet(numericId)
       .then((res) => {
@@ -56,7 +54,7 @@ export default function PetDetail() {
     return () => {
       cancelled = true;
     };
-  }, [id, localPet]);
+  }, [localPet, isInvalidId, numericId]);
 
   const pet = localPet ?? fetchedPet;
 
@@ -68,7 +66,7 @@ export default function PetDetail() {
     setSelectedImageIdx(0);
   }
 
-  if (notFound) return <Navigate to='/pets' replace />;
+  if (notFound || (isInvalidId && !localPet)) return <Navigate to='/pets' replace />;
   if (!pet) return null;
 
   const saved = isSaved(String(pet.id));

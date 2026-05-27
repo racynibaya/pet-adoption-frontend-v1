@@ -303,6 +303,23 @@ export function apiGetPets(page = 1, limit = 9, filters: PetFilterParams = {}) {
   }>(`/pets?${params.toString()}`);
 }
 
+const PETS_PAGE_SIZE = 100;
+
+export async function apiGetAllPets(
+  filters: PetFilterParams = {},
+): Promise<ApiPet[]> {
+  const first = await apiGetPets(1, PETS_PAGE_SIZE, filters);
+  const { totalPages } = first.pagination;
+  if (totalPages <= 1) return first.data;
+
+  const rest = await Promise.all(
+    Array.from({ length: totalPages - 1 }, (_, i) =>
+      apiGetPets(i + 2, PETS_PAGE_SIZE, filters).then((r) => r.data),
+    ),
+  );
+  return [...first.data, ...rest.flat()];
+}
+
 export function apiGetPet(id: number) {
   return apiFetch<{ success: boolean; message: string; data: ApiPet }>(
     `/pets/${id}`,

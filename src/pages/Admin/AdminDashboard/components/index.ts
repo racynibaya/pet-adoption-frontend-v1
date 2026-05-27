@@ -1,4 +1,5 @@
 export { default as AdminDashboardHeader } from './AdminDashboardHeader'
+export { default as AdminDashboardFilterBar } from './AdminDashboardFilterBar'
 export { default as AdminDashboardHero } from './AdminDashboardHero'
 export { default as AdminDashboardShelters } from './AdminDashboardShelters'
 export { default as AdminDashboardSpark } from './AdminDashboardSpark'
