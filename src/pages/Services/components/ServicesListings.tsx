@@ -1,20 +1,20 @@
-import SectionHead from '@/components/ui/SectionHead'
-import type { PetCard } from '@/data/pets'
-import ServicesPetCard from './ServicesPetCard'
-import ServicesEmpty from './ServicesEmpty'
-import ServicesPagination from './ServicesPagination'
+import SectionHead from '@/components/ui/SectionHead';
+import type { PetCard } from '@/data/pets';
+import ServicesPetCard from './ServicesPetCard';
+import ServicesEmpty from './ServicesEmpty';
+import ServicesPagination from './ServicesPagination';
 
 interface ServicesListingsProps {
-  loading: boolean
-  totalPets: number
-  pets: PetCard[]
-  filtered: PetCard[]
-  isSaved: (id: string) => boolean
-  onToggleSave: (id: string) => void
-  onClearFilters: () => void
-  currentPage: number
-  totalPages: number
-  onPageChange: (page: number) => void
+  loading: boolean;
+  totalPets: number;
+  pets: PetCard[];
+  filtered: PetCard[];
+  isSaved: (id: string) => boolean;
+  onToggleSave: (id: string) => void;
+  onClearFilters: () => void;
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
 }
 
 export default function ServicesListings({
@@ -36,7 +36,7 @@ export default function ServicesListings({
           loading && pets.length === 0
             ? 'Finding pets…'
             : totalPets > 0
-              ? `${totalPets} pets available`
+              ? 'Available Pets'
               : 'No pets match your filters'
         }
         subheading='Each pet is listed by a verified shelter. Click a listing to view full details and start your adoption application.'
@@ -63,5 +63,5 @@ export default function ServicesListings({
         onPageChange={onPageChange}
       />
     </section>
-  )
+  );
 }

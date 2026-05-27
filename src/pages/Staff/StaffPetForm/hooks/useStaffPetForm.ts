@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useStaff, canManagePet } from '@/context/useStaff'
 import { ApiError } from '@/services/api'
 import type { FormState, FormFieldErrors } from '../types'
-import { EMPTY_FORM, MAX_IMAGE_BYTES } from '../constants/staffPetForm.constants'
+import { EMPTY_FORM, MAX_IMAGE_BYTES, MAX_IMAGES } from '../constants/staffPetForm.constants'
 
 export function useStaffPetForm() {
   const { id } = useParams<{ id: string }>()
@@ -28,7 +28,13 @@ export function useStaffPetForm() {
           shelterId: String(existing.shelterId),
           description: existing.description,
         }
-      : EMPTY_FORM,
+      : {
+          ...EMPTY_FORM,
+          shelterId:
+            staffUser?.role === 'STAFF' && staffUser.shelterIds.length > 0
+              ? String(staffUser.shelterIds[0])
+              : '',
+        },
   )
 
   const [images, setImages] = useState<File[]>([])
@@ -46,8 +52,10 @@ export function useStaffPetForm() {
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? [])
     const valid = files.filter((f) => f.size <= MAX_IMAGE_BYTES)
-    setImages(valid)
-    setImagePreview(valid.map((f) => URL.createObjectURL(f)))
+    if (valid.length === 0) return
+    setImages((prev) => [...prev, ...valid].slice(0, MAX_IMAGES))
+    setImagePreview((prev) => [...prev, ...valid.map((f) => URL.createObjectURL(f))].slice(0, MAX_IMAGES))
+    e.target.value = ''
   }
 
   function removeImage(i: number) {
@@ -61,7 +69,9 @@ export function useStaffPetForm() {
     if (!form.breed.trim()) errs.breed = 'Required'
     const age = Number(form.ageMonths)
     if (!form.ageMonths || isNaN(age) || age < 0 || age > 600) errs.ageMonths = 'Enter a valid age (0–600 months)'
-    if (!form.shelterId || isNaN(Number(form.shelterId))) errs.shelterId = 'Enter a valid shelter ID'
+    if (staffUser?.role !== 'STAFF') {
+      if (!form.shelterId || isNaN(Number(form.shelterId))) errs.shelterId = 'Enter a valid shelter ID'
+    }
     if (!form.description.trim()) errs.description = 'Required'
     setErrors(errs)
     return Object.keys(errs).length === 0

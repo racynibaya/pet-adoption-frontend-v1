@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import {
   PET_LISTINGS,
@@ -6,9 +6,12 @@ import {
   speciesLabel,
   genderLabel,
   sizeLabel,
+  type PetCard,
 } from '@/data/pets';
 import { useFavorites } from '@/context/useFavorites';
 import { useStaff } from '@/context/useStaff';
+import { apiPetToPetCard } from '@/context/StaffContext';
+import { apiGetPet } from '@/services/api';
 import {
   PetDetailBreadcrumb,
   PetDetailGallery,
@@ -24,10 +27,38 @@ import {
 export default function PetDetail() {
   const { id } = useParams<{ id: string }>();
   const { pets } = useStaff();
-  const pet =
+  const localPet =
     pets.find((p) => String(p.id) === id) ??
     PET_LISTINGS.find((p) => String(p.id) === id);
   const { toggle, isSaved } = useFavorites();
+
+  const [fetchedPet, setFetchedPet] = useState<PetCard | null>(null);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    if (localPet || !id) return;
+    const numericId = Number(id);
+    if (!Number.isInteger(numericId) || numericId <= 0) {
+      setNotFound(true);
+      return;
+    }
+    let cancelled = false;
+    apiGetPet(numericId)
+      .then((res) => {
+        if (cancelled) return;
+        setFetchedPet(apiPetToPetCard(res.data));
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        console.error('Failed to load pet', err);
+        setNotFound(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [id, localPet]);
+
+  const pet = localPet ?? fetchedPet;
 
   const images = pet?.imageUrls ?? (pet?.imageUrl ? [pet.imageUrl] : []);
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
@@ -37,7 +68,8 @@ export default function PetDetail() {
     setSelectedImageIdx(0);
   }
 
-  if (!pet) return <Navigate to='/pets' replace />;
+  if (notFound) return <Navigate to='/pets' replace />;
+  if (!pet) return null;
 
   const saved = isSaved(String(pet.id));
   const activeImage = images[selectedImageIdx] ?? images[0];

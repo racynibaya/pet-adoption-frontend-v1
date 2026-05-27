@@ -24,6 +24,7 @@ import AdminDashboard from '@/pages/Admin/AdminDashboard/AdminDashboard';
 import AdminShelters from '@/pages/Admin/AdminShelters/AdminShelters';
 import VerifyEmailPage from '@/pages/Auth/VerifyEmail/VerifyEmail';
 import PetApplyPage from '@/pages/Apply/PetApply/PetApply';
+import NotFoundPage from '@/pages/NotFound/NotFound';
 
 export default function App() {
   return (
@@ -43,8 +44,9 @@ export default function App() {
               <Route path='/contact' element={<ContactPage />} />
               <Route path='/donate' element={<DonatePage />} />
               <Route path='/verify-email' element={<VerifyEmailPage />} />
+              {/* Catch-all 404 — must stay last in this block */}
             </Route>
-
+            <Route path='*' element={<NotFoundPage />} />
             {/* Adopter portal */}
             <Route element={<UserLayout />}>
               <Route path='/users/me' element={<UserDashboard />} />

@@ -101,7 +101,16 @@ export default function SavedDrawer() {
                   style={{ background: pet.bg }}
                   aria-label={`View details for ${pet.name}`}
                 >
-                  <img src={pet.imageUrl} />
+                  {pet.imageUrl ? (
+                    <img
+                      src={pet.imageUrl}
+                      alt={pet.name}
+                      loading='lazy'
+                      className='w-full h-full object-cover'
+                    />
+                  ) : (
+                    pet.svg
+                  )}
                 </Link>
 
                 <Link

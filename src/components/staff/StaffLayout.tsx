@@ -120,7 +120,7 @@ const NAV = [
 ];
 
 export default function StaffLayout() {
-  const { isAuthenticated, staffUser, logout } = useStaff();
+  const { isAuthenticated, staffUser, visiblePets, logout } = useStaff();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -308,6 +308,50 @@ export default function StaffLayout() {
               >
                 {staffUser?.role}
               </div>
+              {staffUser?.role === 'STAFF' && staffUser.shelterIds.length > 0 && (() => {
+                const shelterId = staffUser.shelterIds[0]
+                const shelterName =
+                  visiblePets.find((p) => p.shelterId === shelterId)?.shelterName ??
+                  `Shelter #${shelterId}`
+                return (
+                  <div
+                    style={{
+                      marginTop: 5,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 5,
+                      padding: '3px 8px 3px 6px',
+                      background: 'rgba(232,146,60,0.12)',
+                      border: '1px solid rgba(232,146,60,0.24)',
+                      borderRadius: 6,
+                      maxWidth: '100%',
+                    }}
+                  >
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
+                      <path
+                        d="M3 10.5L12 3l9 7.5V21H3V10.5Z"
+                        fill="rgba(232,146,60,0.25)"
+                        stroke="#E8923C"
+                        strokeWidth="2.2"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span
+                      style={{
+                        fontSize: 10.5,
+                        fontWeight: 600,
+                        color: 'rgba(255,210,140,0.82)',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        letterSpacing: '0.01em',
+                      }}
+                    >
+                      {shelterName}
+                    </span>
+                  </div>
+                )
+              })()}
             </div>
           </div>
           {staffUser?.role === 'ADMIN' && (

@@ -20,8 +20,8 @@ export default function StaffPetFormHeader({ isEdit, existingName }: StaffPetFor
         <h1 className="staff-page-title">{title}</h1>
         <p className="staff-page-sub">
           {isEdit
-            ? 'Changes to species, size, and gender will sync once PATCH /pets/:id is implemented in the backend.'
-            : 'Creates a record via POST /api/v1/pets. All fields are required by the backend.'}
+            ? "Update this pet's details below. Changes are saved immediately."
+            : 'Fill in the details below to list a new pet for adoption.'}
         </p>
       </div>
     </div>

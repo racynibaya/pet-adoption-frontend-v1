@@ -284,11 +284,7 @@ export interface PetFilterParams {
   size?: BackendSize;
 }
 
-export function apiGetPets(
-  page = 1,
-  limit = 100,
-  filters: PetFilterParams = {},
-) {
+export function apiGetPets(page = 1, limit = 9, filters: PetFilterParams = {}) {
   const params = new URLSearchParams({
     page: String(page),
     limit: String(limit),
@@ -305,6 +301,12 @@ export function apiGetPets(
     data: ApiPet[];
     pagination: Pagination;
   }>(`/pets?${params.toString()}`);
+}
+
+export function apiGetPet(id: number) {
+  return apiFetch<{ success: boolean; message: string; data: ApiPet }>(
+    `/pets/${id}`,
+  );
 }
 
 export function apiCreatePet(formData: FormData) {

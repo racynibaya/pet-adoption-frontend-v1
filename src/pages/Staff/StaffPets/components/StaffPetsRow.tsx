@@ -27,17 +27,26 @@ export default function StaffPetsRow({ pet, onToggleStatus, onRequestDelete }: S
               overflow: 'hidden',
             }}
           >
-            <div
-              style={{
-                transform: 'scale(0.22)',
-                transformOrigin: 'center',
-                width: 200,
-                height: 160,
-                flexShrink: 0,
-              }}
-            >
-              <img src={pet.imageUrl} />
-            </div>
+            {pet.imageUrl ? (
+              <img
+                src={pet.imageUrl}
+                alt={pet.name}
+                loading='lazy'
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <div
+                style={{
+                  transform: 'scale(0.22)',
+                  transformOrigin: 'center',
+                  width: 200,
+                  height: 160,
+                  flexShrink: 0,
+                }}
+              >
+                {pet.svg}
+              </div>
+            )}
           </div>
           <span style={{ fontWeight: 600, fontSize: 13.5 }}>{pet.name}</span>
         </div>

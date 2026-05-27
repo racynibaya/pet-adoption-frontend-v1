@@ -9,7 +9,16 @@ export default function UserDashboardPetCard({ pet }: UserDashboardPetCardProps)
   return (
     <Link to={`/pets/${pet.id}`} className='user-pet-card'>
       <div className='user-pet-thumb' style={{ background: pet.bg }}>
-        <img src={pet.imageUrl} />
+        {pet.imageUrl ? (
+          <img
+            src={pet.imageUrl}
+            alt={pet.name}
+            loading='lazy'
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        ) : (
+          pet.svg
+        )}
       </div>
       <div className='user-pet-body'>
         <h3 className='user-pet-name'>{pet.name}</h3>

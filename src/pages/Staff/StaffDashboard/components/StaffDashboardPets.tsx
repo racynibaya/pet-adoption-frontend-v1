@@ -42,17 +42,26 @@ export default function StaffDashboardPets({ pets }: StaffDashboardPetsProps) {
                 overflow: 'hidden',
               }}
             >
-              <div
-                style={{
-                  transform: 'scale(0.24)',
-                  transformOrigin: 'center',
-                  width: 200,
-                  height: 160,
-                  flexShrink: 0,
-                }}
-              >
-                <img src={pet.imageUrl} />
-              </div>
+              {pet.imageUrl ? (
+                <img
+                  src={pet.imageUrl}
+                  alt={pet.name}
+                  loading='lazy'
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : (
+                <div
+                  style={{
+                    transform: 'scale(0.24)',
+                    transformOrigin: 'center',
+                    width: 200,
+                    height: 160,
+                    flexShrink: 0,
+                  }}
+                >
+                  {pet.svg}
+                </div>
+              )}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontWeight: 600, fontSize: 13.5, color: 'var(--ink)' }}>
