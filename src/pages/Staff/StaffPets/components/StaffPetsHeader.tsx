@@ -1,12 +1,14 @@
-import { Link } from 'react-router-dom'
-import { PlusIcon } from '../assets'
+import { Link } from 'react-router-dom';
 
 interface StaffPetsHeaderProps {
-  totalCount: number
-  availableCount: number
+  totalCount: number;
+  availableCount: number;
 }
 
-export default function StaffPetsHeader({ totalCount, availableCount }: StaffPetsHeaderProps) {
+export default function StaffPetsHeader({
+  totalCount,
+  availableCount,
+}: StaffPetsHeaderProps) {
   return (
     <header className='staff-subtopbar'>
       <div className='staff-subtopbar-title'>
@@ -18,11 +20,10 @@ export default function StaffPetsHeader({ totalCount, availableCount }: StaffPet
         </p>
       </div>
       <div className='staff-subtopbar-actions'>
-        <Link to='/staff/pets/add' className='staff-detail-btn primary'>
-          <PlusIcon />
+        <Link to='/staff/pets/add' className='staff-detail-btn primary p-4'>
           Add pet →
         </Link>
       </div>
     </header>
-  )
+  );
 }

@@ -1,22 +1,22 @@
-import { Link } from 'react-router-dom'
-import { PlusIcon } from '../assets'
+import { Link } from 'react-router-dom';
 
 interface StaffDashboardHeaderProps {
-  firstName: string | undefined
+  firstName: string | undefined;
 }
 
-export default function StaffDashboardHeader({ firstName }: StaffDashboardHeaderProps) {
+export default function StaffDashboardHeader({
+  firstName,
+}: StaffDashboardHeaderProps) {
   return (
     <div className='staff-page-header'>
       <div>
-        <h1 className='staff-page-title'>
-          Good day, {firstName} 👋
-        </h1>
+        <h1 className='staff-page-title'>Good day, {firstName} 👋</h1>
         <p className='staff-page-sub'>
           Here's what's happening at your shelter today.
         </p>
       </div>
       <Link
+        className='p-4'
         to='/staff/pets/add'
         style={{
           display: 'inline-flex',
@@ -33,12 +33,15 @@ export default function StaffDashboardHeader({ firstName }: StaffDashboardHeader
           transition: 'background 0.14s',
           whiteSpace: 'nowrap',
         }}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = '#CB7730' }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = '#E8923C' }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.background = '#CB7730';
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.background = '#E8923C';
+        }}
       >
-        <PlusIcon />
         Add Pet
       </Link>
     </div>
-  )
+  );
 }

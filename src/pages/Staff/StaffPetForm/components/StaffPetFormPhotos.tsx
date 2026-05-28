@@ -56,7 +56,7 @@ export default function StaffPetFormPhotos({ fileRef, images, onFileChange, onRe
                 onClick={() => fileRef.current?.click()}
                 style={{
                   width: 88, height: 88, borderRadius: 10, border: '2px dashed var(--hairline)',
-                  background: 'white', cursor: 'pointer', color: 'var(--muted)', fontSize: 22,
+                  background: '#fffefa', cursor: 'pointer', color: 'var(--muted)', fontSize: 22,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
               >+</button>
@@ -69,7 +69,7 @@ export default function StaffPetFormPhotos({ fileRef, images, onFileChange, onRe
             style={{
               width: '100%', padding: '28px 16px',
               border: '2px dashed var(--hairline)', borderRadius: 12,
-              background: 'white', cursor: 'pointer',
+              background: '#fffefa', cursor: 'pointer',
               color: 'var(--muted)', fontSize: 13.5, fontFamily: 'var(--font-body)',
               display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
               transition: 'border-color 0.13s',

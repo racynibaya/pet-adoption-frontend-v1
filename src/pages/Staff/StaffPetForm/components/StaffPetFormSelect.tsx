@@ -22,7 +22,7 @@ export default function StaffPetFormSelect({ value, onChange, children }: StaffP
         paddingRight: 36,
       }}
       onFocus={(e) => { e.currentTarget.style.borderColor = '#E8923C' }}
-      onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--hairline)' }}
+      onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(28, 44, 44, 0.13)' }}
     >
       {children}
     </select>

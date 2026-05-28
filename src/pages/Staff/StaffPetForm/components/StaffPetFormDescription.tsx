@@ -21,14 +21,14 @@ export default function StaffPetFormDescription({ form, errors, set }: StaffPetF
           rows={5}
           style={{
             width: '100%', padding: '11px 13px',
-            border: '1.5px solid var(--hairline)', borderRadius: 11,
-            fontSize: 13.5, color: 'var(--ink)', background: 'white',
+            border: '1px solid rgba(28, 44, 44, 0.13)', borderRadius: 11,
+            fontSize: 13.5, color: 'var(--ink)', background: '#fffefa',
             outline: 'none', resize: 'vertical', boxSizing: 'border-box',
             fontFamily: 'var(--font-body)', lineHeight: 1.6,
             transition: 'border-color 0.14s',
           }}
           onFocus={(e) => { e.currentTarget.style.borderColor = '#E8923C' }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--hairline)' }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(28, 44, 44, 0.13)' }}
         />
         <StaffPetFormFieldErr msg={errors.description} />
       </div>
