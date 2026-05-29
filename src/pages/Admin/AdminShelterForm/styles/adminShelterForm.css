@@ -1,0 +1,405 @@
+/* =============================================================
+   Admin Shelter Form — Command Center alignment
+   Layout + form atoms only. Reuses .bento-card / .bento-eyebrow /
+   .bento-h / .bento-action-btn from admin.css.
+   ============================================================= */
+
+.asf-page {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-bottom: 32px;
+}
+
+/* ── Header (matches .admin-topbar pattern) ─────────────────── */
+
+.asf-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+  padding: 4px 4px 18px;
+}
+
+.asf-head-crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--a-muted);
+  margin-bottom: 8px;
+}
+.asf-head-crumb a {
+  color: var(--a-muted);
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+.asf-head-crumb a:hover {
+  color: var(--a-amber-deep);
+  text-decoration: none;
+}
+.asf-head-crumb-sep {
+  opacity: 0.5;
+}
+
+.asf-head-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--a-amber-deep);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.asf-head-eyebrow .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--a-amber);
+}
+
+.asf-head-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 2.6vw, 32px);
+  letter-spacing: -0.016em;
+  line-height: 1.1;
+  color: var(--a-ink);
+  margin: 0;
+}
+.asf-head-title em {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.asf-head-sub {
+  font-size: 13.5px;
+  color: var(--a-muted);
+  line-height: 1.55;
+  margin-top: 6px;
+  max-width: 60ch;
+}
+
+.asf-head-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-size: 11.5px;
+  color: var(--a-muted);
+  letter-spacing: 0.04em;
+}
+.asf-head-meta-label {
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--a-muted);
+}
+.asf-head-meta-value {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--a-ink);
+}
+
+@media (max-width: 640px) {
+  .asf-head {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .asf-head-meta {
+    align-items: flex-start;
+  }
+}
+
+/* ── Form card body ─────────────────────────────────────────── */
+
+.asf-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.asf-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .asf-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Fields ─────────────────────────────────────────────────── */
+
+.asf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.asf-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--a-ink);
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.asf-label-hint {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--a-muted);
+  letter-spacing: 0;
+}
+
+.asf-input,
+.asf-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--a-line-strong);
+  border-radius: 12px;
+  background: #fffefa;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--a-ink);
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.asf-input::placeholder,
+.asf-textarea::placeholder {
+  color: var(--a-muted);
+}
+.asf-input:hover,
+.asf-textarea:hover {
+  border-color: var(--a-ink);
+}
+.asf-input:focus,
+.asf-textarea:focus {
+  border-color: var(--a-amber);
+  box-shadow: 0 0 0 3px rgba(232, 146, 60, 0.16);
+}
+.asf-input.has-error,
+.asf-textarea.has-error {
+  border-color: var(--a-rose);
+}
+.asf-input.has-error:focus,
+.asf-textarea.has-error:focus {
+  box-shadow: 0 0 0 3px rgba(217, 79, 104, 0.16);
+}
+
+.asf-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.asf-error {
+  font-size: 12px;
+  color: var(--a-rose);
+  font-weight: 500;
+}
+
+/* ── Image upload ───────────────────────────────────────────── */
+
+.asf-image-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 640px) {
+  .asf-image-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.asf-image-tile {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fffefa;
+  border: 1px solid var(--a-line-strong);
+}
+.asf-image-tile.is-empty {
+  border-style: dashed;
+  background: rgba(232, 146, 60, 0.04);
+}
+.asf-image-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.asf-image-tile-empty-btn {
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--a-muted);
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  transition: color 160ms ease, background 160ms ease;
+}
+.asf-image-tile-empty-btn:hover {
+  color: var(--a-amber-deep);
+  background: rgba(232, 146, 60, 0.06);
+}
+
+.asf-image-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(28, 44, 44, 0.78);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 160ms ease, transform 140ms ease;
+}
+.asf-image-remove:hover {
+  background: var(--a-ink);
+  transform: scale(1.05);
+}
+
+.asf-image-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+.asf-image-meta-hint {
+  font-size: 12.5px;
+  color: var(--a-muted);
+  line-height: 1.5;
+}
+
+/* ── Inline API alert ───────────────────────────────────────── */
+
+.asf-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: rgba(217, 79, 104, 0.08);
+  border: 1px solid rgba(217, 79, 104, 0.22);
+  border-radius: 12px;
+  color: var(--a-rose);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.asf-alert-mark {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--a-rose);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* ── Action row (sits in a .bento-card, not sticky) ─────────── */
+
+.asf-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.asf-actions-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--a-muted);
+}
+.asf-actions-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--a-teal);
+}
+.asf-actions-status-dot.is-busy {
+  background: var(--a-amber);
+}
+.asf-actions-status-dot.is-saved {
+  background: var(--a-teal-deep);
+}
+.asf-actions-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.asf-actions-group .bento-action-btn[disabled] {
+  opacity: 0.55;
+  cursor: progress;
+  transform: none;
+}
+
+/* ── Access-denied / not-found states ───────────────────────── */
+
+.asf-notice {
+  text-align: center;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.asf-notice-eyebrow {
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--a-amber-deep);
+  font-weight: 700;
+}
+.asf-notice-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.014em;
+  color: var(--a-ink);
+  margin: 0;
+}
+.asf-notice-body {
+  font-size: 13.5px;
+  color: var(--a-muted);
+  line-height: 1.55;
+  max-width: 44ch;
+  margin: 0;
+}
+.asf-notice-actions {
+  margin-top: 8px;
+  display: inline-flex;
+  gap: 10px;
+}

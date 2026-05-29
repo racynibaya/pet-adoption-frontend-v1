@@ -58,6 +58,8 @@ export interface StaffCtx {
     updates: Partial<Omit<PetCard, 'id' | 'svg' | 'bg' | 'color'>>,
   ) => void;
   deletePet: (id: number) => void;
+  addShelter: (formData: FormData) => Promise<ApiShelter>;
+  updateShelter: (id: number, formData: FormData) => Promise<ApiShelter>;
   updateAdoption: (
     id: number,
     status: AdoptionRequest['status'],

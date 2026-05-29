@@ -3,9 +3,10 @@ import type { AggregatedShelter } from '../types'
 
 interface AdminSheltersDetailProps {
   selected: AggregatedShelter | null
+  canEdit: boolean
 }
 
-export default function AdminSheltersDetail({ selected }: AdminSheltersDetailProps) {
+export default function AdminSheltersDetail({ selected, canEdit }: AdminSheltersDetailProps) {
   if (!selected) {
     return (
       <section className='shelter-detail'>
@@ -24,9 +25,16 @@ export default function AdminSheltersDetail({ selected }: AdminSheltersDetailPro
           {selected.city && <div className='shelter-detail-city'>{selected.city}</div>}
           <h2 className='shelter-detail-name'>{selected.name}</h2>
         </div>
-        <Link to='/staff/pets' className='bento-action-btn ghost'>
-          View pets in staff →
-        </Link>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {canEdit && (
+            <Link to={`/admin/shelters/${selected.id}/edit`} className='bento-action-btn ghost'>
+              Edit shelter →
+            </Link>
+          )}
+          <Link to='/staff/pets' className='bento-action-btn ghost'>
+            View pets in staff →
+          </Link>
+        </div>
       </div>
 
       <div className='shelter-detail-grid'>

@@ -1,7 +1,7 @@
 import { useStaff } from '@/context/useStaff'
 import type { FormState, FormFieldErrors } from '../types'
 import StaffPetFormLabel from './StaffPetFormLabel'
-import StaffPetFormTextInput from './StaffPetFormTextInput'
+import StaffPetFormSelect from './StaffPetFormSelect'
 import StaffPetFormFieldErr from './StaffPetFormFieldErr'
 
 interface StaffPetFormShelterProps {
@@ -26,7 +26,7 @@ function IconHome() {
 }
 
 export default function StaffPetFormShelter({ form, errors, set }: StaffPetFormShelterProps) {
-  const { staffUser, visiblePets } = useStaff()
+  const { staffUser, visiblePets, shelters, sheltersLoaded } = useStaff()
 
   if (staffUser?.role === 'STAFF') {
     const shelterId = staffUser.shelterIds[0]
@@ -145,24 +145,34 @@ export default function StaffPetFormShelter({ form, errors, set }: StaffPetFormS
     )
   }
 
-  // ADMIN: editable input
+  // ADMIN: pick from all shelters
+  const noShelters = sheltersLoaded && shelters.length === 0
+
   return (
     <div className='staff-form-card'>
       <div className='staff-form-card-head'>Shelter</div>
       <div className='staff-form-card-body'>
-        <div style={{ maxWidth: 200 }}>
-          <StaffPetFormLabel>Shelter ID *</StaffPetFormLabel>
-          <StaffPetFormTextInput
-            type="number"
+        <div style={{ maxWidth: 420 }}>
+          <StaffPetFormLabel>Shelter *</StaffPetFormLabel>
+          <StaffPetFormSelect
             value={form.shelterId}
             onChange={(e) => set('shelterId', e.target.value)}
-            placeholder="e.g. 1"
-            required
-          />
+          >
+            <option value='' disabled>
+              {sheltersLoaded ? 'Select a shelter…' : 'Loading shelters…'}
+            </option>
+            {shelters.map((s) => (
+              <option key={s.id} value={String(s.id)}>
+                {s.name}
+              </option>
+            ))}
+          </StaffPetFormSelect>
           <StaffPetFormFieldErr msg={errors.shelterId} />
         </div>
         <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 8 }}>
-          Enter the ID of the shelter this pet belongs to.
+          {noShelters
+            ? 'No shelters yet — create one from the admin shelters page first.'
+            : 'Choose which partner shelter this pet belongs to.'}
         </p>
       </div>
     </div>

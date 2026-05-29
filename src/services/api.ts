@@ -153,9 +153,14 @@ export interface ApiUser {
 export interface ApiShelter {
   id: number;
   name: string;
+  description: string;
   address: string;
   contactEmail: string;
   phoneNumber: string;
+  imageUrl: string | null;
+  ownerId: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ApiPetImage {
@@ -373,4 +378,18 @@ export function apiGetShelters(page = 1, limit = 50) {
     data: ApiShelter[];
     pagination: Pagination;
   }>(`/shelters?page=${page}&limit=${limit}`);
+}
+
+export function apiCreateShelter(formData: FormData) {
+  return apiFetch<{ success: boolean; message: string; data: ApiShelter }>(
+    '/shelters',
+    { method: 'POST', body: formData },
+  );
+}
+
+export function apiUpdateShelter(id: number, formData: FormData) {
+  return apiFetch<{ success: boolean; message: string; data: ApiShelter }>(
+    `/shelters/${id}`,
+    { method: 'PATCH', body: formData },
+  );
 }

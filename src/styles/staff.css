@@ -1494,3 +1494,269 @@
   .staff-subtopbar { flex-direction: column; align-items: stretch; }
   .staff-subtopbar-actions { justify-content: flex-end; }
 }
+
+/* ═════════════════════════════════════════════════════════════════════════
+   Pet form board — asymmetric two-column layout for /staff/pets/add and
+   /staff/pets/:id/edit. Left column carries the form, right column anchors
+   visuals + listing tips and stays sticky as the user scrolls.
+   ═════════════════════════════════════════════════════════════════════════ */
+.staff-form-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.staff-form-board-main { min-width: 0; }
+.staff-form-board-side {
+  position: sticky;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-width: 1080px) {
+  .staff-form-board { grid-template-columns: 1fr; gap: 0; }
+  .staff-form-board-side { position: static; margin-top: 4px; }
+}
+
+/* ── Visuals card (photos in the side column) ────────────────────────────── */
+.staff-visuals-card {
+  position: relative;
+  background: var(--sd-card);
+  border: 1px solid var(--sd-line);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(18, 52, 64, 0.02), 0 2px 8px rgba(18, 52, 64, 0.04);
+}
+.staff-visuals-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(232, 146, 60, 0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+.staff-visuals-card > * { position: relative; }
+
+.staff-visuals-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 13px 22px;
+  border-bottom: 1px solid var(--sd-line);
+  background: rgba(28, 44, 44, 0.02);
+}
+.staff-visuals-eyebrow {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sd-muted);
+}
+.staff-visuals-count {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--sd-ink);
+  font-feature-settings: 'lnum';
+  letter-spacing: -0.01em;
+}
+.staff-visuals-count em {
+  color: var(--sd-muted);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.staff-visuals-body { padding: 20px; }
+
+/* Empty dropzone */
+.staff-visuals-drop {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 280px;
+  padding: 30px 20px;
+  background: var(--sd-paper);
+  border: 1.5px dashed var(--sd-line-strong);
+  border-radius: 14px;
+  color: var(--sd-muted);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+.staff-visuals-drop:hover {
+  border-color: var(--sd-amber);
+  color: var(--sd-amber-deep);
+  background: rgba(232, 146, 60, 0.05);
+  transform: translateY(-1px);
+}
+.staff-visuals-drop-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(232, 146, 60, 0.14);
+  color: var(--sd-amber-deep);
+  margin-bottom: 6px;
+  transition: background 160ms ease;
+}
+.staff-visuals-drop:hover .staff-visuals-drop-icon {
+  background: rgba(232, 146, 60, 0.22);
+}
+.staff-visuals-drop-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--sd-ink);
+}
+.staff-visuals-drop-rule {
+  width: 32px;
+  height: 1px;
+  background: var(--sd-line-strong);
+  margin: 6px 0 4px;
+}
+.staff-visuals-drop-sub {
+  font-size: 11.5px;
+  color: var(--sd-muted);
+  text-align: center;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+}
+
+/* Filled grid */
+.staff-visuals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.staff-visuals-tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--sd-line-strong);
+  background: var(--sd-paper);
+}
+.staff-visuals-tile.is-primary {
+  grid-column: span 3;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+}
+.staff-visuals-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.staff-visuals-tile-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-family: var(--font-body);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--sd-ink);
+  color: var(--sd-paper);
+}
+.staff-visuals-tile-remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(28, 44, 44, 0.78);
+  color: white;
+  border: 0;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 140ms ease, background 140ms ease, transform 140ms ease;
+}
+.staff-visuals-tile:hover .staff-visuals-tile-remove { opacity: 1; }
+.staff-visuals-tile-remove:hover {
+  background: var(--sd-rose);
+  transform: scale(1.06);
+}
+
+.staff-visuals-add {
+  appearance: none;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  border: 1.5px dashed var(--sd-line-strong);
+  background: var(--sd-paper);
+  color: var(--sd-muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  line-height: 1;
+  transition: border-color 140ms ease, color 140ms ease, background 140ms ease;
+}
+.staff-visuals-add:hover {
+  border-color: var(--sd-amber);
+  color: var(--sd-amber-deep);
+  background: rgba(232, 146, 60, 0.05);
+}
+
+/* ── Listing tips card ───────────────────────────────────────────────────── */
+.staff-guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.staff-guide-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.staff-guide-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: rgba(232, 146, 60, 0.14);
+  color: var(--sd-amber-deep);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-display);
+  font-feature-settings: 'lnum';
+  letter-spacing: 0.02em;
+}
+.staff-guide-dot.is-teal {
+  background: rgba(29, 117, 117, 0.14);
+  color: var(--sd-teal-deep);
+}
+.staff-guide-dot.is-rose {
+  background: rgba(217, 79, 104, 0.14);
+  color: #9e2a4a;
+}
+.staff-guide-h {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--sd-ink);
+  letter-spacing: -0.002em;
+  line-height: 1.35;
+}
+.staff-guide-p {
+  font-size: 11.5px;
+  color: var(--sd-muted);
+  line-height: 1.55;
+  margin: 3px 0 0;
+}
+.staff-guide-p strong {
+  color: var(--sd-ink);
+  font-weight: 600;
+}

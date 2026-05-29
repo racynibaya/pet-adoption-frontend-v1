@@ -24,6 +24,7 @@ import AdminDashboard from '@/pages/Admin/AdminDashboard/AdminDashboard';
 import AdminPets from '@/pages/Admin/AdminPets/AdminPets';
 import AdminAdoptions from '@/pages/Admin/AdminAdoptions/AdminAdoptions';
 import AdminShelters from '@/pages/Admin/AdminShelters/AdminShelters';
+import AdminShelterForm from '@/pages/Admin/AdminShelterForm/AdminShelterForm';
 import VerifyEmailPage from '@/pages/Auth/VerifyEmail/VerifyEmail';
 import PetApplyPage from '@/pages/Apply/PetApply/PetApply';
 import NotFoundPage from '@/pages/NotFound/NotFound';
@@ -60,6 +61,8 @@ export default function App() {
               <Route path='/admin/pets' element={<AdminPets />} />
               <Route path='/admin/adoptions' element={<AdminAdoptions />} />
               <Route path='/admin/shelters' element={<AdminShelters />} />
+              <Route path='/admin/shelters/add' element={<AdminShelterForm />} />
+              <Route path='/admin/shelters/:id/edit' element={<AdminShelterForm />} />
             </Route>
 
             {/* Staff portal */}

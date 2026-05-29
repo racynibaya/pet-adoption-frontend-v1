@@ -10,7 +10,7 @@ import type { AggregatedShelter } from './types'
 import { parseCity, countPets } from './utils/aggregateShelters'
 
 export default function AdminShelters() {
-  const { pets } = useStaff()
+  const { pets, staffUser } = useStaff()
   const [remote, setRemote] = useState<ApiShelter[] | null>(null)
   const [loadError, setLoadError] = useState(false)
   const [selectedId, setSelectedId] = useState<number | null>(null)
@@ -76,14 +76,18 @@ export default function AdminShelters() {
 
   return (
     <>
-      <AdminSheltersTopline shelterCount={shelters.length} statusLabel={statusLabel} />
+      <AdminSheltersTopline
+        shelterCount={shelters.length}
+        statusLabel={statusLabel}
+        canCreate={staffUser?.role === 'ADMIN'}
+      />
       <div className='admin-shelters a-section' style={{ ['--i' as string]: 1 }}>
         <AdminSheltersList
           shelters={shelters}
           activeId={selected?.id ?? null}
           onSelect={setSelectedId}
         />
-        <AdminSheltersDetail selected={selected} />
+        <AdminSheltersDetail selected={selected} canEdit={staffUser?.role === 'ADMIN'} />
       </div>
     </>
   )

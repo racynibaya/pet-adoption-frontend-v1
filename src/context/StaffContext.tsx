@@ -7,6 +7,8 @@ import {
   apiGetAllPets,
   apiGetShelters,
   apiCreatePet,
+  apiCreateShelter,
+  apiUpdateShelter,
   setToken,
   ApiError,
   type ApiPet,
@@ -267,6 +269,21 @@ export function StaffProvider({ children }: { children: ReactNode }) {
     setPets((prev) => [...prev, apiPetToPetCard(res.data)]);
   }
 
+  async function addShelter(formData: FormData): Promise<ApiShelter> {
+    const res = await apiCreateShelter(formData);
+    setShelters((prev) => [...prev, res.data]);
+    return res.data;
+  }
+
+  async function updateShelter(
+    id: number,
+    formData: FormData,
+  ): Promise<ApiShelter> {
+    const res = await apiUpdateShelter(id, formData);
+    setShelters((prev) => prev.map((s) => (s.id === id ? res.data : s)));
+    return res.data;
+  }
+
   function updatePet(
     id: number,
     updates: Partial<Omit<PetCard, 'id' | 'svg' | 'bg' | 'color'>>,
@@ -330,6 +347,8 @@ export function StaffProvider({ children }: { children: ReactNode }) {
         addPet,
         updatePet,
         deletePet,
+        addShelter,
+        updateShelter,
         updateAdoption,
       }}
     >
