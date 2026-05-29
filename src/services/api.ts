@@ -1,7 +1,7 @@
 export let API_BASE: string;
 
 if (import.meta.env.DEV) {
-  API_BASE = 'http://localhost:3000/api/v1';
+  API_BASE = 'http://localhost:9000/api/v1';
 } else {
   API_BASE = import.meta.env.VITE_API_BASE;
 }
@@ -316,6 +316,8 @@ export async function apiGetAllPets(
   const first = await apiGetPets(1, PETS_PAGE_SIZE, filters);
   const { totalPages } = first.pagination;
   if (totalPages <= 1) return first.data;
+
+  console.log(totalPages, 'LINE 320');
 
   const rest = await Promise.all(
     Array.from({ length: totalPages - 1 }, (_, i) =>

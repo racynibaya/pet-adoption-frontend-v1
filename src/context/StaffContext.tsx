@@ -173,6 +173,7 @@ export function StaffProvider({ children }: { children: ReactNode }) {
   const [loginError, setLoginError] = useState('');
 
   useEffect(() => {
+    if (!isAuthenticated) return;
     apiGetAllPets()
       .then((all) => {
         setPets(all.map(apiPetToPetCard));
@@ -183,7 +184,7 @@ export function StaffProvider({ children }: { children: ReactNode }) {
       .finally(() => {
         setPetsLoaded(true);
       });
-  }, []);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     apiGetShelters()
@@ -228,12 +229,6 @@ export function StaffProvider({ children }: { children: ReactNode }) {
       setStaffUser(staffUserData);
       sessionStorage.setItem('staff-auth', '1');
       sessionStorage.setItem('staff-user', JSON.stringify(staffUserData));
-
-      apiGetAllPets()
-        .then((all) => {
-          if (all.length > 0) setPets(all.map(apiPetToPetCard));
-        })
-        .catch(() => {});
 
       return true;
     } catch (err) {
