@@ -4,14 +4,10 @@ import { Link } from 'react-router-dom';
 import { useFavorites } from '@/context/useFavorites';
 
 import HeartIcon from '@/icons/HeartIcon';
-import { useStaff } from '@/context/useStaff';
 import { ageLabel } from '@/data/pets';
 
 export default function SavedDrawer() {
-  const { saved, toggle, drawerOpen, closeDrawer } = useFavorites();
-  const { pets } = useStaff();
-
-  const savedPets = pets.filter((p) => saved.includes(String(p.id)));
+  const { saved, savedPets, toggle, drawerOpen, closeDrawer } = useFavorites();
 
   const handleKey = useCallback(
     (e: KeyboardEvent) => {

@@ -1,9 +1,10 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { FavoritesContext } from './useFavorites';
-import { useStaff } from './useStaff';
+import { apiGetPet, ApiError } from '@/services/api';
+import { apiPetToPetCard } from './StaffContext';
+import type { PetCard } from '@/data/pets';
 
 export function FavoritesProvider({ children }: { children: ReactNode }) {
-  const { pets, petsLoaded } = useStaff();
   const [saved, setSaved] = useState<string[]>(() => {
     try {
       return JSON.parse(localStorage.getItem('koda-saved') ?? '[]');
@@ -11,6 +12,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
       return [];
     }
   });
+  const [savedPets, setSavedPets] = useState<PetCard[]>([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
@@ -18,13 +20,42 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   }, [saved]);
 
   useEffect(() => {
-    if (!petsLoaded) return;
-    setSaved(prev => {
-      const validIds = new Set(pets.map(p => String(p.id)));
-      const next = prev.filter(id => validIds.has(id));
-      return next.length === prev.length ? prev : next;
+    if (saved.length === 0) {
+      setSavedPets([]);
+      return;
+    }
+
+    let cancelled = false;
+
+    Promise.all(
+      saved.map((id) =>
+        apiGetPet(Number(id))
+          .then((res) => ({ ok: true as const, pet: apiPetToPetCard(res.data) }))
+          .catch((err: unknown) => ({ ok: false as const, id, err })),
+      ),
+    ).then((results) => {
+      if (cancelled) return;
+      const validPets: PetCard[] = [];
+      const missingIds: string[] = [];
+      for (const r of results) {
+        if (r.ok) {
+          validPets.push(r.pet);
+        } else if (r.err instanceof ApiError && r.err.status === 404) {
+          missingIds.push(r.id);
+        } else {
+          console.error('Failed to load saved pet', r.id, r.err);
+        }
+      }
+      setSavedPets(validPets);
+      if (missingIds.length > 0) {
+        setSaved((prev) => prev.filter((id) => !missingIds.includes(id)));
+      }
     });
-  }, [pets, petsLoaded]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [saved]);
 
   useEffect(() => {
     if (drawerOpen) {
@@ -51,7 +82,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   const closeDrawer = () => setDrawerOpen(false);
 
   return (
-    <FavoritesContext.Provider value={{ saved, toggle, isSaved, drawerOpen, openDrawer, closeDrawer }}>
+    <FavoritesContext.Provider value={{ saved, savedPets, toggle, isSaved, drawerOpen, openDrawer, closeDrawer }}>
       {children}
     </FavoritesContext.Provider>
   );

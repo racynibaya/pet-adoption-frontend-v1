@@ -1,31 +1,107 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useMemo, useState } from 'react'
 import { useStaff } from '@/context/useStaff'
-import { useAdminFilters } from '@/pages/Admin/AdminDashboard/hooks/useAdminFilters'
-import { AdminDashboardFilterBar } from '@/pages/Admin/AdminDashboard/components'
+import { shelterCityFromAddress } from '@/context/StaffContext'
+import type { PetCard } from '@/data/pets'
 import {
-  StaffPetsTable,
-  StaffPetsConfirmDialog,
-} from '@/pages/Staff/StaffPets/components'
+  AdminDashboardTopbar,
+  AdminDashboardChipStrip,
+  AdminDashboardStatTiles,
+  AdminDashboardRoster,
+  AdminDashboardDetail,
+} from '@/pages/Admin/AdminDashboard/components'
+import { useAdminFilters } from '@/pages/Admin/AdminDashboard/hooks/useAdminFilters'
+import type { SortKey } from '@/pages/Admin/AdminDashboard/components/AdminDashboardChipStrip'
+import { StaffPetsConfirmDialog } from '@/pages/Staff/StaffPets/components'
 
 export default function AdminPets() {
-  const { pets, adoptions, shelters, updatePet, deletePet } = useStaff()
+  const { pets, shelters: allShelters, adoptions, staffUser, updatePet, deletePet } = useStaff()
+
   const {
     filters,
     setSearch,
     setShelterId,
     setStatus,
     setSpecies,
-    setGender,
-    setSize,
     clearAll,
     activeCount,
     filteredPets,
+    filteredAdoptions,
   } = useAdminFilters(pets, adoptions)
 
+  const [sort, setSort] = useState<SortKey>('RECENT')
+  const [selectedId, setSelectedId] = useState<number | null>(null)
   const [confirmId, setConfirmId] = useState<number | null>(null)
-  const confirmPet =
-    confirmId != null ? pets.find((p) => p.id === confirmId) ?? null : null
+
+  const sortedPets = useMemo(() => {
+    const arr = [...filteredPets]
+    if (sort === 'NAME') {
+      arr.sort((a, b) => a.name.localeCompare(b.name))
+    } else if (sort === 'PRESSURE') {
+      const pressure = (p: PetCard) =>
+        adoptions.filter(
+          (a) => a.petId === p.id && (a.status === 'PENDING' || a.status === 'REVIEWING'),
+        ).length
+      arr.sort((a, b) => pressure(b) - pressure(a))
+    } else {
+      arr.sort((a, b) => b.id - a.id)
+    }
+    return arr
+  }, [filteredPets, sort, adoptions])
+
+  const selectedPet = useMemo(() => {
+    if (selectedId !== null) {
+      const found = sortedPets.find((p) => p.id === selectedId)
+      if (found) return found
+    }
+    return sortedPets[0] ?? null
+  }, [sortedPets, selectedId])
+
+  const selectedShelter = useMemo(() => {
+    if (!selectedPet) return null
+    return allShelters.find((s) => s.id === selectedPet.shelterId) ?? null
+  }, [allShelters, selectedPet])
+
+  const selectedApps = useMemo(() => {
+    if (!selectedPet) return []
+    return adoptions
+      .filter((a) => a.petId === selectedPet.id)
+      .sort(
+        (a, b) =>
+          new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
+      )
+  }, [adoptions, selectedPet])
+
+  const stats = useMemo(() => {
+    const total = filteredPets.length
+    const available = filteredPets.filter((p) => p.status === 'AVAILABLE').length
+    const pending = filteredPets.filter((p) => p.status === 'PENDING').length
+    const adopted = filteredPets.filter((p) => p.status === 'ADOPTED').length
+    const rate = total > 0 ? Math.round((adopted / total) * 100) : 0
+    const pendingApps = filteredAdoptions.filter(
+      (a) => a.status === 'PENDING' || a.status === 'REVIEWING',
+    ).length
+    return { total, available, pending, adopted, rate, pendingApps }
+  }, [filteredPets, filteredAdoptions])
+
+  const shelterCount = useMemo(() => {
+    const ids = new Set(filteredPets.map((p) => p.shelterId))
+    return ids.size
+  }, [filteredPets])
+
+  const clock = useMemo(() => {
+    const now = new Date()
+    return {
+      date: now.toLocaleDateString(undefined, {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+      }),
+      time: now.toLocaleTimeString(undefined, {
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+    }
+  }, [])
 
   function toggleStatus(id: number, current: 'AVAILABLE' | 'PENDING') {
     updatePet(id, { status: current === 'AVAILABLE' ? 'PENDING' : 'AVAILABLE' })
@@ -37,6 +113,9 @@ export default function AdminPets() {
     setConfirmId(null)
   }
 
+  const confirmPet =
+    confirmId != null ? pets.find((p) => p.id === confirmId) ?? null : null
+
   return (
     <>
       {confirmPet && (
@@ -47,44 +126,46 @@ export default function AdminPets() {
         />
       )}
 
-      <header className='admin-topline a-section' style={{ ['--i' as string]: 0 }}>
-        <div>
-          <div className='admin-eyebrow'>Pet roster</div>
-          <h1 className='admin-title'>Every animal in the network.</h1>
-          <p className='admin-subtitle'>
-            Search, filter, and triage pets across every partner shelter — toggle
-            availability, edit details, or remove listings.
-          </p>
-        </div>
-        <Link to='/staff/pets/add' className='bento-action-btn primary'>
-          Add a pet →
-        </Link>
-      </header>
-
-      <AdminDashboardFilterBar
-        filters={filters}
-        shelters={shelters}
-        activeCount={activeCount}
-        resultCount={filteredPets.length}
-        totalCount={pets.length}
-        setSearch={setSearch}
-        setShelterId={setShelterId}
-        setStatus={setStatus}
-        setSpecies={setSpecies}
-        setGender={setGender}
-        setSize={setSize}
-        clearAll={clearAll}
+      <AdminDashboardTopbar
+        firstName={staffUser?.name?.split(' ')[0] ?? 'Admin'}
+        initials={staffUser?.initials}
+        date={clock.date}
+        time={clock.time}
+        search={filters.search}
+        onSearch={setSearch}
       />
 
-      <section className='a-section' style={{ ['--i' as string]: 1 }}>
-        <div className='admin-table-card'>
-          <StaffPetsTable
-            pets={filteredPets}
-            onToggleStatus={toggleStatus}
-            onRequestDelete={setConfirmId}
-          />
-        </div>
-      </section>
+      <AdminDashboardChipStrip
+        filters={filters}
+        shelters={allShelters}
+        sort={sort}
+        activeCount={activeCount}
+        resultCount={sortedPets.length}
+        totalCount={pets.length}
+        onStatus={setStatus}
+        onSpecies={setSpecies}
+        onShelter={setShelterId}
+        onSort={setSort}
+        onClear={clearAll}
+      />
+
+      <AdminDashboardStatTiles stats={stats} shelterCount={shelterCount} />
+
+      <div className='admin-board'>
+        <AdminDashboardRoster
+          pets={sortedPets}
+          selectedId={selectedPet?.id ?? null}
+          onSelect={setSelectedId}
+          onToggleStatus={toggleStatus}
+          onRequestDelete={setConfirmId}
+          editHref={(pet) => `/staff/pets/${pet.id}/edit`}
+        />
+        <AdminDashboardDetail
+          pet={selectedPet}
+          shelterCity={selectedShelter ? shelterCityFromAddress(selectedShelter.address) : ''}
+          applications={selectedApps}
+        />
+      </div>
     </>
   )
 }

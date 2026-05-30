@@ -22,7 +22,8 @@ import { usePetApply } from './hooks/usePetApply'
 export default function PetApply() {
   const a = usePetApply()
 
-  if (!a.pet) return <Navigate to='/pets' replace />
+  if (a.notFound) return <Navigate to='/pets' replace />
+  if (!a.pet) return null
 
   const pageWrapper = (children: ReactNode) => (
     <div style={{ paddingTop: 32, paddingBottom: 96 }}>

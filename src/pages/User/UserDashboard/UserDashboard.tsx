@@ -13,13 +13,12 @@ import { greetingFor, formatJoined } from './utils/format'
 
 export default function UserDashboard() {
   const { adopter } = useAdopter()
-  const { saved } = useFavorites()
+  const { saved, savedPets } = useFavorites()
   const { pets } = useStaff()
 
   if (!adopter) return null
 
   const savedIds = new Set(saved)
-  const savedPets = pets.filter((p) => savedIds.has(String(p.id)))
   const suggestions = pets
     .filter((p) => p.status === 'AVAILABLE' && !savedIds.has(String(p.id)))
     .slice(0, 4)

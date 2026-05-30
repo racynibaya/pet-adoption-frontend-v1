@@ -1,7 +1,9 @@
 import { createContext, useContext } from 'react';
+import type { PetCard } from '@/data/pets';
 
 export interface FavoritesContextType {
   saved: string[];
+  savedPets: PetCard[];
   toggle: (id: string) => void;
   isSaved: (id: string) => boolean;
   drawerOpen: boolean;
@@ -11,6 +13,7 @@ export interface FavoritesContextType {
 
 export const FavoritesContext = createContext<FavoritesContextType>({
   saved: [],
+  savedPets: [],
   toggle: () => {},
   isSaved: () => false,
   drawerOpen: false,

@@ -6,11 +6,12 @@ import {
   AdminSheltersList,
   AdminSheltersDetail,
 } from './components'
+import { AdminDashboardStatTiles } from '@/pages/Admin/AdminDashboard/components'
 import type { AggregatedShelter } from './types'
 import { parseCity, countPets } from './utils/aggregateShelters'
 
 export default function AdminShelters() {
-  const { pets, staffUser } = useStaff()
+  const { pets, adoptions, staffUser } = useStaff()
   const [remote, setRemote] = useState<ApiShelter[] | null>(null)
   const [loadError, setLoadError] = useState(false)
   const [selectedId, setSelectedId] = useState<number | null>(null)
@@ -74,6 +75,18 @@ export default function AdminShelters() {
   const selected = shelters.find(s => s.id === selectedId) ?? shelters[0] ?? null
   const statusLabel = loadError ? 'offline · mock' : remote ? 'live' : 'syncing…'
 
+  const stats = useMemo(() => {
+    const total = pets.length
+    const available = pets.filter((p) => p.status === 'AVAILABLE').length
+    const pending = pets.filter((p) => p.status === 'PENDING').length
+    const adopted = pets.filter((p) => p.status === 'ADOPTED').length
+    const rate = total > 0 ? Math.round((adopted / total) * 100) : 0
+    const pendingApps = adoptions.filter(
+      (a) => a.status === 'PENDING' || a.status === 'REVIEWING',
+    ).length
+    return { total, available, pending, adopted, rate, pendingApps }
+  }, [pets, adoptions])
+
   return (
     <>
       <AdminSheltersTopline
@@ -81,7 +94,10 @@ export default function AdminShelters() {
         statusLabel={statusLabel}
         canCreate={staffUser?.role === 'ADMIN'}
       />
-      <div className='admin-shelters a-section' style={{ ['--i' as string]: 1 }}>
+
+      <AdminDashboardStatTiles stats={stats} shelterCount={shelters.length} />
+
+      <div className='admin-board a-section' style={{ ['--i' as string]: 3 }}>
         <AdminSheltersList
           shelters={shelters}
           activeId={selected?.id ?? null}

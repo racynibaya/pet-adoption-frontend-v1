@@ -2,8 +2,9 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import { useStaff } from '@/context/useStaff';
 import { useAdopter } from '@/context/useUser';
-import { PET_LISTINGS } from '@/data/pets';
-import { apiCreateAdoption, ApiError, type HomeType } from '@/services/api';
+import { apiPetToPetCard } from '@/context/StaffContext';
+import { PET_LISTINGS, type PetCard } from '@/data/pets';
+import { apiCreateAdoption, apiGetPet, ApiError, type HomeType } from '@/services/api';
 import type { FormState, FormFieldErrors } from '../types';
 import { EMPTY_FORM } from '../constants/petApply.constants';
 import { validateForm } from '../utils/validateForm';
@@ -14,9 +15,35 @@ export function usePetApply() {
   const { pets } = useStaff();
   const { adopter, isAuthenticated } = useAdopter();
 
-  const pet =
+  const localPet =
     pets.find((p) => String(p.id) === id) ??
     PET_LISTINGS.find((p) => String(p.id) === id);
+
+  const numericId = id ? Number(id) : NaN;
+  const isInvalidId = !id || !Number.isInteger(numericId) || numericId <= 0;
+
+  const [fetchedPet, setFetchedPet] = useState<PetCard | null>(null);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    if (localPet || isInvalidId) return;
+    let cancelled = false;
+    apiGetPet(numericId)
+      .then((res) => {
+        if (cancelled) return;
+        setFetchedPet(apiPetToPetCard(res.data));
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        console.error('Failed to load pet', err);
+        setNotFound(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [localPet, isInvalidId, numericId]);
+
+  const pet = localPet ?? fetchedPet;
 
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [errors, setErrors] = useState<FormFieldErrors>({});
@@ -106,6 +133,7 @@ export function usePetApply() {
 
   return {
     pet,
+    notFound: notFound || (isInvalidId && !localPet),
     isAuthenticated,
     adopter,
     form,
