@@ -1,4 +1,5 @@
 import type { FormEvent } from 'react'
+import { ArrowRight } from 'lucide-react'
 import type { ContactFormData, Topic } from '../types'
 import { TOPIC_BUTTONS } from '../data'
 import ContactFormSuccess from './ContactFormSuccess'
@@ -175,8 +176,8 @@ export default function ContactForm({
             </label>
           </div>
 
-          <button type='submit' className='btn btn-primary btn-lg' style={{ width: '100%' }}>
-            Send my message →
+          <button type='submit' className='btn btn-primary btn-lg inline-flex items-center justify-center gap-2' style={{ width: '100%' }}>
+            Send my message <ArrowRight size={16} />
           </button>
         </div>
       )}

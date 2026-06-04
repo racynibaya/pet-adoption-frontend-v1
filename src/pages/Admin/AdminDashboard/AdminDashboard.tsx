@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react'
-import { useStaff } from '@/context/useStaff'
-import { shelterCityFromAddress } from '@/context/StaffContext'
+import { usePets } from '@/context/usePets'
+import { useShelters } from '@/context/useShelters'
+import { useAdoptions } from '@/context/useAdoptions'
+import { useStaffAuth } from '@/context/useStaffAuth'
+import { shelterCityOf } from '@/data/adapters'
 import type { PetCard } from '@/data/pets'
 import {
   AdminDashboardTopbar,
@@ -13,7 +16,10 @@ import { useAdminFilters } from './hooks/useAdminFilters'
 import type { SortKey } from './components/AdminDashboardChipStrip'
 
 export default function AdminDashboard() {
-  const { pets, shelters: allShelters, adoptions, staffUser } = useStaff()
+  const { pets } = usePets()
+  const { shelters: allShelters } = useShelters()
+  const { adoptions } = useAdoptions()
+  const { staffUser } = useStaffAuth()
 
   const {
     filters,
@@ -136,7 +142,7 @@ export default function AdminDashboard() {
         />
         <AdminDashboardDetail
           pet={selectedPet}
-          shelterCity={selectedShelter ? shelterCityFromAddress(selectedShelter.address) : ''}
+          shelterCity={shelterCityOf(selectedShelter)}
           applications={selectedApps}
         />
       </div>

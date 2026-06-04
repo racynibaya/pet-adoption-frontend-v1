@@ -1,9 +1,8 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Eyebrow from '@/components/ui/Eyebrow';
 import {
   TestimonialIllustration,
   TestimonialAvatar,
-  ChevronLeftIcon,
-  ChevronRightIcon,
 } from '../assets';
 
 export default function HomeTestimonial() {
@@ -50,7 +49,7 @@ export default function HomeTestimonial() {
 
           <div className='row mt-24' style={{ gap: 12 }}>
             <button className='nav-cart' aria-label='Previous'>
-              <ChevronLeftIcon />
+              <ChevronLeft size={16} color='#1d2235' strokeWidth={2} />
             </button>
             <button
               className='nav-cart'
@@ -60,7 +59,7 @@ export default function HomeTestimonial() {
               }}
               aria-label='Next'
             >
-              <ChevronRightIcon />
+              <ChevronRight size={16} color='#fff' strokeWidth={2} />
             </button>
           </div>
         </div>

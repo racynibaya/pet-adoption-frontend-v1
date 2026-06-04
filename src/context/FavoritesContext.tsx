@@ -1,7 +1,7 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { FavoritesContext } from './useFavorites';
 import { apiGetPet, ApiError } from '@/services/api';
-import { apiPetToPetCard } from './StaffContext';
+import { apiPetToPetCard } from '@/data/adapters';
 import type { PetCard } from '@/data/pets';
 
 export function FavoritesProvider({ children }: { children: ReactNode }) {
@@ -19,34 +19,45 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('koda-saved', JSON.stringify(saved));
   }, [saved]);
 
+  // Reconcile savedPets with saved: drop pets that are no longer saved, fetch
+  // only the IDs that haven't been loaded yet. Toggling one pet must not
+  // re-fetch all saved pets.
   useEffect(() => {
     if (saved.length === 0) {
       setSavedPets([]);
       return;
     }
 
-    let cancelled = false;
+    const savedSet = new Set(saved);
+    setSavedPets((prev) => prev.filter((p) => savedSet.has(String(p.id))));
 
+    const loadedIds = new Set(savedPets.map((p) => String(p.id)));
+    const idsToFetch = saved.filter((id) => !loadedIds.has(id));
+    if (idsToFetch.length === 0) return;
+
+    let cancelled = false;
     Promise.all(
-      saved.map((id) =>
+      idsToFetch.map((id) =>
         apiGetPet(Number(id))
           .then((res) => ({ ok: true as const, pet: apiPetToPetCard(res.data) }))
           .catch((err: unknown) => ({ ok: false as const, id, err })),
       ),
     ).then((results) => {
       if (cancelled) return;
-      const validPets: PetCard[] = [];
+      const newPets: PetCard[] = [];
       const missingIds: string[] = [];
       for (const r of results) {
         if (r.ok) {
-          validPets.push(r.pet);
+          newPets.push(r.pet);
         } else if (r.err instanceof ApiError && r.err.status === 404) {
           missingIds.push(r.id);
         } else {
           console.error('Failed to load saved pet', r.id, r.err);
         }
       }
-      setSavedPets(validPets);
+      if (newPets.length > 0) {
+        setSavedPets((prev) => [...prev, ...newPets]);
+      }
       if (missingIds.length > 0) {
         setSaved((prev) => prev.filter((id) => !missingIds.includes(id)));
       }
@@ -55,6 +66,9 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
+    // savedPets intentionally omitted: we only want this to fire when the
+    // saved id list changes, not when we update savedPets ourselves.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saved]);
 
   useEffect(() => {

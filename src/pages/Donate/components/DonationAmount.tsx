@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
 import SectionHead from '@/components/ui/SectionHead';
-import { IMPACT_TIERS } from '../data';
+import { IMPACT_TIERS } from '../constants/donate.constants';
 import { TONE_INK, TONE_BG } from '../constants/donate.tones';
 import { formatPesoCurrency } from '../utils/formatDonation';
 import type { DonationFieldErrors } from '../types/donate.types';

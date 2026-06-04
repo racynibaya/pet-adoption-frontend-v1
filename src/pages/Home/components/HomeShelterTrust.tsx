@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
+import { Check, ArrowRight } from 'lucide-react';
 import Eyebrow from '@/components/ui/Eyebrow';
 import {
   TrustSmallPaws,
   TrustPhotoPerson,
   TrustPhotoCat,
-  CheckBadgeIcon,
 } from '../assets';
 import { TRUST_POINTS } from '../data';
 
@@ -38,13 +38,18 @@ export default function HomeShelterTrust() {
                 key={point}
                 className='flex gap-3 items-start list-none text-(--ink-2) text-[15px]'
               >
-                <CheckBadgeIcon />
+                <span
+                  className='w-5.5 h-5.5 rounded-full shrink-0 inline-flex items-center justify-center mt-px text-white'
+                  style={{ background: 'var(--rausch)' }}
+                >
+                  <Check size={12} strokeWidth={1.8} />
+                </span>
                 {point}
               </li>
             ))}
           </ul>
-          <Link className='btn btn-primary mt-32' to='/shelters'>
-            Browse shelters →
+          <Link className='btn btn-primary mt-32 inline-flex items-center gap-1.5' to='/shelters'>
+            Browse shelters <ArrowRight size={16} />
           </Link>
         </div>
       </div>

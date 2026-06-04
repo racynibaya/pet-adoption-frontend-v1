@@ -1,7 +1,7 @@
-import type { AdoptionRequest } from '@/context/useStaff'
+import type { AdoptionRequest } from '@/context/useAdoptions'
 import type { PetCard } from '@/data/pets'
 import StaffAdoptionsBadge from './StaffAdoptionsBadge'
-import { CheckIcon, XIcon } from '../assets'
+import { Check, X } from 'lucide-react'
 
 interface StaffAdoptionsRowProps {
   adoption: AdoptionRequest
@@ -89,7 +89,7 @@ export default function StaffAdoptionsRow({ adoption: a, pet, onUpdate }: StaffA
                 onClick={() => onUpdate(a.id, 'APPROVED')}
                 className='staff-row-btn approve'
               >
-                <CheckIcon />
+                <Check size={12} strokeWidth={2.5} />
                 Approve
               </button>
               <button
@@ -97,7 +97,7 @@ export default function StaffAdoptionsRow({ adoption: a, pet, onUpdate }: StaffA
                 onClick={() => onUpdate(a.id, 'REJECTED')}
                 className='staff-row-btn reject'
               >
-                <XIcon />
+                <X size={12} strokeWidth={2.5} />
                 Reject
               </button>
             </>

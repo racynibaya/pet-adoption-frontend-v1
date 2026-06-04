@@ -1,4 +1,4 @@
-import { YesCheckIcon } from '../assets'
+import { Check } from 'lucide-react'
 
 interface PetApplyYesNoPillsProps {
   value: boolean | null
@@ -69,7 +69,7 @@ export default function PetApplyYesNoPills({ value, onChange, disabled }: PetApp
                 flexShrink: 0,
               }}
             >
-              {active && <YesCheckIcon />}
+              {active && <Check size={9} color='#fff' strokeWidth={3} />}
             </span>
             {opt.label}
           </button>

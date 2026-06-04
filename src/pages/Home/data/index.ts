@@ -1,11 +1,13 @@
 import {
-  ShieldCheckIcon,
-  PersonIcon,
-  DocumentIcon,
-  FilterIcon,
-  SearchIcon,
-  FormIcon,
-  HomeHeartIcon,
+  ShieldCheck as ShieldCheckIcon,
+  User as PersonIcon,
+  FileText as DocumentIcon,
+  Filter as FilterIcon,
+  Search as SearchIcon,
+  ClipboardList as FormIcon,
+  HouseHeart as HomeHeartIcon,
+} from 'lucide-react';
+import {
   BlogCoverFirst30Days,
   BlogCoverBodyLanguage,
   BlogCoverSeniorCat,

@@ -1,6 +1,6 @@
 import SectionHead from '@/components/ui/SectionHead';
+import PetCardLarge from '@/components/pet/PetCardLarge';
 import type { PetCard } from '@/data/pets';
-import ServicesPetCard from './ServicesPetCard';
 import ServicesEmpty from './ServicesEmpty';
 import ServicesPagination from './ServicesPagination';
 
@@ -9,8 +9,6 @@ interface ServicesListingsProps {
   totalPets: number;
   pets: PetCard[];
   filtered: PetCard[];
-  isSaved: (id: string) => boolean;
-  onToggleSave: (id: string) => void;
   onClearFilters: () => void;
   currentPage: number;
   totalPages: number;
@@ -22,8 +20,6 @@ export default function ServicesListings({
   totalPets,
   pets,
   filtered,
-  isSaved,
-  onToggleSave,
   onClearFilters,
   currentPage,
   totalPages,
@@ -44,12 +40,7 @@ export default function ServicesListings({
       {filtered.length > 0 ? (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7'>
           {filtered.map((pet) => (
-            <ServicesPetCard
-              key={pet.id}
-              pet={pet}
-              isSaved={isSaved(String(pet.id))}
-              onToggleSave={() => onToggleSave(String(pet.id))}
-            />
+            <PetCardLarge key={pet.id} pet={pet} />
           ))}
         </div>
       ) : (

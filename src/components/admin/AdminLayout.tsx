@@ -1,63 +1,19 @@
 import { useEffect } from 'react'
 import { Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { useStaff } from '@/context/useStaff'
+import { useStaffAuth } from '@/context/useStaffAuth'
+import { Compass, Building2, PawPrint, Heart, LogOut } from 'lucide-react'
 import '@/styles/staff.css'
 import '@/styles/admin.css'
 
-function IconCompass() {
-  return (
-    <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
-      <circle cx='12' cy='12' r='9' stroke='currentColor' strokeWidth='1.8' />
-      <path d='M16 8l-2.5 5.5L8 16l2.5-5.5L16 8z' fill='currentColor' />
-    </svg>
-  )
-}
-function IconBuildings() {
-  return (
-    <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
-      <path d='M3 21V9l5-3 5 3v12' stroke='currentColor' strokeWidth='1.8' strokeLinejoin='round' />
-      <path d='M13 21V13l4-2 4 2v8' stroke='currentColor' strokeWidth='1.8' strokeLinejoin='round' />
-      <path d='M6 13h2M6 17h2M16 16h2' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' />
-    </svg>
-  )
-}
-function IconPaw() {
-  return (
-    <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
-      <ellipse cx='6' cy='9' rx='1.8' ry='2.4' fill='currentColor' />
-      <ellipse cx='10.5' cy='6.8' rx='1.6' ry='2.1' fill='currentColor' />
-      <ellipse cx='15.5' cy='7.5' rx='1.6' ry='2.1' fill='currentColor' />
-      <ellipse cx='18' cy='10.5' rx='1.6' ry='2.1' fill='currentColor' />
-      <path d='M12 11c-3 0-5.8 2.2-5.8 5 0 1.5 1.2 2.7 2.7 2.7 1.4 0 2-.8 3.1-.8 1.1 0 1.7.8 3.1.8 1.5 0 2.7-1.2 2.7-2.7 0-2.8-2.8-5-5.8-5z' fill='currentColor' />
-    </svg>
-  )
-}
-function IconHeart() {
-  return (
-    <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
-      <path d='M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z' fill='currentColor' />
-    </svg>
-  )
-}
-function IconSignOut() {
-  return (
-    <svg width='14' height='14' viewBox='0 0 24 24' fill='none'>
-      <path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' />
-      <polyline points='16 17 21 12 16 7' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' />
-      <line x1='21' y1='12' x2='9' y2='12' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' />
-    </svg>
-  )
-}
-
 const ADMIN_NAV = [
-  { to: '/admin', end: true, icon: <IconCompass />, label: 'Command Center' },
-  { to: '/admin/pets', end: false, icon: <IconPaw />, label: 'Pets' },
-  { to: '/admin/adoptions', end: false, icon: <IconHeart />, label: 'Adoptions' },
-  { to: '/admin/shelters', end: false, icon: <IconBuildings />, label: 'Shelters' },
+  { to: '/admin', end: true, icon: <Compass size={16} strokeWidth={1.8} />, label: 'Command Center' },
+  { to: '/admin/pets', end: false, icon: <PawPrint size={16} strokeWidth={1.8} />, label: 'Pets' },
+  { to: '/admin/adoptions', end: false, icon: <Heart size={16} fill='currentColor' strokeWidth={1.8} />, label: 'Adoptions' },
+  { to: '/admin/shelters', end: false, icon: <Building2 size={16} strokeWidth={1.8} />, label: 'Shelters' },
 ]
 
 export default function AdminLayout() {
-  const { isAuthenticated, staffUser, logout } = useStaff()
+  const { isAuthenticated, staffUser, logout } = useStaffAuth()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -122,7 +78,7 @@ export default function AdminLayout() {
             onClick={handleLogout}
             className='admin-signout'
           >
-            <IconSignOut />
+            <LogOut size={14} strokeWidth={1.8} />
             Sign out
           </button>
         </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BackChevronIcon } from '../assets'
+import { ChevronLeft } from 'lucide-react'
 
 interface ShelterDetailBreadcrumbProps {
   shelterName: string
@@ -12,7 +12,7 @@ export default function ShelterDetailBreadcrumb({ shelterName }: ShelterDetailBr
         to='/shelters'
         className='inline-flex items-center gap-1.5 text-(--muted) hover:text-(--ink) transition-colors font-semibold no-underline'
       >
-        <BackChevronIcon />
+        <ChevronLeft size={14} strokeWidth={1.8} />
         All shelters
       </Link>
       <span className='opacity-40'>/</span>

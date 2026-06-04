@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import type { PetCard } from '@/data/pets'
 import UserDashboardPetCard from './UserDashboardPetCard'
 
@@ -15,7 +16,7 @@ export default function UserDashboardSuggestions({ suggestions }: UserDashboardS
           <h2 className='u-section-title'>A few you might love</h2>
         </div>
         <div className='u-section-aside'>
-          <Link to='/pets'>See more →</Link>
+          <Link to='/pets' className='inline-flex items-center gap-1'>See more <ArrowRight size={13} /></Link>
         </div>
       </header>
 

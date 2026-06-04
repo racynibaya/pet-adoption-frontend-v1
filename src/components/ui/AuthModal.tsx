@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import PawIcon from '@/icons/PawIcon';
+import { Eye, EyeOff, Check, Mail, X, ArrowRight, ArrowLeft } from 'lucide-react';
 import {
   apiLogin,
   apiRegister,
@@ -21,38 +22,7 @@ interface AuthModalProps {
 }
 
 function EyeIcon({ open }: { open: boolean }) {
-  if (open) {
-    return (
-      <svg
-        width='16'
-        height='16'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='currentColor'
-        strokeWidth='2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-      >
-        <path d='M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24' />
-        <line x1='1' y1='1' x2='23' y2='23' />
-      </svg>
-    );
-  }
-  return (
-    <svg
-      width='16'
-      height='16'
-      viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      strokeWidth='2'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    >
-      <path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z' />
-      <circle cx='12' cy='12' r='3' />
-    </svg>
-  );
+  return open ? <EyeOff size={16} strokeWidth={2} /> : <Eye size={16} strokeWidth={2} />;
 }
 
 function ResendButton({ email }: { email: string }) {
@@ -85,15 +55,7 @@ function ResendButton({ email }: { email: string }) {
         className='flex items-center gap-1.5 text-[13px]'
         style={{ color: '#1D7575' }}
       >
-        <svg width='13' height='13' viewBox='0 0 13 13' fill='none'>
-          <path
-            d='M2 6.5 L5.5 10 L11 3.5'
-            stroke='#1D7575'
-            strokeWidth='1.75'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          />
-        </svg>
+        <Check size={13} strokeWidth={1.75} />
         Sent! Check your inbox.
       </div>
     );
@@ -110,7 +72,13 @@ function ResendButton({ email }: { email: string }) {
         className='bg-transparent border-0 text-[13px] cursor-pointer p-0 transition-colors duration-120 hover:underline disabled:opacity-50 disabled:cursor-default'
         style={{ color: 'var(--muted)' }}
       >
-        {rs === 'sending' ? 'Sending…' : "Didn't receive it? Resend →"}
+        {rs === 'sending' ? (
+          'Sending…'
+        ) : (
+          <span className='inline-flex items-center gap-1'>
+            Didn't receive it? Resend <ArrowRight size={13} />
+          </span>
+        )}
       </button>
       {rs === 'error' && (
         <p className='text-[12px] m-0' style={{ color: '#D94F68' }}>
@@ -148,24 +116,7 @@ function EmailSentPanel({ email, onBackToSignIn }: EmailSentPanelProps) {
         }}
         aria-hidden='true'
       >
-        <svg width='32' height='32' viewBox='0 0 32 32' fill='none'>
-          <rect
-            x='4'
-            y='8'
-            width='24'
-            height='17'
-            rx='2.5'
-            stroke='#1D7575'
-            strokeWidth='1.75'
-          />
-          <path
-            d='M4 11 L16 19 L28 11'
-            stroke='#1D7575'
-            strokeWidth='1.75'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          />
-        </svg>
+        <Mail size={32} color='#1D7575' strokeWidth={1.75} />
       </div>
 
       {/* Heading + email pill */}
@@ -198,23 +149,7 @@ function EmailSentPanel({ email, onBackToSignIn }: EmailSentPanelProps) {
             margin: '0 auto',
           }}
         >
-          <svg width='12' height='10' viewBox='0 0 12 10' fill='none'>
-            <rect
-              x='0.5'
-              y='0.5'
-              width='11'
-              height='9'
-              rx='1'
-              stroke='#6C8080'
-              strokeWidth='1.1'
-            />
-            <path
-              d='M0.5 2 L6 6 L11.5 2'
-              stroke='#6C8080'
-              strokeWidth='1.1'
-              strokeLinecap='round'
-            />
-          </svg>
+          <Mail size={12} color='#6C8080' strokeWidth={1.1} />
           {email}
         </div>
       </div>
@@ -240,7 +175,9 @@ function EmailSentPanel({ email, onBackToSignIn }: EmailSentPanelProps) {
         className='bg-transparent border-0 text-[13.5px] cursor-pointer p-0 transition-colors duration-120 hover:underline'
         style={{ color: 'var(--muted)' }}
       >
-        ← Back to sign in
+        <span className='inline-flex items-center gap-1'>
+          <ArrowLeft size={14} /> Back to sign in
+        </span>
       </button>
     </div>
   );
@@ -401,14 +338,7 @@ export default function AuthModal({
           onClick={handleClose}
           aria-label='Close'
         >
-          <svg width='14' height='14' viewBox='0 0 14 14' fill='none'>
-            <path
-              d='M1 1 L13 13 M13 1 L1 13'
-              stroke='currentColor'
-              strokeWidth='2'
-              strokeLinecap='round'
-            />
-          </svg>
+          <X size={14} strokeWidth={2} />
         </button>
 
         {/* Decorative paw */}
@@ -611,17 +541,18 @@ export default function AuthModal({
 
               <button
                 type='submit'
-                className='btn btn-primary btn-lg'
+                className='btn btn-primary btn-lg inline-flex items-center justify-center gap-1.5'
                 style={{ width: '100%', marginTop: 4 }}
                 disabled={submitting}
               >
-                {submitting
-                  ? internalMode === 'signin'
-                    ? 'Signing in…'
-                    : 'Creating…'
-                  : internalMode === 'signin'
-                    ? 'Sign in →'
-                    : 'Create account →'}
+                {submitting ? (
+                  internalMode === 'signin' ? 'Signing in…' : 'Creating…'
+                ) : (
+                  <>
+                    {internalMode === 'signin' ? 'Sign in' : 'Create account'}
+                    <ArrowRight size={16} />
+                  </>
+                )}
               </button>
             </form>
 

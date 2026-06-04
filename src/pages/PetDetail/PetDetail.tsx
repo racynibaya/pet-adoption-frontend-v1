@@ -9,8 +9,8 @@ import {
   type PetCard,
 } from '@/data/pets';
 import { useFavorites } from '@/context/useFavorites';
-import { useStaff } from '@/context/useStaff';
-import { apiPetToPetCard } from '@/context/StaffContext';
+import { usePets } from '@/context/usePets';
+import { apiPetToPetCard } from '@/data/adapters';
 import { apiGetPet } from '@/services/api';
 import {
   PetDetailBreadcrumb,
@@ -26,7 +26,7 @@ import {
 
 export default function PetDetail() {
   const { id } = useParams<{ id: string }>();
-  const { pets } = useStaff();
+  const { pets } = usePets();
   const localPet =
     pets.find((p) => String(p.id) === id) ??
     PET_LISTINGS.find((p) => String(p.id) === id);
@@ -67,7 +67,11 @@ export default function PetDetail() {
   }
 
   if (notFound || (isInvalidId && !localPet)) return <Navigate to='/pets' replace />;
-  if (!pet) return null;
+  if (!pet) {
+    return (
+      <div className='py-24 text-center text-(--muted)'>Loading pet…</div>
+    );
+  }
 
   const saved = isSaved(String(pet.id));
   const activeImage = images[selectedImageIdx] ?? images[0];
@@ -111,7 +115,7 @@ export default function PetDetail() {
             houseTrained={pet.houseTrained}
           />
           <PetDetailGoodWith items={pet.goodWith} />
-          <PetDetailCta petId={pet.id} petName={pet.name} />
+          <PetDetailCta petId={pet.id} petName={pet.name} status={pet.status} />
         </div>
       </div>
     </div>

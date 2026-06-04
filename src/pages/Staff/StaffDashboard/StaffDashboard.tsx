@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
-import { useStaff } from '@/context/useStaff'
-import { shelterCityFromAddress } from '@/context/StaffContext'
+import { useAdoptions } from '@/context/useAdoptions'
+import { useStaffAuth } from '@/context/useStaffAuth'
+import { useStaffScopedPets, useStaffScopedShelters } from '@/context/selectors'
+import { shelterCityOf } from '@/data/adapters'
 import type { PetCard } from '@/data/pets'
 import {
   StaffDashboardTopbar,
@@ -13,7 +15,10 @@ import { useStaffFilters } from './hooks/useStaffFilters'
 import type { SortKey } from './components/StaffDashboardChipStrip'
 
 export default function StaffDashboard() {
-  const { staffUser, visiblePets, visibleShelters, adoptions } = useStaff()
+  const { staffUser } = useStaffAuth()
+  const visiblePets = useStaffScopedPets()
+  const visibleShelters = useStaffScopedShelters()
+  const { adoptions } = useAdoptions()
 
   const {
     filters,
@@ -130,7 +135,7 @@ export default function StaffDashboard() {
         />
         <StaffDashboardDetail
           pet={selectedPet}
-          shelterCity={selectedShelter ? shelterCityFromAddress(selectedShelter.address) : ''}
+          shelterCity={shelterCityOf(selectedShelter)}
           applications={selectedApps}
         />
       </div>

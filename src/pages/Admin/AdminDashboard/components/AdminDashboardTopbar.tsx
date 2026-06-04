@@ -1,3 +1,5 @@
+import { Search } from 'lucide-react'
+
 interface AdminDashboardTopbarProps {
   firstName: string
   initials: string | undefined
@@ -30,10 +32,7 @@ export default function AdminDashboardTopbar({
       <span className='admin-topbar-spacer' />
 
       <label className='admin-topbar-search'>
-        <svg width='15' height='15' viewBox='0 0 24 24' fill='none' aria-hidden>
-          <circle cx='11' cy='11' r='7' stroke='currentColor' strokeWidth='1.7' />
-          <path d='m20 20-3.5-3.5' stroke='currentColor' strokeWidth='1.7' strokeLinecap='round' />
-        </svg>
+        <Search size={15} strokeWidth={1.7} aria-hidden />
         <input
           type='search'
           value={search}

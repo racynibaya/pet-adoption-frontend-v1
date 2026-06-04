@@ -1,11 +1,11 @@
 import { useState, type FormEvent } from 'react'
 import { Navigate } from 'react-router-dom'
-import { useStaff } from '@/context/useStaff'
+import { useStaffAuth } from '@/context/useStaffAuth'
 import '@/styles/staff.css'
 import { StaffLoginLogo, StaffLoginCard } from './components'
 
 export default function StaffLogin() {
-  const { login, loginError, isAuthenticated, staffUser } = useStaff()
+  const { login, loginError, isAuthenticated, staffUser } = useStaffAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPass, setShowPass] = useState(false)

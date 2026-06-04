@@ -1,6 +1,7 @@
-import { useState, useRef, type FormEvent, type ChangeEvent } from 'react'
+import { useEffect, useState, useRef, type FormEvent, type ChangeEvent } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useStaff, canManagePet } from '@/context/useStaff'
+import { usePets } from '@/context/usePets'
+import { useStaffAuth, canManagePet } from '@/context/useStaffAuth'
 import { ApiError } from '@/services/api'
 import type { FormState, FormFieldErrors } from '../types'
 import { EMPTY_FORM, MAX_IMAGE_BYTES, MAX_IMAGES } from '../constants/staffPetForm.constants'
@@ -8,7 +9,8 @@ import { EMPTY_FORM, MAX_IMAGE_BYTES, MAX_IMAGES } from '../constants/staffPetFo
 export function useStaffPetForm() {
   const { id } = useParams<{ id: string }>()
   const isEdit = id != null
-  const { pets, staffUser, addPet, updatePet } = useStaff()
+  const { pets, addPet, updatePet } = usePets()
+  const { staffUser } = useStaffAuth()
   const navigate = useNavigate()
   const fileRef = useRef<HTMLInputElement>(null)
 
@@ -60,8 +62,23 @@ export function useStaffPetForm() {
 
   function removeImage(i: number) {
     setImages((prev) => prev.filter((_, idx) => idx !== i))
-    setImagePreview((prev) => prev.filter((_, idx) => idx !== i))
+    setImagePreview((prev) => {
+      const url = prev[i]
+      if (url) URL.revokeObjectURL(url)
+      return prev.filter((_, idx) => idx !== i)
+    })
   }
+
+  // Revoke any remaining object URLs on unmount so blob refs aren't leaked.
+  const previewsRef = useRef(imagePreview)
+  useEffect(() => {
+    previewsRef.current = imagePreview
+  }, [imagePreview])
+  useEffect(() => {
+    return () => {
+      previewsRef.current.forEach((url) => URL.revokeObjectURL(url))
+    }
+  }, [])
 
   function validate(): boolean {
     const errs: FormFieldErrors = {}

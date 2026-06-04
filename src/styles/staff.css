@@ -1218,6 +1218,11 @@
 }
 @keyframes staffDeskReveal { to { opacity: 1; transform: none; } }
 
+@keyframes staffLoginErrorIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 1180px) {
   .staff-tiles { grid-template-columns: repeat(3, 1fr); }

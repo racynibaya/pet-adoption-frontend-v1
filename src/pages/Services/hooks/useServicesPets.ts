@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiGetPets } from '@/services/api';
-import { apiPetToPetCard } from '@/context/StaffContext';
+import { apiPetToPetCard } from '@/data/adapters';
 import type {
   PetCard,
   SpeciesFilter,

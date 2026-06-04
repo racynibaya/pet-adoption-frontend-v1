@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { LockIcon } from '../assets'
+import { Lock } from 'lucide-react'
 
 interface StaffPetFormAccessDeniedProps {
   petName: string | undefined
@@ -45,7 +45,7 @@ export default function StaffPetFormAccessDenied({ petName, shelterName }: Staff
               margin: '0 auto 20px',
             }}
           >
-            <LockIcon />
+            <Lock size={28} color='#a05818' strokeWidth={2} />
           </div>
 
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, color: 'var(--ink)', margin: '0 0 10px', letterSpacing: '-0.01em' }}>

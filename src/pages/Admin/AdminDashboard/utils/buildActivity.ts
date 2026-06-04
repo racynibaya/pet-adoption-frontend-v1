@@ -1,5 +1,5 @@
 import type { PetCard } from '@/data/pets'
-import type { AdoptionRequest } from '@/context/useStaff'
+import type { AdoptionRequest } from '@/context/useAdoptions'
 import type { Activity } from '../types'
 
 function relTime(ts: number): string {

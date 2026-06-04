@@ -1,5 +1,5 @@
+import { MapPin } from 'lucide-react'
 import { OFFICES } from '../data'
-import { MapMarker } from '../assets'
 
 export default function ContactInfo() {
   return (
@@ -10,7 +10,7 @@ export default function ContactInfo() {
         style={{ background: 'var(--cream)' }}
       >
         <span className='absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-full w-9 h-12'>
-          <MapMarker />
+          <MapPin size={36} color='#E8923C' fill='#E8923C' strokeWidth={2} />
         </span>
         <div style={{ position: 'relative', zIndex: 2, padding: 12 }}>
           <div className='pill' style={{ fontSize: 11 }}>

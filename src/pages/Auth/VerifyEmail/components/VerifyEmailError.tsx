@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { AlertTriangle, Check, ArrowRight, ArrowLeft } from 'lucide-react'
 import { apiResendVerification, ApiError } from '@/services/api'
-import { AlertIcon, MiniCheckIcon } from '../assets'
 
 interface VerifyEmailErrorProps {
   message: string
@@ -48,7 +48,7 @@ export default function VerifyEmailError({ message }: VerifyEmailErrorProps) {
         }}
         aria-hidden='true'
       >
-        <AlertIcon />
+        <AlertTriangle size={32} color='#D94F68' strokeWidth={1.75} />
       </div>
 
       <div className='flex flex-col gap-2.5'>
@@ -111,7 +111,13 @@ export default function VerifyEmailError({ message }: VerifyEmailErrorProps) {
           onClick={() => { void handleResend() }}
           disabled={sending || !resendEmail.trim()}
         >
-          {sending ? 'Sending…' : 'Send new link →'}
+          {sending ? (
+            'Sending…'
+          ) : (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              Send new link <ArrowRight size={14} />
+            </span>
+          )}
         </button>
 
         {resendSent && (
@@ -125,7 +131,7 @@ export default function VerifyEmailError({ message }: VerifyEmailErrorProps) {
               gap: 6,
             }}
           >
-            <MiniCheckIcon />
+            <Check size={14} color='#1D7575' strokeWidth={1.75} />
             Check your inbox for the new link.
           </p>
         )}
@@ -136,10 +142,10 @@ export default function VerifyEmailError({ message }: VerifyEmailErrorProps) {
 
       <Link
         to='/'
-        style={{ fontSize: 13.5, color: 'var(--muted)', textDecoration: 'none' }}
+        style={{ fontSize: 13.5, color: 'var(--muted)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}
         className='hover:text-(--ink) hover:underline transition-colors duration-120'
       >
-        ← Back to home
+        <ArrowLeft size={14} /> Back to home
       </Link>
     </div>
   )

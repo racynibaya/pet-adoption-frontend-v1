@@ -1,3 +1,5 @@
+import { ArrowRight } from 'lucide-react'
+
 interface PetApplySubmitRowProps {
   loading: boolean
   answered: number
@@ -22,6 +24,9 @@ export default function PetApplySubmitRow({ loading, answered, total }: PetApply
           fontFamily: 'var(--font-body)',
           boxShadow: '0 6px 20px -6px rgba(232,146,60,0.6)',
           transition: 'background 160ms var(--ease-out), transform 120ms var(--ease-out)',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
         }}
         onMouseEnter={(e) => {
           if (!loading) {
@@ -36,7 +41,7 @@ export default function PetApplySubmitRow({ loading, answered, total }: PetApply
           }
         }}
       >
-        {loading ? 'Sending…' : 'Send application →'}
+        {loading ? 'Sending…' : <>Send application <ArrowRight size={16} /></>}
       </button>
       <span style={{ fontSize: 13, color: 'var(--muted)', fontVariantNumeric: 'tabular-nums' }}>
         {answered} of {total} answered

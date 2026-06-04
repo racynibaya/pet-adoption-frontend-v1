@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 interface StaffPetsHeaderProps {
   totalCount: number;
@@ -20,8 +21,8 @@ export default function StaffPetsHeader({
         </p>
       </div>
       <div className='staff-subtopbar-actions'>
-        <Link to='/staff/pets/add' className='staff-detail-btn primary p-4'>
-          Add pet →
+        <Link to='/staff/pets/add' className='staff-detail-btn primary p-4 inline-flex items-center gap-1.5'>
+          Add pet <ArrowRight size={14} />
         </Link>
       </div>
     </header>

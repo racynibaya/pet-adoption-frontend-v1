@@ -1,4 +1,5 @@
-import type { AdoptionRequest } from '@/context/useStaff'
+import { Search } from 'lucide-react'
+import type { AdoptionRequest } from '@/context/useAdoptions'
 import type { ApiShelter } from '@/services/api'
 
 export type AdoptionStatusFilter = 'ALL' | AdoptionRequest['status']
@@ -69,10 +70,7 @@ export default function AdminAdoptionsToolbar({
 
       <div className='admin-filter-row'>
         <label className='admin-filter-search'>
-          <svg width='16' height='16' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
-            <circle cx='11' cy='11' r='7' stroke='currentColor' strokeWidth='1.6' />
-            <path d='m20 20-3.5-3.5' stroke='currentColor' strokeWidth='1.6' strokeLinecap='round' />
-          </svg>
+          <Search size={16} strokeWidth={1.6} aria-hidden='true' />
           <input
             type='search'
             value={search}

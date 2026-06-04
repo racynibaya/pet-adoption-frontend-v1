@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { apiGetShelters, type ApiShelter } from '@/services/api'
-import { useStaff } from '@/context/useStaff'
+import { usePets } from '@/context/usePets'
+import { useAdoptions } from '@/context/useAdoptions'
+import { useStaffAuth } from '@/context/useStaffAuth'
 import {
   AdminSheltersTopline,
   AdminSheltersList,
@@ -8,10 +10,12 @@ import {
 } from './components'
 import { AdminDashboardStatTiles } from '@/pages/Admin/AdminDashboard/components'
 import type { AggregatedShelter } from './types'
-import { parseCity, countPets } from './utils/aggregateShelters'
+import { countPets } from './utils/aggregateShelters'
 
 export default function AdminShelters() {
-  const { pets, adoptions, staffUser } = useStaff()
+  const { pets } = usePets()
+  const { adoptions } = useAdoptions()
+  const { staffUser } = useStaffAuth()
   const [remote, setRemote] = useState<ApiShelter[] | null>(null)
   const [loadError, setLoadError] = useState(false)
   const [selectedId, setSelectedId] = useState<number | null>(null)
@@ -29,8 +33,10 @@ export default function AdminShelters() {
       return remote.map(s => ({
         id: s.id,
         name: s.name,
-        city: parseCity(s.address),
-        address: s.address,
+        addressLine: s.addressLine,
+        city: s.city,
+        province: s.province,
+        region: s.region,
         contactEmail: s.contactEmail,
         phoneNumber: s.phoneNumber,
         pets: countPets(pets, s.id, s.name),
@@ -50,8 +56,10 @@ export default function AdminShelters() {
         map.set(key, {
           id: p.shelterId,
           name: p.shelterName,
+          addressLine: '',
           city: p.shelterCity || '',
-          address: p.shelterCity || '',
+          province: '',
+          region: 'LUZON',
           contactEmail: '',
           phoneNumber: '',
           pets: {

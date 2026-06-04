@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 
 interface UserDashboardProfileProps {
   fullName: string
@@ -49,8 +50,8 @@ export default function UserDashboardProfile({
             A complete profile speeds up shelter approvals. You can add the
             missing details when you submit your first application.
           </p>
-          <Link to='/pets' className='user-btn user-btn-primary'>
-            Find your match →
+          <Link to='/pets' className='user-btn user-btn-primary inline-flex items-center gap-2'>
+            Find your match <ArrowRight size={14} />
           </Link>
         </div>
       </div>

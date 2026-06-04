@@ -1,10 +1,13 @@
-import { SHELTERS } from '@/pages/UseCases/UseCases';
+import { SHELTERS } from '@/data/shelters';
 
 import {
-  BowlIcon,
-  SyringeIcon,
-  BlanketIcon,
-  KeyIcon,
+  Soup as BowlIcon,
+  Syringe as SyringeIcon,
+  Bed as BlanketIcon,
+  Key as KeyIcon,
+} from 'lucide-react';
+
+import {
   FoundVignette,
   SafeVignette,
   HealthyVignette,
@@ -118,6 +121,7 @@ export const MOCK_SHELTER_CHOICES: ShelterChoice[] = SHELTERS.map(
   (shelter) => ({
     id: shelter.id,
     name: shelter.name,
-    address: shelter.address,
+    city: shelter.city,
+    province: shelter.province,
   }),
 );

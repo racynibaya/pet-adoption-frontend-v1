@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PawIcon from '@/icons/PawIcon';
-import HeartIcon from '@/icons/HeartIcon';
+import { Heart, Menu, X } from 'lucide-react';
 import AuthModal from '@/components/ui/AuthModal';
 import { useFavorites } from '@/context/useFavorites';
 import { useAdopter } from '@/context/useUser';
@@ -54,7 +54,7 @@ export default function Navbar() {
             aria-label={saved.length > 0 ? `Saved pets (${saved.length})` : 'Saved pets'}
             onClick={openDrawer}
           >
-            <HeartIcon filled={saved.length > 0} />
+            <Heart size={18} fill={saved.length > 0 ? 'currentColor' : 'none'} strokeWidth={2} />
             {saved.length > 0 && (
               <span className='nav-saved-count'>{saved.length}</span>
             )}
@@ -85,25 +85,7 @@ export default function Navbar() {
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? (
-              <svg width='20' height='20' viewBox='0 0 20 20' fill='none'>
-                <path
-                  d='M4 4 L16 16 M16 4 L4 16'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                />
-              </svg>
-            ) : (
-              <svg width='20' height='20' viewBox='0 0 20 20' fill='none'>
-                <path
-                  d='M3 5 H17 M3 10 H17 M3 15 H17'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                />
-              </svg>
-            )}
+            {menuOpen ? <X size={20} strokeWidth={2} /> : <Menu size={20} strokeWidth={2} />}
           </button>
         </div>
       </div>

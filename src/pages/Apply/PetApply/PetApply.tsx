@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react'
-import { Navigate } from 'react-router-dom'
-import AuthModal from '@/components/ui/AuthModal'
+import type { ReactNode } from 'react';
+import { Navigate } from 'react-router-dom';
+import AuthModal from '@/components/ui/AuthModal';
 import {
   PetApplyBreadcrumb,
   PetApplyPetSidebar,
@@ -15,15 +15,15 @@ import {
   PetApplySubmitRow,
   PetApplyStickyFooter,
   PetApplyApiError,
-} from './components'
-import { PAGE_CSS } from './constants/petApply.constants'
-import { usePetApply } from './hooks/usePetApply'
+} from './components';
+import { PAGE_CSS } from './constants/petApply.constants';
+import { usePetApply } from './hooks/usePetApply';
 
 export default function PetApply() {
-  const a = usePetApply()
+  const a = usePetApply();
 
-  if (a.notFound) return <Navigate to='/pets' replace />
-  if (!a.pet) return null
+  if (a.notFound) return <Navigate to='/pets' replace />;
+  if (!a.pet) return null;
 
   const pageWrapper = (children: ReactNode) => (
     <div style={{ paddingTop: 32, paddingBottom: 96 }}>
@@ -37,7 +37,7 @@ export default function PetApply() {
         </div>
       </div>
     </div>
-  )
+  );
 
   if (!a.isAuthenticated || !a.adopter) {
     return pageWrapper(
@@ -54,23 +54,33 @@ export default function PetApply() {
           onModeChange={a.setAuthMode}
         />
       </>,
-    )
+    );
   }
 
   if (!a.adopter.isVerified) {
-    return pageWrapper(<PetApplyVerifyGate email={a.adopter.email} />)
+    return pageWrapper(<PetApplyVerifyGate email={a.adopter.email} />);
   }
 
   if (a.submitted) {
-    return pageWrapper(<PetApplySuccessScreen petId={a.pet.id} petName={a.pet.name} />)
+    return pageWrapper(
+      <PetApplySuccessScreen petId={a.pet.id} petName={a.pet.name} />,
+    );
   }
 
   return pageWrapper(
     <>
       <form onSubmit={a.handleSubmit} noValidate>
         <PetApplyChapter1Home form={a.form} errors={a.errors} set={a.set} />
-        <PetApplyChapter2Household form={a.form} errors={a.errors} set={a.set} />
-        <PetApplyChapter3Experience form={a.form} errors={a.errors} set={a.set} />
+        <PetApplyChapter2Household
+          form={a.form}
+          errors={a.errors}
+          set={a.set}
+        />
+        <PetApplyChapter3Experience
+          form={a.form}
+          errors={a.errors}
+          set={a.set}
+        />
         <PetApplyChapter4Care
           form={a.form}
           errors={a.errors}
@@ -95,5 +105,5 @@ export default function PetApply() {
         />
       )}
     </>,
-  )
+  );
 }

@@ -1,3 +1,5 @@
+import { ArrowRight } from 'lucide-react'
+
 interface PetApplyStickyFooterProps {
   loading: boolean
   answered: number
@@ -42,6 +44,9 @@ export default function PetApplyStickyFooter({ loading, answered, total }: PetAp
           cursor: loading ? 'not-allowed' : 'pointer',
           fontFamily: 'var(--font-body)',
           transition: 'background 160ms var(--ease-out)',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 6,
         }}
         onMouseEnter={(e) => {
           if (!loading) e.currentTarget.style.background = 'var(--rausch-active)'
@@ -50,7 +55,7 @@ export default function PetApplyStickyFooter({ loading, answered, total }: PetAp
           if (!loading) e.currentTarget.style.background = 'var(--rausch)'
         }}
       >
-        {loading ? 'Sending…' : 'Send →'}
+        {loading ? 'Sending…' : <>Send <ArrowRight size={14} /></>}
       </button>
     </div>
   )

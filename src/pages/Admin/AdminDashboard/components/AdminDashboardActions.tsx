@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 
 export default function AdminDashboardActions() {
   return (
@@ -7,8 +8,8 @@ export default function AdminDashboardActions() {
         <span className='dot' /> Shortcuts
       </div>
       <h3 className='bento-h'>Jump to</h3>
-      <Link to='/admin/pets' className='bento-action-btn primary'>
-        Manage pets →
+      <Link to='/admin/pets' className='bento-action-btn primary inline-flex items-center gap-1.5'>
+        Manage pets <ArrowRight size={14} />
       </Link>
       <Link to='/admin/adoptions' className='bento-action-btn ghost'>
         Open adoptions

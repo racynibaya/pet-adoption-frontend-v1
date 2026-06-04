@@ -1,6 +1,1 @@
 export { PawprintDeco } from './svg/PawprintDeco'
-export { MessageIcon } from './svg/MessageIcon'
-export { PhoneIcon } from './svg/PhoneIcon'
-export { PinIcon } from './svg/PinIcon'
-export { SuccessCheckIcon } from './svg/SuccessCheckIcon'
-export { MapMarker } from './svg/MapMarker'

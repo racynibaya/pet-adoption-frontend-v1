@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 
 interface AdminShelterFormActionsProps {
   isEdit: boolean
@@ -25,13 +26,15 @@ export default function AdminShelterFormActions({
       ? 'asf-actions-status-dot is-busy'
       : 'asf-actions-status-dot'
 
-  const submitLabel = saved
-    ? 'Saved'
-    : loading
-      ? 'Saving…'
-      : isEdit
-        ? 'Save changes →'
-        : 'Create shelter →'
+  const submitLabel = saved ? (
+    'Saved'
+  ) : loading ? (
+    'Saving…'
+  ) : (
+    <>
+      {isEdit ? 'Save changes' : 'Create shelter'} <ArrowRight size={14} />
+    </>
+  )
 
   return (
     <section className='bento-card a-section' style={{ ['--i' as string]: 4 }}>
@@ -47,7 +50,7 @@ export default function AdminShelterFormActions({
           <button
             type='submit'
             disabled={loading || saved}
-            className='bento-action-btn primary'
+            className='bento-action-btn primary inline-flex items-center gap-1.5'
           >
             {submitLabel}
           </button>

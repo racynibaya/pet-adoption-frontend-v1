@@ -1,7 +1,12 @@
+import type { BackendRegion } from '@/services/api'
+
 export interface FormState {
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: BackendRegion
   contactEmail: string
   phoneNumber: string
 }

@@ -1,8 +1,11 @@
+import { Check } from 'lucide-react'
+
 interface PetDetailGoodWithProps {
   items: string[]
 }
 
 export default function PetDetailGoodWith({ items }: PetDetailGoodWithProps) {
+  if (items.length === 0) return null
   return (
     <div>
       <h2
@@ -34,7 +37,7 @@ export default function PetDetailGoodWith({ items }: PetDetailGoodWithProps) {
               border: '1.5px solid #99D0D9',
             }}
           >
-            <span style={{ fontSize: 14 }}>✓</span>
+            <Check size={14} strokeWidth={2.5} />
             {item}
           </span>
         ))}

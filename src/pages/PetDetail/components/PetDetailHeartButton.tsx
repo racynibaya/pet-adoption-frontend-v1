@@ -1,4 +1,4 @@
-import HeartIcon from '@/icons/HeartIcon'
+import { Heart } from 'lucide-react'
 
 interface PetDetailHeartButtonProps {
   saved: boolean
@@ -34,7 +34,7 @@ export default function PetDetailHeartButton({ saved, onToggle }: PetDetailHeart
       onMouseDown={(e) => { e.currentTarget.style.transform = 'scale(0.9)' }}
       onMouseUp={(e) => { e.currentTarget.style.transform = 'scale(1.14)' }}
     >
-      <HeartIcon width={20} height={20} filled={saved} />
+      <Heart size={20} fill={saved ? 'currentColor' : 'none'} strokeWidth={2} />
     </button>
   )
 }

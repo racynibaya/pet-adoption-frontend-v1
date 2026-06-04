@@ -1,1 +1,1 @@
-export { BackChevronIcon } from './svg/BackChevronIcon'
+export {}

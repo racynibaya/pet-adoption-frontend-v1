@@ -1,6 +1,6 @@
 import type { ChangeEvent, RefObject } from 'react'
 import { MAX_IMAGES } from '../constants/staffPetForm.constants'
-import { UploadIcon } from '../assets'
+import { Upload } from 'lucide-react'
 
 interface StaffPetFormPhotosProps {
   fileRef: RefObject<HTMLInputElement>
@@ -33,7 +33,7 @@ export default function StaffPetFormPhotos({ fileRef, images, onFileChange, onRe
         {empty ? (
           <button type='button' onClick={() => fileRef.current?.click()} className='staff-visuals-drop'>
             <span className='staff-visuals-drop-icon'>
-              <UploadIcon />
+              <Upload size={24} strokeWidth={1.5} />
             </span>
             <span className='staff-visuals-drop-title'>Click to upload photos</span>
             <span className='staff-visuals-drop-rule' />

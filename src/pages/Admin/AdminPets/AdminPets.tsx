@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react'
-import { useStaff } from '@/context/useStaff'
-import { shelterCityFromAddress } from '@/context/StaffContext'
+import { usePets } from '@/context/usePets'
+import { useShelters } from '@/context/useShelters'
+import { useAdoptions } from '@/context/useAdoptions'
+import { useStaffAuth } from '@/context/useStaffAuth'
+import { shelterCityOf } from '@/data/adapters'
 import type { PetCard } from '@/data/pets'
 import {
-  AdminDashboardTopbar,
   AdminDashboardChipStrip,
   AdminDashboardStatTiles,
   AdminDashboardRoster,
@@ -12,9 +14,13 @@ import {
 import { useAdminFilters } from '@/pages/Admin/AdminDashboard/hooks/useAdminFilters'
 import type { SortKey } from '@/pages/Admin/AdminDashboard/components/AdminDashboardChipStrip'
 import { StaffPetsConfirmDialog } from '@/pages/Staff/StaffPets/components'
+import AdminPetsTopline from './components/AdminPetsTopline'
 
 export default function AdminPets() {
-  const { pets, shelters: allShelters, adoptions, staffUser, updatePet, deletePet } = useStaff()
+  const { pets, updatePet, deletePet } = usePets()
+  const { shelters: allShelters } = useShelters()
+  const { adoptions } = useAdoptions()
+  const { staffUser } = useStaffAuth()
 
   const {
     filters,
@@ -126,7 +132,7 @@ export default function AdminPets() {
         />
       )}
 
-      <AdminDashboardTopbar
+      <AdminPetsTopline
         firstName={staffUser?.name?.split(' ')[0] ?? 'Admin'}
         initials={staffUser?.initials}
         date={clock.date}
@@ -158,11 +164,11 @@ export default function AdminPets() {
           onSelect={setSelectedId}
           onToggleStatus={toggleStatus}
           onRequestDelete={setConfirmId}
-          editHref={(pet) => `/staff/pets/${pet.id}/edit`}
+          editHref={(pet) => `/admin/pets/${pet.id}/edit`}
         />
         <AdminDashboardDetail
           pet={selectedPet}
-          shelterCity={selectedShelter ? shelterCityFromAddress(selectedShelter.address) : ''}
+          shelterCity={shelterCityOf(selectedShelter)}
           applications={selectedApps}
         />
       </div>

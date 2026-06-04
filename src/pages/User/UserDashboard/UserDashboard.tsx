@@ -1,6 +1,6 @@
 import { useAdopter } from '@/context/useUser'
 import { useFavorites } from '@/context/useFavorites'
-import { useStaff } from '@/context/useStaff'
+import { usePets } from '@/context/usePets'
 import {
   UserDashboardHero,
   UserDashboardStats,
@@ -14,7 +14,7 @@ import { greetingFor, formatJoined } from './utils/format'
 export default function UserDashboard() {
   const { adopter } = useAdopter()
   const { saved, savedPets } = useFavorites()
-  const { pets } = useStaff()
+  const { pets } = usePets()
 
   if (!adopter) return null
 

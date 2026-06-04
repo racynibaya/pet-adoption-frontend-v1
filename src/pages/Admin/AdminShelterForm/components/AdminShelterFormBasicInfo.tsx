@@ -79,20 +79,78 @@ export default function AdminShelterFormBasicInfo({
         </div>
 
         <div className='asf-field'>
-          <label htmlFor='asf-address' className='asf-label'>
-            Address
-            <span className='asf-label-hint'>street, barangay, city, province</span>
+          <label htmlFor='asf-address-line' className='asf-label'>
+            Street address
+            <span className='asf-label-hint'>street, barangay, etc.</span>
           </label>
           <input
-            id='asf-address'
+            id='asf-address-line'
             type='text'
-            className={`asf-input${errors.address ? ' has-error' : ''}`}
-            value={form.address}
-            onChange={(e) => set('address', e.target.value)}
-            placeholder='102 Acacia St., Brgy. Sta. Cruz, Quezon City, Metro Manila'
+            className={`asf-input${errors.addressLine ? ' has-error' : ''}`}
+            value={form.addressLine}
+            onChange={(e) => set('addressLine', e.target.value)}
+            placeholder='102 Acacia St., Brgy. Sta. Cruz'
             required
           />
-          {errors.address && <span className='asf-error'>{errors.address}</span>}
+          {errors.addressLine && (
+            <span className='asf-error'>{errors.addressLine}</span>
+          )}
+        </div>
+
+        <div className='asf-grid-2'>
+          <div className='asf-field'>
+            <label htmlFor='asf-city' className='asf-label'>
+              City
+            </label>
+            <input
+              id='asf-city'
+              type='text'
+              className={`asf-input${errors.city ? ' has-error' : ''}`}
+              value={form.city}
+              onChange={(e) => set('city', e.target.value)}
+              placeholder='Quezon City'
+              required
+            />
+            {errors.city && <span className='asf-error'>{errors.city}</span>}
+          </div>
+
+          <div className='asf-field'>
+            <label htmlFor='asf-province' className='asf-label'>
+              Province
+            </label>
+            <input
+              id='asf-province'
+              type='text'
+              className={`asf-input${errors.province ? ' has-error' : ''}`}
+              value={form.province}
+              onChange={(e) => set('province', e.target.value)}
+              placeholder='Metro Manila'
+              required
+            />
+            {errors.province && (
+              <span className='asf-error'>{errors.province}</span>
+            )}
+          </div>
+        </div>
+
+        <div className='asf-field'>
+          <label htmlFor='asf-region' className='asf-label'>
+            Region
+          </label>
+          <select
+            id='asf-region'
+            className={`asf-input${errors.region ? ' has-error' : ''}`}
+            value={form.region}
+            onChange={(e) =>
+              set('region', e.target.value as FormState['region'])
+            }
+            required
+          >
+            <option value='LUZON'>Luzon</option>
+            <option value='VISAYAS'>Visayas</option>
+            <option value='MINDANAO'>Mindanao</option>
+          </select>
+          {errors.region && <span className='asf-error'>{errors.region}</span>}
         </div>
       </div>
     </section>

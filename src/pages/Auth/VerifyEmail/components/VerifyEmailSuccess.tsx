@@ -1,4 +1,4 @@
-import { BigCheckIcon } from '../assets'
+import { Check, ArrowRight } from 'lucide-react'
 
 interface VerifyEmailSuccessProps {
   onGoHome: () => void
@@ -26,7 +26,7 @@ export default function VerifyEmailSuccess({ onGoHome }: VerifyEmailSuccessProps
         }}
         aria-hidden='true'
       >
-        <BigCheckIcon />
+        <Check size={44} color='#E8923C' strokeWidth={3} />
       </div>
 
       <div className='flex flex-col gap-2.5'>
@@ -59,9 +59,9 @@ export default function VerifyEmailSuccess({ onGoHome }: VerifyEmailSuccessProps
       <button
         className='btn btn-primary btn-lg'
         onClick={onGoHome}
-        style={{ minWidth: 220 }}
+        style={{ minWidth: 220, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
       >
-        Go to KodaNest →
+        Go to KodaNest <ArrowRight size={16} />
       </button>
 
       <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: -8, margin: '0' }}>

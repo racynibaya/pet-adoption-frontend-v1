@@ -3,7 +3,10 @@ import type { FormState } from '../types'
 export const EMPTY_FORM: FormState = {
   name: '',
   description: '',
-  address: '',
+  addressLine: '',
+  city: '',
+  province: '',
+  region: 'LUZON',
   contactEmail: '',
   phoneNumber: '',
 }

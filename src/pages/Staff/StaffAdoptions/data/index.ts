@@ -1,4 +1,4 @@
-import type { AdoptionRequest } from '@/context/useStaff'
+import type { AdoptionRequest } from '@/context/useAdoptions'
 import type { StatusFilter, StatusMetaEntry } from '../types'
 
 export const FILTERS: StatusFilter[] = ['All', 'PENDING', 'REVIEWING', 'APPROVED', 'REJECTED', 'CANCELLED']

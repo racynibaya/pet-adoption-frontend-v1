@@ -1,4 +1,3 @@
-import { useFavorites } from '@/context/useFavorites';
 import {
   ServicesHero,
   ServicesSecondaryFilters,
@@ -9,7 +8,6 @@ import { useServicesPets } from './hooks/useServicesPets';
 
 export default function PetsPage() {
   const services = useServicesPets();
-  const { toggle, isSaved } = useFavorites();
 
   return (
     <>
@@ -28,8 +26,6 @@ export default function PetsPage() {
         totalPets={services.totalPets}
         pets={services.pets}
         filtered={services.filtered}
-        isSaved={isSaved}
-        onToggleSave={toggle}
         onClearFilters={services.clearFilters}
         currentPage={services.currentPage}
         totalPages={services.totalPages}

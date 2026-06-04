@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import { ageLabel, type PetCard } from '@/data/pets'
 
 interface StaffDashboardPetsProps {
@@ -12,9 +13,9 @@ export default function StaffDashboardPets({ pets }: StaffDashboardPetsProps) {
         <h3 className='staff-card-title'>Pets in Shelter</h3>
         <Link
           to='/staff/pets'
-          style={{ fontSize: 12.5, color: '#E8923C', textDecoration: 'none', fontWeight: 500 }}
+          style={{ fontSize: 12.5, color: '#E8923C', textDecoration: 'none', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: 4 }}
         >
-          Manage →
+          Manage <ArrowRight size={12} />
         </Link>
       </div>
       <div style={{ padding: '8px 0' }}>

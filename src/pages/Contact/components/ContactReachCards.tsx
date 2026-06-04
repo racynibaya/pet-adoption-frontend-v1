@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { MessageIcon, PhoneIcon, PinIcon } from '../assets'
+import { MessageSquare, Phone, MapPin } from 'lucide-react'
 
 interface ReachCardProps {
   icon: ReactNode
@@ -39,21 +39,21 @@ export default function ContactReachCards() {
   return (
     <div className='contact-reach-cards r-grid-3 gap-6 relative z-5'>
       <ReachCard
-        icon={<MessageIcon />}
+        icon={<MessageSquare size={22} color='#d97757' strokeWidth={1.8} />}
         iconBg='var(--cream)'
         title='Send us a message'
         primary='hello@kodanest.co'
         secondary='Reply within 24 hours, every day of the week.'
       />
       <ReachCard
-        icon={<PhoneIcon />}
+        icon={<Phone size={22} color='#D94F68' strokeWidth={1.8} />}
         iconBg='var(--rose)'
         title='24/7 emergency line'
         primary='1-800-KODA-NEST'
         secondary='For urgent pet medical concerns, day or night.'
       />
       <ReachCard
-        icon={<PinIcon />}
+        icon={<MapPin size={22} color='#1D7575' strokeWidth={1.8} />}
         iconBg='var(--mint)'
         title='Visit us in person'
         primary='3 cities, no appt.'

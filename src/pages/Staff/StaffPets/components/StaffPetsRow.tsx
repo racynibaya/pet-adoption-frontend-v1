@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { ageLabel, speciesLabel, genderLabel, sizeLabel, type PetCard } from '@/data/pets'
+import PetThumb from '@/components/pet/PetThumb'
 import StaffPetsStatusButton from './StaffPetsStatusButton'
-import { EditIcon, TrashIcon } from '../assets'
+import { Pencil, Trash2 } from 'lucide-react'
 
 interface StaffPetsRowProps {
   pet: PetCard
@@ -28,26 +29,17 @@ export default function StaffPetsRow({ pet, onToggleStatus, onRequestDelete }: S
               border: '1px solid rgba(28, 44, 44, 0.08)',
             }}
           >
-            {pet.imageUrl ? (
-              <img
-                src={pet.imageUrl}
-                alt={pet.name}
-                loading='lazy'
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            ) : (
-              <div
-                style={{
-                  transform: 'scale(0.22)',
-                  transformOrigin: 'center',
-                  width: 200,
-                  height: 160,
-                  flexShrink: 0,
-                }}
-              >
-                {pet.svg}
-              </div>
-            )}
+            <PetThumb
+              pet={pet}
+              imgStyle={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              svgStyle={{
+                transform: 'scale(0.22)',
+                transformOrigin: 'center',
+                width: 200,
+                height: 160,
+                flexShrink: 0,
+              }}
+            />
           </div>
           <span style={{ fontWeight: 600, fontSize: 13.5 }}>{pet.name}</span>
         </div>
@@ -72,7 +64,7 @@ export default function StaffPetsRow({ pet, onToggleStatus, onRequestDelete }: S
       <td>
         <div className='staff-row-actions'>
           <Link to={`/staff/pets/${pet.id}/edit`} className='staff-row-btn ghost'>
-            <EditIcon />
+            <Pencil size={13} strokeWidth={2} />
             Edit
           </Link>
           <button
@@ -80,7 +72,7 @@ export default function StaffPetsRow({ pet, onToggleStatus, onRequestDelete }: S
             onClick={() => onRequestDelete(pet.id)}
             className='staff-row-btn reject'
           >
-            <TrashIcon />
+            <Trash2 size={13} strokeWidth={2} />
             Remove
           </button>
         </div>

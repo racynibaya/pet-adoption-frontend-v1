@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import type { PetCard } from '@/data/pets'
 import UserDashboardPetCard from './UserDashboardPetCard'
 
@@ -15,7 +16,7 @@ export default function UserDashboardSaved({ savedPets }: UserDashboardSavedProp
           <h2 className='u-section-title'>The ones who caught your eye</h2>
         </div>
         <div className='u-section-aside'>
-          <Link to='/pets'>Browse all pets →</Link>
+          <Link to='/pets' className='inline-flex items-center gap-1'>Browse all pets <ArrowRight size={13} /></Link>
         </div>
       </header>
 

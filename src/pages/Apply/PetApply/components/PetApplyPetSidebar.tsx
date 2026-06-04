@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
 import { speciesLabel, genderLabel } from '@/data/pets'
 
 interface PetApplyPetSidebarProps {
@@ -147,7 +148,7 @@ export default function PetApplyPetSidebar({ pet }: PetApplyPetSidebarProps) {
             onMouseEnter={(e) => (e.currentTarget.style.color = '#E8923C')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
           >
-            ← Back to {pet.name}'s page
+            <ArrowLeft size={13} /> Back to {pet.name}'s page
           </Link>
         </div>
       </div>

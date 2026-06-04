@@ -1,4 +1,5 @@
-import type { AdoptionRequest } from '@/context/useStaff';
+import { Search } from 'lucide-react';
+import type { AdoptionRequest } from '@/context/useAdoptions';
 import type { StatusFilter } from '../types';
 import { FILTERS, STATUS_META } from '../data';
 
@@ -18,10 +19,7 @@ export default function StaffAdoptionsToolbar({
   return (
     <section className='staff-chips' aria-label='Filter applications'>
       <label className='staff-topbar-search' style={{ width: 280 }}>
-        <svg width='15' height='15' viewBox='0 0 24 24' fill='none' aria-hidden>
-          <circle cx='11' cy='11' r='7' stroke='currentColor' strokeWidth='1.7' />
-          <path d='m20 20-3.5-3.5' stroke='currentColor' strokeWidth='1.7' strokeLinecap='round' />
-        </svg>
+        <Search size={15} strokeWidth={1.7} aria-hidden />
         <input
           type='search'
           value={search}

@@ -1,4 +1,4 @@
-import type { AdoptionRequest } from '@/context/useStaff'
+import type { AdoptionRequest } from '@/context/useAdoptions'
 import { STAT_STATUSES } from '../data'
 
 interface StaffAdoptionsStatsProps {

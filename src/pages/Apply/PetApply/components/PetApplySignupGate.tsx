@@ -1,4 +1,5 @@
 import PawIcon from '@/icons/PawIcon'
+import { ArrowRight } from 'lucide-react'
 import { chapterCard } from '../constants/petApply.constants'
 
 interface PetApplySignupGateProps {
@@ -66,6 +67,9 @@ export default function PetApplySignupGate({ petName, onOpenSignup, onOpenSignin
           fontFamily: 'var(--font-body)',
           boxShadow: '0 4px 16px -4px rgba(232,146,60,0.5)',
           transition: 'background 160ms var(--ease-out), transform 120ms var(--ease-out)',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.background = 'var(--rausch-active)'
@@ -76,7 +80,7 @@ export default function PetApplySignupGate({ petName, onOpenSignup, onOpenSignin
           e.currentTarget.style.transform = 'translateY(0)'
         }}
       >
-        Create account →
+        Create account <ArrowRight size={15} />
       </button>
       <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: 18, marginBottom: 0 }}>
         Already have one?{' '}

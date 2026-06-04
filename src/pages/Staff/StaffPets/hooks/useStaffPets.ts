@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { useStaff } from '@/context/useStaff'
+import { usePets } from '@/context/usePets'
+import { useStaffScopedPets } from '@/context/selectors'
 import type { SpeciesFilter } from '@/data/pets'
 
 export function useStaffPets() {
-  const { visiblePets, deletePet, updatePet } = useStaff()
+  const { deletePet, updatePet } = usePets()
+  const visiblePets = useStaffScopedPets()
   const [search, setSearch] = useState('')
   const [speciesFilter, setSpeciesFilter] = useState<SpeciesFilter>('ALL')
   const [confirmId, setConfirmId] = useState<number | null>(null)

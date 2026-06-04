@@ -1,6 +1,5 @@
 export { default as PetDetailBreadcrumb } from './PetDetailBreadcrumb'
 export { default as PetDetailGallery } from './PetDetailGallery'
-export { default as PetDetailStatusBadge } from './PetDetailStatusBadge'
 export { default as PetDetailHeartButton } from './PetDetailHeartButton'
 export { default as PetDetailHeading } from './PetDetailHeading'
 export { default as PetDetailStatGrid } from './PetDetailStatGrid'

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import Eyebrow from '@/components/ui/Eyebrow';
 import { LostPup, PawTrail } from './assets';
 
@@ -145,8 +146,8 @@ export default function NotFoundPage() {
 
         {/* CTAs */}
         <div className='hero-cta-row flex items-center justify-center gap-3 mt-10'>
-          <Link to='/' className='btn btn-primary btn-lg'>
-            ← Take me home
+          <Link to='/' className='btn btn-primary btn-lg inline-flex items-center gap-2'>
+            <ArrowLeft size={16} /> Take me home
           </Link>
           <Link to='/pets' className='btn btn-outline btn-lg'>
             Browse all pets

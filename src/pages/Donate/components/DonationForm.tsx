@@ -1,10 +1,11 @@
 import type { Dispatch, FormEvent, RefObject, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
+import { Check } from 'lucide-react';
 import Eyebrow from '@/components/ui/Eyebrow';
 import { PawDeco } from '../assets';
 import { MESSAGE_MAX_LENGTH } from '../constants/donate.constants';
 import { TONE_INK } from '../constants/donate.tones';
-import { formatPesoCurrency, getShortCity } from '../utils/formatDonation';
+import { formatPesoCurrency } from '../utils/formatDonation';
 import type {
   DonationFieldErrors,
   ImpactTier,
@@ -279,16 +280,16 @@ export default function DonationForm({
                 lineHeight: 1.5,
               }}
             >
-              <li className='flex gap-2'>
-                <span style={{ color: 'var(--rausch)' }}>✓</span> A receipt in
+              <li className='flex gap-2 items-start'>
+                <Check size={14} strokeWidth={2.5} style={{ color: 'var(--rausch)', marginTop: 4, flexShrink: 0 }} /> A receipt in
                 your inbox within minutes.
               </li>
-              <li className='flex gap-2'>
-                <span style={{ color: 'var(--rausch)' }}>✓</span> A photo update
+              <li className='flex gap-2 items-start'>
+                <Check size={14} strokeWidth={2.5} style={{ color: 'var(--rausch)', marginTop: 4, flexShrink: 0 }} /> A photo update
                 from the pet your gift helped.
               </li>
-              <li className='flex gap-2'>
-                <span style={{ color: 'var(--rausch)' }}>✓</span> Zero spam —
+              <li className='flex gap-2 items-start'>
+                <Check size={14} strokeWidth={2.5} style={{ color: 'var(--rausch)', marginTop: 4, flexShrink: 0 }} /> Zero spam —
                 ever. We promise.
               </li>
             </ul>
@@ -600,7 +601,7 @@ export default function DonationForm({
                                   {shelter.name}
                                 </span>
                                 <span className='shelter-combo-panel-city'>
-                                  {getShortCity(shelter.address)}
+                                  {shelter.city}
                                 </span>
                               </li>
                             );

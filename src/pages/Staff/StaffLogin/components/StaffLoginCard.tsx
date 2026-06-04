@@ -1,5 +1,5 @@
 import type { FormEvent } from 'react'
-import { EyeOpenIcon, EyeOffIcon } from '../assets'
+import { Eye, EyeOff } from 'lucide-react'
 
 interface StaffLoginCardProps {
   email: string
@@ -107,24 +107,32 @@ export default function StaffLoginCard({
                 display: 'flex', alignItems: 'center',
               }}
             >
-              {showPass ? <EyeOffIcon /> : <EyeOpenIcon />}
+              {showPass ? <EyeOff size={18} strokeWidth={2} /> : <Eye size={18} strokeWidth={2} />}
             </button>
           </div>
         </div>
 
-        {loginError && (
-          <div style={{
-            padding: '10px 14px',
-            background: '#fde8ec',
-            borderRadius: 10,
-            color: '#c0304d',
-            fontSize: 13,
+        <div
+          role="alert"
+          style={{
+            minHeight: 39,
             marginBottom: 18,
-            lineHeight: 1.45,
-          }}>
-            {loginError}
-          </div>
-        )}
+          }}
+        >
+          {loginError && (
+            <div style={{
+              padding: '10px 14px',
+              background: '#fde8ec',
+              borderRadius: 10,
+              color: '#c0304d',
+              fontSize: 13,
+              lineHeight: 1.45,
+              animation: 'staffLoginErrorIn 220ms cubic-bezier(0.16, 1, 0.3, 1) both',
+            }}>
+              {loginError}
+            </div>
+          )}
+        </div>
 
         <button
           type="submit"

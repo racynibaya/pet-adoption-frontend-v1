@@ -1,6 +1,7 @@
-import { useState, useRef, type FormEvent, type ChangeEvent } from 'react'
+import { useEffect, useState, useRef, type FormEvent, type ChangeEvent } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useStaff } from '@/context/useStaff'
+import { useShelters } from '@/context/useShelters'
+import { useStaffAuth } from '@/context/useStaffAuth'
 import { ApiError } from '@/services/api'
 import type { FormState, FormFieldErrors } from '../types'
 import {
@@ -13,8 +14,8 @@ import {
 export function useAdminShelterForm() {
   const { id } = useParams<{ id: string }>()
   const isEdit = id != null
-  const { shelters, sheltersLoaded, staffUser, addShelter, updateShelter } =
-    useStaff()
+  const { shelters, sheltersLoaded, addShelter, updateShelter } = useShelters()
+  const { staffUser } = useStaffAuth()
   const navigate = useNavigate()
   const fileRef = useRef<HTMLInputElement>(null)
 
@@ -30,7 +31,10 @@ export function useAdminShelterForm() {
       ? {
           name: existing.name,
           description: existing.description,
-          address: existing.address,
+          addressLine: existing.addressLine,
+          city: existing.city,
+          province: existing.province,
+          region: existing.region,
           contactEmail: existing.contactEmail,
           phoneNumber: existing.phoneNumber,
         }
@@ -60,15 +64,34 @@ export function useAdminShelterForm() {
       return
     }
     setImage(file)
-    setImagePreview(URL.createObjectURL(file))
+    setImagePreview((prev) => {
+      if (prev?.startsWith('blob:')) URL.revokeObjectURL(prev)
+      return URL.createObjectURL(file)
+    })
     setErrors((prev) => ({ ...prev, image: undefined }))
     e.target.value = ''
   }
 
   function removeImage() {
     setImage(null)
-    setImagePreview(null)
+    setImagePreview((prev) => {
+      if (prev?.startsWith('blob:')) URL.revokeObjectURL(prev)
+      return null
+    })
   }
+
+  // Revoke any remaining blob URL on unmount. Remote URLs (existing.imageUrl)
+  // are left untouched.
+  const previewRef = useRef(imagePreview)
+  useEffect(() => {
+    previewRef.current = imagePreview
+  }, [imagePreview])
+  useEffect(() => {
+    return () => {
+      const url = previewRef.current
+      if (url?.startsWith('blob:')) URL.revokeObjectURL(url)
+    }
+  }, [])
 
   function validate(): boolean {
     const errs: FormFieldErrors = {}
@@ -77,7 +100,10 @@ export function useAdminShelterForm() {
     else if (name.length < NAME_MIN_LENGTH)
       errs.name = `Must be at least ${NAME_MIN_LENGTH} characters`
     if (!form.description.trim()) errs.description = 'Required'
-    if (!form.address.trim()) errs.address = 'Required'
+    if (!form.addressLine.trim()) errs.addressLine = 'Required'
+    if (!form.city.trim()) errs.city = 'Required'
+    if (!form.province.trim()) errs.province = 'Required'
+    if (!form.region) errs.region = 'Required'
     const email = form.contactEmail.trim()
     if (!email) errs.contactEmail = 'Required'
     else if (!EMAIL_REGEX.test(email))
@@ -90,7 +116,7 @@ export function useAdminShelterForm() {
   function applyConflictError(message: string) {
     const lower = message.toLowerCase()
     if (lower.includes('address')) {
-      setErrors((prev) => ({ ...prev, address: message }))
+      setErrors((prev) => ({ ...prev, addressLine: message }))
     } else if (lower.includes('email')) {
       setErrors((prev) => ({ ...prev, contactEmail: message }))
     } else {
@@ -108,7 +134,10 @@ export function useAdminShelterForm() {
     const fd = new FormData()
     fd.append('name', form.name.trim())
     fd.append('description', form.description.trim())
-    fd.append('address', form.address.trim())
+    fd.append('addressLine', form.addressLine.trim())
+    fd.append('city', form.city.trim())
+    fd.append('province', form.province.trim())
+    fd.append('region', form.region)
     fd.append('contactEmail', form.contactEmail.trim())
     fd.append('phoneNumber', form.phoneNumber.trim())
     if (image) fd.append('image', image)

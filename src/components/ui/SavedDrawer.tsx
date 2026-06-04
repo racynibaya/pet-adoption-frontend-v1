@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { useFavorites } from '@/context/useFavorites';
 
-import HeartIcon from '@/icons/HeartIcon';
+import { Heart, X, ArrowRight } from 'lucide-react';
 import { ageLabel } from '@/data/pets';
+import PetThumb from '@/components/pet/PetThumb';
 
 export default function SavedDrawer() {
   const { saved, savedPets, toggle, drawerOpen, closeDrawer } = useFavorites();
@@ -53,7 +54,7 @@ export default function SavedDrawer() {
         {/* Header */}
         <div className='flex items-center justify-between px-6 py-5 border-b border-(--hairline-soft) shrink-0'>
           <div className='flex items-center gap-2.5'>
-            <HeartIcon width={18} height={18} filled={saved.length > 0} />
+            <Heart size={18} fill={saved.length > 0 ? 'currentColor' : 'none'} strokeWidth={2} />
             <h2
               className='text-[20px] font-bold text-(--ink) tracking-[-0.012em] m-0'
               style={{ fontFamily: 'var(--font-display)' }}
@@ -71,14 +72,7 @@ export default function SavedDrawer() {
             onClick={closeDrawer}
             aria-label='Close saved pets'
           >
-            <svg width='12' height='12' viewBox='0 0 12 12' fill='none'>
-              <path
-                d='M1 1L11 11M11 1L1 11'
-                stroke='currentColor'
-                strokeWidth='1.8'
-                strokeLinecap='round'
-              />
-            </svg>
+            <X size={12} strokeWidth={1.8} />
           </button>
         </div>
 
@@ -97,16 +91,7 @@ export default function SavedDrawer() {
                   style={{ background: pet.bg }}
                   aria-label={`View details for ${pet.name}`}
                 >
-                  {pet.imageUrl ? (
-                    <img
-                      src={pet.imageUrl}
-                      alt={pet.name}
-                      loading='lazy'
-                      className='w-full h-full object-cover'
-                    />
-                  ) : (
-                    pet.svg
-                  )}
+                  <PetThumb pet={pet} imgClassName='w-full h-full object-cover' />
                 </Link>
 
                 <Link
@@ -138,7 +123,7 @@ export default function SavedDrawer() {
                   onClick={() => toggle(String(pet.id))}
                   aria-label={`Remove ${pet.name} from saved`}
                 >
-                  <HeartIcon width={15} height={15} filled />
+                  <Heart size={15} fill='currentColor' strokeWidth={2} />
                 </button>
               </div>
             ))}
@@ -146,7 +131,7 @@ export default function SavedDrawer() {
         ) : (
           <div className='flex-1 flex flex-col items-center justify-center text-center px-8 py-12 gap-3'>
             <div className='w-14 h-14 rounded-full bg-(--soft) flex items-center justify-center text-(--muted)'>
-              <HeartIcon width={24} height={24} />
+              <Heart size={24} strokeWidth={2} />
             </div>
             <h3 className='text-[17px] text-(--ink)'>No saved pets yet</h3>
             <p className='text-[14px] text-(--muted) leading-[1.55] max-w-65'>
@@ -159,11 +144,11 @@ export default function SavedDrawer() {
         <div className='px-5 py-4 border-t border-(--hairline-soft) shrink-0'>
           <Link
             to='/pets'
-            className='btn btn-primary'
+            className='btn btn-primary inline-flex items-center justify-center gap-1.5'
             style={{ width: '100%' }}
             onClick={closeDrawer}
           >
-            Browse all pets →
+            Browse all pets <ArrowRight size={16} />
           </Link>
         </div>
       </aside>

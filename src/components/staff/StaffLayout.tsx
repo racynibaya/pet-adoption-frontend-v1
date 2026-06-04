@@ -7,120 +7,25 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router-dom';
-import { useStaff } from '@/context/useStaff';
+import { useStaffAuth } from '@/context/useStaffAuth';
+import { useStaffScopedPets } from '@/context/selectors';
+import { LayoutGrid, PawPrint, Heart, LogOut, House, Menu, ArrowUpRight } from 'lucide-react';
 import '@/styles/staff.css';
 
-function IconGrid() {
-  return (
-    <svg width='17' height='17' viewBox='0 0 24 24' fill='none'>
-      <rect
-        x='3'
-        y='3'
-        width='8'
-        height='8'
-        rx='2'
-        fill='currentColor'
-        opacity='0.9'
-      />
-      <rect
-        x='13'
-        y='3'
-        width='8'
-        height='8'
-        rx='2'
-        fill='currentColor'
-        opacity='0.9'
-      />
-      <rect
-        x='3'
-        y='13'
-        width='8'
-        height='8'
-        rx='2'
-        fill='currentColor'
-        opacity='0.9'
-      />
-      <rect
-        x='13'
-        y='13'
-        width='8'
-        height='8'
-        rx='2'
-        fill='currentColor'
-        opacity='0.9'
-      />
-    </svg>
-  );
-}
-
-function IconPaw() {
-  return (
-    <svg width='17' height='17' viewBox='0 0 24 24' fill='none'>
-      <ellipse cx='6' cy='9' rx='2' ry='2.8' fill='currentColor' />
-      <ellipse cx='11' cy='6.5' rx='1.8' ry='2.4' fill='currentColor' />
-      <ellipse cx='16' cy='7.5' rx='1.8' ry='2.4' fill='currentColor' />
-      <ellipse cx='19' cy='11' rx='1.8' ry='2.4' fill='currentColor' />
-      <path
-        d='M12.5 11c-3.3 0-6.5 2.5-6.5 5.5 0 1.7 1.3 3 3 3 1 0 1.8-.4 2.6-.7.6-.2 1.2-.4 1.9-.4s1.3.2 1.9.4c.8.3 1.6.7 2.6.7 1.7 0 3-1.3 3-3 0-3-3.2-5.5-6.5-5.5Z'
-        fill='currentColor'
-      />
-    </svg>
-  );
-}
-
-function IconHeart() {
-  return (
-    <svg width='17' height='17' viewBox='0 0 24 24' fill='none'>
-      <path
-        d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'
-        fill='currentColor'
-      />
-    </svg>
-  );
-}
-
-function IconLogout() {
-  return (
-    <svg width='15' height='15' viewBox='0 0 24 24' fill='none'>
-      <path
-        d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'
-        stroke='currentColor'
-        strokeWidth='2'
-        strokeLinecap='round'
-      />
-      <polyline
-        points='16 17 21 12 16 7'
-        stroke='currentColor'
-        strokeWidth='2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-      />
-      <line
-        x1='21'
-        y1='12'
-        x2='9'
-        y2='12'
-        stroke='currentColor'
-        strokeWidth='2'
-        strokeLinecap='round'
-      />
-    </svg>
-  );
-}
-
 const NAV = [
-  { to: '/staff', end: true, icon: <IconGrid />, label: 'Dashboard' },
-  { to: '/staff/pets', end: false, icon: <IconPaw />, label: 'Pets' },
+  { to: '/staff', end: true, icon: <LayoutGrid size={17} strokeWidth={2} />, label: 'Dashboard' },
+  { to: '/staff/pets', end: false, icon: <PawPrint size={17} strokeWidth={2} />, label: 'Pets' },
   {
     to: '/staff/adoptions',
     end: false,
-    icon: <IconHeart />,
+    icon: <Heart size={17} fill='currentColor' strokeWidth={2} />,
     label: 'Adoptions',
   },
 ];
 
 export default function StaffLayout() {
-  const { isAuthenticated, staffUser, visiblePets, logout } = useStaff();
+  const { isAuthenticated, staffUser, logout } = useStaffAuth();
+  const visiblePets = useStaffScopedPets();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -327,15 +232,7 @@ export default function StaffLayout() {
                       maxWidth: '100%',
                     }}
                   >
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
-                      <path
-                        d="M3 10.5L12 3l9 7.5V21H3V10.5Z"
-                        fill="rgba(232,146,60,0.25)"
-                        stroke="#E8923C"
-                        strokeWidth="2.2"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <House size={10} color='#E8923C' strokeWidth={2.2} aria-hidden />
                     <span
                       style={{
                         fontSize: 10.5,
@@ -388,9 +285,7 @@ export default function StaffLayout() {
               }}
             >
               Admin view
-              <span aria-hidden style={{ opacity: 0.7 }}>
-                ↗
-              </span>
+              <ArrowUpRight size={14} aria-hidden style={{ opacity: 0.7 }} />
             </Link>
           )}
           <button
@@ -425,7 +320,7 @@ export default function StaffLayout() {
                 'rgba(255,255,255,0.45)';
             }}
           >
-            <IconLogout />
+            <LogOut size={15} strokeWidth={2} />
             Sign out
           </button>
         </div>
@@ -456,14 +351,7 @@ export default function StaffLayout() {
             onClick={() => setSidebarOpen((v) => !v)}
             aria-label={sidebarOpen ? 'Close menu' : 'Open menu'}
           >
-            <svg width='18' height='18' viewBox='0 0 20 20' fill='none'>
-              <path
-                d='M3 5 H17 M3 10 H17 M3 15 H17'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-              />
-            </svg>
+            <Menu size={18} strokeWidth={2} />
           </button>
           <span className='staff-mobile-topbar-brand'>{currentLabel}</span>
         </div>

@@ -1,3 +1,5 @@
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+
 interface ServicesPaginationProps {
   currentPage: number
   totalPages: number
@@ -25,7 +27,7 @@ export default function ServicesPagination({
           disabled={currentPage === 1 || loading}
           aria-label='Previous page'
         >
-          <span aria-hidden='true' className='mr-1'>←</span>
+          <ArrowLeft size={14} className='mr-1' aria-hidden='true' />
           Prev
         </button>
 
@@ -51,7 +53,7 @@ export default function ServicesPagination({
           aria-label='Next page'
         >
           Next
-          <span aria-hidden='true' className='ml-1'>→</span>
+          <ArrowRight size={14} className='ml-1' aria-hidden='true' />
         </button>
       </nav>
     </div>

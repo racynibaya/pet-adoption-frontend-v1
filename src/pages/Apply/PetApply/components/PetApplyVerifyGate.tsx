@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { Mail, Check } from 'lucide-react'
 import { apiResendVerification, ApiError } from '@/services/api'
 import { chapterCard } from '../constants/petApply.constants'
-import { EmailIcon } from '../assets'
 
 interface PetApplyVerifyGateProps {
   email: string
@@ -49,7 +49,7 @@ export default function PetApplyVerifyGate({ email }: PetApplyVerifyGateProps) {
         }}
         aria-hidden
       >
-        <EmailIcon />
+        <Mail size={26} color='#1D7575' strokeWidth={1.8} />
       </div>
       <h2
         style={{
@@ -86,7 +86,15 @@ export default function PetApplyVerifyGate({ email }: PetApplyVerifyGateProps) {
           transition: 'all 180ms var(--ease-out)',
         }}
       >
-        {status === 'sending' ? 'Sending…' : status === 'sent' ? '✓ Verification email sent' : 'Resend verification email'}
+        {status === 'sending' ? (
+          'Sending…'
+        ) : status === 'sent' ? (
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <Check size={14} strokeWidth={2.5} /> Verification email sent
+          </span>
+        ) : (
+          'Resend verification email'
+        )}
       </button>
       {status === 'error' && (
         <p style={{ color: '#c0304d', fontSize: 13, marginTop: 12, fontStyle: 'italic' }}>{errMsg}</p>

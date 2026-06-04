@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import type { AggregatedShelter } from '../types'
 
 interface AdminSheltersDetailProps {
@@ -27,12 +28,12 @@ export default function AdminSheltersDetail({ selected, canEdit }: AdminShelters
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {canEdit && (
-            <Link to={`/admin/shelters/${selected.id}/edit`} className='bento-action-btn ghost'>
-              Edit shelter →
+            <Link to={`/admin/shelters/${selected.id}/edit`} className='bento-action-btn ghost inline-flex items-center gap-1.5'>
+              Edit shelter <ArrowRight size={14} />
             </Link>
           )}
-          <Link to='/staff/pets' className='bento-action-btn ghost'>
-            View pets in staff →
+          <Link to='/admin/pets' className='bento-action-btn ghost inline-flex items-center gap-1.5'>
+            View pets <ArrowRight size={14} />
           </Link>
         </div>
       </div>
@@ -40,7 +41,15 @@ export default function AdminSheltersDetail({ selected, canEdit }: AdminShelters
       <div className='shelter-detail-grid'>
         <div className='shelter-detail-block'>
           <span className='shelter-detail-label'>Address</span>
-          <span className='shelter-detail-value'>{selected.address || '—'}</span>
+          <span className='shelter-detail-value'>
+            {[selected.addressLine, selected.city, selected.province]
+              .filter(Boolean)
+              .join(', ') || '—'}
+          </span>
+        </div>
+        <div className='shelter-detail-block'>
+          <span className='shelter-detail-label'>Region</span>
+          <span className='shelter-detail-value'>{selected.region || '—'}</span>
         </div>
         <div className='shelter-detail-block'>
           <span className='shelter-detail-label'>Email</span>

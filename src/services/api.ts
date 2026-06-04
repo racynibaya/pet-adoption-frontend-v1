@@ -150,11 +150,38 @@ export interface ApiUser {
   shelterStaffs?: { shelterId: number }[];
 }
 
+export type BackendRegion = 'LUZON' | 'VISAYAS' | 'MINDANAO';
+
+/** Normalize a region value coming from the backend (which stores it as a
+ * free String column) into one of the three canonical island IDs the UI
+ * knows how to group/display. Defaults to 'LUZON' for unknown/missing values. */
+export function normalizeRegion(raw: unknown): BackendRegion {
+  const up = typeof raw === 'string' ? raw.toUpperCase() : '';
+  if (up === 'LUZON' || up === 'VISAYAS' || up === 'MINDANAO') return up;
+  return 'LUZON';
+}
+
+/** Clean up a single shelter row coming from the API: forces region into the
+ * canonical 3-island enum, and fills in empty strings for any structured
+ * location field the backend might omit. */
+export function normalizeShelter(s: ApiShelter): ApiShelter {
+  return {
+    ...s,
+    addressLine: s.addressLine ?? '',
+    city: s.city ?? '',
+    province: s.province ?? '',
+    region: normalizeRegion(s.region),
+  };
+}
+
 export interface ApiShelter {
   id: number;
   name: string;
   description: string;
-  address: string;
+  addressLine: string;
+  city: string;
+  province: string;
+  region: BackendRegion;
   contactEmail: string;
   phoneNumber: string;
   imageUrl: string | null;
@@ -298,8 +325,6 @@ export function apiGetPets(page = 1, limit = 9, filters: PetFilterParams = {}) {
   if (filters.gender) params.set('gender', filters.gender);
   if (filters.size) params.set('size', filters.size);
 
-  console.log(params.toString());
-
   return apiFetch<{
     success: boolean;
     message: string;
@@ -316,8 +341,6 @@ export async function apiGetAllPets(
   const first = await apiGetPets(1, PETS_PAGE_SIZE, filters);
   const { totalPages } = first.pagination;
   if (totalPages <= 1) return first.data;
-
-  console.log(totalPages, 'LINE 320');
 
   const rest = await Promise.all(
     Array.from({ length: totalPages - 1 }, (_, i) =>
@@ -373,25 +396,30 @@ export function apiCreateAdoption(input: CreateAdoptionInput) {
 
 // ── Shelter endpoints ─────────────────────────────────────────────────────────
 
-export function apiGetShelters(page = 1, limit = 50) {
-  return apiFetch<{
+export async function apiGetShelters(page = 1, limit = 50) {
+  const res = await apiFetch<{
     success: boolean;
     message: string;
     data: ApiShelter[];
     pagination: Pagination;
   }>(`/shelters?page=${page}&limit=${limit}`);
+  return { ...res, data: res.data.map(normalizeShelter) };
 }
 
-export function apiCreateShelter(formData: FormData) {
-  return apiFetch<{ success: boolean; message: string; data: ApiShelter }>(
-    '/shelters',
-    { method: 'POST', body: formData },
-  );
+export async function apiCreateShelter(formData: FormData) {
+  const res = await apiFetch<{
+    success: boolean;
+    message: string;
+    data: ApiShelter;
+  }>('/shelters', { method: 'POST', body: formData });
+  return { ...res, data: normalizeShelter(res.data) };
 }
 
-export function apiUpdateShelter(id: number, formData: FormData) {
-  return apiFetch<{ success: boolean; message: string; data: ApiShelter }>(
-    `/shelters/${id}`,
-    { method: 'PATCH', body: formData },
-  );
+export async function apiUpdateShelter(id: number, formData: FormData) {
+  const res = await apiFetch<{
+    success: boolean;
+    message: string;
+    data: ApiShelter;
+  }>(`/shelters/${id}`, { method: 'PATCH', body: formData });
+  return { ...res, data: normalizeShelter(res.data) };
 }

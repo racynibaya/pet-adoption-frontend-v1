@@ -1,11 +1,27 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 
 interface PetDetailCtaProps {
   petId: number
   petName: string
+  status: 'AVAILABLE' | 'PENDING' | 'ADOPTED'
 }
 
-export default function PetDetailCta({ petId, petName }: PetDetailCtaProps) {
+const HEADING: Record<PetDetailCtaProps['status'], (name: string) => string> = {
+  AVAILABLE: (n) => `Ready to adopt ${n}?`,
+  PENDING: (n) => `${n} is in review`,
+  ADOPTED: (n) => `${n} has found a home`,
+}
+
+const SUBHEADING: Record<PetDetailCtaProps['status'], string> = {
+  AVAILABLE: 'A real shelter staff member reviews every request.',
+  PENDING:
+    'A pending application is being reviewed. Browse other pets while this one is decided.',
+  ADOPTED: 'This pet has been placed. Browse others looking for a family.',
+}
+
+export default function PetDetailCta({ petId, petName, status }: PetDetailCtaProps) {
+  const canApply = status === 'AVAILABLE'
   return (
     <div
       style={{
@@ -34,19 +50,21 @@ export default function PetDetailCta({ petId, petName }: PetDetailCtaProps) {
             letterSpacing: '-0.02em',
           }}
         >
-          Ready to adopt {petName}?
+          {HEADING[status](petName)}
         </h3>
         <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', marginTop: 6, marginBottom: 0 }}>
-          A real shelter staff member reviews every request.
+          {SUBHEADING[status]}
         </p>
       </div>
       <Link
-        to={`/pets/${petId}/apply`}
+        to={canApply ? `/pets/${petId}/apply` : '/pets'}
         style={{
-          display: 'inline-block',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
           padding: '13px 28px',
           borderRadius: 12,
-          background: 'var(--rausch)',
+          background: canApply ? 'var(--rausch)' : 'rgba(255,255,255,0.12)',
           color: '#fff',
           fontWeight: 700,
           fontSize: 15,
@@ -54,18 +72,25 @@ export default function PetDetailCta({ petId, petName }: PetDetailCtaProps) {
           letterSpacing: '-0.01em',
           whiteSpace: 'nowrap',
           transition: 'background 150ms ease, transform 150ms ease',
-          boxShadow: '0 4px 20px rgba(232,146,60,0.4)',
+          boxShadow: canApply ? '0 4px 20px rgba(232,146,60,0.4)' : 'none',
+          border: canApply ? 'none' : '1px solid rgba(255,255,255,0.18)',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'var(--rausch-active)'
+          if (canApply) {
+            e.currentTarget.style.background = 'var(--rausch-active)'
+          } else {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.18)'
+          }
           e.currentTarget.style.transform = 'translateY(-1px)'
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'var(--rausch)'
+          e.currentTarget.style.background = canApply
+            ? 'var(--rausch)'
+            : 'rgba(255,255,255,0.12)'
           e.currentTarget.style.transform = 'translateY(0)'
         }}
       >
-        Apply to adopt →
+        {canApply ? 'Apply to adopt' : 'Browse other pets'} <ArrowRight size={15} />
       </Link>
     </div>
   )

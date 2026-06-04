@@ -1,23 +1,40 @@
-import { useStaff } from '@/context/useStaff'
+import { usePets } from '@/context/usePets'
+import type { BackendSpecies } from '@/services/api'
 import {
   UseCasesHero,
+  UseCasesStats,
   UseCasesShelterGrid,
   UseCasesHowItWorks,
   UseCasesCta,
 } from './components'
 
-export { SHELTERS } from './data'
-export type { Shelter } from './types'
+export { SHELTERS, type Shelter } from '@/data/shelters'
+
+export type SpeciesCounts = Partial<Record<BackendSpecies, number>>
 
 export default function SheltersPage() {
-  const { pets } = useStaff()
+  const { pets } = usePets()
+
   const countFor = (shelterId: number) =>
     pets.filter(p => p.shelterId === shelterId && p.status === 'AVAILABLE').length
+
+  const speciesCountsFor = (shelterId: number): SpeciesCounts => {
+    const counts: SpeciesCounts = {}
+    for (const p of pets) {
+      if (p.shelterId !== shelterId || p.status !== 'AVAILABLE') continue
+      counts[p.species] = (counts[p.species] ?? 0) + 1
+    }
+    return counts
+  }
 
   return (
     <>
       <UseCasesHero />
-      <UseCasesShelterGrid countFor={countFor} />
+      <UseCasesStats />
+      <UseCasesShelterGrid
+        countFor={countFor}
+        speciesCountsFor={speciesCountsFor}
+      />
       <UseCasesHowItWorks />
       <UseCasesCta />
     </>

@@ -1,5 +1,1 @@
-export { HouseIcon } from './svg/HouseIcon'
-export { ApartmentIcon } from './svg/ApartmentIcon'
-export { CondoIcon } from './svg/CondoIcon'
-export { YesCheckIcon } from './svg/YesCheckIcon'
-export { EmailIcon } from './svg/EmailIcon'
+export {}

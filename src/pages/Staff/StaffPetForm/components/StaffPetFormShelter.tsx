@@ -1,4 +1,6 @@
-import { useStaff } from '@/context/useStaff'
+import { useShelters } from '@/context/useShelters'
+import { useStaffAuth } from '@/context/useStaffAuth'
+import { useStaffScopedPets } from '@/context/selectors'
 import type { FormState, FormFieldErrors } from '../types'
 import StaffPetFormLabel from './StaffPetFormLabel'
 import StaffPetFormSelect from './StaffPetFormSelect'
@@ -26,7 +28,9 @@ function IconHome() {
 }
 
 export default function StaffPetFormShelter({ form, errors, set }: StaffPetFormShelterProps) {
-  const { staffUser, visiblePets, shelters, sheltersLoaded } = useStaff()
+  const { staffUser } = useStaffAuth()
+  const visiblePets = useStaffScopedPets()
+  const { shelters, sheltersLoaded } = useShelters()
 
   if (staffUser?.role === 'STAFF') {
     const shelterId = staffUser.shelterIds[0]

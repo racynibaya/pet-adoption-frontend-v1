@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
 export type StatItem = {
   value: string;
@@ -11,7 +11,7 @@ export type FeatureItem = {
   title: string;
   description: string;
   iconBackground: string;
-  Icon: () => JSX.Element;
+  Icon: ComponentType;
 };
 
 export type ProcessStep = {
@@ -19,7 +19,7 @@ export type ProcessStep = {
   title: string;
   description: string;
   iconBackground: string;
-  Icon: () => JSX.Element;
+  Icon: ComponentType;
 };
 
 export type BlogPost = {

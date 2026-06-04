@@ -1,3 +1,5 @@
+import { Check } from 'lucide-react'
+
 interface UserDashboardJourneyProps {
   savedCount: number
 }
@@ -31,7 +33,7 @@ export default function UserDashboardJourney({ savedCount }: UserDashboardJourne
 
         <ol className='user-steps' aria-label='Adoption steps'>
           <li className={`user-step ${savedCount > 0 ? 'is-done' : 'is-active'}`}>
-            <span className='user-step-dot'>{savedCount > 0 ? '✓' : '1'}</span>
+            <span className='user-step-dot'>{savedCount > 0 ? <Check size={14} strokeWidth={2.5} /> : '1'}</span>
             <div>
               <div className='user-step-title'>Save pets you love</div>
               <div className='user-step-meta'>{savedCount} saved so far</div>

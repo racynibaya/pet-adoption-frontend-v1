@@ -1,3 +1,5 @@
+import { Check, X } from 'lucide-react'
+
 interface PetDetailCareChipProps {
   label: string
   active: boolean
@@ -19,7 +21,7 @@ export default function PetDetailCareChip({ label, active }: PetDetailCareChipPr
         border: `1.5px solid ${active ? '#99D0D9' : 'var(--hairline-soft)'}`,
       }}
     >
-      <span style={{ fontSize: 15 }}>{active ? '✓' : '✗'}</span>
+      {active ? <Check size={15} strokeWidth={2.5} /> : <X size={15} strokeWidth={2.5} />}
       {label}
     </span>
   )

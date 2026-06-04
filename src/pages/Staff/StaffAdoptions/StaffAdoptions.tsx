@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useStaff } from '@/context/useStaff';
+import { usePets } from '@/context/usePets';
+import { useAdoptions } from '@/context/useAdoptions';
 import {
   StaffAdoptionsHeader,
   StaffAdoptionsStats,
@@ -9,7 +10,8 @@ import {
 import type { StatusFilter } from './types';
 
 export default function StaffAdoptions() {
-  const { adoptions, updateAdoption, pets } = useStaff();
+  const { pets } = usePets();
+  const { adoptions, updateAdoption } = useAdoptions();
   const [filter, setFilter] = useState<StatusFilter>('All');
   const [search, setSearch] = useState('');
 

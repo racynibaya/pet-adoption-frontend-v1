@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import type { ShelterRow } from '../types'
 
 interface AdminDashboardSheltersProps {
@@ -30,10 +31,10 @@ export default function AdminDashboardShelters({ shelters }: AdminDashboardShelt
       )}
       <Link
         to='/admin/shelters'
-        className='bento-pending-link'
+        className='bento-pending-link inline-flex items-center gap-1.5'
         style={{ marginTop: 'auto', paddingTop: 14 }}
       >
-        Open shelter directory →
+        Open shelter directory <ArrowRight size={13} />
       </Link>
     </article>
   )

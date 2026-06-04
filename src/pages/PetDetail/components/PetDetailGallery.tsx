@@ -1,5 +1,5 @@
 import type { PetCard } from '@/data/pets';
-import PetDetailStatusBadge from './PetDetailStatusBadge';
+import PetStatusBadge from '@/components/pet/PetStatusBadge';
 import PetDetailHeartButton from './PetDetailHeartButton';
 
 interface PetDetailGalleryProps {
@@ -80,7 +80,11 @@ export default function PetDetailGallery({
             </>
           )}
 
-          <PetDetailStatusBadge status={pet.status} />
+          <PetStatusBadge
+            status={pet.status}
+            variant='bordered'
+            style={{ position: 'absolute', top: 16, left: 16, zIndex: 2 }}
+          />
           <PetDetailHeartButton saved={saved} onToggle={onToggleSave} />
         </div>
 

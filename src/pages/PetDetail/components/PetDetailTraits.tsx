@@ -3,6 +3,7 @@ interface PetDetailTraitsProps {
 }
 
 export default function PetDetailTraits({ traits }: PetDetailTraitsProps) {
+  if (traits.length === 0) return null
   return (
     <div>
       <h2

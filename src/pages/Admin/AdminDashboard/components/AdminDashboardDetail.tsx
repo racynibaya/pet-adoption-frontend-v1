@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight, Check } from 'lucide-react'
 import type { PetCard } from '@/data/pets'
 import { ageLabel, genderLabel, sizeLabel, speciesLabel } from '@/data/pets'
-import type { AdoptionRequest } from '@/context/useStaff'
+import type { AdoptionRequest } from '@/context/useAdoptions'
 
 interface AdminDashboardDetailProps {
   pet: PetCard | null
@@ -136,7 +137,7 @@ export default function AdminDashboardDetail({
               className={`admin-detail-attr${a.on ? '' : ' is-off'}`}
             >
               <span className='admin-detail-attr-tick' aria-hidden>
-                {a.on ? '✓' : '·'}
+                {a.on ? <Check size={12} strokeWidth={2.5} /> : '·'}
               </span>
               {a.label}
             </div>
@@ -172,7 +173,7 @@ export default function AdminDashboardDetail({
                   aria-label={`Open ${a.applicantName}'s application`}
                   title='Open application'
                 >
-                  →
+                  <ArrowRight size={14} />
                 </Link>
               </div>
             ))}
@@ -184,8 +185,8 @@ export default function AdminDashboardDetail({
         <Link to={`/pets/${pet.id}`} className='admin-detail-btn ghost'>
           Public view
         </Link>
-        <Link to='/admin/pets' className='admin-detail-btn primary'>
-          Manage pet →
+        <Link to='/admin/pets' className='admin-detail-btn primary inline-flex items-center gap-1.5'>
+          Manage pet <ArrowRight size={14} />
         </Link>
       </div>
 

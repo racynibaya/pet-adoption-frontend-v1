@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import Eyebrow from '@/components/ui/Eyebrow';
 import { PawDeco, HandsHoldingPup } from '../assets';
 import { DEFAULT_SELECTED_AMOUNT } from '../constants/donate.constants';
@@ -122,10 +123,10 @@ export default function DonationHero({
           <div className='flex flex-wrap gap-4 mt-10 donate-hero-cta-row'>
             <button
               type='button'
-              className='btn btn-primary btn-lg max-sm:w-full'
+              className='btn btn-primary btn-lg max-sm:w-full inline-flex items-center gap-1.5'
               onClick={() => onSelectImpactTier(DEFAULT_SELECTED_AMOUNT)}
             >
-              Send Love <span style={{ marginLeft: 6 }}>→</span>
+              Send Love <ArrowRight size={16} />
             </button>
             <a
               href='#journey'

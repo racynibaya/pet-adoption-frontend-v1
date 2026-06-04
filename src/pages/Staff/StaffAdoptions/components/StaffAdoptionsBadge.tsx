@@ -1,4 +1,4 @@
-import type { AdoptionRequest } from '@/context/useStaff'
+import type { AdoptionRequest } from '@/context/useAdoptions'
 import { STATUS_META } from '../data'
 
 interface StaffAdoptionsBadgeProps {

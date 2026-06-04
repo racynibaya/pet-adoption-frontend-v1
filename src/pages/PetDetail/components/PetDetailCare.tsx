@@ -7,6 +7,7 @@ interface PetDetailCareProps {
 }
 
 export default function PetDetailCare({ vaccinated, neutered, houseTrained }: PetDetailCareProps) {
+  if (!vaccinated && !neutered && !houseTrained) return null
   return (
     <div>
       <h2

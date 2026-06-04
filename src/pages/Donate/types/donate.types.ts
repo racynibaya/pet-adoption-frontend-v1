@@ -1,4 +1,4 @@
-import type { Dispatch, RefObject, SetStateAction } from 'react';
+import type { ComponentType, Dispatch, RefObject, SetStateAction } from 'react';
 
 export type DonationTone = 'amber' | 'teal' | 'rose' | 'cream';
 
@@ -7,7 +7,7 @@ export type ImpactTier = {
   label: string;
   detail: string;
   tone: DonationTone;
-  Icon: () => JSX.Element;
+  Icon: ComponentType;
 };
 
 export type JourneyStep = {
@@ -39,7 +39,8 @@ export type DonationFieldErrors = {
 export type ShelterChoice = {
   id: number;
   name: string;
-  address: string;
+  city: string;
+  province: string;
 };
 
 export type DonationFormState = {

@@ -102,7 +102,8 @@ export function useDonate(): UseDonateReturn {
           response.data.map((shelter: ApiShelter) => ({
             id: shelter.id,
             name: shelter.name,
-            address: shelter.address,
+            city: shelter.city,
+            province: shelter.province,
           })),
         );
       })
@@ -123,7 +124,8 @@ export function useDonate(): UseDonateReturn {
     return shelters.filter(
       (shelter) =>
         shelter.name.toLowerCase().includes(query) ||
-        shelter.address.toLowerCase().includes(query),
+        shelter.city.toLowerCase().includes(query) ||
+        shelter.province.toLowerCase().includes(query),
     );
   }, [shelters, shelterQuery]);
 

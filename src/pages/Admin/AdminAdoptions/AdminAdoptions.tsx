@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
-import { useStaff } from '@/context/useStaff'
+import { usePets } from '@/context/usePets'
+import { useShelters } from '@/context/useShelters'
+import { useAdoptions } from '@/context/useAdoptions'
 import { StaffAdoptionsTable } from '@/pages/Staff/StaffAdoptions/components'
 import AdminAdoptionsToolbar from './AdminAdoptionsToolbar'
 import type {
@@ -8,7 +10,9 @@ import type {
 } from './AdminAdoptionsToolbar'
 
 export default function AdminAdoptions() {
-  const { adoptions, pets, shelters, updateAdoption } = useStaff()
+  const { pets } = usePets()
+  const { shelters } = useShelters()
+  const { adoptions, updateAdoption } = useAdoptions()
 
   const [search, setSearch] = useState('')
   const [status, setStatus] = useState<AdoptionStatusFilter>('ALL')

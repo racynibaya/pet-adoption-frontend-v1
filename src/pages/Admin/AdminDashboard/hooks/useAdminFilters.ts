@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { PetCard, Species, Gender, Size } from '@/data/pets'
-import type { AdoptionRequest } from '@/context/useStaff'
+import type { AdoptionRequest } from '@/context/useAdoptions'
 
 export type StatusFilter = 'ALL' | 'AVAILABLE' | 'PENDING' | 'ADOPTED'
 export type SpeciesFilter = 'ALL' | Species

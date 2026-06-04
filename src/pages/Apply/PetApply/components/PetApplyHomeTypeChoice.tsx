@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
+import { House, Building, Building2 } from 'lucide-react'
 import type { HomeType } from '@/services/api'
-import { HouseIcon, ApartmentIcon, CondoIcon } from '../assets'
 
 interface PetApplyHomeTypeChoiceProps {
   value: HomeType | ''
@@ -8,9 +8,9 @@ interface PetApplyHomeTypeChoiceProps {
 }
 
 const OPTS: { v: HomeType; label: string; icon: ReactNode }[] = [
-  { v: 'HOUSE', label: 'House', icon: <HouseIcon /> },
-  { v: 'APARTMENT', label: 'Apartment', icon: <ApartmentIcon /> },
-  { v: 'CONDO', label: 'Condo', icon: <CondoIcon /> },
+  { v: 'HOUSE', label: 'House', icon: <House size={26} strokeWidth={1.8} /> },
+  { v: 'APARTMENT', label: 'Apartment', icon: <Building size={26} strokeWidth={1.8} /> },
+  { v: 'CONDO', label: 'Condo', icon: <Building2 size={26} strokeWidth={1.8} /> },
 ]
 
 export default function PetApplyHomeTypeChoice({ value, onChange }: PetApplyHomeTypeChoiceProps) {

@@ -1,12 +1,9 @@
 import { useMemo, useState } from 'react'
-import type { PetCard } from '@/data/pets'
-import type { AdoptionRequest } from '@/context/useStaff'
-import type {
-  StatusFilter,
-  SpeciesFilter,
-} from '@/pages/Admin/AdminDashboard/hooks/useAdminFilters'
+import type { PetCard, Species } from '@/data/pets'
+import type { AdoptionRequest } from '@/context/useAdoptions'
 
-export type { StatusFilter, SpeciesFilter }
+export type StatusFilter = 'ALL' | 'AVAILABLE' | 'PENDING' | 'ADOPTED'
+export type SpeciesFilter = 'ALL' | Species
 
 export interface StaffFiltersState {
   search: string

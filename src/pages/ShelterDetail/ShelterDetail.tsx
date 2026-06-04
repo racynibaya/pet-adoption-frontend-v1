@@ -1,26 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { useFavorites } from '@/context/useFavorites';
-import { useStaff } from '@/context/useStaff';
 import { apiGetShelters, type ApiShelter } from '@/services/api';
-import { SHELTERS } from '@/pages/UseCases/UseCases';
-import type { PetCard } from '@/data/pets';
+import { SHELTERS } from '@/data/shelters';
 import {
   ShelterDetailBreadcrumb,
   ShelterDetailHero,
-  ShelterDetailStats,
-  ShelterDetailPets,
+  ShelterDetailAbout,
+  ShelterDetailLocation,
+  ShelterDetailContact,
+  ShelterDetailVisitCta,
   ShelterDetailCta,
 } from './components';
-import { GenericShelterSvg, GENERIC_SHELTER_BG } from './assets';
-import { parseCity } from './utils/parseCity';
 import type { ShelterDetailModel } from './types';
 
 export default function ShelterDetail() {
   const { id } = useParams<{ id: string }>();
   const shelterId = Number(id);
-  const { pets } = useStaff();
-  const { toggle, isSaved } = useFavorites();
 
   const mockShelter = SHELTERS.find((s) => s.id === shelterId);
   const [apiShelter, setApiShelter] = useState<ApiShelter | null>(null);
@@ -50,13 +45,18 @@ export default function ShelterDetail() {
     ? {
         id: shelterId,
         name: apiShelter?.name ?? mockShelter?.name ?? '',
-        address: apiShelter?.address ?? mockShelter?.address ?? '',
+        addressLine:
+          apiShelter?.addressLine ?? mockShelter?.addressLine ?? '',
+        city: apiShelter?.city ?? mockShelter?.city ?? '',
+        province: apiShelter?.province ?? mockShelter?.province ?? '',
+        region: apiShelter?.region ?? mockShelter?.region ?? 'LUZON',
         contactEmail:
           apiShelter?.contactEmail ?? mockShelter?.contactEmail ?? '',
         phoneNumber: apiShelter?.phoneNumber ?? mockShelter?.phoneNumber ?? '',
-        description: mockShelter?.description ?? '',
-        bg: mockShelter?.bg ?? GENERIC_SHELTER_BG,
-        svg: mockShelter?.svg ?? <GenericShelterSvg />,
+        description: apiShelter?.description ?? mockShelter?.description ?? '',
+        bg: mockShelter?.bg ?? null,
+        svg: mockShelter?.svg ?? null,
+        imageUrl: apiShelter?.imageUrl ?? null,
       }
     : null;
 
@@ -66,25 +66,29 @@ export default function ShelterDetail() {
     );
   }
 
-  const shelterPets: PetCard[] = pets.filter((p) => p.shelterId === shelterId);
-  const availablePets = shelterPets.filter((p) => p.status === 'AVAILABLE');
-  const city = parseCity(shelter.address);
-
   return (
-    <div className='pb-20'>
+    <div className='pb-10'>
       <ShelterDetailBreadcrumb shelterName={shelter.name} />
-      <ShelterDetailHero shelter={shelter} />
-      <ShelterDetailStats
-        availableCount={availablePets.length}
-        totalCount={shelterPets.length}
-        city={city}
+      <ShelterDetailHero
+        shelter={shelter}
+        city={shelter.city}
+        province={shelter.province}
       />
-      <ShelterDetailPets
+      <ShelterDetailAbout
         shelterName={shelter.name}
-        pets={shelterPets}
-        availableCount={availablePets.length}
-        isSaved={isSaved}
-        onToggleSave={toggle}
+        description={shelter.description}
+      />
+      <ShelterDetailLocation shelter={shelter} />
+      <ShelterDetailContact
+        shelterName={shelter.name}
+        contactEmail={shelter.contactEmail}
+        phoneNumber={shelter.phoneNumber}
+      />
+      <ShelterDetailVisitCta
+        shelterId={shelterId}
+        shelterName={shelter.name}
+        shelterBg={shelter.bg}
+        shelterSvg={shelter.svg}
       />
       <ShelterDetailCta shelterName={shelter.name} />
     </div>

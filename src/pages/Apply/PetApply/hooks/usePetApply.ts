@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
-import { useStaff } from '@/context/useStaff';
+import { usePets } from '@/context/usePets';
 import { useAdopter } from '@/context/useUser';
-import { apiPetToPetCard } from '@/context/StaffContext';
+import { apiPetToPetCard } from '@/data/adapters';
 import { PET_LISTINGS, type PetCard } from '@/data/pets';
 import { apiCreateAdoption, apiGetPet, ApiError, type HomeType } from '@/services/api';
 import type { FormState, FormFieldErrors } from '../types';
@@ -12,7 +12,7 @@ import { countProgress } from '../utils/countProgress';
 
 export function usePetApply() {
   const { id } = useParams<{ id: string }>();
-  const { pets } = useStaff();
+  const { pets } = usePets();
   const { adopter, isAuthenticated } = useAdopter();
 
   const localPet =

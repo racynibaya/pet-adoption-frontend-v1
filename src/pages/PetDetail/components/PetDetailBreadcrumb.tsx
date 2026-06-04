@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BackChevronIcon } from '../assets'
+import { ChevronLeft } from 'lucide-react'
 
 interface PetDetailBreadcrumbProps {
   petName: string
@@ -31,7 +31,7 @@ export default function PetDetailBreadcrumb({ petName }: PetDetailBreadcrumbProp
         onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ink)')}
         onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
       >
-        <BackChevronIcon />
+        <ChevronLeft size={14} strokeWidth={1.8} />
         All pets
       </Link>
       <span style={{ opacity: 0.4 }}>/</span>

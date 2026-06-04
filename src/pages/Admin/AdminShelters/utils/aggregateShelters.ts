@@ -1,10 +1,5 @@
 import type { PetCard } from '@/data/pets'
 
-export function parseCity(address: string): string {
-  if (!address) return ''
-  return address.split(',')[0]?.trim() ?? ''
-}
-
 export function countPets(pets: PetCard[], shelterId: number, shelterName: string) {
   let total = 0, available = 0, pending = 0, adopted = 0
   for (const p of pets) {

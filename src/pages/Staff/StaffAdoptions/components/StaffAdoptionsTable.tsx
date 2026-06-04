@@ -1,4 +1,4 @@
-import type { AdoptionRequest } from '@/context/useStaff';
+import type { AdoptionRequest } from '@/context/useAdoptions';
 import type { PetCard } from '@/data/pets';
 import StaffAdoptionsRow from './StaffAdoptionsRow';
 
