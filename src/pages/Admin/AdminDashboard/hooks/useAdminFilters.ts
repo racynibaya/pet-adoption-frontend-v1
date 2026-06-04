@@ -43,13 +43,14 @@ const INITIAL: AdminFiltersState = {
 export function useAdminFilters(
   pets: PetCard[],
   adoptions: AdoptionRequest[],
+  initial?: Partial<AdminFiltersState>,
 ): UseAdminFiltersResult {
-  const [search, setSearch] = useState(INITIAL.search)
-  const [shelterId, setShelterId] = useState<ShelterFilter>(INITIAL.shelterId)
-  const [status, setStatus] = useState<StatusFilter>(INITIAL.status)
-  const [species, setSpecies] = useState<SpeciesFilter>(INITIAL.species)
-  const [gender, setGender] = useState<GenderFilter>(INITIAL.gender)
-  const [size, setSize] = useState<SizeFilter>(INITIAL.size)
+  const [search, setSearch] = useState(() => initial?.search ?? INITIAL.search)
+  const [shelterId, setShelterId] = useState<ShelterFilter>(() => initial?.shelterId ?? INITIAL.shelterId)
+  const [status, setStatus] = useState<StatusFilter>(() => initial?.status ?? INITIAL.status)
+  const [species, setSpecies] = useState<SpeciesFilter>(() => initial?.species ?? INITIAL.species)
+  const [gender, setGender] = useState<GenderFilter>(() => initial?.gender ?? INITIAL.gender)
+  const [size, setSize] = useState<SizeFilter>(() => initial?.size ?? INITIAL.size)
 
   const filteredPets = useMemo(() => {
     const q = search.trim().toLowerCase()

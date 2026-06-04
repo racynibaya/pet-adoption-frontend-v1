@@ -32,7 +32,7 @@ export default function AdminSheltersDetail({ selected, canEdit }: AdminShelters
               Edit shelter <ArrowRight size={14} />
             </Link>
           )}
-          <Link to='/admin/pets' className='bento-action-btn ghost inline-flex items-center gap-1.5'>
+          <Link to={`/admin/pets?shelterId=${selected.id}`} className='bento-action-btn ghost inline-flex items-center gap-1.5'>
             View pets <ArrowRight size={14} />
           </Link>
         </div>

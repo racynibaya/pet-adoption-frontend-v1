@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { usePets } from '@/context/usePets'
 import { useShelters } from '@/context/useShelters'
 import { useAdoptions } from '@/context/useAdoptions'
@@ -21,6 +22,13 @@ export default function AdminPets() {
   const { shelters: allShelters } = useShelters()
   const { adoptions } = useAdoptions()
   const { staffUser } = useStaffAuth()
+  const [searchParams] = useSearchParams()
+
+  const shelterIdParam = searchParams.get('shelterId')
+  const parsedShelterId = shelterIdParam !== null ? Number(shelterIdParam) : NaN
+  const initialFilters = !Number.isNaN(parsedShelterId)
+    ? { shelterId: parsedShelterId }
+    : undefined
 
   const {
     filters,
@@ -32,7 +40,7 @@ export default function AdminPets() {
     activeCount,
     filteredPets,
     filteredAdoptions,
-  } = useAdminFilters(pets, adoptions)
+  } = useAdminFilters(pets, adoptions, initialFilters)
 
   const [sort, setSort] = useState<SortKey>('RECENT')
   const [selectedId, setSelectedId] = useState<number | null>(null)
