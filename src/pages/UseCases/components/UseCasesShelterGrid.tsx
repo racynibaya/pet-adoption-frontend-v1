@@ -84,7 +84,7 @@ function FilterPill({ label, icon, count, open, onClick }: FilterPillProps) {
       onClick={onClick}
       aria-expanded={open}
       aria-haspopup='menu'
-      className={`group shrink-0 inline-flex items-center gap-2 h-11 px-3.5 rounded-full text-[13.5px] font-medium transition-[background,color] duration-200 ${
+      className={`group w-full md:w-auto md:shrink-0 inline-flex items-center justify-center md:justify-start gap-2 h-11 px-3.5 rounded-full text-[13.5px] font-medium transition-[background,color] duration-200 ${
         isActive
           ? 'bg-(--ink) text-white'
           : 'text-(--ink-2) hover:bg-(--soft) hover:text-(--ink)'
@@ -890,8 +890,8 @@ export default function UseCasesShelterGrid({
       >
         <div className='flex flex-col md:flex-row gap-3 md:gap-5 md:items-center'>
           <SearchField value={f.search} onChange={f.setSearch} />
-          <div className='flex items-center gap-1 md:gap-2 -ml-2 md:ml-0'>
-            <div className='relative'>
+          <div className='flex w-full md:w-auto items-center gap-2'>
+            <div className='relative flex-1 md:flex-none'>
               <FilterPill
                 label={locationLabel}
                 icon={<MapPin size={14} strokeWidth={1.8} />}
@@ -913,7 +913,7 @@ export default function UseCasesShelterGrid({
                 />
               )}
             </div>
-            <div className='relative'>
+            <div className='relative flex-1 md:flex-none'>
               <FilterPill
                 label='Refine'
                 icon={<SlidersHorizontal size={14} strokeWidth={1.8} />}
