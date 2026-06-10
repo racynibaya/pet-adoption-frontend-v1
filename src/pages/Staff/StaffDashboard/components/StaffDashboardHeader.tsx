@@ -23,7 +23,7 @@ export default function StaffDashboardHeader({
           alignItems: 'center',
           gap: 7,
           padding: '10px 20px',
-          background: '#E8923C',
+          background: 'var(--rausch)',
           color: 'white',
           borderRadius: 11,
           fontWeight: 600,
@@ -34,10 +34,10 @@ export default function StaffDashboardHeader({
           whiteSpace: 'nowrap',
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.background = '#CB7730';
+          (e.currentTarget as HTMLAnchorElement).style.background = 'var(--rausch-active)';
         }}
         onMouseLeave={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.background = '#E8923C';
+          (e.currentTarget as HTMLAnchorElement).style.background = 'var(--rausch)';
         }}
       >
         Add Pet

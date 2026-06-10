@@ -38,8 +38,8 @@ export default function VerifyEmailError({ message }: VerifyEmailErrorProps) {
           width: 80,
           height: 80,
           borderRadius: '50%',
-          background: '#FEF2F4',
-          border: '1.5px solid #F9BCC8',
+          background: 'var(--rose)',
+          border: '1.5px solid var(--color-rose-200)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -48,7 +48,7 @@ export default function VerifyEmailError({ message }: VerifyEmailErrorProps) {
         }}
         aria-hidden='true'
       >
-        <AlertTriangle size={32} color='#D94F68' strokeWidth={1.75} />
+        <AlertTriangle size={32} color='var(--color-rose-500)' strokeWidth={1.75} />
       </div>
 
       <div className='flex flex-col gap-2.5'>
@@ -124,19 +124,19 @@ export default function VerifyEmailError({ message }: VerifyEmailErrorProps) {
           <p
             style={{
               fontSize: 13,
-              color: '#1D7575',
+              color: 'var(--color-teal-500)',
               marginTop: 12,
               display: 'flex',
               alignItems: 'center',
               gap: 6,
             }}
           >
-            <Check size={14} color='#1D7575' strokeWidth={1.75} />
+            <Check size={14} color='var(--color-teal-500)' strokeWidth={1.75} />
             Check your inbox for the new link.
           </p>
         )}
         {resendError && (
-          <p style={{ fontSize: 13, color: '#D94F68', marginTop: 12 }}>{resendError}</p>
+          <p style={{ fontSize: 13, color: 'var(--color-rose-500)', marginTop: 12 }}>{resendError}</p>
         )}
       </div>
 

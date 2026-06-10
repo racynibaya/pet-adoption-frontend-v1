@@ -31,7 +31,7 @@ export default function PetApplyChapter4Care({ form, errors, petName, set }: Pet
           min={0}
           max={24}
           style={{ ...numberInput, marginTop: 14 }}
-          onFocus={(e) => { e.currentTarget.style.borderColor = '#E8923C' }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--rausch)' }}
           onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--hairline)' }}
         />
         <PetApplyMarginErr msg={errors.hoursAwayPerDay} />

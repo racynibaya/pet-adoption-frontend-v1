@@ -16,7 +16,7 @@ export default function AboutValues() {
             style={{ padding: '16px 18px' }}
           >
             <div
-              className='w-9 h-9 shrink-0 rounded-[10px] flex items-center justify-center mt-0.5'
+              className='w-9 h-9 shrink-0 rounded-10 flex items-center justify-center mt-0.5'
               style={{ background: bg }}
             >
               {icon}

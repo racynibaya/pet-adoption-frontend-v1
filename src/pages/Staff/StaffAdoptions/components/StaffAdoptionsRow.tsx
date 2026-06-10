@@ -16,7 +16,7 @@ export default function StaffAdoptionsRow({ adoption: a, pet, onUpdate }: StaffA
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
             width: 34, height: 34, borderRadius: '50%',
-            background: 'conic-gradient(from 200deg at 50% 50%, #e8923c, #d94f68, #1d7575, #e8923c)',
+            background: 'conic-gradient(from 200deg at 50% 50%, var(--rausch), var(--color-rose-500), var(--color-teal-500), var(--rausch))',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             color: '#fff', fontWeight: 700, fontSize: 12.5, flexShrink: 0,
             fontFamily: 'var(--font-display)',

@@ -1,5 +1,3 @@
-import { SHELTERS } from '@/data/shelters';
-
 import {
   Soup as BowlIcon,
   Syringe as SyringeIcon,
@@ -19,7 +17,6 @@ import {
   ImpactStat,
   ImpactTier,
   JourneyStep,
-  ShelterChoice,
 } from '../types/donate.types';
 
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -116,12 +113,3 @@ export const IMPACT_STATS: ImpactStat[] = [
   { value: '412', label: 'forever homes since 2024' },
   { value: '94%', label: 'of every peso goes straight to pets' },
 ];
-
-export const MOCK_SHELTER_CHOICES: ShelterChoice[] = SHELTERS.map(
-  (shelter) => ({
-    id: shelter.id,
-    name: shelter.name,
-    city: shelter.city,
-    province: shelter.province,
-  }),
-);

@@ -49,7 +49,7 @@ export default function ContactForm({
                   key={key}
                   type='button'
                   onClick={() => onTopicChange(key)}
-                  className='border-[1.5px] rounded-[14px] text-center cursor-pointer text-[13px] font-medium transition-[border-color,background,transform,box-shadow] duration-200 hover:border-(--ink) hover:-translate-y-0.5 hover:[box-shadow:var(--shadow-soft)] active:scale-[0.96]'
+                  className='border-[1.5px] rounded-14 text-center cursor-pointer text-13 font-medium transition-[border-color,background,transform,box-shadow] duration-200 hover:border-(--ink) hover:-translate-y-0.5 hover:[box-shadow:var(--shadow-soft)] active:scale-[0.96]'
                   style={{
                     padding: '14px 8px',
                     fontFamily: 'inherit',

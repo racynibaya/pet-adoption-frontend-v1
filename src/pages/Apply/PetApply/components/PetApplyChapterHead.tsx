@@ -25,7 +25,7 @@ export default function PetApplyChapterHead({ num, title, subtitle }: PetApplyCh
           fontSize: 44,
           fontWeight: 300,
           letterSpacing: '-0.04em',
-          color: '#E8923C',
+          color: 'var(--rausch)',
           lineHeight: 1,
           flexShrink: 0,
         }}

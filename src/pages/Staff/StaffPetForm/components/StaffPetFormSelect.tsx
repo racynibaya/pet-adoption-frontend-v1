@@ -21,7 +21,7 @@ export default function StaffPetFormSelect({ value, onChange, children }: StaffP
         backgroundPosition: 'right 14px center',
         paddingRight: 36,
       }}
-      onFocus={(e) => { e.currentTarget.style.borderColor = '#E8923C' }}
+      onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--rausch)' }}
       onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(28, 44, 44, 0.13)' }}
     >
       {children}

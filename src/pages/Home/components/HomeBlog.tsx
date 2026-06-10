@@ -19,12 +19,12 @@ function BlogCard({ post }: BlogCardProps) {
         </div>
       </div>
       <div
-        className='flex gap-3 text-[13px]'
+        className='flex gap-3 text-13'
         style={{ color: 'var(--muted)' }}
       >
         <span>{category}</span> · <span>{readTime}</span>
       </div>
-      <h4 className='text-[18px] leading-[1.3] font-semibold transition-colors duration-200 group-hover:text-(--rausch)'>
+      <h4 className='text-18 leading-130 font-semibold transition-colors duration-200 group-hover:text-(--rausch)'>
         {title}
       </h4>
     </article>

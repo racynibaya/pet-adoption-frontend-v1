@@ -1,32 +1,24 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import {
   apiCreateShelter,
-  apiGetShelters,
   apiUpdateShelter,
   type ApiShelter,
 } from '@/services/api'
+import { useSheltersQuery } from '@/queries/useSheltersQuery'
+import { queryKeys } from '@/queries/keys'
 import { SheltersContext } from './useShelters'
 
 export function SheltersProvider({ children }: { children: ReactNode }) {
-  const [shelters, setShelters] = useState<ApiShelter[]>([])
-  const [sheltersLoaded, setSheltersLoaded] = useState(false)
-
-  useEffect(() => {
-    apiGetShelters()
-      .then((res) => {
-        setShelters(res.data)
-      })
-      .catch((err) => {
-        console.error('Failed to load shelters', err)
-      })
-      .finally(() => {
-        setSheltersLoaded(true)
-      })
-  }, [])
+  const queryClient = useQueryClient()
+  const { data: shelters = [], isFetched: sheltersLoaded } = useSheltersQuery()
 
   async function addShelter(formData: FormData): Promise<ApiShelter> {
     const res = await apiCreateShelter(formData)
-    setShelters((prev) => [...prev, res.data])
+    queryClient.setQueryData<ApiShelter[]>(queryKeys.shelters.all, (old = []) => [
+      ...old,
+      res.data,
+    ])
     return res.data
   }
 
@@ -35,7 +27,9 @@ export function SheltersProvider({ children }: { children: ReactNode }) {
     formData: FormData,
   ): Promise<ApiShelter> {
     const res = await apiUpdateShelter(id, formData)
-    setShelters((prev) => prev.map((s) => (s.id === id ? res.data : s)))
+    queryClient.setQueryData<ApiShelter[]>(queryKeys.shelters.all, (old = []) =>
+      old.map((s) => (s.id === id ? res.data : s)),
+    )
     return res.data
   }
 

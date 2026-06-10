@@ -2,14 +2,14 @@ import { ClipboardList, Search, ShieldCheck } from 'lucide-react'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { HOW_IT_WORKS } from '../data'
 
-const ListIcon = () => <ClipboardList size={26} color='#cb7730' strokeWidth={1.8} aria-hidden='true' />
-const SearchIcon = () => <Search size={26} color='#1d7575' strokeWidth={1.8} aria-hidden='true' />
-const CheckIcon = () => <ShieldCheck size={26} color='#bf3b5c' strokeWidth={1.8} aria-hidden='true' />
+const ListIcon = () => <ClipboardList size={26} color='var(--rausch-active)' strokeWidth={1.8} aria-hidden='true' />
+const SearchIcon = () => <Search size={26} color='var(--color-teal-500)' strokeWidth={1.8} aria-hidden='true' />
+const CheckIcon = () => <ShieldCheck size={26} color='var(--color-rose-600)' strokeWidth={1.8} aria-hidden='true' />
 
 const STEP_VISUALS: { Icon: () => JSX.Element; iconBg: string }[] = [
-  { Icon: ListIcon, iconBg: '#fef0d8' },
-  { Icon: SearchIcon, iconBg: '#cce7ec' },
-  { Icon: CheckIcon, iconBg: '#fcdde3' },
+  { Icon: ListIcon, iconBg: 'var(--rausch-soft)' },
+  { Icon: SearchIcon, iconBg: 'var(--mint-2)' },
+  { Icon: CheckIcon, iconBg: 'var(--color-rose-100)' },
 ]
 
 export default function UseCasesHowItWorks() {
@@ -17,7 +17,7 @@ export default function UseCasesHowItWorks() {
     <section className='section'>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
         <div
-          className='home-process-card rounded-[28px] relative overflow-hidden border border-(--hairline-soft)'
+          className='home-process-card rounded-28 relative overflow-hidden border border-(--hairline-soft)'
           style={{
             background:
               'linear-gradient(145deg, var(--soft) 0%, #eae8e2 100%)',
@@ -50,11 +50,11 @@ export default function UseCasesHowItWorks() {
               return (
                 <div
                   key={step}
-                  className='bg-white rounded-[18px] relative [box-shadow:var(--shadow-soft)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1.25 hover:[box-shadow:var(--shadow-lift)]'
+                  className='bg-white rounded-18 relative [box-shadow:var(--shadow-soft)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1.25 hover:[box-shadow:var(--shadow-lift)]'
                   style={{ padding: '32px 28px' }}
                 >
                   <span
-                    className='absolute flex items-center text-white text-[11px] font-bold tracking-[0.06em] uppercase rounded-full'
+                    className='absolute flex items-center text-white text-11 font-bold tracking-6 uppercase rounded-full'
                     style={{
                       top: -12,
                       left: 24,
@@ -66,7 +66,7 @@ export default function UseCasesHowItWorks() {
                     Step {step}
                   </span>
                   <div
-                    className='w-14 h-14 rounded-[14px] inline-flex items-center justify-center mb-4.5'
+                    className='w-14 h-14 rounded-14 inline-flex items-center justify-center mb-4.5'
                     style={{ background: iconBg }}
                   >
                     <Icon />

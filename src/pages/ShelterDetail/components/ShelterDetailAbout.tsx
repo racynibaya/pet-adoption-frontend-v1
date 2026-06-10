@@ -37,12 +37,12 @@ export default function ShelterDetailAbout({
             “
           </span>
           <blockquote
-            className='relative text-[20px] sm:text-[24px] md:text-[26px] leading-snug text-(--ink)'
+            className='relative text-20 sm:text-24 md:text-26 leading-snug text-(--ink)'
             style={{ fontFamily: 'var(--font-display)' }}
           >
             {description}
           </blockquote>
-          <figcaption className='mt-4 text-[12px] tracking-wide font-semibold text-(--muted) uppercase'>
+          <figcaption className='mt-4 text-12 tracking-wide font-semibold text-(--muted) uppercase'>
             — {shelterName}
           </figcaption>
         </figure>

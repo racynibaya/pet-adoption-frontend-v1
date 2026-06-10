@@ -36,7 +36,7 @@ export default function HomeShelterTrust() {
             {TRUST_POINTS.map((point) => (
               <li
                 key={point}
-                className='flex gap-3 items-start list-none text-(--ink-2) text-[15px]'
+                className='flex gap-3 items-start list-none text-(--ink-2) text-15'
               >
                 <span
                   className='w-5.5 h-5.5 rounded-full shrink-0 inline-flex items-center justify-center mt-px text-white'

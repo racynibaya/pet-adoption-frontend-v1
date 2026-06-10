@@ -64,7 +64,7 @@ export default function StaffLoginCard({
               fontFamily: 'var(--font-body)',
               transition: 'border-color 0.15s',
             }}
-            onFocus={e => { e.currentTarget.style.borderColor = '#E8923C' }}
+            onFocus={e => { e.currentTarget.style.borderColor = 'var(--rausch)' }}
             onBlur={e => { e.currentTarget.style.borderColor = 'var(--hairline)' }}
           />
         </div>
@@ -95,7 +95,7 @@ export default function StaffLoginCard({
                 fontFamily: 'var(--font-body)',
                 transition: 'border-color 0.15s',
               }}
-              onFocus={e => { e.currentTarget.style.borderColor = '#E8923C' }}
+              onFocus={e => { e.currentTarget.style.borderColor = 'var(--rausch)' }}
               onBlur={e => { e.currentTarget.style.borderColor = 'var(--hairline)' }}
             />
             <button
@@ -140,7 +140,7 @@ export default function StaffLoginCard({
           style={{
             width: '100%',
             height: 50,
-            background: loading ? '#f5ae50' : '#E8923C',
+            background: loading ? 'var(--color-amber-400)' : 'var(--rausch)',
             color: 'white',
             border: 'none',
             borderRadius: 12,
@@ -151,8 +151,8 @@ export default function StaffLoginCard({
             transition: 'background 0.15s',
             letterSpacing: '-0.01em',
           }}
-          onMouseEnter={e => { if (!loading) (e.currentTarget as HTMLButtonElement).style.background = '#CB7730' }}
-          onMouseLeave={e => { if (!loading) (e.currentTarget as HTMLButtonElement).style.background = '#E8923C' }}
+          onMouseEnter={e => { if (!loading) (e.currentTarget as HTMLButtonElement).style.background = 'var(--rausch-active)' }}
+          onMouseLeave={e => { if (!loading) (e.currentTarget as HTMLButtonElement).style.background = 'var(--rausch)' }}
         >
           {loading ? 'Signing in…' : 'Sign in'}
         </button>

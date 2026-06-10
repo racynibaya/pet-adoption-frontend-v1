@@ -15,8 +15,8 @@ export default function VerifyEmailSuccess({ onGoHome }: VerifyEmailSuccessProps
           width: 96,
           height: 96,
           borderRadius: '50%',
-          background: 'radial-gradient(circle at 40% 40%, #FDDDB0 0%, #FEF5E2 100%)',
-          border: '1.5px solid #E8C28A',
+          background: 'radial-gradient(circle at 40% 40%, var(--color-amber-200) 0%, var(--cream) 100%)',
+          border: '1.5px solid var(--peach-stroke)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -26,7 +26,7 @@ export default function VerifyEmailSuccess({ onGoHome }: VerifyEmailSuccessProps
         }}
         aria-hidden='true'
       >
-        <Check size={44} color='#E8923C' strokeWidth={3} />
+        <Check size={44} color='var(--rausch)' strokeWidth={3} />
       </div>
 
       <div className='flex flex-col gap-2.5'>

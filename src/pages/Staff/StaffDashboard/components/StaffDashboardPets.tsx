@@ -13,7 +13,7 @@ export default function StaffDashboardPets({ pets }: StaffDashboardPetsProps) {
         <h3 className='staff-card-title'>Pets in Shelter</h3>
         <Link
           to='/staff/pets'
-          style={{ fontSize: 12.5, color: '#E8923C', textDecoration: 'none', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: 4 }}
+          style={{ fontSize: 12.5, color: 'var(--rausch)', textDecoration: 'none', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: 4 }}
         >
           Manage <ArrowRight size={12} />
         </Link>

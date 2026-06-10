@@ -79,7 +79,7 @@ export default function StaffLayout() {
               style={{
                 width: 36,
                 height: 36,
-                background: 'linear-gradient(135deg, #E8923C 0%, #CB7730 100%)',
+                background: 'linear-gradient(135deg, var(--rausch) 0%, var(--rausch-active) 100%)',
                 borderRadius: 10,
                 display: 'flex',
                 alignItems: 'center',
@@ -176,7 +176,7 @@ export default function StaffLayout() {
               style={{
                 width: 34,
                 height: 34,
-                background: 'linear-gradient(135deg, #E8923C, #CB7730)',
+                background: 'linear-gradient(135deg, var(--rausch), var(--rausch-active))',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
@@ -232,7 +232,7 @@ export default function StaffLayout() {
                       maxWidth: '100%',
                     }}
                   >
-                    <House size={10} color='#E8923C' strokeWidth={2.2} aria-hidden />
+                    <House size={10} color='var(--rausch)' strokeWidth={2.2} aria-hidden />
                     <span
                       style={{
                         fontSize: 10.5,

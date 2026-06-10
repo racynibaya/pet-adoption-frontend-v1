@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { usePets } from '@/context/usePets';
-import { apiGetShelters, type ApiShelter } from '@/services/api';
-import { SHELTERS } from '@/data/shelters';
+import { useSheltersQuery } from '@/queries/useSheltersQuery';
 import type { PetCard } from '@/data/pets';
 import ShelterDetailStats from '@/pages/ShelterDetail/components/ShelterDetailStats';
 import ShelterDetailPets from '@/pages/ShelterDetail/components/ShelterDetailPets';
@@ -13,34 +11,15 @@ export default function ShelterPets() {
   const shelterId = Number(id);
   const { pets } = usePets();
 
-  const mockShelter = SHELTERS.find((s) => s.id === shelterId);
-  const [apiShelter, setApiShelter] = useState<ApiShelter | null>(null);
-  const [apiDone, setApiDone] = useState(false);
+  const { data: shelters = [], isFetched: apiDone } = useSheltersQuery();
+  const apiShelter = shelters.find((s) => s.id === shelterId) ?? null;
 
-  useEffect(() => {
-    let cancelled = false;
-    apiGetShelters(1, 100)
-      .then((res) => {
-        if (cancelled) return;
-        const found = res.data.find((s) => s.id === shelterId) ?? null;
-        setApiShelter(found);
-      })
-      .catch(() => {})
-      .finally(() => {
-        if (!cancelled) setApiDone(true);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [shelterId]);
+  if (!apiShelter && apiDone) return <Navigate to='/shelters' replace />;
 
-  const hasAny = apiShelter || mockShelter;
-  if (!hasAny && apiDone) return <Navigate to='/shelters' replace />;
+  const shelterName = apiShelter?.name ?? '';
+  const city = apiShelter?.city ?? '—';
 
-  const shelterName = apiShelter?.name ?? mockShelter?.name ?? '';
-  const city = apiShelter?.city ?? mockShelter?.city ?? '—';
-
-  if (!hasAny) {
+  if (!apiShelter) {
     return (
       <div className='py-24 text-center text-(--muted)'>Loading shelter…</div>
     );
