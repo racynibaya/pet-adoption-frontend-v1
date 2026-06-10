@@ -23,20 +23,20 @@ export default function ShelterPetsHero({
           <Eyebrow>All pets at this shelter</Eyebrow>
         </div>
         <h1
-          className='text-[28px] sm:text-[34px] md:text-[40px] leading-[1.1]'
+          className='text-28 sm:text-34 md:text-40 leading-110'
           style={{ fontFamily: 'var(--font-display)' }}
         >
           Pets at{' '}
           <span style={{ color: 'var(--rausch)' }}>{shelterName}</span>
         </h1>
-        <p className='text-(--ink-2) text-[14px] sm:text-[15px] leading-relaxed max-w-150'>
+        <p className='text-(--ink-2) text-14 sm:text-15 leading-relaxed max-w-150'>
           Every pet on this page is cared for by the {shelterName} team. Tap
           any card to read their full story and start an application.
         </p>
-        <div className='flex flex-wrap items-center gap-2 mt-1 text-[12px] font-bold'>
+        <div className='flex flex-wrap items-center gap-2 mt-1 text-12 font-bold'>
           <span
             className='px-3 py-1 rounded-full'
-            style={{ background: '#e6f4f0', color: '#1D7575' }}
+            style={{ background: '#e6f4f0', color: 'var(--color-teal-500)' }}
           >
             {availableCount} available now
           </span>

@@ -24,23 +24,23 @@ function ContactCard({ channel, label, value, href, action }: ContactCardProps) 
         boxShadow: '0 1px 0 rgba(28,44,44,0.04)',
       }}
     >
-      <span className='text-[11px] tracking-widest uppercase font-bold text-(--muted)'>
+      <span className='text-11 tracking-widest uppercase font-bold text-(--muted)'>
         {channel}
       </span>
       <p
-        className='mt-3 text-[13px] text-(--ink-2) leading-snug'
+        className='mt-3 text-13 text-(--ink-2) leading-snug'
         style={{ fontFamily: 'var(--font-body)' }}
       >
         {label}
       </p>
       <p
-        className='mt-1.5 text-[18px] sm:text-[20px] leading-tight text-(--ink) break-all'
+        className='mt-1.5 text-18 sm:text-20 leading-tight text-(--ink) break-all'
         style={{ fontFamily: 'var(--font-display)' }}
       >
         {value}
       </p>
       <span
-        className='mt-4 inline-flex items-center gap-2 text-[13px] font-bold transition-transform duration-300 group-hover:translate-x-1'
+        className='mt-4 inline-flex items-center gap-2 text-13 font-bold transition-transform duration-300 group-hover:translate-x-1'
         style={{ color: 'var(--rausch)' }}
       >
         {action}
@@ -68,7 +68,7 @@ export default function ShelterDetailContact({
           />
           <Eyebrow>Get in touch</Eyebrow>
         </div>
-        <p className='text-(--muted) text-[14px] max-w-100'>
+        <p className='text-(--muted) text-14 max-w-100'>
           A real staff member from {shelterName} responds to every message.
         </p>
       </div>

@@ -145,7 +145,7 @@ export default function PetApplyPetSidebar({ pet }: PetApplyPetSidebarProps) {
               fontWeight: 600,
               transition: 'color 150ms var(--ease-out)',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#E8923C')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--rausch)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
           >
             <ArrowLeft size={13} /> Back to {pet.name}'s page

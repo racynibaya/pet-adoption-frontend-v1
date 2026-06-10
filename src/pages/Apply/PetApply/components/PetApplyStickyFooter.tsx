@@ -35,7 +35,7 @@ export default function PetApplyStickyFooter({ loading, answered, total }: PetAp
         disabled={loading}
         style={{
           padding: '11px 22px',
-          background: loading ? '#f5ae50' : 'var(--rausch)',
+          background: loading ? 'var(--color-amber-400)' : 'var(--rausch)',
           color: 'white',
           border: 'none',
           borderRadius: 999,

@@ -17,8 +17,8 @@ export default function PetDetailCareChip({ label, active }: PetDetailCareChipPr
         padding: '6px 14px',
         borderRadius: 30,
         background: active ? '#e6f4f0' : 'var(--soft)',
-        color: active ? '#1D7575' : 'var(--muted)',
-        border: `1.5px solid ${active ? '#99D0D9' : 'var(--hairline-soft)'}`,
+        color: active ? 'var(--color-teal-500)' : 'var(--muted)',
+        border: `1.5px solid ${active ? 'var(--color-teal-200)' : 'var(--hairline-soft)'}`,
       }}
     >
       {active ? <Check size={15} strokeWidth={2.5} /> : <X size={15} strokeWidth={2.5} />}

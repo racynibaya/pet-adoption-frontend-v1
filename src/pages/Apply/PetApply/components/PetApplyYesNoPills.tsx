@@ -28,7 +28,7 @@ export default function PetApplyYesNoPills({ value, onChange, disabled }: PetApp
               borderRadius: 14,
               padding: '12px 22px',
               border: '1.5px solid',
-              borderColor: active ? '#1D7575' : 'var(--hairline)',
+              borderColor: active ? 'var(--color-teal-500)' : 'var(--hairline)',
               background: disabled
                 ? 'repeating-linear-gradient(135deg, var(--soft) 0 8px, transparent 8px 14px)'
                 : active
@@ -48,7 +48,7 @@ export default function PetApplyYesNoPills({ value, onChange, disabled }: PetApp
                 'background 180ms var(--ease-out), border-color 180ms var(--ease-out), transform 120ms var(--ease-out), color 180ms var(--ease-out)',
             }}
             onMouseEnter={(e) => {
-              if (!disabled && !active) e.currentTarget.style.borderColor = '#99D0D9'
+              if (!disabled && !active) e.currentTarget.style.borderColor = 'var(--color-teal-200)'
             }}
             onMouseLeave={(e) => {
               if (!disabled && !active) e.currentTarget.style.borderColor = 'var(--hairline)'
@@ -63,7 +63,7 @@ export default function PetApplyYesNoPills({ value, onChange, disabled }: PetApp
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: active ? '#1D7575' : 'transparent',
+                background: active ? 'var(--color-teal-500)' : 'transparent',
                 border: active ? 'none' : '1.5px solid var(--hairline)',
                 transition: 'all 180ms var(--ease-out)',
                 flexShrink: 0,

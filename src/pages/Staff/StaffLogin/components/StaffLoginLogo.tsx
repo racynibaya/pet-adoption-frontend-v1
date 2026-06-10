@@ -5,7 +5,7 @@ export default function StaffLoginLogo() {
     <div style={{ textAlign: 'center', marginBottom: 36 }}>
       <div style={{
         width: 52, height: 52,
-        background: 'linear-gradient(135deg, #E8923C 0%, #CB7730 100%)',
+        background: 'linear-gradient(135deg, var(--rausch) 0%, var(--rausch-active) 100%)',
         borderRadius: 14,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         margin: '0 auto 16px',

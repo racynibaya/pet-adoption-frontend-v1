@@ -29,7 +29,7 @@ export default function PetApplyChapter2Household({ form, errors, set }: PetAppl
           min={1}
           max={50}
           style={{ ...numberInput, marginTop: 14 }}
-          onFocus={(e) => { e.currentTarget.style.borderColor = '#E8923C' }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--rausch)' }}
           onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--hairline)' }}
         />
         <PetApplyMarginErr msg={errors.householdSize} />

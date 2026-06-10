@@ -18,11 +18,11 @@ function IconHome() {
       <path
         d="M3 10.5L12 3l9 7.5V21H3V10.5Z"
         fill="rgba(232,146,60,0.15)"
-        stroke="#E8923C"
+        stroke="var(--rausch)"
         strokeWidth="1.8"
         strokeLinejoin="round"
       />
-      <rect x="9" y="14" width="6" height="7" rx="1.2" fill="#E8923C" opacity="0.55" />
+      <rect x="9" y="14" width="6" height="7" rx="1.2" fill="var(--rausch)" opacity="0.55" />
     </svg>
   )
 }
@@ -48,7 +48,7 @@ export default function StaffPetFormShelter({ form, errors, set }: StaffPetFormS
               alignItems: 'center',
               gap: 14,
               padding: '14px 18px',
-              background: 'linear-gradient(135deg, #fff8f0 0%, #fff4e8 100%)',
+              background: 'linear-gradient(135deg, var(--sun) 0%, #fff4e8 100%)',
               border: '1.5px solid rgba(232,146,60,0.3)',
               borderRadius: 14,
               maxWidth: 380,
@@ -94,7 +94,7 @@ export default function StaffPetFormShelter({ form, errors, set }: StaffPetFormS
                   fontWeight: 700,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  color: '#CB7730',
+                  color: 'var(--rausch-active)',
                   marginBottom: 3,
                 }}
               >
@@ -132,7 +132,7 @@ export default function StaffPetFormShelter({ form, errors, set }: StaffPetFormS
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
                 <path
                   d="M2 6l3 3 5-5"
-                  stroke="#E8923C"
+                  stroke="var(--rausch)"
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"

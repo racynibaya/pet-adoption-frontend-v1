@@ -4,7 +4,7 @@ import { PawprintDeco } from '../assets'
 export default function AboutHero() {
   return (
     <section
-      className='about-hero mt-6 rounded-[28px] text-center relative overflow-hidden'
+      className='about-hero mt-6 rounded-28 text-center relative overflow-hidden'
       style={{
         background:
           'radial-gradient(ellipse 60% 50% at 20% 10%, rgba(93,181,196,0.45) 0%, transparent 55%),' +
@@ -29,7 +29,7 @@ export default function AboutHero() {
           looking at dogs
         </h1>
         <p
-          className='max-w-155 mx-auto text-[18px]'
+          className='max-w-155 mx-auto text-18'
           style={{ marginTop: 24, color: 'var(--ink-2)' }}
         >
           We started KodaNest in 2023 because finding the right home for a

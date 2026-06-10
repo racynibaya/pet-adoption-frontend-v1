@@ -18,7 +18,7 @@ export default function DonationHero({
         background:
           'radial-gradient(ellipse 60% 70% at 88% 12%, rgba(93,181,196,0.35) 0%, transparent 55%),' +
           'radial-gradient(ellipse 70% 60% at 8% 88%, rgba(253,221,176,0.6) 0%, transparent 55%),' +
-          'linear-gradient(158deg, #FFF8F0 0%, #FDE9C4 55%, #FCDDE3 100%)',
+          'linear-gradient(158deg, var(--sun) 0%, var(--cream-2) 55%, var(--color-rose-100) 100%)',
       }}
     >
       <span
@@ -108,7 +108,7 @@ export default function DonationHero({
               <span
                 className='absolute inset-0 rounded-full'
                 style={{
-                  background: '#1D7575',
+                  background: 'var(--color-teal-500)',
                   animation: 'fadeIn 1.5s ease-in-out infinite alternate',
                 }}
               />

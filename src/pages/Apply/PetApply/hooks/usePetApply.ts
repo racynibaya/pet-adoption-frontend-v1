@@ -1,10 +1,17 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { usePets } from '@/context/usePets';
 import { useAdopter } from '@/context/useUser';
 import { apiPetToPetCard } from '@/data/adapters';
-import { PET_LISTINGS, type PetCard } from '@/data/pets';
-import { apiCreateAdoption, apiGetPet, ApiError, type HomeType } from '@/services/api';
+import {
+  apiCreateAdoption,
+  apiGetPet,
+  type HomeType,
+  type CreateAdoptionInput,
+} from '@/services/api';
+import { getErrorMessage } from '@/services/getErrorMessage';
+import { queryKeys } from '@/queries/keys';
 import type { FormState, FormFieldErrors } from '../types';
 import { EMPTY_FORM } from '../constants/petApply.constants';
 import { validateForm } from '../utils/validateForm';
@@ -15,41 +22,25 @@ export function usePetApply() {
   const { pets } = usePets();
   const { adopter, isAuthenticated } = useAdopter();
 
-  const localPet =
-    pets.find((p) => String(p.id) === id) ??
-    PET_LISTINGS.find((p) => String(p.id) === id);
+  const localPet = pets.find((p) => String(p.id) === id);
 
   const numericId = id ? Number(id) : NaN;
   const isInvalidId = !id || !Number.isInteger(numericId) || numericId <= 0;
 
-  const [fetchedPet, setFetchedPet] = useState<PetCard | null>(null);
-  const [notFound, setNotFound] = useState(false);
-
-  useEffect(() => {
-    if (localPet || isInvalidId) return;
-    let cancelled = false;
-    apiGetPet(numericId)
-      .then((res) => {
-        if (cancelled) return;
-        setFetchedPet(apiPetToPetCard(res.data));
-      })
-      .catch((err) => {
-        if (cancelled) return;
-        console.error('Failed to load pet', err);
-        setNotFound(true);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [localPet, isInvalidId, numericId]);
+  const { data: fetchedPet, isError: petNotFound } = useQuery({
+    queryKey: queryKeys.pets.detail(numericId),
+    queryFn: () => apiGetPet(numericId).then((res) => apiPetToPetCard(res.data)),
+    enabled: !localPet && !isInvalidId,
+  });
 
   const pet = localPet ?? fetchedPet;
 
+  const adoptionMutation = useMutation({
+    mutationFn: (input: CreateAdoptionInput) => apiCreateAdoption(input),
+  });
+
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [errors, setErrors] = useState<FormFieldErrors>({});
-  const [apiError, setApiError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signup');
   const [showStickyFooter, setShowStickyFooter] = useState(false);
@@ -79,7 +70,7 @@ export function usePetApply() {
     setAuthOpen(true);
   }
 
-  async function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!pet) return;
 
@@ -92,11 +83,8 @@ export function usePetApply() {
       return;
     }
 
-    setApiError('');
-    setLoading(true);
-
-    try {
-      await apiCreateAdoption({
+    adoptionMutation.mutate(
+      {
         petId: pet.id,
         ...(form.message.trim() ? { message: form.message.trim() } : {}),
         homeType: form.homeType as HomeType,
@@ -119,28 +107,29 @@ export function usePetApply() {
         reasonForAdopting: form.reasonForAdopting.trim(),
         hasBackupCarePlan: form.hasBackupCarePlan as boolean,
         awareOfMonthlyCosts: form.awareOfMonthlyCosts as boolean,
-      });
-
-      setSubmitted(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (err) {
-      setApiError(
-        err instanceof ApiError ? err.message : 'An unexpected error occurred.',
-      );
-      setLoading(false);
-    }
+      },
+      {
+        onSuccess: () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+      },
+    );
   }
+
+  const apiError = adoptionMutation.error
+    ? getErrorMessage(adoptionMutation.error, 'An unexpected error occurred.')
+    : '';
 
   return {
     pet,
-    notFound: notFound || (isInvalidId && !localPet),
+    notFound: petNotFound || (isInvalidId && !localPet),
     isAuthenticated,
     adopter,
     form,
     errors,
     apiError,
-    loading,
-    submitted,
+    loading: adoptionMutation.isPending,
+    submitted: adoptionMutation.isSuccess,
     authOpen,
     authMode,
     showStickyFooter,

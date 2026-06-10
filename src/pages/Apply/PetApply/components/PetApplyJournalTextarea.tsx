@@ -42,7 +42,7 @@ export default function PetApplyJournalTextarea({
           transition: 'border-color 180ms var(--ease-out), background 180ms var(--ease-out)',
         }}
         onFocus={(e) => {
-          e.currentTarget.style.borderColor = '#E8923C'
+          e.currentTarget.style.borderColor = 'var(--rausch)'
           e.currentTarget.style.background = 'white'
         }}
         onBlur={(e) => {

@@ -47,7 +47,7 @@ export default function PetApplySuccessScreen({ petId, petName }: PetApplySucces
             fontWeight: 700,
             letterSpacing: '0.18em',
             textTransform: 'uppercase',
-            color: '#1D7575',
+            color: 'var(--color-teal-500)',
             margin: '0 0 14px',
           }}
         >
@@ -86,7 +86,7 @@ export default function PetApplySuccessScreen({ petId, petName }: PetApplySucces
               key={step.n}
               style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 16, alignItems: 'baseline' }}
             >
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 22, color: '#E8923C', fontWeight: 500 }}>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: 22, color: 'var(--rausch)', fontWeight: 500 }}>
                 {step.n}
               </span>
               <div>

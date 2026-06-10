@@ -43,7 +43,7 @@ export default function PetApplyChapter3Experience({ form, errors, set }: PetApp
             min={0}
             max={100}
             style={{ ...numberInput, marginTop: 14 }}
-            onFocus={(e) => { e.currentTarget.style.borderColor = '#E8923C' }}
+            onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--rausch)' }}
             onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--hairline)' }}
           />
           <PetApplyMarginErr msg={errors.yearsOfPetExperience} />

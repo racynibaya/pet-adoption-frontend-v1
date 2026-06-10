@@ -10,7 +10,7 @@ import {
 export default function HomeHero() {
   return (
     <section
-      className='home-hero r-grid-hero mt-6 rounded-[28px] overflow-hidden relative gap-8 items-end'
+      className='home-hero r-grid-hero mt-6 rounded-28 overflow-hidden relative gap-8 items-end'
       style={{
         background:
           'radial-gradient(ellipse 65% 55% at 84% 16%, rgba(93,181,196,0.45) 0%, transparent 52%),' +
@@ -28,7 +28,7 @@ export default function HomeHero() {
           family member
         </h1>
         <p
-          className='mt-6 text-[17px] max-w-115'
+          className='mt-6 text-17 max-w-115'
           style={{ color: 'var(--ink-2)' }}
         >
           Browse adoptable pets from shelters near you, submit an application,

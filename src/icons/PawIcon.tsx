@@ -1,4 +1,4 @@
-export default function PawIcon({ width = 20, height = 20, color = '#E8923C' }: { width?: number; height?: number; color?: string }) {
+export default function PawIcon({ width = 20, height = 20, color = 'var(--rausch)' }: { width?: number; height?: number; color?: string }) {
   return (
     <svg width={width} height={height} viewBox="0 0 24 24" fill="none">
       <ellipse cx="6" cy="9" rx="2.2" ry="3" fill={color} />

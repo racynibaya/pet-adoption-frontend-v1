@@ -56,13 +56,13 @@ export default function SavedDrawer() {
           <div className='flex items-center gap-2.5'>
             <Heart size={18} fill={saved.length > 0 ? 'currentColor' : 'none'} strokeWidth={2} />
             <h2
-              className='text-[20px] font-bold text-(--ink) tracking-[-0.012em] m-0'
+              className='text-20 font-bold text-(--ink) tracking-n12 m-0'
               style={{ fontFamily: 'var(--font-display)' }}
             >
               Saved Pets
             </h2>
             {saved.length > 0 && (
-              <span className='inline-flex items-center justify-center min-w-5.5 h-5.5 rounded-full bg-(--rausch) text-white text-[11px] font-bold px-1.5'>
+              <span className='inline-flex items-center justify-center min-w-5.5 h-5.5 rounded-full bg-(--rausch) text-white text-11 font-bold px-1.5'>
                 {saved.length}
               </span>
             )}
@@ -82,7 +82,7 @@ export default function SavedDrawer() {
             {savedPets.map((pet) => (
               <div
                 key={pet.id}
-                className='flex gap-3.5 items-center px-3.5 py-3 rounded-[14px] border border-(--hairline-soft) bg-(--canvas) transition-[box-shadow,transform] duration-200 ease-out hover:shadow-(--shadow-soft) hover:-translate-y-px'
+                className='flex gap-3.5 items-center px-3.5 py-3 rounded-14 border border-(--hairline-soft) bg-(--canvas) transition-[box-shadow,transform] duration-200 ease-out hover:shadow-(--shadow-soft) hover:-translate-y-px'
               >
                 <Link
                   to={`/pets/${pet.id}`}
@@ -100,18 +100,18 @@ export default function SavedDrawer() {
                   className='flex-1 min-w-0'
                   style={{ textDecoration: 'none' }}
                 >
-                  <h4 className='text-[15px] font-semibold text-(--ink) whitespace-nowrap overflow-hidden text-ellipsis'>
+                  <h4 className='text-15 font-semibold text-(--ink) whitespace-nowrap overflow-hidden text-ellipsis'>
                     {pet.name}
                   </h4>
-                  <p className='text-[12px] text-(--muted) mt-0.75 whitespace-nowrap overflow-hidden text-ellipsis'>
+                  <p className='text-12 text-(--muted) mt-0.75 whitespace-nowrap overflow-hidden text-ellipsis'>
                     {pet.breed} · {pet.gender} · {ageLabel(pet.ageMonths)}
                   </p>
-                  <p className='text-[11px] text-(--muted-soft) mt-0.5 whitespace-nowrap overflow-hidden text-ellipsis'>
+                  <p className='text-11 text-(--muted-soft) mt-0.5 whitespace-nowrap overflow-hidden text-ellipsis'>
                     <span
                       className='inline-block w-1.5 h-1.5 rounded-full mr-1.25 align-middle'
                       style={{
                         background:
-                          pet.status === 'AVAILABLE' ? '#1D7575' : '#a87d12',
+                          pet.status === 'AVAILABLE' ? 'var(--color-teal-500)' : '#a87d12',
                       }}
                     />
                     {pet.shelterName}
@@ -119,7 +119,7 @@ export default function SavedDrawer() {
                 </Link>
 
                 <button
-                  className='w-7.5 h-7.5 rounded-full border-0 bg-transparent text-(--muted) flex items-center justify-center cursor-pointer shrink-0 transition-[background,color,transform] duration-120 ease-out hover:bg-[#fff0f2] hover:text-[#e0465a] hover:scale-[1.14] active:scale-[0.88]'
+                  className='w-7.5 h-7.5 rounded-full border-0 bg-transparent text-(--muted) flex items-center justify-center cursor-pointer shrink-0 transition-[background,color,transform] duration-120 ease-out hover:bg-heart-soft hover:text-heart hover:scale-[1.14] active:scale-[0.88]'
                   onClick={() => toggle(String(pet.id))}
                   aria-label={`Remove ${pet.name} from saved`}
                 >
@@ -133,8 +133,8 @@ export default function SavedDrawer() {
             <div className='w-14 h-14 rounded-full bg-(--soft) flex items-center justify-center text-(--muted)'>
               <Heart size={24} strokeWidth={2} />
             </div>
-            <h3 className='text-[17px] text-(--ink)'>No saved pets yet</h3>
-            <p className='text-[14px] text-(--muted) leading-[1.55] max-w-65'>
+            <h3 className='text-17 text-(--ink)'>No saved pets yet</h3>
+            <p className='text-14 text-(--muted) leading-155 max-w-65'>
               Heart a pet on the Browse page to save them here for later.
             </p>
           </div>

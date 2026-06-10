@@ -12,7 +12,7 @@ export default function AboutTeam() {
             className='text-center transition-transform duration-200 hover:-translate-y-1.25 group'
           >
             <div
-              className='rounded-[20px] overflow-hidden mb-3.5 transition-shadow duration-200 group-hover:[box-shadow:0_12px_32px_rgba(18,52,64,0.14)]'
+              className='rounded-20 overflow-hidden mb-3.5 transition-shadow duration-200 group-hover:[box-shadow:0_12px_32px_rgba(18,52,64,0.14)]'
               style={{ aspectRatio: '1/1', background: bg }}
             >
               {svg}

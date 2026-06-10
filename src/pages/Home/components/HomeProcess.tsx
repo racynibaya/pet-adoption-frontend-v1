@@ -10,11 +10,11 @@ function ProcessCard({ step }: ProcessCardProps) {
   const { step: stepLabel, title, description, iconBackground, Icon } = step;
   return (
     <div
-      className='bg-white rounded-[18px] relative [box-shadow:var(--shadow-soft)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1.25 hover:[box-shadow:var(--shadow-lift)]'
+      className='bg-white rounded-18 relative [box-shadow:var(--shadow-soft)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1.25 hover:[box-shadow:var(--shadow-lift)]'
       style={{ padding: '32px 28px' }}
     >
       <span
-        className='absolute flex items-center text-white text-[11px] font-bold tracking-[0.06em] uppercase rounded-full'
+        className='absolute flex items-center text-white text-11 font-bold tracking-6 uppercase rounded-full'
         style={{
           top: -12,
           left: 24,
@@ -26,7 +26,7 @@ function ProcessCard({ step }: ProcessCardProps) {
         {stepLabel}
       </span>
       <div
-        className='w-14 h-14 rounded-[14px] inline-flex items-center justify-center mb-4.5'
+        className='w-14 h-14 rounded-14 inline-flex items-center justify-center mb-4.5'
         style={{ background: iconBackground }}
       >
         <Icon />
@@ -42,7 +42,7 @@ export default function HomeProcess() {
     <section className='section'>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
         <div
-          className='home-process-card rounded-[28px] relative overflow-hidden border border---hairline-soft)'
+          className='home-process-card rounded-28 relative overflow-hidden border border---hairline-soft)'
           style={{
             background: 'linear-gradient(145deg, var(--soft) 0%, #eae8e2 100%)',
           }}

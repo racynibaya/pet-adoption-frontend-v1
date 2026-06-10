@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { apiGetShelters, type ApiShelter } from '@/services/api'
+import { useSheltersQuery } from '@/queries/useSheltersQuery'
 import { usePets } from '@/context/usePets'
 import { useAdoptions } from '@/context/useAdoptions'
 import { useStaffAuth } from '@/context/useStaffAuth'
@@ -16,17 +16,9 @@ export default function AdminShelters() {
   const { pets } = usePets()
   const { adoptions } = useAdoptions()
   const { staffUser } = useStaffAuth()
-  const [remote, setRemote] = useState<ApiShelter[] | null>(null)
-  const [loadError, setLoadError] = useState(false)
+  const { data, isError: loadError } = useSheltersQuery()
+  const remote = data ?? null
   const [selectedId, setSelectedId] = useState<number | null>(null)
-
-  useEffect(() => {
-    let cancelled = false
-    apiGetShelters()
-      .then(res => { if (!cancelled) setRemote(res.data) })
-      .catch(() => { if (!cancelled) setLoadError(true) })
-    return () => { cancelled = true }
-  }, [])
 
   const shelters: AggregatedShelter[] = useMemo(() => {
     if (remote && remote.length > 0) {

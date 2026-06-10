@@ -14,7 +14,7 @@ export default function PetApplySubmitRow({ loading, answered, total }: PetApply
         disabled={loading}
         style={{
           padding: '15px 36px',
-          background: loading ? '#f5ae50' : 'var(--rausch)',
+          background: loading ? 'var(--color-amber-400)' : 'var(--rausch)',
           color: 'white',
           border: 'none',
           borderRadius: 13,

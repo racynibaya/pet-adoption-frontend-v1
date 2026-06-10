@@ -84,7 +84,7 @@ function FilterPill({ label, icon, count, open, onClick }: FilterPillProps) {
       onClick={onClick}
       aria-expanded={open}
       aria-haspopup='menu'
-      className={`group w-full md:w-auto md:shrink-0 inline-flex items-center justify-center md:justify-start gap-2 h-11 px-3.5 rounded-full text-[13.5px] font-medium transition-[background,color] duration-200 ${
+      className={`group w-full md:w-auto md:shrink-0 inline-flex items-center justify-center md:justify-start gap-2 h-11 px-3.5 rounded-full text-14 font-medium transition-[background,color] duration-200 ${
         isActive
           ? 'bg-(--ink) text-white'
           : 'text-(--ink-2) hover:bg-(--soft) hover:text-(--ink)'
@@ -107,7 +107,7 @@ function FilterPill({ label, icon, count, open, onClick }: FilterPillProps) {
       </span>
       {hasSelection && (
         <span
-          className={`inline-flex items-center justify-center h-5 min-w-5 px-1.5 rounded-full text-[11px] font-bold tabular-nums ${
+          className={`inline-flex items-center justify-center h-5 min-w-5 px-1.5 rounded-full text-11 font-bold tabular-nums ${
             isActive ? 'bg-white/15 text-white' : 'bg-(--rausch-soft) text-(--rausch-active)'
           }`}
         >
@@ -167,7 +167,7 @@ function LocationPopover({
     <div
       ref={ref}
       role='menu'
-      className={`absolute top-full mt-3 z-30 w-[min(340px,calc(100vw-2rem))] rounded-[28px] bg-(--canvas) [box-shadow:var(--shadow-lift)] ring-1 ring-(--hairline-soft) overflow-hidden ${
+      className={`absolute top-full mt-3 z-30 w-[min(340px,calc(100vw-2rem))] rounded-28 bg-(--canvas) [box-shadow:var(--shadow-lift)] ring-1 ring-(--hairline-soft) overflow-hidden ${
         align === 'right' ? 'right-0' : 'left-0'
       }`}
       style={{
@@ -190,7 +190,7 @@ function LocationPopover({
             autoFocus
             placeholder='Find a province'
             aria-label='Find a province'
-            className='h-9 w-full bg-transparent border-0 border-b border-(--hairline-soft) pl-6 pr-1 text-[13.5px] text-(--ink) outline-none placeholder:text-(--muted) focus:border-(--ink) transition-colors duration-150'
+            className='h-9 w-full bg-transparent border-0 border-b border-(--hairline-soft) pl-6 pr-1 text-14 text-(--ink) outline-none placeholder:text-(--muted) focus:border-(--ink) transition-colors duration-150'
           />
         </div>
       </div>
@@ -202,7 +202,7 @@ function LocationPopover({
             onSelect('ALL');
             onClose();
           }}
-          className={`group w-full flex items-center justify-between px-5 py-2 text-left text-[14px] transition-colors ${
+          className={`group w-full flex items-center justify-between px-5 py-2 text-left text-14 transition-colors ${
             allActive
               ? 'text-(--ink) font-semibold'
               : 'text-(--ink-2) hover:text-(--ink)'
@@ -226,7 +226,7 @@ function LocationPopover({
         </button>
 
         {empty && (
-          <p className='px-5 py-6 text-center text-[13px] text-(--muted)'>
+          <p className='px-5 py-6 text-center text-13 text-(--muted)'>
             No provinces match “{query}”.
           </p>
         )}
@@ -237,10 +237,10 @@ function LocationPopover({
           return (
             <div key={r} className='mt-3'>
               <div className='flex items-baseline justify-between px-5 pb-1.5'>
-                <span className='text-[11px] font-semibold uppercase tracking-[0.16em] text-(--muted)'>
+                <span className='text-11 font-semibold uppercase tracking-16 text-(--muted)'>
                   {meta.display}
                 </span>
-                <span className='text-[10.5px] uppercase tracking-widest text-(--muted-soft) tabular-nums'>
+                <span className='text-11 uppercase tracking-widest text-(--muted-soft) tabular-nums'>
                   {provs.length}
                 </span>
               </div>
@@ -255,7 +255,7 @@ function LocationPopover({
                           onSelect(p.name);
                           onClose();
                         }}
-                        className={`group w-full flex items-center justify-between px-5 py-1.5 text-left text-[13.5px] transition-colors ${
+                        className={`group w-full flex items-center justify-between px-5 py-1.5 text-left text-14 transition-colors ${
                           isSelected
                             ? 'text-(--ink) font-semibold'
                             : 'text-(--ink-2) hover:text-(--ink)'
@@ -272,7 +272,7 @@ function LocationPopover({
                             {p.name}
                           </span>
                           {p.count > 0 && (
-                            <span className='text-[11px] text-(--muted) tabular-nums shrink-0'>
+                            <span className='text-11 text-(--muted) tabular-nums shrink-0'>
                               {p.count}
                             </span>
                           )}
@@ -340,13 +340,13 @@ function Chip({
       disabled={muted}
       className={`group inline-flex items-center justify-center h-9 w-full rounded-full px-3 transition-[background,color,transform,box-shadow,border-color] duration-150 active:scale-[0.97] ${
         active
-          ? 'bg-(--ink) text-white border border-(--ink) shadow-[0_2px_8px_-2px_rgba(28,44,44,0.22)]'
+          ? 'bg-(--ink) text-white border border-(--ink) shadow-card-md'
           : muted
             ? 'bg-(--canvas) text-(--muted-soft) border border-(--hairline-soft) cursor-not-allowed'
-            : 'bg-(--canvas) text-(--ink) border border-(--hairline) shadow-[0_1px_0_rgba(28,44,44,0.04)] hover:bg-(--cream) hover:border-(--ink-2) hover:-translate-y-px hover:shadow-[0_3px_8px_-3px_rgba(28,44,44,0.12)]'
+            : 'bg-(--canvas) text-(--ink) border border-(--hairline) shadow-hairline hover:bg-(--cream) hover:border-(--ink-2) hover:-translate-y-px hover:shadow-card-sm'
       }`}
     >
-      <span className='text-[12.5px] font-semibold leading-none whitespace-nowrap'>
+      <span className='text-13 font-semibold leading-none whitespace-nowrap'>
         {label}
       </span>
     </button>
@@ -365,11 +365,11 @@ function RefineSection({
   return (
     <div className='px-5 pt-4'>
       <div className='flex items-baseline justify-between gap-3 mb-2.5'>
-        <p className='text-[11px] font-semibold uppercase tracking-[0.16em] text-(--muted)'>
+        <p className='text-11 font-semibold uppercase tracking-16 text-(--muted)'>
           {title}
         </p>
         {hint && (
-          <p className='text-[10.5px] text-(--muted-soft) tabular-nums truncate'>
+          <p className='text-11 text-(--muted-soft) tabular-nums truncate'>
             {hint}
           </p>
         )}
@@ -402,7 +402,7 @@ function RefinePopover({
     <div
       ref={ref}
       role='menu'
-      className={`absolute top-full mt-3 z-30 w-[min(380px,calc(100vw-2rem))] rounded-[28px] bg-(--canvas) [box-shadow:var(--shadow-lift)] ring-1 ring-(--hairline) overflow-hidden ${
+      className={`absolute top-full mt-3 z-30 w-[min(380px,calc(100vw-2rem))] rounded-28 bg-(--canvas) [box-shadow:var(--shadow-lift)] ring-1 ring-(--hairline) overflow-hidden ${
         align === 'right' ? 'right-0' : 'left-0'
       }`}
       style={{
@@ -411,7 +411,7 @@ function RefinePopover({
       }}
     >
       <div className='flex items-center justify-between px-5 pt-4 pb-1'>
-        <p className='text-[11px] font-semibold uppercase tracking-[0.16em] text-(--muted)'>
+        <p className='text-11 font-semibold uppercase tracking-16 text-(--muted)'>
           Refine
           {refineCount > 0 && (
             <span className='ml-2 text-(--ink) tabular-nums'>
@@ -423,7 +423,7 @@ function RefinePopover({
           type='button'
           onClick={onReset}
           disabled={refineCount === 0}
-          className='text-[11px] font-semibold uppercase tracking-[0.16em] text-(--ink-2) hover:text-(--rausch) transition-colors disabled:text-(--muted-soft) disabled:cursor-not-allowed'
+          className='text-11 font-semibold uppercase tracking-16 text-(--ink-2) hover:text-(--rausch) transition-colors disabled:text-(--muted-soft) disabled:cursor-not-allowed'
         >
           Reset
         </button>
@@ -448,10 +448,10 @@ function RefinePopover({
                   disabled={muted}
                   className={`inline-flex items-center gap-1.5 h-9 rounded-full pl-2.5 pr-3 transition-[background,color,transform,box-shadow,border-color] duration-150 active:scale-[0.97] ${
                     isOn
-                      ? 'bg-(--ink) text-white border border-(--ink) shadow-[0_2px_8px_-2px_rgba(28,44,44,0.22)]'
+                      ? 'bg-(--ink) text-white border border-(--ink) shadow-card-md'
                       : muted
                         ? 'bg-(--canvas) text-(--muted-soft) border border-(--hairline-soft) cursor-not-allowed'
-                        : 'bg-(--canvas) text-(--ink) border border-(--hairline) shadow-[0_1px_0_rgba(28,44,44,0.04)] hover:bg-(--cream) hover:border-(--ink-2) hover:-translate-y-px hover:shadow-[0_3px_8px_-3px_rgba(28,44,44,0.12)]'
+                        : 'bg-(--canvas) text-(--ink) border border-(--hairline) shadow-hairline hover:bg-(--cream) hover:border-(--ink-2) hover:-translate-y-px hover:shadow-card-sm'
                   }`}
                 >
                   <Icon
@@ -460,12 +460,12 @@ function RefinePopover({
                       isOn ? 'text-white/85' : 'text-(--rausch)'
                     }`}
                   />
-                  <span className='text-[12.5px] font-semibold capitalize leading-none'>
+                  <span className='text-13 font-semibold capitalize leading-none'>
                     {labels.plur}
                   </span>
                   {count > 0 && (
                     <span
-                      className={`text-[10.5px] tabular-nums leading-none ${
+                      className={`text-11 tabular-nums leading-none ${
                         isOn ? 'text-white/55' : 'text-(--muted)'
                       }`}
                     >
@@ -657,12 +657,12 @@ function SearchField({
         onChange={(e) => onChange(e.target.value)}
         placeholder='Search by shelter name or city'
         aria-label='Search shelters by name or city'
-        className='h-11 w-full bg-transparent border-0 border-b border-(--hairline) pl-7 pr-10 text-[14.5px] text-(--ink) outline-none transition-colors duration-200 placeholder:text-(--muted-soft) focus:border-(--ink)'
+        className='h-11 w-full bg-transparent border-0 border-b border-(--hairline) pl-7 pr-10 text-15 text-(--ink) outline-none transition-colors duration-200 placeholder:text-(--muted-soft) focus:border-(--ink)'
       />
       {value.length === 0 && (
         <kbd
           aria-hidden='true'
-          className='absolute right-1 top-1/2 -translate-y-1/2 hidden md:inline-flex items-center justify-center h-5 w-5 text-[11px] font-semibold text-(--muted-soft) tabular-nums'
+          className='absolute right-1 top-1/2 -translate-y-1/2 hidden md:inline-flex items-center justify-center h-5 w-5 text-11 font-semibold text-(--muted-soft) tabular-nums'
         >
           /
         </kbd>
@@ -733,12 +733,12 @@ function EmptyState({
   onClear?: () => void;
 }) {
   return (
-    <div className='mt-12 rounded-[20px] border border-(--hairline-soft) bg-(--canvas) py-16 px-8 text-center [box-shadow:var(--shadow-card)]'>
+    <div className='mt-12 rounded-20 border border-(--hairline-soft) bg-(--canvas) py-16 px-8 text-center [box-shadow:var(--shadow-card)]'>
       <div className='inline-flex'>
         <EmptyStateIcon />
       </div>
-      <h3 className='text-[22px] mt-5'>{title}</h3>
-      <p className='mt-3 mx-auto max-w-md text-[14.5px] text-(--ink-2) leading-relaxed'>
+      <h3 className='text-22 mt-5'>{title}</h3>
+      <p className='mt-3 mx-auto max-w-md text-15 text-(--ink-2) leading-relaxed'>
         {copy}
       </p>
       {onClear && (
@@ -756,7 +756,7 @@ function EmptyState({
 
 function SkeletonCard() {
   return (
-    <article className='bg-(--canvas) rounded-[20px] overflow-hidden border border-(--hairline-soft)'>
+    <article className='bg-(--canvas) rounded-20 overflow-hidden border border-(--hairline-soft)'>
       <div
         className='bg-(--soft) animate-pulse'
         style={{ aspectRatio: '4 / 3' }}
@@ -949,7 +949,7 @@ export default function UseCasesShelterGrid({
 
         {/* Result line — sentence on its own row, controls beneath. */}
         <div className='mt-5'>
-          <p className='text-[13.5px] text-(--ink-2) leading-relaxed'>
+          <p className='text-14 text-(--ink-2) leading-relaxed'>
             {f.matchCount === 0 ? (
               'No shelters match these filters.'
             ) : (
@@ -1007,7 +1007,7 @@ export default function UseCasesShelterGrid({
                   aria-label='Show only shelters with adoptable pets'
                 />
                 <span
-                  className='absolute inset-0 rounded-full bg-(--hairline) transition-colors duration-200 peer-checked:bg-(--ink) peer-focus-visible:shadow-[0_0_0_3px_rgba(232,146,60,0.25)]'
+                  className='absolute inset-0 rounded-full bg-(--hairline) transition-colors duration-200 peer-checked:bg-(--ink) peer-focus-visible:shadow-amber-ring'
                   aria-hidden='true'
                 />
                 <span
@@ -1015,11 +1015,11 @@ export default function UseCasesShelterGrid({
                   aria-hidden='true'
                 />
               </span>
-              <span className='text-[12.5px] text-(--ink-2)'>
+              <span className='text-13 text-(--ink-2)'>
                 Only with pets
               </span>
               {inactiveCount > 0 && (
-                <span className='text-[11.5px] text-(--muted-soft) tabular-nums'>
+                <span className='text-12 text-(--muted-soft) tabular-nums'>
                   ({inactiveCount})
                 </span>
               )}
@@ -1029,7 +1029,7 @@ export default function UseCasesShelterGrid({
               <button
                 type='button'
                 onClick={f.clearAll}
-                className='text-[12px] font-semibold uppercase tracking-[0.14em] text-(--muted) hover:text-(--rausch) transition-colors duration-150'
+                className='text-12 font-semibold uppercase tracking-14 text-(--muted) hover:text-(--rausch) transition-colors duration-150'
               >
                 Reset all
               </button>

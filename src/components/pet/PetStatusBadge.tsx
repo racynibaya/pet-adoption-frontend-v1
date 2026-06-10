@@ -14,8 +14,8 @@ const STATUS_STYLE: Record<
   PetStatus,
   { bg: string; fg: string; border: string; label: string }
 > = {
-  AVAILABLE: { bg: '#e6f4f0', fg: '#1D7575', border: '#99D0D9', label: 'Available' },
-  PENDING: { bg: '#fff3d9', fg: '#a87d12', border: '#FAC878', label: 'Pending' },
+  AVAILABLE: { bg: '#e6f4f0', fg: 'var(--color-teal-500)', border: 'var(--color-teal-200)', label: 'Available' },
+  PENDING: { bg: '#fff3d9', fg: '#a87d12', border: 'var(--color-amber-300)', label: 'Pending' },
   ADOPTED: { bg: '#eeeef8', fg: '#5a5a9e', border: '#c0c0e0', label: 'Adopted' },
 }
 

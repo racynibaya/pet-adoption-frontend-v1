@@ -1,55 +1,29 @@
-import { useEffect, useState } from 'react';
-import { apiGetPets } from '@/services/api';
-import { apiPetToPetCard } from '@/data/adapters';
+import { useState } from 'react';
 import type {
-  PetCard,
   SpeciesFilter,
   GenderFilter,
   SizeFilter,
 } from '@/data/pets';
 import type { BackendSpecies, BackendGender, BackendSize } from '@/services/api';
-import { PAGE_SIZE } from '../constants/services.constants';
+import { usePetsQuery } from '@/queries/usePetsQuery';
 
 export function useServicesPets() {
   const [activeSpecies, setActiveSpeciesState] = useState<SpeciesFilter>('ALL');
   const [activeGender, setActiveGenderState] = useState<GenderFilter>('ANY');
   const [activeSize, setActiveSizeState] = useState<SizeFilter>('ANY');
-  const [pets, setPets] = useState<PetCard[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalPets, setTotalPets] = useState(0);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    let cancelled = false;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- standard fetch-in-effect pattern; matches React docs example
-    setLoading(true);
+  const filters = {
+    ...(activeSpecies !== 'ALL' && { species: activeSpecies as BackendSpecies }),
+    ...(activeGender !== 'ANY' && { gender: activeGender as BackendGender }),
+    ...(activeSize !== 'ANY' && { size: activeSize as BackendSize }),
+  };
 
-    const filters = {
-      ...(activeSpecies !== 'ALL' && { species: activeSpecies as BackendSpecies }),
-      ...(activeGender !== 'ANY' && { gender: activeGender as BackendGender }),
-      ...(activeSize !== 'ANY' && { size: activeSize as BackendSize }),
-    };
-
-    apiGetPets(currentPage, PAGE_SIZE, filters)
-      .then((res) => {
-        if (cancelled) return;
-
-        setPets(res.data.map(apiPetToPetCard));
-        setTotalPages(res.pagination.totalPages);
-        setTotalPets(res.pagination.total);
-      })
-      .catch((err) => {
-        if (cancelled) return;
-        console.error('Failed to load pets', err);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [currentPage, activeSpecies, activeGender, activeSize]);
+  const { data, isPending } = usePetsQuery(currentPage, filters);
+  const pets = data?.pets ?? [];
+  const totalPages = data?.totalPages ?? 1;
+  const totalPets = data?.totalPets ?? 0;
+  const loading = isPending;
 
   function setActiveSpecies(value: SpeciesFilter) {
     setActiveSpeciesState(value);

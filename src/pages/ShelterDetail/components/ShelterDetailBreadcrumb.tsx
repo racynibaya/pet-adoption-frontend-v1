@@ -7,7 +7,7 @@ interface ShelterDetailBreadcrumbProps {
 
 export default function ShelterDetailBreadcrumb({ shelterName }: ShelterDetailBreadcrumbProps) {
   return (
-    <nav className='flex items-center gap-2 pt-6 pb-5 text-[13px] text-(--muted)'>
+    <nav className='flex items-center gap-2 pt-6 pb-5 text-13 text-(--muted)'>
       <Link
         to='/shelters'
         className='inline-flex items-center gap-1.5 text-(--muted) hover:text-(--ink) transition-colors font-semibold no-underline'

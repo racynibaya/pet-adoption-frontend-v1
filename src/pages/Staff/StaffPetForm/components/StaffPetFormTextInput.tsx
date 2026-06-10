@@ -24,7 +24,7 @@ export default function StaffPetFormTextInput({
       placeholder={placeholder}
       required={required}
       style={BASE_INPUT_STYLE}
-      onFocus={(e) => { e.currentTarget.style.borderColor = '#E8923C' }}
+      onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--rausch)' }}
       onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(28, 44, 44, 0.13)' }}
     />
   )

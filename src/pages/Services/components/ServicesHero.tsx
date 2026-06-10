@@ -12,23 +12,23 @@ interface ServicesHeroProps {
 export default function ServicesHero({ activeSpecies, onSpeciesChange }: ServicesHeroProps) {
   return (
     <section
-      className='relative overflow-hidden rounded-[28px] mt-6 p-6 md:p-[72px_64px] grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-12 items-center'
+      className='relative overflow-hidden rounded-28 mt-6 p-6 md:py-18 md:px-16 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-12 items-center'
       style={{
         background: `
           radial-gradient(ellipse 62% 52% at 88% 22%, rgba(29,117,117,0.15) 0%, transparent 54%),
           radial-gradient(ellipse 48% 58% at 12% 80%, rgba(232,146,60,0.18) 0%, transparent 53%),
-          linear-gradient(160deg, #FDFAF4 0%, #F0E8D0 100%)
+          linear-gradient(160deg, var(--canvas) 0%, #F0E8D0 100%)
         `,
       }}
     >
       <div>
         <Eyebrow>Browse pets</Eyebrow>
-        <h1 className='mt-4 text-[30px] sm:text-[40px] md:text-[64px] leading-[1.04]'>
+        <h1 className='mt-4 text-30 sm:text-40 md:text-64 leading-104'>
           Find your perfect
           <br />
           companion
         </h1>
-        <p className='text-(--ink-2) mt-4.5 max-w-120 text-[17px]'>
+        <p className='text-(--ink-2) mt-4.5 max-w-120 text-17'>
           Every pet listed here is available for adoption from a verified
           shelter. Filter by species, size, and gender to find the match
           that's right for your home.

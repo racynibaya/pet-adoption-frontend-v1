@@ -22,22 +22,22 @@ export default function AdminDashboardSparkline({ points, max }: AdminDashboardS
     <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio='none' aria-hidden>
       <defs>
         <linearGradient id='sparkFill' x1='0' y1='0' x2='0' y2='1'>
-          <stop offset='0%' stopColor='#e8923c' stopOpacity='0.32' />
-          <stop offset='100%' stopColor='#e8923c' stopOpacity='0' />
+          <stop offset='0%' stopColor='var(--rausch)' stopOpacity='0.32' />
+          <stop offset='100%' stopColor='var(--rausch)' stopOpacity='0' />
         </linearGradient>
       </defs>
       <path d={area} fill='url(#sparkFill)' />
       <path
         d={path}
         fill='none'
-        stroke='#e8923c'
+        stroke='var(--rausch)'
         strokeWidth='1.5'
         strokeLinecap='round'
         strokeLinejoin='round'
         vectorEffect='non-scaling-stroke'
       />
       {coords.map((c, i) => (
-        <circle key={i} cx={c.x} cy={c.y} r='1.4' fill='#cb7730' />
+        <circle key={i} cx={c.x} cy={c.y} r='1.4' fill='var(--rausch-active)' />
       ))}
     </svg>
   )

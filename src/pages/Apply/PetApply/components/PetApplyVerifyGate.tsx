@@ -41,7 +41,7 @@ export default function PetApplyVerifyGate({ email }: PetApplyVerifyGateProps) {
           height: 60,
           borderRadius: '50%',
           background: '#e6f4f0',
-          border: '1.5px solid #99D0D9',
+          border: '1.5px solid var(--color-teal-200)',
           margin: '0 auto 22px',
           display: 'flex',
           alignItems: 'center',
@@ -49,7 +49,7 @@ export default function PetApplyVerifyGate({ email }: PetApplyVerifyGateProps) {
         }}
         aria-hidden
       >
-        <Mail size={26} color='#1D7575' strokeWidth={1.8} />
+        <Mail size={26} color='var(--color-teal-500)' strokeWidth={1.8} />
       </div>
       <h2
         style={{
@@ -74,10 +74,10 @@ export default function PetApplyVerifyGate({ email }: PetApplyVerifyGateProps) {
         disabled={status !== 'idle'}
         style={{
           padding: '12px 26px',
-          background: status === 'sent' ? '#1D7575' : 'white',
+          background: status === 'sent' ? 'var(--color-teal-500)' : 'white',
           color: status === 'sent' ? 'white' : 'var(--ink-2)',
           border: '1.5px solid',
-          borderColor: status === 'sent' ? '#1D7575' : 'var(--hairline)',
+          borderColor: status === 'sent' ? 'var(--color-teal-500)' : 'var(--hairline)',
           borderRadius: 12,
           fontSize: 14,
           fontWeight: 600,

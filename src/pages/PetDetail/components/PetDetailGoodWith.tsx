@@ -33,8 +33,8 @@ export default function PetDetailGoodWith({ items }: PetDetailGoodWithProps) {
               padding: '7px 16px',
               borderRadius: 30,
               background: '#e6f4f0',
-              color: '#1D7575',
-              border: '1.5px solid #99D0D9',
+              color: 'var(--color-teal-500)',
+              border: '1.5px solid var(--color-teal-200)',
             }}
           >
             <Check size={14} strokeWidth={2.5} />

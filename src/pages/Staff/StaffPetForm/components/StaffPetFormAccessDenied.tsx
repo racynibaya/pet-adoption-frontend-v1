@@ -65,7 +65,7 @@ export default function StaffPetFormAccessDenied({ petName, shelterName }: Staff
                 alignItems: 'center',
                 gap: 7,
                 padding: '10px 20px',
-                background: '#E8923C',
+                background: 'var(--rausch)',
                 color: 'white',
                 borderRadius: 11,
                 fontWeight: 600,
