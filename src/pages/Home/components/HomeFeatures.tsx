@@ -24,7 +24,7 @@ function FeatureRow({ feature }: FeatureRowProps) {
           {title}
         </h3>
         <p
-          className='text-[15px] leading-relaxed'
+          className='text-15 leading-relaxed'
           style={{ color: 'var(--ink-2)' }}
         >
           {description}

@@ -10,7 +10,7 @@ export default function AboutTimeline() {
           <div key={yr} className='relative pt-15 group'>
             <span className='tl-dot' />
             <div
-              className='text-[24px] font-semibold mb-1.5'
+              className='text-24 font-semibold mb-1.5'
               style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
             >
               {yr}

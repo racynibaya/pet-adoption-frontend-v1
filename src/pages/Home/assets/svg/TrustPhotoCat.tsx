@@ -1,6 +1,6 @@
 export const TrustPhotoCat = () => (
   <div
-    className='home-trust-card-r absolute rounded-[14px] overflow-hidden transition-[transform,box-shadow] duration-340 hover:-translate-y-1.5 hover:scale-[1.02] hover:[box-shadow:0_16px_40px_rgba(0,0,0,0.13)]'
+    className='home-trust-card-r absolute rounded-14 overflow-hidden transition-[transform,box-shadow] duration-340 hover:-translate-y-1.5 hover:scale-[1.02] hover:[box-shadow:0_16px_40px_rgba(0,0,0,0.13)]'
     style={{
       right: 0,
       top: 60,

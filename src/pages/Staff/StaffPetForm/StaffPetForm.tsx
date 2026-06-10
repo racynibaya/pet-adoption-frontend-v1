@@ -39,7 +39,7 @@ export default function StaffPetForm() {
                 style={{
                   padding: '12px 16px',
                   background: 'rgba(217, 79, 104, 0.12)',
-                  color: '#9e2a4a',
+                  color: 'var(--color-rose-700)',
                   border: '1px solid rgba(217, 79, 104, 0.2)',
                   borderRadius: 12,
                   fontSize: 13,

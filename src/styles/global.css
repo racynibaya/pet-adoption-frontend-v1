@@ -55,39 +55,103 @@
   --color-hairline-soft: #deeaec;
   --color-peach-stroke: #e8c28a;
 
+  /* ── Semantic accent: "favorite / saved" heart (reused across save buttons) ── */
+  --color-heart: #e0465a;
+  --color-heart-soft: #fff0f2;
+
   /* ── Fonts ── */
   --font-body: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
   --font-display: 'Lora', 'Georgia', serif;
+
+  /* ── Type scale — exact px sizes used across the app; half-pixels rounded
+     half-up (10.5→11, 13.5→14…). Numeric names so they never collide with
+     Tailwind's default text-xs/sm/base scale. ── */
+  --text-10: 10px;
+  --text-11: 11px;
+  --text-12: 12px;
+  --text-13: 13px;
+  --text-14: 14px;
+  --text-15: 15px;
+  --text-17: 17px;
+  --text-18: 18px;
+  --text-20: 20px;
+  --text-22: 22px;
+  --text-24: 24px;
+  --text-26: 26px;
+  --text-28: 28px;
+  --text-30: 30px;
+  --text-34: 34px;
+  --text-40: 40px;
+  --text-44: 44px;
+  --text-56: 56px;
+  --text-64: 64px;
+
+  /* ── Radii (px) ── */
+  --radius-9: 9px;
+  --radius-10: 10px;
+  --radius-14: 14px;
+  --radius-18: 18px;
+  --radius-20: 20px;
+  --radius-28: 28px;
+
+  /* ── Letter-spacing (numeric = hundredths of an em; n-prefix = negative) ── */
+  --tracking-1: 0.01em;
+  --tracking-6: 0.06em;
+  --tracking-12: 0.12em;
+  --tracking-14: 0.14em;
+  --tracking-16: 0.16em;
+  --tracking-18: 0.18em;
+  --tracking-25: 0.25em;
+  --tracking-n12: -0.012em;
+  --tracking-n16: -0.016em;
+
+  /* ── Line-heights (magic ratios lifted out of JSX) ── */
+  --leading-104: 1.04;
+  --leading-110: 1.1;
+  --leading-120: 1.2;
+  --leading-130: 1.3;
+  --leading-155: 1.55;
+
+  /* ── Shadows (teal-ink tints + amber focus ring/glow) ── */
+  --shadow-card-sm: 0 3px 8px -3px rgba(28, 44, 44, 0.12);
+  --shadow-card-md: 0 2px 8px -2px rgba(28, 44, 44, 0.22);
+  --shadow-hairline: 0 1px 0 rgba(28, 44, 44, 0.04);
+  --shadow-amber-glow: 0 2px 8px rgba(232, 146, 60, 0.45);
+  --shadow-amber-ring: 0 0 0 3px rgba(232, 146, 60, 0.25);
 }
 
-/* ── Legacy CSS custom properties (backward compat with existing components) ── */
+/* ── Legacy CSS custom properties (semantic aliases over the @theme palette) ──
+   These map role-based names to the single source of truth in @theme above, so
+   the brand hex values live in exactly one place. Existing var(--rausch) etc.
+   consumers keep working unchanged. Vars with no palette twin (--sky, shadows,
+   durations, eases) stay as literals — they are already single-source. */
 :root {
-  --rausch: #e8923c;
-  --rausch-active: #cb7730;
-  --rausch-soft: #fef0d8;
+  --rausch: var(--color-amber-500);
+  --rausch-active: var(--color-amber-600);
+  --rausch-soft: var(--color-amber-100);
 
-  --ink: #1c2c2c;
-  --ink-2: #3c4e4e;
-  --muted: #6c8080;
-  --muted-soft: #8fa3a3;
+  --ink: var(--color-ink);
+  --ink-2: var(--color-ink-2);
+  --muted: var(--color-muted);
+  --muted-soft: var(--color-muted-soft);
 
-  --hairline: #cce0e0;
-  --hairline-soft: #deeaec;
+  --hairline: var(--color-hairline);
+  --hairline-soft: var(--color-hairline-soft);
 
-  --canvas: #fdfaf4;
-  --soft: #f3f0ea;
-  --cream: #fef5e2;
-  --cream-2: #fde9c4;
-  --peach-stroke: #e8c28a;
+  --canvas: var(--color-canvas);
+  --soft: var(--color-soft);
+  --cream: var(--color-cream);
+  --cream-2: var(--color-cream-2);
+  --peach-stroke: var(--color-peach-stroke);
 
-  --mint: #eef6f8;
-  --mint-2: #cce7ec;
+  --mint: var(--color-teal-50);
+  --mint-2: var(--color-teal-100);
   --sky: #e6f2f4;
-  --sun: #fff8f0;
-  --rose: #fef2f4;
+  --sun: var(--color-amber-50);
+  --rose: var(--color-rose-50);
 
-  --terracotta: #cb7730;
-  --terracotta-soft: #fef0d8;
+  --terracotta: var(--color-amber-600);
+  --terracotta-soft: var(--color-amber-100);
 
   --font-body: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
   --font-display: 'Lora', 'Georgia', serif;

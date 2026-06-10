@@ -66,7 +66,7 @@ export default function StaffPetsConfirmDialog({ petName, onConfirm, onCancel }:
               padding: '9px 18px',
               borderRadius: 9,
               border: 'none',
-              background: '#D94F68',
+              background: 'var(--color-rose-500)',
               color: 'white',
               cursor: 'pointer',
               fontSize: 13.5,

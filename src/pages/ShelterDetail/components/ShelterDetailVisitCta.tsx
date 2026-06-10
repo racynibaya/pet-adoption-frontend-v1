@@ -23,7 +23,7 @@ export default function ShelterDetailVisitCta({
           background: `
             radial-gradient(ellipse 50% 60% at 100% 100%, rgba(232,146,60,0.16) 0%, transparent 55%),
             radial-gradient(ellipse 55% 50% at 0% 0%, rgba(29,117,117,0.10) 0%, transparent 55%),
-            linear-gradient(140deg, #FDFAF4 0%, #F6EFD9 100%)
+            linear-gradient(140deg, var(--canvas) 0%, #F6EFD9 100%)
           `,
           border: '1px solid var(--hairline-soft)',
         }}
@@ -41,17 +41,17 @@ export default function ShelterDetailVisitCta({
             </div>
           )}
           <div>
-            <span className='inline-flex items-center gap-1 text-[11px] tracking-widest uppercase font-bold text-(--muted)'>
+            <span className='inline-flex items-center gap-1 text-11 tracking-widest uppercase font-bold text-(--muted)'>
               Next <ArrowRight size={11} />
             </span>
             <h3
-              className='mt-1.5 text-[22px] sm:text-[26px] md:text-[28px] leading-tight'
+              className='mt-1.5 text-22 sm:text-26 md:text-28 leading-tight'
               style={{ fontFamily: 'var(--font-display)' }}
             >
               Meet the pets at{' '}
               <span style={{ color: 'var(--rausch)' }}>{shelterName}</span>
             </h3>
-            <p className='mt-2 text-(--ink-2) text-[14px] max-w-150 leading-relaxed'>
+            <p className='mt-2 text-(--ink-2) text-14 max-w-150 leading-relaxed'>
               Browse every pet currently in our care, read their stories, and
               start an application for the one you connect with.
             </p>

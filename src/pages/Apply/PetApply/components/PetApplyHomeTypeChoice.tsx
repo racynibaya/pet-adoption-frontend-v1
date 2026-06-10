@@ -37,7 +37,7 @@ export default function PetApplyHomeTypeChoice({ value, onChange }: PetApplyHome
               borderRadius: 16,
               padding: '20px 12px',
               border: '1.5px solid',
-              borderColor: active ? '#E8923C' : 'var(--hairline)',
+              borderColor: active ? 'var(--rausch)' : 'var(--hairline)',
               background: active ? '#fef1e1' : 'white',
               color: active ? '#a05818' : 'var(--ink-2)',
               cursor: 'pointer',
@@ -53,7 +53,7 @@ export default function PetApplyHomeTypeChoice({ value, onChange }: PetApplyHome
                 'background 180ms var(--ease-out), border-color 180ms var(--ease-out), transform 120ms var(--ease-out)',
             }}
             onMouseEnter={(e) => {
-              if (!active) e.currentTarget.style.borderColor = '#FAC878'
+              if (!active) e.currentTarget.style.borderColor = 'var(--color-amber-300)'
               e.currentTarget.style.transform = 'translateY(-1px)'
             }}
             onMouseLeave={(e) => {
@@ -63,7 +63,7 @@ export default function PetApplyHomeTypeChoice({ value, onChange }: PetApplyHome
           >
             <span
               style={{
-                color: active ? '#E8923C' : 'var(--muted)',
+                color: active ? 'var(--rausch)' : 'var(--muted)',
                 transition: 'color 180ms var(--ease-out)',
               }}
             >

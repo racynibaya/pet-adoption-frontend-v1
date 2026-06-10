@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { apiGetShelters, type ApiShelter } from '@/services/api';
-import { SHELTERS } from '@/data/shelters';
+import { useSheltersQuery } from '@/queries/useSheltersQuery';
 import {
   ShelterDetailBreadcrumb,
   ShelterDetailHero,
@@ -17,46 +15,25 @@ export default function ShelterDetail() {
   const { id } = useParams<{ id: string }>();
   const shelterId = Number(id);
 
-  const mockShelter = SHELTERS.find((s) => s.id === shelterId);
-  const [apiShelter, setApiShelter] = useState<ApiShelter | null>(null);
-  const [apiDone, setApiDone] = useState(false);
+  const { data: shelters = [], isFetched: apiDone } = useSheltersQuery();
+  const apiShelter = shelters.find((s) => s.id === shelterId) ?? null;
 
-  useEffect(() => {
-    let cancelled = false;
-    apiGetShelters(1, 100)
-      .then((res) => {
-        if (cancelled) return;
-        const found = res.data.find((s) => s.id === shelterId) ?? null;
-        setApiShelter(found);
-      })
-      .catch(() => {})
-      .finally(() => {
-        if (!cancelled) setApiDone(true);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [shelterId]);
+  if (!apiShelter && apiDone) return <Navigate to='/shelters' replace />;
 
-  const hasAny = apiShelter || mockShelter;
-  if (!hasAny && apiDone) return <Navigate to='/shelters' replace />;
-
-  const shelter: ShelterDetailModel | null = hasAny
+  const shelter: ShelterDetailModel | null = apiShelter
     ? {
         id: shelterId,
-        name: apiShelter?.name ?? mockShelter?.name ?? '',
-        addressLine:
-          apiShelter?.addressLine ?? mockShelter?.addressLine ?? '',
-        city: apiShelter?.city ?? mockShelter?.city ?? '',
-        province: apiShelter?.province ?? mockShelter?.province ?? '',
-        region: apiShelter?.region ?? mockShelter?.region ?? 'LUZON',
-        contactEmail:
-          apiShelter?.contactEmail ?? mockShelter?.contactEmail ?? '',
-        phoneNumber: apiShelter?.phoneNumber ?? mockShelter?.phoneNumber ?? '',
-        description: apiShelter?.description ?? mockShelter?.description ?? '',
-        bg: mockShelter?.bg ?? null,
-        svg: mockShelter?.svg ?? null,
-        imageUrl: apiShelter?.imageUrl ?? null,
+        name: apiShelter.name,
+        addressLine: apiShelter.addressLine,
+        city: apiShelter.city,
+        province: apiShelter.province,
+        region: apiShelter.region,
+        contactEmail: apiShelter.contactEmail,
+        phoneNumber: apiShelter.phoneNumber,
+        description: apiShelter.description,
+        bg: null,
+        svg: null,
+        imageUrl: apiShelter.imageUrl ?? null,
       }
     : null;
 

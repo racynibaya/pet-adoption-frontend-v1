@@ -52,8 +52,8 @@ function ResendButton({ email }: { email: string }) {
   if (rs === 'sent') {
     return (
       <div
-        className='flex items-center gap-1.5 text-[13px]'
-        style={{ color: '#1D7575' }}
+        className='flex items-center gap-1.5 text-13'
+        style={{ color: 'var(--color-teal-500)' }}
       >
         <Check size={13} strokeWidth={1.75} />
         Sent! Check your inbox.
@@ -69,7 +69,7 @@ function ResendButton({ email }: { email: string }) {
         onClick={() => {
           void handleResend();
         }}
-        className='bg-transparent border-0 text-[13px] cursor-pointer p-0 transition-colors duration-120 hover:underline disabled:opacity-50 disabled:cursor-default'
+        className='bg-transparent border-0 text-13 cursor-pointer p-0 transition-colors duration-120 hover:underline disabled:opacity-50 disabled:cursor-default'
         style={{ color: 'var(--muted)' }}
       >
         {rs === 'sending' ? (
@@ -81,7 +81,7 @@ function ResendButton({ email }: { email: string }) {
         )}
       </button>
       {rs === 'error' && (
-        <p className='text-[12px] m-0' style={{ color: '#D94F68' }}>
+        <p className='text-12 m-0' style={{ color: 'var(--color-rose-500)' }}>
           {errMsg}
         </p>
       )}
@@ -106,8 +106,8 @@ function EmailSentPanel({ email, onBackToSignIn }: EmailSentPanelProps) {
           width: 72,
           height: 72,
           borderRadius: '50%',
-          background: 'linear-gradient(145deg, #FDDDB0 0%, #FEF5E2 100%)',
-          border: '1.5px solid #E8C28A',
+          background: 'linear-gradient(145deg, var(--color-amber-200) 0%, var(--cream) 100%)',
+          border: '1.5px solid var(--peach-stroke)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -116,7 +116,7 @@ function EmailSentPanel({ email, onBackToSignIn }: EmailSentPanelProps) {
         }}
         aria-hidden='true'
       >
-        <Mail size={32} color='#1D7575' strokeWidth={1.75} />
+        <Mail size={32} color='var(--color-teal-500)' strokeWidth={1.75} />
       </div>
 
       {/* Heading + email pill */}
@@ -149,7 +149,7 @@ function EmailSentPanel({ email, onBackToSignIn }: EmailSentPanelProps) {
             margin: '0 auto',
           }}
         >
-          <Mail size={12} color='#6C8080' strokeWidth={1.1} />
+          <Mail size={12} color='var(--muted)' strokeWidth={1.1} />
           {email}
         </div>
       </div>
@@ -172,7 +172,7 @@ function EmailSentPanel({ email, onBackToSignIn }: EmailSentPanelProps) {
       <button
         type='button'
         onClick={onBackToSignIn}
-        className='bg-transparent border-0 text-[13.5px] cursor-pointer p-0 transition-colors duration-120 hover:underline'
+        className='bg-transparent border-0 text-14 cursor-pointer p-0 transition-colors duration-120 hover:underline'
         style={{ color: 'var(--muted)' }}
       >
         <span className='inline-flex items-center gap-1'>
@@ -334,7 +334,7 @@ export default function AuthModal({
       >
         {/* Close button */}
         <button
-          className='absolute top-4 right-4 z-2 w-8 h-8 rounded-full border-0 bg-(--soft) text-(--muted) text-[18px] flex items-center justify-center cursor-pointer transition-[background,color,transform] duration-120 ease-out hover:bg-(--hairline) hover:text-(--ink) hover:scale-[1.1] hover:rotate-90 active:scale-[0.95]'
+          className='absolute top-4 right-4 z-2 w-8 h-8 rounded-full border-0 bg-(--soft) text-(--muted) text-18 flex items-center justify-center cursor-pointer transition-[background,color,transform] duration-120 ease-out hover:bg-(--hairline) hover:text-(--ink) hover:scale-[1.1] hover:rotate-90 active:scale-[0.95]'
           onClick={handleClose}
           aria-label='Close'
         >
@@ -352,7 +352,7 @@ export default function AuthModal({
 
         {/* Title */}
         <h2
-          className='text-[28px] font-bold text-(--ink) text-center tracking-[-0.016em] leading-[1.2] relative z-1 m-0'
+          className='text-28 font-bold text-(--ink) text-center tracking-n16 leading-120 relative z-1 m-0'
           style={{ fontFamily: 'var(--font-display)' }}
         >
           {internalMode === 'signin'
@@ -361,7 +361,7 @@ export default function AuthModal({
               ? 'Create account'
               : 'Check your inbox'}
         </h2>
-        <p className='text-center text-(--muted) text-[14px] mt-2 leading-[1.55] relative z-1'>
+        <p className='text-center text-(--muted) text-14 mt-2 leading-155 relative z-1'>
           {internalMode === 'signin'
             ? 'Sign in to continue your adoption journey'
             : internalMode === 'signup'
@@ -378,7 +378,7 @@ export default function AuthModal({
             <button
               role='tab'
               aria-selected={internalMode === 'signin'}
-              className={`relative z-2 border-0 bg-transparent rounded-[9px] h-9.5 text-[14px] font-semibold cursor-pointer transition-[color] duration-200 tracking-[0.01em] hover:text-(--ink-2) ${
+              className={`relative z-2 border-0 bg-transparent rounded-9 h-9.5 text-14 font-semibold cursor-pointer transition-[color] duration-200 tracking-1 hover:text-(--ink-2) ${
                 internalMode === 'signin' ? 'text-(--ink)' : 'text-(--muted)'
               }`}
               onClick={() => {
@@ -391,7 +391,7 @@ export default function AuthModal({
             <button
               role='tab'
               aria-selected={internalMode === 'signup'}
-              className={`relative z-2 border-0 bg-transparent rounded-[9px] h-9.5 text-[14px] font-semibold cursor-pointer transition-[color] duration-200 tracking-[0.01em] hover:text-(--ink-2) ${
+              className={`relative z-2 border-0 bg-transparent rounded-9 h-9.5 text-14 font-semibold cursor-pointer transition-[color] duration-200 tracking-1 hover:text-(--ink-2) ${
                 internalMode === 'signup' ? 'text-(--ink)' : 'text-(--muted)'
               }`}
               onClick={() => {
@@ -524,7 +524,7 @@ export default function AuthModal({
               {internalMode === 'signin' && (
                 <button
                   type='button'
-                  className='self-end bg-transparent border-0 text-[13px] text-(--muted) cursor-pointer p-0 -mt-1 transition-[color] duration-120 ease-out hover:text-(--rausch) hover:underline'
+                  className='self-end bg-transparent border-0 text-13 text-(--muted) cursor-pointer p-0 -mt-1 transition-[color] duration-120 ease-out hover:text-(--rausch) hover:underline'
                 >
                   Forgot password?
                 </button>
@@ -533,7 +533,7 @@ export default function AuthModal({
               {authError && (
                 <p
                   role='alert'
-                  className='text-[13px] text-(--rausch) bg-(--rausch-soft) rounded-lg px-3 py-2 m-0'
+                  className='text-13 text-(--rausch) bg-(--rausch-soft) rounded-lg px-3 py-2 m-0'
                 >
                   {authError}
                 </p>
@@ -557,13 +557,13 @@ export default function AuthModal({
             </form>
 
             {/* Footer toggle */}
-            <p className='text-center text-[13.5px] text-(--muted) mt-4 relative z-1'>
+            <p className='text-center text-14 text-(--muted) mt-4 relative z-1'>
               {internalMode === 'signin'
                 ? "Don't have an account? "
                 : 'Already have an account? '}
               <button
                 type='button'
-                className='bg-transparent border-0 text-(--rausch) font-semibold text-[13.5px] cursor-pointer p-0 transition-[color] duration-120 ease-out hover:text-(--rausch-active) hover:underline'
+                className='bg-transparent border-0 text-(--rausch) font-semibold text-14 cursor-pointer p-0 transition-[color] duration-120 ease-out hover:text-(--rausch-active) hover:underline'
                 onClick={() => {
                   const next = internalMode === 'signin' ? 'signup' : 'signin';
                   setInternalMode(next);

@@ -4,7 +4,7 @@ import { PawprintDeco } from '../assets'
 export default function ContactHero() {
   return (
     <section
-      className='contact-hero mt-6 rounded-[28px] text-center relative overflow-hidden'
+      className='contact-hero mt-6 rounded-28 text-center relative overflow-hidden'
       style={{
         background:
           'radial-gradient(ellipse 55% 60% at 78% 18%, rgba(93,181,196,0.45) 0%, transparent 50%),' +
@@ -26,7 +26,7 @@ export default function ContactHero() {
           We're here to help
         </h1>
         <p
-          className='max-w-140 mx-auto text-[17px]'
+          className='max-w-140 mx-auto text-17'
           style={{ marginTop: 20, color: 'var(--ink-2)' }}
         >
           Reach out about adoption, your application status, registering a

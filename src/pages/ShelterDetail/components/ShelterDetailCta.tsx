@@ -14,19 +14,19 @@ export default function ShelterDetailCta({ shelterName }: ShelterDetailCtaProps)
           background: `
             radial-gradient(ellipse 70% 60% at 100% 0%, rgba(29,117,117,0.12) 0%, transparent 55%),
             radial-gradient(ellipse 50% 60% at 0% 100%, rgba(232,146,60,0.14) 0%, transparent 55%),
-            linear-gradient(135deg, #1C2C2C 0%, #2a3f3f 100%)
+            linear-gradient(135deg, var(--ink) 0%, #2a3f3f 100%)
           `,
         }}
       >
         <div>
           <h3
-            className='text-[20px] sm:text-[24px] leading-tight'
+            className='text-20 sm:text-24 leading-tight'
             style={{ fontFamily: 'var(--font-display)', color: '#fff' }}
           >
             Ready to meet them?
           </h3>
           <p
-            className='text-[13px] mt-1.5 max-w-150'
+            className='text-13 mt-1.5 max-w-150'
             style={{ color: 'rgba(255,255,255,0.6)' }}
           >
             Reach out to {shelterName} directly or submit an application

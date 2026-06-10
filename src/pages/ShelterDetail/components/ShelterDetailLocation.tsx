@@ -16,10 +16,10 @@ function AddressRow({ label, value }: AddressRowProps) {
   if (!value) return null;
   return (
     <div className='flex flex-col gap-1 py-3 border-b border-(--hairline-soft) last:border-b-0'>
-      <span className='text-[11px] tracking-widest uppercase text-(--muted) font-bold'>
+      <span className='text-11 tracking-widest uppercase text-(--muted) font-bold'>
         {label}
       </span>
-      <span className='text-[15px] text-(--ink)'>{value}</span>
+      <span className='text-15 text-(--ink)'>{value}</span>
     </div>
   );
 }
@@ -50,7 +50,7 @@ export default function ShelterDetailLocation({
           style={{ background: 'var(--soft)' }}
         >
           <h2
-            className='text-[22px] sm:text-[26px] leading-tight mb-3'
+            className='text-22 sm:text-26 leading-tight mb-3'
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Visit us in person
@@ -72,7 +72,7 @@ export default function ShelterDetailLocation({
             background: `
               radial-gradient(ellipse 60% 70% at 100% 0%, rgba(232,146,60,0.22) 0%, transparent 55%),
               radial-gradient(ellipse 55% 60% at 0% 100%, rgba(29,117,117,0.18) 0%, transparent 55%),
-              linear-gradient(150deg, #1C2C2C 0%, #2a3f3f 100%)
+              linear-gradient(150deg, var(--ink) 0%, #2a3f3f 100%)
             `,
             minHeight: '200px',
           }}
@@ -86,26 +86,26 @@ export default function ShelterDetailLocation({
           />
           <div className='relative'>
             <span
-              className='inline-block text-[11px] tracking-widest uppercase font-bold'
+              className='inline-block text-11 tracking-widest uppercase font-bold'
               style={{ color: 'rgba(255,255,255,0.55)' }}
             >
               Directions
             </span>
             <h3
-              className='mt-2 text-[22px] sm:text-[26px] leading-tight'
+              className='mt-2 text-22 sm:text-26 leading-tight'
               style={{ fontFamily: 'var(--font-display)', color: '#fff' }}
             >
               Open in Google Maps
             </h3>
             <p
-              className='mt-2 text-[13px] max-w-100'
+              className='mt-2 text-13 max-w-100'
               style={{ color: 'rgba(255,255,255,0.62)' }}
             >
               Get turn-by-turn directions from wherever you are.
             </p>
           </div>
           <div
-            className='relative inline-flex items-center gap-2 text-[14px] font-semibold mt-4 transition-transform duration-300 group-hover:translate-x-1'
+            className='relative inline-flex items-center gap-2 text-14 font-semibold mt-4 transition-transform duration-300 group-hover:translate-x-1'
             style={{ color: '#fff' }}
           >
             <ArrowUpRight size={18} aria-hidden='true' />

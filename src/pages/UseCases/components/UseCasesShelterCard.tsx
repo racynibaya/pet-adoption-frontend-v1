@@ -25,7 +25,7 @@ function StatusBadge({ count }: { count: number }) {
           padding: '3px 10px',
           borderRadius: 20,
           background: 'rgba(255,255,255,0.92)',
-          color: '#6c8080',
+          color: 'var(--muted)',
           border: '1px solid rgba(108,128,128,0.18)',
         }}
       >
@@ -47,12 +47,12 @@ function StatusBadge({ count }: { count: number }) {
         padding: '3px 10px',
         borderRadius: 20,
         background: '#e6f4f0',
-        color: '#1D7575',
+        color: 'var(--color-teal-500)',
       }}
     >
       <span
         aria-hidden='true'
-        className='inline-block h-1.5 w-1.5 rounded-full bg-[#1D7575]'
+        className='inline-block h-1.5 w-1.5 rounded-full bg-teal-500'
       />
       {count} {count === 1 ? 'pet' : 'pets'} available
     </span>
@@ -73,7 +73,7 @@ function SpeciesChip({
     <span
       role='img'
       aria-label={label}
-      className='inline-flex items-center justify-center gap-1.5 rounded-md border border-(--hairline-soft) bg-(--canvas) px-2 py-1.5 text-[11px] font-semibold leading-none tracking-tight'
+      className='inline-flex items-center justify-center gap-1.5 rounded-md border border-(--hairline-soft) bg-(--canvas) px-2 py-1.5 text-11 font-semibold leading-none tracking-tight'
     >
       <Icon aria-hidden='true' className='h-3.5 w-3.5 shrink-0 text-(--rausch)' />
       <span className='tabular-nums text-(--ink)'>{count}</span>
@@ -99,7 +99,7 @@ export default function UseCasesShelterCard({
 
   return (
     <article
-      className={`group bg-(--canvas) rounded-[20px] overflow-hidden border border-(--hairline-soft) flex flex-col min-w-0 transition-[box-shadow,transform] duration-200 ease-out hover:-translate-y-1 hover:shadow-(--shadow-lift) ${
+      className={`group bg-(--canvas) rounded-20 overflow-hidden border border-(--hairline-soft) flex flex-col min-w-0 transition-[box-shadow,transform] duration-200 ease-out hover:-translate-y-1 hover:shadow-(--shadow-lift) ${
         isEmpty ? 'opacity-90' : ''
       }`}
     >
@@ -115,7 +115,7 @@ export default function UseCasesShelterCard({
         </span>
         {isNew && (
           <span
-            className='absolute top-3 right-3 z-2 inline-flex items-center gap-1 rounded-full bg-(--rausch) px-2.5 py-0.5 text-[10.5px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_2px_8px_rgba(232,146,60,0.45)]'
+            className='absolute top-3 right-3 z-2 inline-flex items-center gap-1 rounded-full bg-(--rausch) px-2.5 py-0.5 text-11 font-bold uppercase tracking-12 text-white shadow-amber-glow'
             aria-label='New shelter on KodaNest'
           >
             <span
@@ -135,19 +135,19 @@ export default function UseCasesShelterCard({
       </Link>
 
       <div className='p-5.5 pb-6 flex-1 flex flex-col'>
-        <p className='text-[11px] font-semibold uppercase tracking-[0.18em] text-(--muted)'>
+        <p className='text-11 font-semibold uppercase tracking-18 text-(--muted)'>
           {region} · {city}
         </p>
         <Link
           to={`/shelters/${id}`}
           style={{ textDecoration: 'none', color: 'inherit' }}
         >
-          <h3 className='text-[20px] mt-1.5 hover:text-(--rausch) transition-colors duration-150 line-clamp-2'>
+          <h3 className='text-20 mt-1.5 hover:text-(--rausch) transition-colors duration-150 line-clamp-2'>
             {name}
           </h3>
         </Link>
         {description && (
-          <p className='text-[13.5px] text-(--ink-2) mt-2.5 line-clamp-2 leading-relaxed'>
+          <p className='text-14 text-(--ink-2) mt-2.5 line-clamp-2 leading-relaxed'>
             {description}
           </p>
         )}
@@ -166,7 +166,7 @@ export default function UseCasesShelterCard({
               ))}
             </div>
           ) : (
-            <p className='text-[12.5px] text-(--muted) leading-relaxed min-h-5'>
+            <p className='text-13 text-(--muted) leading-relaxed min-h-5'>
               No pets currently listed — the shelter is between intakes.
             </p>
           )}

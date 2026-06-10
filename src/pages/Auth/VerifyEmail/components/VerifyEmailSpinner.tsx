@@ -9,7 +9,7 @@ export default function VerifyEmailSpinner() {
           height: 48,
           borderRadius: '50%',
           border: '3px solid var(--hairline)',
-          borderTopColor: '#E8923C',
+          borderTopColor: 'var(--rausch)',
           animation: 'kv-spin 0.75s linear infinite',
         }}
       />

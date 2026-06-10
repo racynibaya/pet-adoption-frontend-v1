@@ -12,23 +12,23 @@ interface ReachCardProps {
 function ReachCard({ icon, iconBg, title, primary, secondary }: ReachCardProps) {
   return (
     <div
-      className='bg-(--canvas) rounded-[20px] text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
+      className='bg-(--canvas) rounded-20 text-left [box-shadow:var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:[box-shadow:var(--shadow-lift)]'
       style={{ padding: '32px 28px' }}
     >
       <div
-        className='w-12 h-12 rounded-[14px] flex items-center justify-center mb-4'
+        className='w-12 h-12 rounded-14 flex items-center justify-center mb-4'
         style={{ background: iconBg }}
       >
         {icon}
       </div>
       <h3 style={{ fontSize: 18 }}>{title}</h3>
       <div
-        className='mt-2 text-[22px] font-semibold'
+        className='mt-2 text-22 font-semibold'
         style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
       >
         {primary}
       </div>
-      <div className='text-[13px] mt-1.5' style={{ color: 'var(--muted)' }}>
+      <div className='text-13 mt-1.5' style={{ color: 'var(--muted)' }}>
         {secondary}
       </div>
     </div>
@@ -46,14 +46,14 @@ export default function ContactReachCards() {
         secondary='Reply within 24 hours, every day of the week.'
       />
       <ReachCard
-        icon={<Phone size={22} color='#D94F68' strokeWidth={1.8} />}
+        icon={<Phone size={22} color='var(--color-rose-500)' strokeWidth={1.8} />}
         iconBg='var(--rose)'
         title='24/7 emergency line'
         primary='1-800-KODA-NEST'
         secondary='For urgent pet medical concerns, day or night.'
       />
       <ReachCard
-        icon={<MapPin size={22} color='#1D7575' strokeWidth={1.8} />}
+        icon={<MapPin size={22} color='var(--color-teal-500)' strokeWidth={1.8} />}
         iconBg='var(--mint)'
         title='Visit us in person'
         primary='3 cities, no appt.'

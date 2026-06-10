@@ -30,7 +30,7 @@ export default function PetDetailCta({ petId, petName, status }: PetDetailCtaPro
         background: `
           radial-gradient(ellipse 70% 60% at 100% 0%, rgba(29,117,117,0.12) 0%, transparent 55%),
           radial-gradient(ellipse 50% 60% at 0% 100%, rgba(232,146,60,0.14) 0%, transparent 55%),
-          linear-gradient(135deg, #1C2C2C 0%, #2a3f3f 100%)
+          linear-gradient(135deg, var(--ink) 0%, #2a3f3f 100%)
         `,
         display: 'flex',
         alignItems: 'center',

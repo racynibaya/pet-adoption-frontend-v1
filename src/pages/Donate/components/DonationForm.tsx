@@ -250,7 +250,7 @@ export default function DonationForm({
           <button
             type='button'
             onClick={onScrollToTiers}
-            className='mt-5 bg-none border-0 p-0  text-(--rausch) font-semibold cursor-pointer font-[inherit] underline underline-offset-[3] text-[13px]'
+            className='mt-5 bg-none border-0 p-0  text-(--rausch) font-semibold cursor-pointer font-[inherit] underline underline-offset-[3] text-13'
           >
             Change amount ↑
           </button>
@@ -335,7 +335,7 @@ export default function DonationForm({
                 <svg width='38' height='38' viewBox='0 0 32 32' fill='none'>
                   <polyline
                     points='8 16 14 22 24 10'
-                    stroke='#1D7575'
+                    stroke='var(--color-teal-500)'
                     strokeWidth='3'
                     fill='none'
                     strokeLinecap='round'
@@ -469,12 +469,12 @@ export default function DonationForm({
                       >
                         <path
                           d='M8 1.6 C5.2 1.6 3 3.8 3 6.6 C3 9.4 6 13.4 7.3 14.2 C7.7 14.5 8.3 14.5 8.7 14.2 C10 13.4 13 9.4 13 6.6 C13 3.8 10.8 1.6 8 1.6 Z'
-                          fill='#FDDDB0'
-                          stroke='#A55E24'
+                          fill='var(--color-amber-200)'
+                          stroke='var(--color-amber-700)'
                           strokeWidth='1.2'
                           strokeLinejoin='round'
                         />
-                        <circle cx='8' cy='6.6' r='1.8' fill='#A55E24' />
+                        <circle cx='8' cy='6.6' r='1.8' fill='var(--color-amber-700)' />
                       </svg>
                     )}
                     <span

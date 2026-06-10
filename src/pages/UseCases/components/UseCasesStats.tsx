@@ -41,7 +41,7 @@ export default function UseCasesStats() {
     <section className='section-tight -m-20 w-full mx-auto'>
       <div
         aria-label='Network stats'
-        className='home-stats relative z-5 [box-shadow:var(--shadow-card)] border border-(--hairline-soft) rounded-[20px]'
+        className='home-stats relative z-5 [box-shadow:var(--shadow-card)] border border-(--hairline-soft) rounded-20'
         style={{
           background: 'linear-gradient(145deg, var(--canvas) 0%, #f8f5ef 100%)',
         }}

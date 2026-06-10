@@ -27,7 +27,7 @@ export default function StaffPetFormDescription({ form, errors, set }: StaffPetF
             fontFamily: 'var(--font-body)', lineHeight: 1.6,
             transition: 'border-color 0.14s',
           }}
-          onFocus={(e) => { e.currentTarget.style.borderColor = '#E8923C' }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--rausch)' }}
           onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(28, 44, 44, 0.13)' }}
         />
         <StaffPetFormFieldErr msg={errors.description} />

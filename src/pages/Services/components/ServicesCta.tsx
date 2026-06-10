@@ -6,7 +6,7 @@ export default function ServicesCta() {
       <div className='cream-band'>
         <div className='grid gap-8 items-center md:grid-cols-[1.5fr_1fr]'>
           <div>
-            <h2 className='text-[40px]'>Ready to apply?</h2>
+            <h2 className='text-40'>Ready to apply?</h2>
             <p className='mt-12 muted'>
               Create an account, complete your adopter profile, and submit an
               application to the shelter of your choice. A real shelter staff

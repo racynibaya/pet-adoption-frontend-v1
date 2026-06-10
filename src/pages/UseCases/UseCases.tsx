@@ -8,8 +8,6 @@ import {
   UseCasesCta,
 } from './components'
 
-export { SHELTERS, type Shelter } from '@/data/shelters'
-
 export type SpeciesCounts = Partial<Record<BackendSpecies, number>>
 
 export default function SheltersPage() {

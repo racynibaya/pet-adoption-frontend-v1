@@ -19,7 +19,7 @@ export default function ServicesSecondaryFilters({
     <section style={{ padding: '30px 0' }}>
       <div className='max-w-295 mx-auto flex flex-wrap gap-4 items-center'>
         <div className='flex gap-2 items-center flex-wrap'>
-          <span className='text-[13px] font-semibold text-(--ink-2)'>Gender:</span>
+          <span className='text-13 font-semibold text-(--ink-2)'>Gender:</span>
           {GENDER_FILTERS.map((g) => (
             <span
               key={g}
@@ -35,7 +35,7 @@ export default function ServicesSecondaryFilters({
           ))}
         </div>
         <div className='flex gap-2 items-center flex-wrap'>
-          <span className='text-[13px] font-semibold text-(--ink-2)'>Size:</span>
+          <span className='text-13 font-semibold text-(--ink-2)'>Size:</span>
           {SIZE_FILTERS.map((s) => (
             <span
               key={s}

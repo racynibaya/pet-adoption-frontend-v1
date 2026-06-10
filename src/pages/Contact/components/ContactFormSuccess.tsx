@@ -17,7 +17,7 @@ export default function ContactFormSuccess() {
           animation: 'authScaleIn 0.42s cubic-bezier(0.34,1.56,0.64,1) 0.1s both',
         }}
       >
-        <Check size={32} color='#1D7575' strokeWidth={3} />
+        <Check size={32} color='var(--color-teal-500)' strokeWidth={3} />
       </div>
       <h2 style={{ fontSize: 30 }}>Thanks — your message is on its way</h2>
       <p className='mt-12 muted' style={{ maxWidth: 380, margin: '12px auto 0' }}>

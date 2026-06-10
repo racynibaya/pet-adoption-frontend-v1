@@ -6,16 +6,16 @@
 
 .user-portal {
   --u-paper: #fdf7ea;
-  --u-ink: var(--color-ink, #1c2c2c);
+  --u-ink: var(--color-ink, var(--color-ink));
   --u-line: rgba(28, 44, 44, 0.08);
   --u-line-strong: rgba(28, 44, 44, 0.14);
-  --u-muted: var(--color-muted, #6c8080);
-  --u-amber: var(--color-amber-500, #e8923c);
-  --u-amber-deep: var(--color-amber-600, #cb7730);
-  --u-teal: var(--color-teal-500, #1d7575);
-  --u-teal-deep: var(--color-teal-700, #11494a);
-  --u-rose: var(--color-rose-500, #d94f68);
-  --u-cream: var(--color-cream, #fef5e2);
+  --u-muted: var(--color-muted, var(--color-muted));
+  --u-amber: var(--color-amber-500, var(--color-amber-500));
+  --u-amber-deep: var(--color-amber-600, var(--color-amber-600));
+  --u-teal: var(--color-teal-500, var(--color-teal-500));
+  --u-teal-deep: var(--color-teal-700, var(--color-teal-700));
+  --u-rose: var(--color-rose-500, var(--color-rose-500));
+  --u-cream: var(--color-cream, var(--color-cream));
 
   min-height: 100vh;
   background:
@@ -178,7 +178,7 @@
   font-weight: 600;
   font-size: 22px;
   color: #fff;
-  background: conic-gradient(from 200deg at 50% 50%, #e8923c, #d94f68, #1d7575, #e8923c);
+  background: conic-gradient(from 200deg at 50% 50%, var(--color-amber-500), var(--color-rose-500), var(--color-teal-500), var(--color-amber-500));
   box-shadow: 0 8px 18px -8px rgba(232, 146, 60, 0.6);
   flex-shrink: 0;
 }
@@ -230,7 +230,7 @@
 .user-journey {
   padding: 22px 22px 20px;
   border-radius: 22px;
-  background: linear-gradient(160deg, #11494a 0%, #1d7575 100%);
+  background: linear-gradient(160deg, var(--color-teal-700) 0%, var(--color-teal-500) 100%);
   color: #fff;
   position: relative;
   overflow: hidden;
@@ -269,7 +269,7 @@
   height: 100%;
   width: 33%;
   border-radius: 999px;
-  background: linear-gradient(90deg, #ffd089 0%, #e8923c 100%);
+  background: linear-gradient(90deg, #ffd089 0%, var(--color-amber-500) 100%);
   box-shadow: 0 0 16px rgba(232, 146, 60, 0.6);
   animation: uBarGlow 2.6s ease-in-out infinite alternate;
 }

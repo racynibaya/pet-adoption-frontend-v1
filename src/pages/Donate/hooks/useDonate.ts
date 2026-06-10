@@ -1,14 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  apiCreateDonation,
-  apiGetShelters,
-  ApiError,
-  type ApiShelter,
-} from '@/services/api';
+import { apiCreateDonation } from '@/services/api';
+import { getErrorMessage } from '@/services/getErrorMessage';
+import { useSheltersQuery } from '@/queries/useSheltersQuery';
 import {
   DEFAULT_SELECTED_AMOUNT,
   IMPACT_TIERS,
-  MOCK_SHELTER_CHOICES,
 } from '../constants/donate.constants';
 import {
   computeEffectiveAmount,
@@ -40,8 +36,6 @@ export function useDonate(): UseDonateReturn {
   const [selectedShelterId, setSelectedShelterId] = useState<number | null>(
     null,
   );
-  const [shelters, setShelters] =
-    useState<ShelterChoice[]>(MOCK_SHELTER_CHOICES);
   const [formErrors, setFormErrors] = useState<DonationFieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
@@ -93,27 +87,15 @@ export function useDonate(): UseDonateReturn {
     highlightedEl?.scrollIntoView({ block: 'nearest' });
   }, [shelterPickerHighlightIndex, isShelterPickerOpen]);
 
-  useEffect(() => {
-    let isCancelled = false;
-    apiGetShelters(1, 100)
-      .then((response) => {
-        if (isCancelled || !response.data?.length) return;
-        setShelters(
-          response.data.map((shelter: ApiShelter) => ({
-            id: shelter.id,
-            name: shelter.name,
-            city: shelter.city,
-            province: shelter.province,
-          })),
-        );
-      })
-      .catch(() => {
-        // backend down — keep mock fallback in state
-      });
-    return () => {
-      isCancelled = true;
-    };
-  }, []);
+  // Real shelters from the backend; the picker simply shows nothing to choose
+  // until shelters exist.
+  const { data: remoteShelters = [] } = useSheltersQuery();
+  const shelters: ShelterChoice[] = remoteShelters.map((shelter) => ({
+    id: shelter.id,
+    name: shelter.name,
+    city: shelter.city,
+    province: shelter.province,
+  }));
 
   const effectiveAmount = computeEffectiveAmount(customAmount, selectedAmount);
   const isAmountValidComputed = computeIsAmountValid(effectiveAmount);
@@ -257,11 +239,9 @@ export function useDonate(): UseDonateReturn {
         behavior: 'smooth',
       });
     } catch (error) {
-      const message =
-        error instanceof ApiError
-          ? error.message
-          : 'Something went wrong. Please try again.';
-      setApiError(message);
+      setApiError(
+        getErrorMessage(error, 'Something went wrong. Please try again.'),
+      );
     } finally {
       setIsSubmitting(false);
     }

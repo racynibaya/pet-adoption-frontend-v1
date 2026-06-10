@@ -11,7 +11,7 @@ export default function PetApplyPageHero({ petName }: PetApplyPageHeroProps) {
           fontWeight: 700,
           letterSpacing: '0.18em',
           textTransform: 'uppercase',
-          color: '#1D7575',
+          color: 'var(--color-teal-500)',
           margin: '0 0 14px',
         }}
       >

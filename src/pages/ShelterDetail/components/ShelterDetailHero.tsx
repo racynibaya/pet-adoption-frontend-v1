@@ -29,7 +29,7 @@ function HeroMonogram({ name }: { name: string }) {
         background: `
           radial-gradient(ellipse 55% 60% at 30% 30%, rgba(232,146,60,0.32) 0%, transparent 60%),
           radial-gradient(ellipse 55% 60% at 75% 75%, rgba(29,117,117,0.22) 0%, transparent 60%),
-          linear-gradient(150deg, #FDFAF4 0%, #F0E2BE 100%)
+          linear-gradient(150deg, var(--canvas) 0%, #F0E2BE 100%)
         `,
       }}
     >
@@ -74,7 +74,7 @@ function HeroMonogram({ name }: { name: string }) {
       >
         {initials}
       </span>
-      <span className='absolute bottom-5 left-5 text-[10px] tracking-[0.25em] uppercase font-bold text-(--muted)'>
+      <span className='absolute bottom-5 left-5 text-10 tracking-25 uppercase font-bold text-(--muted)'>
         Verified · KodaNest
       </span>
     </div>
@@ -121,7 +121,7 @@ export default function ShelterDetailHero({
         background: `
           radial-gradient(ellipse 58% 54% at 82% 14%, rgba(29,117,117,0.15) 0%, transparent 53%),
           radial-gradient(ellipse 48% 52% at 18% 86%, rgba(232,146,60,0.18) 0%, transparent 54%),
-          linear-gradient(156deg, #FDFAF4 0%, #F0E8D0 100%)
+          linear-gradient(156deg, var(--canvas) 0%, #F0E8D0 100%)
         `,
       }}
     >
@@ -152,17 +152,17 @@ export default function ShelterDetailHero({
           <Eyebrow>Verified shelter</Eyebrow>
         </div>
         <h1
-          className='mt-4 text-[34px] sm:text-[44px] md:text-[56px] leading-[1.04]'
+          className='mt-4 text-34 sm:text-44 md:text-56 leading-104'
           style={{ fontFamily: 'var(--font-display)' }}
         >
           {shelter.name}
         </h1>
         {region && (
           <div className='mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-(--hairline-soft) bg-white/70 backdrop-blur-sm'>
-            <span aria-hidden='true' className='text-[14px]'>
+            <span aria-hidden='true' className='text-14'>
               📍
             </span>
-            <span className='text-[13px] font-semibold tracking-wide text-(--ink-2)'>
+            <span className='text-13 font-semibold tracking-wide text-(--ink-2)'>
               {region}
             </span>
           </div>

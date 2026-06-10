@@ -33,13 +33,13 @@ export default function ServicesPagination({
 
         <div className='flex items-baseline gap-1.5 px-3 sm:px-4 min-w-25 justify-center'>
           <span
-            className='text-[26px] sm:text-[30px] leading-none text-(--ink)'
+            className='text-26 sm:text-30 leading-none text-(--ink)'
             style={{ fontFamily: 'var(--font-display)' }}
           >
             {currentPage}
           </span>
           <span
-            className='text-[11px] tracking-[0.18em] uppercase text-(--muted)'
+            className='text-11 tracking-18 uppercase text-(--muted)'
             style={{ fontWeight: 600 }}
           >
             of {totalPages}

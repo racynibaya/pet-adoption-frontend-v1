@@ -1,8 +1,10 @@
 import { useState, useEffect, type ReactNode } from 'react';
+import { useQueries } from '@tanstack/react-query';
 import { FavoritesContext } from './useFavorites';
 import { apiGetPet, ApiError } from '@/services/api';
 import { apiPetToPetCard } from '@/data/adapters';
 import type { PetCard } from '@/data/pets';
+import { queryKeys } from '@/queries/keys';
 
 export function FavoritesProvider({ children }: { children: ReactNode }) {
   const [saved, setSaved] = useState<string[]>(() => {
@@ -12,64 +14,40 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
       return [];
     }
   });
-  const [savedPets, setSavedPets] = useState<PetCard[]>([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('koda-saved', JSON.stringify(saved));
   }, [saved]);
 
-  // Reconcile savedPets with saved: drop pets that are no longer saved, fetch
-  // only the IDs that haven't been loaded yet. Toggling one pet must not
-  // re-fetch all saved pets.
+  // One cached query per saved id. Toggling a pet only adds/removes its own
+  // query — the rest stay cached, so we never re-fetch the whole set.
+  const petQueries = useQueries({
+    queries: saved.map((id) => ({
+      queryKey: queryKeys.pets.detail(Number(id)),
+      queryFn: () =>
+        apiGetPet(Number(id)).then((res) => apiPetToPetCard(res.data)),
+    })),
+  });
+
+  const savedPets = petQueries
+    .map((q) => q.data)
+    .filter((p): p is PetCard => Boolean(p));
+
+  // Drop saved ids the backend no longer has (404), mirroring the old cleanup.
   useEffect(() => {
-    if (saved.length === 0) {
-      setSavedPets([]);
-      return;
-    }
-
-    const savedSet = new Set(saved);
-    setSavedPets((prev) => prev.filter((p) => savedSet.has(String(p.id))));
-
-    const loadedIds = new Set(savedPets.map((p) => String(p.id)));
-    const idsToFetch = saved.filter((id) => !loadedIds.has(id));
-    if (idsToFetch.length === 0) return;
-
-    let cancelled = false;
-    Promise.all(
-      idsToFetch.map((id) =>
-        apiGetPet(Number(id))
-          .then((res) => ({ ok: true as const, pet: apiPetToPetCard(res.data) }))
-          .catch((err: unknown) => ({ ok: false as const, id, err })),
-      ),
-    ).then((results) => {
-      if (cancelled) return;
-      const newPets: PetCard[] = [];
-      const missingIds: string[] = [];
-      for (const r of results) {
-        if (r.ok) {
-          newPets.push(r.pet);
-        } else if (r.err instanceof ApiError && r.err.status === 404) {
-          missingIds.push(r.id);
-        } else {
-          console.error('Failed to load saved pet', r.id, r.err);
-        }
-      }
-      if (newPets.length > 0) {
-        setSavedPets((prev) => [...prev, ...newPets]);
-      }
-      if (missingIds.length > 0) {
-        setSaved((prev) => prev.filter((id) => !missingIds.includes(id)));
-      }
+    const missing = saved.filter((_id, i) => {
+      const err = petQueries[i]?.error;
+      return err instanceof ApiError && err.status === 404;
     });
-
-    return () => {
-      cancelled = true;
-    };
-    // savedPets intentionally omitted: we only want this to fire when the
-    // saved id list changes, not when we update savedPets ourselves.
+    if (missing.length > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- prune ids the backend 404'd; self-resolves once removed
+      setSaved((prev) => prev.filter((id) => !missing.includes(id)));
+    }
+    // petQueries is a fresh array each render; we only act when a 404 appears,
+    // which self-resolves once the id is removed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [saved]);
+  }, [petQueries]);
 
   useEffect(() => {
     if (drawerOpen) {
